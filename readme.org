@@ -1,0 +1,6 @@
+* Dotfiles
+  Second attempt at creating a dotfiles repo, using the approach described in [[https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/][this article]].
+
+** Cloning
+   For cloning the repo and setting it up on new machines, the author recommends the following command: ~git clone --bare <git-repo-url> $HOME/dotfiles~
+   Check the article for a more in-depth explanation
