@@ -75,5 +75,3 @@ fi
 if [[ ! -d "${TMPDIR}" ]]; then
   mkdir -m 700 "${TMPDIR}"
 fi
-
-export PATH="$HOME/.cargo/bin:$PATH"
