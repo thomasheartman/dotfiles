@@ -123,19 +123,19 @@ function prompt_thomas_setup {
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:action' format ' [%s]' # options ↯ ⦿ ⁝
-  zstyle ':prezto:module:git:info:added' format ' 加%a' # options  A
-  zstyle ':prezto:module:git:info:ahead' format ' 先%A' # options ->前
-  zstyle ':prezto:module:git:info:behind' format ' 後%B' # options  <-
+  zstyle ':prezto:module:git:info:added' format ' %F{green}+%F{white}%a' # options  A 加
+  zstyle ':prezto:module:git:info:ahead' format ' %F{green}先%F{white}%A' # options ->前
+  zstyle ':prezto:module:git:info:behind' format ' %F{red}後%F{white}%B' # options  <-
   zstyle ':prezto:module:git:info:branch' format '%b' # options: 
-  zstyle ':prezto:module:git:info:commit' format ' @ %.7c' #options   ➦ ↯ ⦿ ⦾
-  zstyle ':prezto:module:git:info:deleted' format ' 消 %d' # options ✖
+  zstyle ':prezto:module:git:info:commit' format '%F{white}@%F{magenta}%.7c' #options   ➦ ↯ ⦿ ⦾
+  zstyle ':prezto:module:git:info:deleted' format ' %F{red}-%F{white}%d' # options ✖ 消
   # zstyle ':prezto:module:git:info:dirty' format ' 汚%D'  # do I need dirty files next to all of this? Nah. # options: ⁝
-  zstyle ':prezto:module:git:info:modified' format ' 変%m' # options: ✱ M
-  zstyle ':prezto:module:git:info:position' format '%p'
-  zstyle ':prezto:module:git:info:renamed' format ' 名変%r' # options ➙
-  zstyle ':prezto:module:git:info:stashed' format ' ( %S)'
-  zstyle ':prezto:module:git:info:unmerged' format ' ✱%U' # ∇ ═
-  zstyle ':prezto:module:git:info:untracked' format ' ?? %u'
+  zstyle ':prezto:module:git:info:modified' format ' %F{yellow}変%F{white}%m' # options: ✱ M
+  zstyle ':prezto:module:git:info:position' format '%F{white}%p'
+  zstyle ':prezto:module:git:info:renamed' format ' %F{yellow}名変%F{white}%r' # options ➙
+  zstyle ':prezto:module:git:info:stashed' format ' %F{cyan}溜込%F{white}%S'
+  zstyle ':prezto:module:git:info:unmerged' format ' %F{cyan}✱%F{white}%U' # ∇ ═
+  zstyle ':prezto:module:git:info:untracked' format ' %F{red}無監%F{white}%u'
   zstyle ':prezto:module:git:info:clean' format ' true'
   zstyle ':prezto:module:git:info:keys' format \
     'ref' '$(coalesce "%b" "%p" "%c")' \
