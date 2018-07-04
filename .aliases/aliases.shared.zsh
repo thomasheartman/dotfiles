@@ -42,10 +42,8 @@ alias py="python"
 # misc
 alias lsa="ls -lah"
 alias rbo="rm -rf bin obj" #removes bin and obj folders. Useful for cleaning a VS project
-alias emoty="empty" #because I tend to misspell things :/
 alias pd="pandoc"
 alias mellon="alohomora" # speak friend and enter
-alias go="google"
 
 # dirs
 alias md='mkdir -p'

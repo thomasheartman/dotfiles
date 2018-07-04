@@ -18,23 +18,6 @@ function alohomora() { sudo chmod -R ${2:-777} ${1:-./**/*}; }
 # locking
 function colloportus() { alohomora ${1:-./**/*}  ${2:-000}; }
 
-# git commit
-function com() {
-    git add -A;
-    git commit;
-}
-
-
-function google()
-{
-    if [ $# -eq 0 ];
-        then
-            open "https://www.google.com/"
-    else
-        open "https://www.google.com/search?q=$@"
-    fi
-}
-
 function take() {
   mkdir -p $1
   cd $1
@@ -52,4 +35,9 @@ function tidy ()
         REBASE_TARGET="HEAD~$1"
     fi
     git rebase -i $REBASE_TARGET
+}
+
+function new()
+{
+    mkdir -p $(dirname "$1") && touch "$1"
 }
