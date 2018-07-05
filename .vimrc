@@ -42,7 +42,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'vim-scripts/a.vim' hello
 Plug 'wincent/command-t'
-Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'easymotion/vim-easymotion'
 
