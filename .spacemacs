@@ -41,6 +41,7 @@ values."
        elm
        reason
        ocaml
+       csharp
        ;; ----------------------------------------------------------------
        ;; Example of useful layers you may want to use right away.
        ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -72,6 +73,13 @@ values."
                                         editorconfig
                                         gitter
                                         js-format
+
+                                        ;; vue
+                                        vue-mode
+                                        lsp-ui
+                                        lsp-vue
+                                        company-lsp
+
                                         eslintd-fix
                                         lsp-rust
                                         p4
@@ -393,12 +401,39 @@ you should place your code here."
   (editorconfig-mode t)
 
   ;; js javascript
-  ;; (add-to-list 'flycheck-checkers 'javascript-eslint)
   (setq-default flycheck-disabled-checkers
     (append flycheck-disabled-checkers
       '(javascript-jshint)))
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  (add-hook 'web-mode-hook 'eslintd-fix-mode)
+
+  ;; web-mode
+  (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+
+
+  ;; vue js
+
+  (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
+
+  (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (with-eval-after-load 'lsp-ui (require 'lsp-ui-flycheck))
+
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
+
+  ;; web-mode
+  (require 'web-mode)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
+
 
   ;;----------------------------------------------------------------------------
   ;; Reason setup
@@ -433,8 +468,6 @@ you should place your code here."
 
   (add-hook 'reason-mode-hook (lambda ()
                                 (add-hook 'before-save-hook 'refmt-before-save)))
-  ;; evil
-  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
 
   ;; skewer mode
   (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
@@ -445,6 +478,7 @@ you should place your code here."
   ;; motions
   (spacemacs/toggle-camel-case-motion-globally-on)
 
+  ;; evil
   ;; text objects
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-line"))
@@ -460,6 +494,7 @@ you should place your code here."
   (define-and-bind-text-object "l" "^\\s-*" "\\s-*$")
 
   (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
+  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
   (evil-define-key 'normal global-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (evil-define-key 'normal global-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   (evil-define-key 'normal global-map (kbd "C-<tab>") 'next-buffer)
@@ -467,9 +502,11 @@ you should place your code here."
   (evil-define-key '(normal visual) global-map (kbd "j") 'evil-next-visual-line)
   (evil-define-key '(normal visual) global-map (kbd "k") 'evil-previous-visual-line)
   (evil-define-key 'insert global-map (kbd "C-h") 'evil-delete-backward-char)
+  ;; (evil-define-key 'normal global-map (kbd "RET") 'spacemacs/evil-insert-line-below)
   (define-key evil-outer-text-objects-map "e" 'evil-inner-buffer)
   (define-key evil-inner-text-objects-map "e" 'evil-inner-buffer)
-  (setq-default evil-escape-key-sequence "+]")
+  (define-key evil-normal-state-map (kbd "RET") 'spacemacs/evil-insert-line-below)
+  (define-key evil-normal-state-map (kbd "<C-return>") 'spacemacs/evil-insert-line-above)
   (setq case-fold-search nil)
 
   (setq evil-v$-gets-eol nil)
@@ -603,15 +640,13 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-    '(package-selected-packages
-         (quote
-             (zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+ '(package-selected-packages
+   (quote
+    (lsp-ui zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:foreground "thistle"))))
- '(rainbow-delimiters-mismatched-face ((t (:inherit (rainbow-delimiters-unmatched-face rainbow-delimiters-base-face)))))
- '(rainbow-delimiters-unmatched-face ((t (:foreground "gray75" :underline (:color "red" :style wave))))))
+ )
 )
