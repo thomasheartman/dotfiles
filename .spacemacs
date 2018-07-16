@@ -61,6 +61,7 @@ values."
        ;; spell-checking
        syntax-checking
        version-control
+       semantic
        )
     ;; List of additional packages that will be installed without being
     ;; wrapped in a layer. If you need some configuration for these
@@ -650,5 +651,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "#C678DD"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "#7A67EE"))))
+ '(rainbow-delimiters-mismatched-face ((t (:inherit (rainbow-delimiters-unmatched-face rainbow-delimiters-base-face)))))
+ '(rainbow-delimiters-unmatched-face ((t (:foreground "gray75" :underline (:color "red" :style wave))))))
 )
