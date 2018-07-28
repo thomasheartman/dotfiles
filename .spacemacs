@@ -476,6 +476,30 @@ you should place your code here."
   (add-hook 'reason-mode-hook (lambda ()
                                 (add-hook 'before-save-hook 'refmt-before-save)))
 
+  ;;----------------------------------------------------------------------------
+  ;; Haskell setup
+  ;;----------------------------------------------------------------------------
+  ;; insert space after λ> in repl
+  (when (configuration-layer/package-usedp 'haskell)
+    (add-hook 'haskell-interactive-mode-hook
+      (lambda ()
+        (setq-local evil-move-cursor-back nil))))
+
+  ;; start repl in insert mode
+  (when (configuration-layer/package-usedp 'haskell)
+    (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
+      (when (eq dotspacemacs-editing-style 'vim)
+        (call-interactively 'evil-insert))))
+
+  ;; use hindent with johan tibell style, though the argument will likely be ignored see: https://chrisdone.com/posts/hindent-5
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
+  ;; make `=` available for formatting
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode "=" 'hindent-reformat-buffer)
+  (setq hindent-reformat-buffer-on-save t)
+  (add-hook 'haskell-mode-hook 'hindent-mode)
+
+
   ;; skewer mode
   (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
 
