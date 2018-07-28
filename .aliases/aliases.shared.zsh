@@ -44,6 +44,7 @@ alias lsa="ls -lah"
 alias rbo="rm -rf bin obj" #removes bin and obj folders. Useful for cleaning a VS project
 alias pd="pandoc"
 alias mellon="alohomora" # speak friend and enter
+alias path="echo \"${PATH//:/\n}\""
 
 # dirs
 alias md='mkdir -p'
