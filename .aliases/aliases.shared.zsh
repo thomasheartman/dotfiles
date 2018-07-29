@@ -45,6 +45,7 @@ alias rbo="rm -rf bin obj" #removes bin and obj folders. Useful for cleaning a V
 alias pd="pandoc"
 alias mellon="alohomora" # speak friend and enter
 alias path="echo \"${PATH//:/\n}\""
+alias tx="tmux"
 
 # dirs
 alias md='mkdir -p'
