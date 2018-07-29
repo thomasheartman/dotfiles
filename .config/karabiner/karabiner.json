@@ -4,245 +4,345 @@
         "show_in_menu_bar": true,
         "show_profile_name_in_menu_bar": false
     },
-    "profiles": [{
-        "complex_modifications": {
-            "parameters": {
-                "basic.simultaneous_threshold_milliseconds": 50,
-                "basic.to_delayed_action_delay_milliseconds": 500,
-                "basic.to_if_alone_timeout_milliseconds": 1000,
-                "basic.to_if_held_down_threshold_milliseconds": 500
+    "profiles": [
+        {
+            "complex_modifications": {
+                "parameters": {
+                    "basic.simultaneous_threshold_milliseconds": 50,
+                    "basic.to_delayed_action_delay_milliseconds": 500,
+                    "basic.to_if_alone_timeout_milliseconds": 1000,
+                    "basic.to_if_held_down_threshold_milliseconds": 500
+                },
+                "rules": [
+                    {
+                        "description": "Map ctrl+w to alt + backspace outside of emacs and alacritty",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs",
+                                            "^io\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": "right_option"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Map ctrl+h to backspace outside of emacs and alacritty",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs",
+                                            "^io\\.alacritty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change right shift to ` if alone",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_shift"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "equal_sign",
+                                        "modifiers": "right_shift"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change left shift to $ if alone",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_shift",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "grave_accent_and_tilde"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Post left_ctrl when return_or_enter is hold.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
             },
-            "rules": [
+            "devices": [
                 {
-                    "description": "Change right shift to ` if alone",
-                    "manipulators": [{
-                        "from": {
-                            "key_code": "right_shift",
-                            "modifiers": {
-                                "optional": [
-                                    "any"
-                                ]
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 8263,
+                        "vendor_id": 6493
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": false,
+                    "simple_modifications": [
+                        {
+                            "from": {
+                                "key_code": "application"
+                            },
+                            "to": {
+                                "key_code": "right_option"
                             }
                         },
-                        "to": [{
-                            "key_code": "right_shift"
-                        }],
-                        "to_if_alone": [{
-                            "key_code": "equal_sign",
-                            "modifiers": "right_shift"
-                        }],
-                        "type": "basic"
-                    }]
-                },
-                {
-                    "description": "Change left shift to $ if alone",
-                    "manipulators": [{
-                        "from": {
-                            "key_code": "left_shift",
-                            "modifiers": {
-                                "optional": [
-                                    "any"
-                                ]
+                        {
+                            "from": {
+                                "key_code": "left_command"
+                            },
+                            "to": {
+                                "key_code": "left_option"
                             }
                         },
-                        "to": [{
-                            "key_code": "left_shift"
-                        }],
-                        "to_if_alone": [{
-                            "key_code": "grave_accent_and_tilde"
-                        }],
-                        "type": "basic"
-                    }]
-                },
-                {
-                    "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
-                    "manipulators": [{
-                        "from": {
-                            "key_code": "caps_lock",
-                            "modifiers": {
-                                "optional": [
-                                    "any"
-                                ]
+                        {
+                            "from": {
+                                "key_code": "left_option"
+                            },
+                            "to": {
+                                "key_code": "left_command"
                             }
                         },
-                        "to": [{
-                            "key_code": "left_control"
-                        }],
-                        "to_if_alone": [{
-                            "key_code": "escape"
-                        }],
-                        "type": "basic"
-                    }]
-                },
-                {
-                    "description": "Post left_ctrl when return_or_enter is hold.",
-                    "manipulators": [{
-                        "from": {
-                            "key_code": "return_or_enter",
-                            "modifiers": {
-                                "optional": [
-                                    "any"
-                                ]
+                        {
+                            "from": {
+                                "key_code": "right_option"
+                            },
+                            "to": {
+                                "key_code": "right_command"
                             }
-                        },
-                        "to": [{
-                            "key_code": "right_control"
-                        }],
-                        "to_if_alone": [{
-                            "key_code": "return_or_enter"
-                        }],
-                        "type": "basic"
-                    }]
+                        }
+                    ]
                 }
-            ]
-        },
-        "devices": [{
-            "disable_built_in_keyboard_if_exists": false,
-            "fn_function_keys": [],
-            "identifiers": {
-                "is_keyboard": true,
-                "is_pointing_device": false,
-                "product_id": 8263,
-                "vendor_id": 6493
-            },
-            "ignore": false,
-            "manipulate_caps_lock_led": false,
-            "simple_modifications": [{
+            ],
+            "fn_function_keys": [
+                {
                     "from": {
-                        "key_code": "application"
+                        "key_code": "f1"
                     },
                     "to": {
-                        "key_code": "right_option"
+                        "consumer_key_code": "display_brightness_decrement"
                     }
                 },
                 {
                     "from": {
-                        "key_code": "left_command"
+                        "key_code": "f2"
                     },
                     "to": {
-                        "key_code": "left_option"
+                        "consumer_key_code": "display_brightness_increment"
                     }
                 },
                 {
                     "from": {
-                        "key_code": "left_option"
+                        "key_code": "f3"
                     },
                     "to": {
-                        "key_code": "left_command"
+                        "key_code": "mission_control"
                     }
                 },
                 {
                     "from": {
-                        "key_code": "right_option"
+                        "key_code": "f4"
                     },
                     "to": {
-                        "key_code": "right_command"
+                        "key_code": "launchpad"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f5"
+                    },
+                    "to": {
+                        "key_code": "illumination_decrement"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f6"
+                    },
+                    "to": {
+                        "key_code": "illumination_increment"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f7"
+                    },
+                    "to": {
+                        "consumer_key_code": "rewind"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f8"
+                    },
+                    "to": {
+                        "consumer_key_code": "play_or_pause"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f9"
+                    },
+                    "to": {
+                        "consumer_key_code": "fastforward"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f10"
+                    },
+                    "to": {
+                        "consumer_key_code": "mute"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f11"
+                    },
+                    "to": {
+                        "consumer_key_code": "volume_decrement"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "f12"
+                    },
+                    "to": {
+                        "consumer_key_code": "volume_increment"
                     }
                 }
-            ]
-        }],
-        "fn_function_keys": [{
-                "from": {
-                    "key_code": "f1"
-                },
-                "to": {
-                    "consumer_key_code": "display_brightness_decrement"
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "simple_modifications": [
+                {
+                    "from": {
+                        "key_code": "delete_or_backspace"
+                    },
+                    "to": {
+                        "key_code": "vk_none"
+                    }
                 }
-            },
-            {
-                "from": {
-                    "key_code": "f2"
-                },
-                "to": {
-                    "consumer_key_code": "display_brightness_increment"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f3"
-                },
-                "to": {
-                    "key_code": "mission_control"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f4"
-                },
-                "to": {
-                    "key_code": "launchpad"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f5"
-                },
-                "to": {
-                    "key_code": "illumination_decrement"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f6"
-                },
-                "to": {
-                    "key_code": "illumination_increment"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f7"
-                },
-                "to": {
-                    "consumer_key_code": "rewind"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f8"
-                },
-                "to": {
-                    "consumer_key_code": "play_or_pause"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f9"
-                },
-                "to": {
-                    "consumer_key_code": "fastforward"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f10"
-                },
-                "to": {
-                    "consumer_key_code": "mute"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f11"
-                },
-                "to": {
-                    "consumer_key_code": "volume_decrement"
-                }
-            },
-            {
-                "from": {
-                    "key_code": "f12"
-                },
-                "to": {
-                    "consumer_key_code": "volume_increment"
-                }
+            ],
+            "virtual_hid_keyboard": {
+                "country_code": 0
             }
-        ],
-        "name": "Default profile",
-        "selected": true,
-        "simple_modifications": [],
-        "virtual_hid_keyboard": {
-            "country_code": 0
         }
-    }]
+    ]
 }
