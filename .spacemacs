@@ -398,10 +398,6 @@ you should place your code here."
     ;; rust-lang
     rust-format-on-save t)
 
-  ;; make <C-h> delete closing paren
-  (defadvice evil-delete-backward-char (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
-  ;; (defadvice evil-delete-backward-word (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
-
   ;; editorconfig
   (editorconfig-mode t)
 
@@ -561,7 +557,8 @@ you should place your code here."
   (define-key helm-map (kbd "C-h") nil)
   (define-key helm-map (kbd "C-h") 'helm-ff-delete-char-backward)
   (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)
-  (global-set-key (kbd "C-h") 'delete-backward-char)
+  (global-set-key (kbd "C-h") 'backward-delete-char-untabify)
+
   ;; evil
   ;; text objects
   (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -585,7 +582,6 @@ you should place your code here."
   (evil-define-key 'normal global-map (kbd "C-S-<tab>") 'previous-buffer)
   (evil-define-key '(normal visual) global-map (kbd "j") 'evil-next-visual-line)
   (evil-define-key '(normal visual) global-map (kbd "k") 'evil-previous-visual-line)
-  ;; (evil-define-key 'insert global-map (kbd "C-h") 'backward-delete-char-untabify)
   (evil-define-key '(normal visual) global-map (kbd "C-h") 'help-command)
   (define-key evil-outer-text-objects-map "e" 'evil-inner-buffer)
   (define-key evil-inner-text-objects-map "e" 'evil-inner-buffer)
