@@ -85,6 +85,144 @@
                     }]
                 },
                 {
+                    "description": "Map keypad 7 to keypad 1 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_7",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_1"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
+                    "description": "Map keypad 8 to keypad 2 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_8",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_2"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
+                    "description": "Map keypad 9 to keypad 3 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_9",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_3"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
+                    "description": "Map keypad 1 to keypad 7 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_1",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_7"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
+                    "description": "Map keypad 2 to keypad 8 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_2",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_8"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
+                    "description": "Map keypad 3 to keypad 9 in emacs",
+                    "manipulators": [{
+                        "conditions": [{
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }],
+                        "from": {
+                            "key_code": "keypad_3",
+                            "modifiers": {
+                                "optional": [
+                                    "any"
+                                ]
+                            }
+                        },
+                        "to": [{
+                            "key_code": "keypad_9"
+                        }],
+                        "type": "basic"
+                    }]
+                },
+                {
                     "description": "Map ctrl+w to alt + backspace outside of emacs and alacritty",
                     "manipulators": [{
                         "conditions": [{
@@ -144,6 +282,9 @@
                                 ]
                             }
                         },
+                        "parameters": {
+                            "basic.to_if_alone_timeout_milliseconds": 100
+                        },
                         "to": [{
                             "key_code": "right_shift"
                         }],
@@ -164,6 +305,9 @@
                                     "any"
                                 ]
                             }
+                        },
+                        "parameters": {
+                            "basic.to_if_alone_timeout_milliseconds": 100
                         },
                         "to": [{
                             "key_code": "left_shift"
