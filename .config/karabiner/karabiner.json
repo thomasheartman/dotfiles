@@ -335,11 +335,14 @@
                         "to_if_alone": [{
                             "key_code": "escape"
                         }],
+                        "parameters": {
+                            "basic.to_if_alone_timeout_milliseconds": 200
+                        },
                         "type": "basic"
                     }]
                 },
                 {
-                    "description": "Post left_ctrl when return_or_enter is hold.",
+                    "description": "Post right_ctrl when return_or_enter is hold.",
                     "manipulators": [{
                         "from": {
                             "key_code": "return_or_enter",
@@ -355,6 +358,9 @@
                         "to_if_alone": [{
                             "key_code": "return_or_enter"
                         }],
+                        "parameters": {
+                            "basic.to_if_alone_timeout_milliseconds": 200
+                        },
                         "type": "basic"
                     }]
                 }
