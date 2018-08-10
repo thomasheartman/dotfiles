@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2018-07-31 12:46:33" build="180626">
+		<key name=".Vanilla" modified="2018-08-09 12:49:15" build="180626">
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
@@ -59,8 +59,8 @@
 			<value name="FontSize" type="ulong" data="18"/>
 			<value name="StatusFontHeight" type="long" data="12"/>
 			<value name="TabFontHeight" type="long" data="14"/>
-			<key name="HotKeys" modified="2018-07-31 12:46:33" build="180626">
-                <value name="MinimizeRestore" type="dword" data="000012c0" />
+			<key name="HotKeys" modified="2018-08-10 12:57:19" build="180626">
+				<value name="MinimizeRestore" type="dword" data="000011dd"/>
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="000000a2"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="000000a2"/>
@@ -261,11 +261,11 @@
 			<value name="Cascaded" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
 			<value name="WindowMode" type="dword" data="00000521"/>
-			<value name="ConWnd X" type="long" data="3520"/>
+			<value name="ConWnd X" type="long" data="2560"/>
 			<value name="ConWnd Y" type="long" data="360"/>
 			<value name="LastMonitor" type="string" data="2560,360,4480,1440"/>
-			<value name="ConWnd Width" type="dword" data="0000005f"/>
-			<value name="ConWnd Height" type="dword" data="00000016"/>
+			<value name="ConWnd Width" type="dword" data="0000009f"/>
+			<value name="ConWnd Height" type="dword" data="00000014"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<key name="Colors" modified="2017-12-14 08:15:19" build="171205">
 				<value name="Count" type="long" data="2"/>
@@ -476,6 +476,7 @@
 			<value name="ComSpec.Path" type="string" data=""/>
 			<value name="EnvironmentSet" type="multi">
 				<line data="set PATH=%ConEmuBaseDir%\Scripts;%PATH%"/>
+				<line data="set ConEmuPromptNames=NO"/>
 			</value>
 			<value name="CTS.Intelligent" type="hex" data="01"/>
 			<value name="CTS.IntelligentExceptions" type="string" data="far|vim"/>
@@ -687,7 +688,7 @@
 			<value name="Update.PostUpdateCmd" type="string" data="echo Last successful update&gt;ConEmuUpdate.info &amp;&amp; date /t&gt;&gt;ConEmuUpdate.info &amp;&amp; time /t&gt;&gt;ConEmuUpdate.info"/>
 			<key name="Tasks" modified="2017-12-14 08:15:19" build="171205">
 				<value name="Count" type="long" data="9"/>
-				<key name="Task1" modified="2017-12-14 08:15:19" build="171205">
+				<key name="Task1" modified="2018-08-09 14:15:34" build="180626">
 					<value name="Name" type="string" data="{Shells::cmd}"/>
 					<value name="Flags" type="dword" data="00000002"/>
 					<value name="Hotkey" type="dword" data="00001258"/>
