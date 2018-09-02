@@ -346,7 +346,7 @@
                         ]
                     },
                     {
-                        "description": "Change right shift to ` if alone",
+                        "description": "Change right shift to # if alone",
                         "manipulators": [
                             {
                                 "from": {
@@ -358,7 +358,7 @@
                                     }
                                 },
                                 "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100
+                                    "basic.to_if_alone_timeout_milliseconds": 150
                                 },
                                 "to": [
                                     {
@@ -367,8 +367,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "equal_sign",
-                                        "modifiers": "right_shift"
+                                        "key_code": "equal_sign"
                                     }
                                 ],
                                 "type": "basic"
@@ -388,7 +387,8 @@
                                     }
                                 },
                                 "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100
+                                    "basic.to_if_alone_timeout_milliseconds": 150
+
                                 },
                                 "to": [
                                     {
