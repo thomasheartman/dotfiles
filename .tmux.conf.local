@@ -315,5 +315,13 @@ set -g pane-base-index 1
 # should fix the empty + register in vim
 set -g default-command 'reattach-to-user-namespace -l $SHELL'
 
+#plugins
+# resurrect
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @resurrect-capture-pane-contents 'on'
+
+# run resurrect manually
+run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-# run '~/.tmux/plugins/tpm/tpm'
+run '~/.tmux/plugins/tpm/tpm'
