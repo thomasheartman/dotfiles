@@ -47,18 +47,18 @@ values."
       elm
       reason
       ocaml
-      haskell
+      (haskell :variables haskell-enable-hindent-style "johan-tibell")
       csharp
-      ;; shaders
+      gpu
       helm
-      auto-completion
+      (auto-completion (haskell :variables haskell-completion-backend 'intero auto-completion-enable-help-tooltip t))
       emacs-lisp
       git
       markdown
       (org :variables org-want-todo-bindings
         t)
       version-control
-      semantic)
+      (semantic :disabled-for emacs-lisp))
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -71,7 +71,6 @@ values."
       editorconfig
       gitter
       js-format
-      vue
       vue-mode
       lsp-ui
       lsp-vue
@@ -392,89 +391,65 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq vc-follow-symlinks t
         ;; file system
-        create-lockfiles
-        nil
+        create-lockfiles nil
         ;; key bindings
-        dotspacemacs-distinguish-gui-tab
-        t ;; to differentiate between C-i and tab
+        dotspacemacs-distinguish-gui-tab t ;; to differentiate between C-i and tab
 
         ;; whitespace
-        whitespace-style
-        '(face spaces tabs newline indentation space-mark
-               tab-mark)
+        whitespace-style '(face spaces tabs newline indentation space-mark tab-mark)
         ;; centered buffer mode
-        spacemacs-centered-buffer-mode-min-content-width
-        1200
-        spacemacs-centered-buffer-mode-max-content-width
-        1200
+        spacemacs-centered-buffer-mode-min-content-width 1200
+        spacemacs-centered-buffer-mode-max-content-width 1200
         ;; company
-        company-flx-limit
-        50
-        company-idle-delay
-        0
-        company-minimum-prefix-length
-        1
-        company-selection-wrap-around
-        t
-        company-tooltip-align-annotations
-        t
+        company-flx-limit 50
+        company-idle-delay 0
+        company-minimum-prefix-length 1
+        company-selection-wrap-around t
+        company-tooltip-align-annotations t
         company-frontends
         '(company-pseudo-tooltip-unless-just-one-frontend
           company-echo-metadata-frontend company-preview-if-just-one-frontend
           company-tng-frontend)
         ;; auto-completion
-        tab-always-indent
-        t
-        auto-completion-return-key-behavior
-        nil
-        auto-completion-tab-key-behavior
-        nil
-        auto-completion-enable-snippets-in-popup
-        t
-        auto-completion-enable-help-tooltip
-        t
-        auto-completion-enable-sort-by-usage
-        t
+        tab-always-indent t
+        auto-completion-return-key-behavior nil
+        auto-completion-tab-key-behavior nil
+        auto-completion-enable-snippets-in-popup t
+        auto-completion-enable-help-tooltip t
+        auto-completion-enable-sort-by-usage t
         ;; neotree
-        neo-confirm-create-file
-        'off-p
-        neo-confirm-create-directory
-        'off-p
-        neo-confirm-delete-directory-recursively
-        'off-p
-        neo-confirm-delete-file
-        'off-p
-        neo-confirm-kill-buffers-for-files-in-directory
-        'off-p
+        neo-confirm-create-file 'off-p
+        neo-confirm-create-directory 'off-p
+        neo-confirm-delete-directory-recursively 'off-p
+        neo-confirm-delete-file 'off-p
+        neo-confirm-kill-buffers-for-files-in-directory 'off-p
         neo-theme
         (if (display-graphic-p)
             'icons
           'arrow)
         ;; elm-lang
-        elm-format-on-save
-        t
-        elm-tags-on-save
-        t
-        elm-sort-imports-on-save
-        t
+        elm-format-on-save t
+        elm-tags-on-save t
+        elm-sort-imports-on-save t
         ;; javascript js
-        js2-strict-missing-semi-warning
-        nil
-        js-indent-level
-        2
-        flycheck-javascript-eslint-executable
-        "eslint_d"
+        js2-strict-missing-semi-warning nil
+        js-indent-level 2
+        css-indent-offset 2
+        flycheck-javascript-eslint-executable "eslint_d"
         ;; mac-specific
-        mac-use-title-bar
-        t
+        mac-use-title-bar t
         ;; rust-lang
-        rust-format-on-save
-        t)
+        rust-format-on-save t)
 
 
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
 
+  (custom-set-faces
+    '(company-tooltip-common
+       ((t (:inherit company-tooltip :weight bold :underline nil))))
+    '(company-tooltip-common-selection
+       ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
   ;; smartparens
   ;; dotspacemacs-smartparens-strict-mode t
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
@@ -538,11 +513,25 @@ you should place your code here."
   (add-hook 'reason-mode-hook
             (lambda ()
               (add-hook 'before-save-hook 'refmt-before-save)
-              (merlin-mode)))
+              (merlin-mode)
+              (emmet-mode)
+              (linum-mode)))
   (setq merlin-ac-setup t)
-  (add-hook 'reason-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'refmt-before-save)))
+
+  ;;----------------------------------------------------------------------------
+  ;; SCSS setup
+  ;;----------------------------------------------------------------------------
+  (defun scss-format ()
+    "Format scss file using sass-lint-auto-fix"
+    (interactive)
+    (shell-command (format "sass-lint-auto-fix %s" buffer-file-name)))
+
+  (add-hook 'scss-mode-hook
+    (lambda ()
+      (add-hook 'before-save-hook 'scss-format)))
+
+  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'scss-format)
+
   ;;----------------------------------------------------------------------------
   ;; Haskell setup
   ;;----------------------------------------------------------------------------
@@ -558,9 +547,7 @@ you should place your code here."
                activate)
       (when (eq dotspacemacs-editing-style 'vim)
         (call-interactively 'evil-insert))))
-  ;; use hindent with johan tibell style, though the argument will likely be ignored see: https://chrisdone.com/posts/hindent-5
-  (setq-default dotspacemacs-configuration-layers '((haskell :variables haskell-enable-hindent-style
-                                                             "johan-tibell")))
+
   ;; make `=` available for formatting
   (spacemacs/set-leader-keys-for-major-mode
     'haskell-mode "=" 'hindent-reformat-buffer)
@@ -595,7 +582,6 @@ you should place your code here."
       (haskell-indentation-newline-and-indent))
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
-  (setq-default dotspacemacs-configuration-layers '(auto-completion (haskell :variables haskell-completion-backend'intero)))
   ;; skewer mode
   (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
   ;; lines
@@ -617,6 +603,7 @@ you should place your code here."
   (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)
   (global-set-key (kbd "C-h")
                   'backward-delete-char-untabify)
+  (evil-define-key 'normal global-map (kbd "gs") 'transpose-chars)
   ;; evil
   ;; text objects
   (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -840,13 +827,14 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (vue-mode edit-indirect ssass-mode vue-html-mode lsp-vue lsp-ui company-lsp zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    '(package-selected-packages
+         (quote
+             (opencl-mode glsl-mode cuda-mode zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 )
