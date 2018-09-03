@@ -3,7 +3,6 @@
 # top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
 insert_final_newline = false
@@ -12,10 +11,10 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-[*.{js,jsx,ts,lisp,html,spacemacs}]
+[*.{js,jsx,ts,lisp,html,spacemacs,css,scss,json,*rc,yml,hs}]
 indent_size = 2
 
-[*.{py, js,jsx,ts}]
+[*.{py,js,jsx,ts}]
 insert_final_newline = true
 
 [*.py]
@@ -24,8 +23,3 @@ max_line_length = 80
 # Tab indentation (no size specified)
 [Makefile]
 indent_style = tab
-
-# Matches the exact files either package.json or .travis.yml
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
