@@ -8,13 +8,15 @@ end_of_line = lf
 insert_final_newline = false
 charset = utf-8
 indent_style = space
-indent_size = 4
 trim_trailing_whitespace = true
 
-[*.{js,jsx,ts,lisp,html,spacemacs,css,scss,json,*rc,yml,hs,re,ml}]
+[*.{js,jsx,ts,lisp,html,spacemacs,css,scss,json,*rc,yml,hs,re,ml,vue,sh,bat,glsl}]
 indent_size = 2
 
-[*.{py,js,jsx,ts}]
+[*.{cs,cpp,rs,py,java}]
+indent_size = 4
+
+[*.{py,js,jsx,ts,scss}]
 insert_final_newline = true
 
 [*.py]
