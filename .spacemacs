@@ -452,6 +452,7 @@ you should place your code here."
        ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
   ;; smartparens
   ;; dotspacemacs-smartparens-strict-mode t
+  (sp-local-pair 'reason-mode "'" nil :actions nil)
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   ;; editorconfig
   (editorconfig-mode t)
