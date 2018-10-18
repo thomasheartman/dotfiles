@@ -3,6 +3,11 @@ source ~/.aliases/aliases.shared.zsh
 
 set $EDITOR="vim"
 set $VISUAL=$EDITOR
-fish_vi_key_bindings
-
 set PATH $HOME/.cargo/bin $PATH
+
+function fish_user_key_bindings
+  fish_vi_key_bindings
+  bind -M insert \cN accept-autosuggestion
+end
+
+set -g fish_key_bindings fish_user_key_bindings
