@@ -313,12 +313,15 @@ set -g base-index 1
 set -g pane-base-index 1
 
 # should fix the empty + register in vim
-set -g default-command 'reattach-to-user-namespace -l $SHELL'
+# set -g default-command 'reattach-to-user-namespace -l $SHELL'
 
 #plugins
 # resurrect
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @resurrect-capture-pane-contents 'on'
+
+# set shell
+set -g default-shell /usr/local/bin/fish
 
 # run resurrect manually
 run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
