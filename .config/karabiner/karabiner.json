@@ -15,6 +15,144 @@
                 },
                 "rules": [
                     {
+                        "description": "Map right ctrl to hyper",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_control"
+                                },
+                                "to": [
+                                    {
+                                      "key_code": "left_control",
+                                      "modifiers": [
+                                        "left_command",
+                                        "left_option",
+                                        "left_shift"
+                                      ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Map left ctrl to hyper",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_control"
+                                },
+                                "to": [
+                                    {
+                                      "key_code": "left_control",
+                                      "modifiers": [
+                                        "left_command",
+                                        "left_option",
+                                        "left_shift"
+                                      ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                      "description": "Map hyper-c to up",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "i",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_command",
+                                "left_option",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            {
+                              "key_code": "up_arrow"
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
+                      "description": "Map hyper-t to down",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "k",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_command",
+                                "left_option",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            {
+                              "key_code": "down_arrow"
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
+                      "description": "Map hyper-h to left",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "j",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_command",
+                                "left_option",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            {
+                              "key_code": "left_arrow"
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
+                      "description": "Map hyper-n to right",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "l",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_command",
+                                "left_option",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            {
+                              "key_code": "right_arrow"
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
                         "description": "Map h to left in Preview",
                         "manipulators": [
                             {
