@@ -57,6 +57,33 @@
                         ]
                     },
                     {
+                      "description": "Map hyper-tab to control-tab",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "tab",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_command",
+                                "left_option",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            {
+                              "key_code": "tab",
+                              "modifiers": [
+                                "left_control"
+                              ]
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
                       "description": "Map hyper-c to up",
                       "manipulators": [
                         {
