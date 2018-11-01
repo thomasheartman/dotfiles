@@ -1,5 +1,4 @@
-source ~/.aliases/aliases.macos.sh
-source ~/.aliases/aliases.shared.zsh
+source ~/.aliases/aliases.fish
 
 set -gx EDITOR vim
 set -gx VISUAL $EDITOR
