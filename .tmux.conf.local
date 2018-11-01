@@ -315,16 +315,20 @@ set -g pane-base-index 1
 # should fix the empty + register in vim
 # set -g default-command 'reattach-to-user-namespace -l $SHELL'
 
+
 #plugins
 # resurrect
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @resurrect-capture-pane-contents 'on'
 
 # set shell
-set -g default-shell /usr/local/bin/fish
+set -g default-shell /usr/bin/fish
 
 # run resurrect manually
 run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+
+# create new session if none exists when run as 'tmux attach'
+new-session -n $HOST
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
