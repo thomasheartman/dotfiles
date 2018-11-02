@@ -1,6 +1,5 @@
-; Let virtual consoles do their own thing
-#IfWinNotActive, ahk_class VirtualConsoleClass
-
+; Let virtual consoles and Emacs do their own thing
+#If !WinActive("ahk_class VirtualConsoleClass") && !WinActive("ahk_class Emacs")
   ^h::
   SendInput {Blind}{Ctrl up}{Backspace}{Ctrl down}
   return
@@ -12,7 +11,11 @@
   SendInput ^w
   return
 
-#IfWinNotActive
+  ^/::
+  WinGetClass, Class, A
+  MsgBox, The class of the window is "%Class%"
+  return
+#If
 
 !q::
 SendInput !{f4}
