@@ -10,11 +10,6 @@
   !w::
   SendInput ^w
   return
-
-  ^/::
-  WinGetClass, Class, A
-  MsgBox, The class of the window is "%Class%"
-  return
 #If
 
 !q::
