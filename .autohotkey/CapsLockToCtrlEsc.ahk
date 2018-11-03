@@ -1,5 +1,5 @@
 g_LastCtrlKeyDownTime := 0
-g_AbortSendEsc := false
+g_shouldSendEscape := true
 g_ControlRepeatDetected := false
 
 *CapsLock::
@@ -10,7 +10,7 @@ g_ControlRepeatDetected := false
 
     send,{Ctrl down}
     g_LastCtrlKeyDownTime := A_TickCount
-    g_AbortSendEsc := false
+    g_shouldSendEscape := true
     g_ControlRepeatDetected := true
 
     return
@@ -18,13 +18,13 @@ g_ControlRepeatDetected := false
 *CapsLock Up::
     send,{Ctrl up}
     g_ControlRepeatDetected := false
-    if (g_AbortSendEsc)
+    if (!g_shouldSendEscape)
     {
         return
     }
     current_time := A_TickCount
     time_elapsed := current_time - g_LastCtrlKeyDownTime
-    if (time_elapsed <= 250)
+    if (time_elapsed <= 200)
     {
         SendInput {Esc}
     }
@@ -99,5 +99,5 @@ g_ControlRepeatDetected := false
 ~*^F10::
 ~*^F11::
 ~*^F12::
-    g_AbortSendEsc := true
+    g_shouldSendEscape := false
 return

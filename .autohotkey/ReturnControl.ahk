@@ -1,30 +1,30 @@
-g_LastReturnCtrlKeyDownTime := 0
-g_AbortSendRet := false
-g_ControlReturnRepeatDetected := false
+g_LastRetCtrlKeyDownTime := 0
+g_shouldSendRet := true
+g_ControlRetRepeatDetected := false
 
 *Enter::
-    if (g_ControlReturnRepeatDetected)
+    if (g_ControlRetRepeatDetected)
     {
         return
     }
 
     send,{Ctrl down}
-    g_LastReturnCtrlKeyDownTime := A_TickCount
-    g_AbortSendRet := false
-    g_ControlReturnRepeatDetected := true
+    g_LastRetCtrlKeyDownTime := A_TickCount
+    g_shouldSendRet := true
+    g_ControlRetRepeatDetected := true
 
     return
 
 *Enter Up::
     send,{Ctrl up}
-    g_ControlReturnRepeatDetected := false
-    if (g_AbortSendRet)
+    g_ControlRetRepeatDetected := false
+    if (!g_shouldSendRet)
     {
         return
     }
     current_time := A_TickCount
-    time_elapsed := current_time - g_LastReturnCtrlKeyDownTime
-    if (time_elapsed <= 250)
+    time_elapsed := current_time - g_LastRetCtrlKeyDownTime
+    if (time_elapsed <= 200)
     {
         SendInput {Enter}
     }
@@ -99,5 +99,5 @@ g_ControlReturnRepeatDetected := false
 ~*^F10::
 ~*^F11::
 ~*^F12::
-    g_AbortSendRet := true
+    g_shouldSendRet := false
 return
