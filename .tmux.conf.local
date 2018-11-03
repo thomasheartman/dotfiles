@@ -296,6 +296,10 @@ bind q kill-window
 # unbind -n C-j
 # unbind -n C-l
 
+# unbind C-a to avoid number increment shenanigans 246
+set -gu prefix2
+unbind C-a
+
 bind p previous-window # select previous window
 bind N previous-window # select previous window
 bind n next-window     # select next window
@@ -331,4 +335,5 @@ run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
 new-session -n $HOST
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+
 run '~/.tmux/plugins/tpm/tpm'
