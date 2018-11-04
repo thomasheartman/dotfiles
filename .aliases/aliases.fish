@@ -34,6 +34,7 @@ alias std="standard --verbose | snazzy"
 alias py="python"
 
 # misc
+alias l="ls -l"
 alias lsa="ls -lah"
 alias pd="pandoc"
 alias mellon="alohomora" # speak friend and enter
