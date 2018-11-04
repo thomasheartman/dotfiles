@@ -147,3 +147,5 @@
   diffc = "diff --cached"
 [status]
 	submoduleSummary = true
+[credential]
+	helper = cache --timeout=144000
