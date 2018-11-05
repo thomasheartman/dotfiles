@@ -497,6 +497,12 @@ you should place your code here."
     (require 'lsp-ui-flycheck))
   (require 'company-lsp)
   (push 'company-lsp company-backends)
+
+  ;;----------------------------------------------------------------------------
+  ;; C# / Omnisharp setup
+  ;;----------------------------------------------------------------------------
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
+
   ;;----------------------------------------------------------------------------
   ;; Reason setup
   ;;----------------------------------------------------------------------------
@@ -601,14 +607,6 @@ you should place your code here."
   (spacemacs/toggle-camel-case-motion-globally-on)
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
-  ;; this doesn't seem to work
-  ;; (when (eq system-type 'darwin)
-  ;;   (global-set-key (kbd "<kp-1>") (kbd "7"))
-  ;;   (global-set-key (kbd "<kp-2>") (kbd "8"))
-  ;;   (global-set-key (kbd "<kp-3>") (kbd "9"))
-  ;;   (global-set-key (kbd "<kp-7>") (kbd "1"))
-  ;;   (global-set-key (kbd "<kp-8>") (kbd "2"))
-  ;;   (global-set-key (kbd "<kp-9>") (kbd "3")))
   (define-key helm-map (kbd "C-h") nil)
   (define-key helm-map (kbd "C-h") 'helm-ff-delete-char-backward)
   (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)
@@ -724,12 +722,14 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; Make C-/ expand yasnippet if available, else go into company
   ;; Must unbind undo tree first
   (with-eval-after-load 'undo-tree
+    (define-key undo-tree-map (kbd "C-_") nil)
     (define-key undo-tree-map (kbd "C-/") nil))
   ;; (defun nir-yasnippet-expand-or-complete ()
   ;;   (interactive)
   ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
   ;; Must bind in global map, else undo tree stops loading
   (with-eval-after-load 'yasnippet
+    (define-key global-map (kbd "C-_") 'yas-expand)
     (define-key global-map (kbd "C-/") 'yas-expand))
   ;; ligatures
   (if (fboundp 'mac-auto-operator-composition-mode)
