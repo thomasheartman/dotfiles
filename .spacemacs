@@ -617,6 +617,7 @@ you should place your code here."
   (evil-define-key 'normal global-map (kbd "gs") 'transpose-chars)
 
   (with-eval-after-load 'helm-buffers
+    (define-key helm-buffer-map (kbd "C-h") #'backward-delete-char-untabify)
     (define-key helm-buffer-map (kbd "C-d") #'helm-buffer-run-kill-buffers))
 
   ;; evil
