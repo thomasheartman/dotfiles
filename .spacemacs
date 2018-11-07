@@ -615,6 +615,10 @@ you should place your code here."
   (global-set-key (kbd "C-h")
                   'backward-delete-char-untabify)
   (evil-define-key 'normal global-map (kbd "gs") 'transpose-chars)
+
+  (with-eval-after-load 'helm-buffers
+    (define-key helm-buffer-map (kbd "C-d") #'helm-buffer-run-kill-buffers))
+
   ;; evil
   ;; text objects
   (defmacro define-and-bind-text-object (key start-regex end-regex)
