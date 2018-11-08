@@ -502,6 +502,21 @@ you should place your code here."
   ;; C# / Omnisharp setup
   ;;----------------------------------------------------------------------------
   (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "c r" 'recompile)
+
+  (eval-after-load
+    'company
+    '(add-to-list 'company-backends #'company-omnisharp))
+
+  (defun csharp-mode-setup ()
+    (omnisharp-mode)
+    (company-mode)
+    (flycheck-mode)
+
+    (electric-pair-local-mode 1))
+
+  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
+
 
   ;;----------------------------------------------------------------------------
   ;; Reason setup
