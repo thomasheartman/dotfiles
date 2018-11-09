@@ -7,6 +7,9 @@
     }
     return
 
+RShift & Enter::SendInput +{Enter}
+return
+
 ~*>+a::
 ~*>+b::
 ~*>+c::

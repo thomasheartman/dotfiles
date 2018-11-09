@@ -7,7 +7,7 @@
     }
     return
 
-Shift & Enter::SendInput +{Enter}
+LShift & Enter::SendInput +{Enter}
 return
 
 ~*<+a::
