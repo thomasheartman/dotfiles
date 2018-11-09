@@ -7,6 +7,9 @@
     }
     return
 
+Shift & Enter::SendInput +{Enter}
+return
+
 ~*<+a::
 ~*<+b::
 ~*<+c::
@@ -52,7 +55,6 @@
 ~*<+PgUp::
 ~*<+PgDn::
 ~*<+tab::
-~*<+Return::
 ~*<+Ctrl::
 ~*<+RShift::
 ~*<+,::
