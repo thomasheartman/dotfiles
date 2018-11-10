@@ -8,7 +8,7 @@ g_ControlRepeatDetected := false
         return
     }
 
-    send,{Ctrl down}
+    SendInput,{Ctrl down}
     g_LastCtrlKeyDownTime := A_TickCount
     g_shouldSendEscape := true
     g_ControlRepeatDetected := true
@@ -16,7 +16,7 @@ g_ControlRepeatDetected := false
     return
 
 *CapsLock Up::
-    send,{Ctrl up}
+    SendInput,{Ctrl up}
     g_ControlRepeatDetected := false
     if (!g_shouldSendEscape)
     {

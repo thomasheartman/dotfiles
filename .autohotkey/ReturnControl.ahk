@@ -8,7 +8,7 @@ g_ControlRetRepeatDetected := false
         return
     }
 
-    send,{Ctrl down}
+    SendInput,{Ctrl down}
     g_LastRetCtrlKeyDownTime := A_TickCount
     g_shouldSendRet := true
     g_ControlRetRepeatDetected := true
@@ -16,7 +16,7 @@ g_ControlRetRepeatDetected := false
     return
 
 *Enter Up::
-    send,{Ctrl up}
+    SendInput,{Ctrl up}
     g_ControlRetRepeatDetected := false
     if (!g_shouldSendRet)
     {
