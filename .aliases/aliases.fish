@@ -51,3 +51,5 @@ alias rd="rmdir"
 alias droid="adb devices"
 
 alias open="xdg-open"
+
+alias refresh="source ~/.config/fish/config.fish"
