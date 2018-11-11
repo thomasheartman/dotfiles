@@ -2,7 +2,10 @@ source ~/.aliases/aliases.fish
 
 set -gx EDITOR "emacsclient -c"
 set -gx VISUAL $EDITOR
-set PATH $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $PATH
+
+if not set -q fish_user_paths[1]
+    set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules
+end
 
 function fish_user_key_bindings
   fish_vi_key_bindings
