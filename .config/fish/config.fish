@@ -1,6 +1,6 @@
 source ~/.aliases/aliases.fish
 
-set -gx EDITOR vim
+set -gx EDITOR "emacsclient -c"
 set -gx VISUAL $EDITOR
 set PATH $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $PATH
 
