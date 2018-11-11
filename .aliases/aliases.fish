@@ -3,6 +3,8 @@ alias em="emacsclient -nw"
 alias dot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias windot="/usr/bin/git --git-dir=/mnt/c/Users/thoma/dotfiles/ --work-tree=/mnt/c/Users/thoma"
 
+alias p="pijul"
+
 # git
 alias g="git"
 alias gfs="git fs"
