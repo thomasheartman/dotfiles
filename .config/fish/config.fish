@@ -3,6 +3,9 @@ source ~/.aliases/aliases.fish
 set -gx EDITOR "emacsclient -c"
 set -gx VISUAL $EDITOR
 
+# disable greeting
+set fish_greeting
+
 if not set -q fish_user_paths[1]
     set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules
 end
