@@ -69,7 +69,7 @@ let g:cursorcross_mappings = 0
 " optional: let g:ackprg = 'ag --vimgrep'
 
 syntax on " enable syntax highlighting
-colorscheme onedark " use onedark atom theme https://github.com/joshdick/onedark.vim
+" colorscheme onedark " use onedark atom theme https://github.com/joshdick/onedark.vim
 set backspace=indent,eol,start
 set nocompatible " fixes some weird bugs in insert mode
 set number " show line numbers
