@@ -1,10 +1,6 @@
 *RShift Up::
     SendInput,{RShift up}
-    if (getKeyState("LShift")) {
-      SendInput ``
-    } else {
-      SendInput {#}
-    }
+    SendInput,{Blind}{#}
     return
 
 RShift & Enter::SendInput +{Enter}
