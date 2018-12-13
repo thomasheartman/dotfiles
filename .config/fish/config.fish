@@ -7,7 +7,7 @@ set -gx VISUAL $EDITOR
 set fish_greeting
 
 if not set -q fish_user_paths[1]
-    set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules
+    set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin
 end
 
 function fish_user_key_bindings
