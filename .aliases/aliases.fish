@@ -1,7 +1,7 @@
 alias vi="vim" # to get the good kind of vim
 alias em="emacsclient -nw"
 alias dot="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
-alias windot="/usr/bin/git --git-dir=/mnt/c/Users/thoma/dotfiles/ --work-tree=/mnt/c/Users/thoma"
+alias windot="/usr/bin/git --git-dir=/mnt/c/Users/thomas/dotfiles/ --work-tree=/mnt/c/Users/thomas"
 
 alias p="pijul"
 
@@ -37,8 +37,13 @@ alias std="standard --verbose | snazzy"
 alias py="python"
 
 # misc
-alias l="ls -lh"
-alias la="ls -lah"
+alias l="ls -l"
+alias la="ls -la"
+
+if type -q lsd
+    alias ls="lsd"
+end
+
 alias pd="pandoc"
 alias mellon="alohomora" # speak friend and enter
 alias tx="tmux"
