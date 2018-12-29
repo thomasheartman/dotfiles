@@ -1,10 +1,19 @@
 xkb_keymap {
-	xkb_keycodes  { include "evdev+aliases(qwerty)" };
-	xkb_types     { include "complete"	};
-	xkb_compat    { include "complete"	};
-	xkb_symbols   { include "pc+us(dvp)+inet(evdev)+capslock(ctrl_modifier)+ctrl(nocaps)+keypad(ops)+keypad(hex)+keypad(atm)+terminate(ctrl_alt_bksp)"
-  key.type = "ONE_LEVEL";
-  key <RTRN> { [ Control_R ] };
+
+	xkb_keycodes  {
+    include "evdev+aliases(qwerty)"
+    <RET> = 255;
   };
-	xkb_geometry  { include "pc(pc101)"	};
+
+	xkb_types     { include "complete"	};
+
+	xkb_compat    { include "complete"	};
+
+	xkb_symbols   {
+    include "pc+us(dvp)+ctrl(nocaps)+keypad(atm)"
+    key.type = "ONE_LEVEL";
+    key <RTRN> { [ Control_R ] };
+    key <RET> { [ Return ] };
+  };
+
 };
