@@ -1,5 +1,5 @@
 alias vi="vim" # to get the good kind of vim
-alias em="emacsclient -nw"
+alias emt="emacsclient -t"
 alias dot="git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias windot="/usr/bin/git --git-dir=/mnt/c/Users/thomas/dotfiles/ --work-tree=/mnt/c/Users/thomas"
 

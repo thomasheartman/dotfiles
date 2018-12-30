@@ -1,6 +1,6 @@
 source ~/.aliases/aliases.fish
 
-set -gx EDITOR "emacsclient -c"
+set -gx EDITOR "emacsclient -t"
 set -gx VISUAL $EDITOR
 
 # disable greeting
