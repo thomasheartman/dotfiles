@@ -6,6 +6,7 @@ xkb_keymap {
 	xkb_symbols   {
     include "pc+us(dvp)+ctrl(nocaps)+keypad(atm)"
     key <RTRN> { [ Control_R ] };
+    key <RCTL> { [ Hyper_R ] };
     key <I255> { [ Return ] };
   };
 
