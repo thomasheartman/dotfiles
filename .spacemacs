@@ -60,6 +60,7 @@ values."
       (org :variables org-want-todo-bindings
         t)
       version-control
+      nixos
       (semantic :disabled-for emacs-lisp))
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -167,6 +168,8 @@ values."
    dotspacemacs-themes
    '(atom-one-dark zerodark spacemacs-dark)
    dotspacemacs-mode-line-theme
+   ;; 'all-the-icons
+   ;; 'vanilla
    'all-the-icons
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state
@@ -174,10 +177,17 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font
-   '("Dank Mono" :size 18
-     :weight normal
-     :width normal
-     :powerline-scale 1.1)
+   '(
+      ("Hack" :size 28)
+      ("Dank Mono" :size 28
+        :weight normal
+        :width normal
+        :powerline-scale 1.1)
+      ("Fira Code" :size 38
+        :weight normal
+        :width normal
+        :powerline-scale 1.1)
+      )
    ;; The leader key
    dotspacemacs-leader-key
    "SPC"
@@ -443,179 +453,6 @@ you should place your code here."
         ;; rust-lang
         rust-format-on-save t)
 
-
-  (spacemacs/toggle-indent-guide-globally-on)
-
-
-  (defun on-after-init()
-    (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
-  (add-hook 'window-setup-hook 'on-after-init)
-
-  (when (string= system-type "darwin")
-    (setq dired-use-ls-dired nil))
-
-  (custom-set-faces
-    '(company-tooltip-common
-       ((t (:inherit company-tooltip :weight bold :underline nil))))
-    '(company-tooltip-common-selection
-       ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-  ;; smartparens
-  ;; dotspacemacs-smartparens-strict-mode t
-  (sp-local-pair 'reason-mode "'" nil :actions nil)
-  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-  ;; editorconfig
-  (editorconfig-mode t)
-  ;; js javascript
-  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
-                                                   '(javascript-jshint)))
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
-  (add-hook 'web-mode-hook 'eslintd-fix-mode)
-  ;; json
-  (setq-default js-indent-level 2)
-  (setq json-reformat:indent-width 2)
-  ;; web-mode
-  (setq web-mode-script-padding 0)
-  (setq web-mode-style-padding 0)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (add-to-list 'auto-mode-alist
-               '("\\.vue$" . web-mode))
-  (require 'web-mode)
-  (add-hook 'web-mode-hook #'turn-on-smartparens-mode
-            t)
-  ;; vue js
-  (require 'vue-mode)
-  (add-to-list 'vue-mode-hook #'smartparens-mode)
-  (require 'lsp-ui)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (require 'lsp-vue)
-  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  (with-eval-after-load 'lsp-ui
-    (require 'lsp-ui-flycheck))
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
-
-  ;;----------------------------------------------------------------------------
-  ;; C# / Omnisharp setup
-  ;;----------------------------------------------------------------------------
-  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
-  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "c r" 'recompile)
-
-  (eval-after-load
-    'company
-    '(add-to-list 'company-backends #'company-omnisharp))
-
-  (defun csharp-mode-setup ()
-    (omnisharp-mode)
-    (company-mode)
-    (flycheck-mode)
-
-    (electric-pair-local-mode 1))
-
-  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
-
-
-  ;;----------------------------------------------------------------------------
-  ;; Reason setup
-  ;;----------------------------------------------------------------------------
-  (defun shell-cmd (cmd)
-    "Returns the stdout output of a shell command or nil if the command returned
-    an error"
-    (car (ignore-errors (apply 'process-lines
-                               (split-string cmd)))))
-  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                        (shell-cmd "which refmt")))
-         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                         (shell-cmd "which ocamlmerlin")))
-         (merlin-base-dir (when merlin-bin
-                            (replace-regexp-in-string "bin/ocamlmerlin$"
-                                                      "" merlin-bin))))
-    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-    (when merlin-bin
-      (add-to-list 'load-path
-                   (concat merlin-base-dir "share/emacs/site-lisp/"))
-      (setq merlin-command merlin-bin))
-    (when refmt-bin
-      (setq refmt-command refmt-bin)))
-  (require 'reason-mode)
-  (require 'merlin)
-  (add-hook 'reason-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'refmt-before-save)
-              (merlin-mode)
-              (emmet-mode)
-              (linum-mode)))
-  (setq merlin-ac-setup t)
-
-  ;;----------------------------------------------------------------------------
-  ;; SCSS setup
-  ;;----------------------------------------------------------------------------
-  (defun scss-format ()
-    "Format scss file using sass-lint-auto-fix"
-    (interactive)
-    (shell-command (format "sass-lint-auto-fix %s" buffer-file-name)))
-
-  (add-hook 'scss-mode-hook
-    (lambda ()
-      (add-hook 'before-save-hook 'scss-format)))
-
-  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'scss-format)
-
-  ;;----------------------------------------------------------------------------
-  ;; Haskell setup
-  ;;----------------------------------------------------------------------------
-  ;; insert space after λ> in repl
-  (when (configuration-layer/package-usedp 'haskell)
-    (add-hook 'haskell-interactive-mode-hook
-              (lambda ()
-                (setq-local evil-move-cursor-back nil))))
-  ;; start repl in insert mode
-  (when (configuration-layer/package-usedp 'haskell)
-    (defadvice haskell-interactive-switch
-        (after spacemacs/haskell-interactive-switch-advice
-               activate)
-      (when (eq dotspacemacs-editing-style 'vim)
-        (call-interactively 'evil-insert))))
-
-  ;; make `=` available for formatting
-  (spacemacs/set-leader-keys-for-major-mode
-    'haskell-mode "=" 'hindent-reformat-buffer)
-  (setq hindent-reformat-buffer-on-save t)
-  (add-hook 'haskell-mode-hook 'hindent-mode)
-  ;; reset indentation after a blank line
-  (defun haskell-indentation-advice ()
-    (when (and (< 1 (line-number-at-pos))
-               (save-excursion
-                 (forward-line -1)
-                 (string= ""
-                          (s-trim (buffer-substring (line-beginning-position)
-                                                    (line-end-position))))))
-      (delete-region (line-beginning-position)
-                     (point))))
-  (advice-add 'haskell-indentation-newline-and-indent
-              :after 'haskell-indentation-advice)
-  (with-eval-after-load "haskell-mode"
-    ;; This changes the evil "O" and "o" keys for haskell-mode to make sure that
-    ;; indentation is done correctly. See
-    ;; https://github.com/haskell/haskell-mode/issues/1265#issuecomment-252492026.
-    (defun haskell-evil-open-above ()
-      (interactive)
-      (evil-digit-argument-or-evil-beginning-of-line)
-      (haskell-indentation-newline-and-indent)
-      (evil-previous-line)
-      (haskell-indentation-indent-line)
-      (evil-append-line nil))
-    (defun haskell-evil-open-below ()
-      (interactive)
-      (evil-append-line nil)
-      (haskell-indentation-newline-and-indent))
-    (evil-define-key 'normal haskell-mode-map
-      "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
-  ;; skewer mode
-  (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
   ;; lines
   (global-visual-line-mode t)
   ;; motions
@@ -712,6 +549,179 @@ If COUNT is given, move COUNT - 1 lines downward first."
     "\\" 'split-window-right-and-focus "gc" 'magit-commit
     "gd" 'magit-diff-popup "gp" 'magit-push "jt"
     'avy-goto-char-timer "o" 'helm-projectile-find-file)
+
+  (spacemacs/toggle-indent-guide-globally-on)
+
+
+  (defun on-after-init()
+    (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+  (add-hook 'window-setup-hook 'on-after-init)
+
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
+
+  (custom-set-faces
+    '(company-tooltip-common
+       ((t (:inherit company-tooltip :weight bold :underline nil))))
+    '(company-tooltip-common-selection
+       ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  ;; smartparens
+  ;; dotspacemacs-smartparens-strict-mode t
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  ;; editorconfig
+  (editorconfig-mode t)
+  ;; js javascript
+  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
+                                                   '(javascript-jshint)))
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  (add-hook 'web-mode-hook 'eslintd-fix-mode)
+  ;; json
+  (setq-default js-indent-level 2)
+  (setq json-reformat:indent-width 2)
+  ;; web-mode
+  (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (add-to-list 'auto-mode-alist
+               '("\\.vue$" . web-mode))
+  (require 'web-mode)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode
+            t)
+  ;; vue js
+  (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
+  (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (with-eval-after-load 'lsp-ui
+    (require 'lsp-ui-flycheck))
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
+
+  ;;----------------------------------------------------------------------------
+  ;; C# / Omnisharp setup
+  ;;----------------------------------------------------------------------------
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "c r" 'recompile)
+
+  (eval-after-load
+    'company
+    '(add-to-list 'company-backends #'company-omnisharp))
+
+  (defun csharp-mode-setup ()
+    (omnisharp-mode)
+    (company-mode)
+    (flycheck-mode)
+
+    (electric-pair-local-mode 1))
+
+  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
+
+
+  ;;----------------------------------------------------------------------------
+  ;; Reason setup
+  ;;----------------------------------------------------------------------------
+  (defun shell-cmd (cmd)
+    "Returns the stdout output of a shell command or nil if the command returned
+    an error"
+    (car (ignore-errors (apply 'process-lines
+                               (split-string cmd)))))
+  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
+                        (shell-cmd "which refmt")))
+         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
+                         (shell-cmd "which ocamlmerlin")))
+         (merlin-base-dir (when merlin-bin
+                            (replace-regexp-in-string "bin/ocamlmerlin$"
+                                                      "" merlin-bin))))
+    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
+    (when merlin-bin
+      (add-to-list 'load-path
+                   (concat merlin-base-dir "share/emacs/site-lisp/"))
+      (setq merlin-command merlin-bin))
+    (when refmt-bin
+      (setq refmt-command refmt-bin)))
+  (require 'reason-mode)
+  (require 'merlin)
+  (add-hook 'reason-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'refmt-before-save)
+              (merlin-mode)
+              (emmet-mode)
+              (linum-mode)))
+  (setq merlin-ac-setup t)
+  (sp-local-pair 'reason-mode "'" nil :actions nil)
+
+  ;;----------------------------------------------------------------------------
+  ;; SCSS setup
+  ;;----------------------------------------------------------------------------
+  (defun scss-format ()
+    "Format scss file using sass-lint-auto-fix"
+    (interactive)
+    (shell-command (format "sass-lint-auto-fix %s" buffer-file-name)))
+
+  (add-hook 'scss-mode-hook
+    (lambda ()
+      (add-hook 'before-save-hook 'scss-format)))
+
+  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'scss-format)
+
+  ;;----------------------------------------------------------------------------
+  ;; Haskell setup
+  ;;----------------------------------------------------------------------------
+  ;; insert space after λ> in repl
+  (when (configuration-layer/package-usedp 'haskell)
+    (add-hook 'haskell-interactive-mode-hook
+              (lambda ()
+                (setq-local evil-move-cursor-back nil))))
+  ;; start repl in insert mode
+  (when (configuration-layer/package-usedp 'haskell)
+    (defadvice haskell-interactive-switch
+        (after spacemacs/haskell-interactive-switch-advice
+               activate)
+      (when (eq dotspacemacs-editing-style 'vim)
+        (call-interactively 'evil-insert))))
+
+  ;; make `=` available for formatting
+  (spacemacs/set-leader-keys-for-major-mode
+    'haskell-mode "=" 'hindent-reformat-buffer)
+  (setq hindent-reformat-buffer-on-save t)
+  (add-hook 'haskell-mode-hook 'hindent-mode)
+  ;; reset indentation after a blank line
+  (defun haskell-indentation-advice ()
+    (when (and (< 1 (line-number-at-pos))
+               (save-excursion
+                 (forward-line -1)
+                 (string= ""
+                          (s-trim (buffer-substring (line-beginning-position)
+                                                    (line-end-position))))))
+      (delete-region (line-beginning-position)
+                     (point))))
+  (advice-add 'haskell-indentation-newline-and-indent
+              :after 'haskell-indentation-advice)
+  (with-eval-after-load "haskell-mode"
+    ;; This changes the evil "O" and "o" keys for haskell-mode to make sure that
+    ;; indentation is done correctly. See
+    ;; https://github.com/haskell/haskell-mode/issues/1265#issuecomment-252492026.
+    (defun haskell-evil-open-above ()
+      (interactive)
+      (evil-digit-argument-or-evil-beginning-of-line)
+      (haskell-indentation-newline-and-indent)
+      (evil-previous-line)
+      (haskell-indentation-indent-line)
+      (evil-append-line nil))
+    (defun haskell-evil-open-below ()
+      (interactive)
+      (evil-append-line nil)
+      (haskell-indentation-newline-and-indent))
+    (evil-define-key 'normal haskell-mode-map
+      "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
+  ;; skewer mode
+  (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
   ;; css mode
   (spacemacs/set-leader-keys-for-major-mode
     'css-mode "i" 'impatient-mode)
@@ -859,51 +869,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   ["#21252B" "#E06C75" "#98C379" "#E5C07B" "#61AFEF" "#C678DD" "#56B6C2" "#ABB2BF"])
- '(beacon-color "#cc6666")
- '(custom-safe-themes
-   (quote
-    ("adf5275cc3264f0a938d97ded007c82913906fc6cd64458eaae6853f6be287ce" default)))
  '(evil-want-Y-yank-to-eol t)
- '(fci-rule-color "#3E4451")
- '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
- '(frame-background-mode (quote dark))
  '(package-selected-packages
    (quote
-    (zerodark-theme yasnippet-snippets yapfify yaml-mode vue-mode edit-indirect ssass-mode vue-html-mode vimrc-mode utop tuareg caml tide typescript-mode symon string-inflection stickyfunc-enhance srefactor spaceline-all-the-icons powerline ranger pyvenv pytest pyenv-mode py-isort powershell pippel pipenv pip-requirements password-generator spinner overseer org-brain opencl-mode omnisharp shut-up ocp-indent nameless magit-svn lsp-vue lsp-ui lsp-rust live-py-mode json-navigator hierarchy intero insert-shebang importmagic epc ctable concurrent deferred impatient-mode hlint-refactor hindent parent-mode helm-xref helm-pydoc helm-purpose window-purpose imenu-list helm-hoogle haskell-snippets glsl-mode flycheck-ocaml merlin flycheck-haskell seq flycheck-bashate fish-mode evil-smartparens evil-org treepy graphql evil-lion iedit evil-goggles evil-cleverparens smartparens paredit anzu highlight eslintd-fix let-alist dante lcr dactyl-mode cython-mode cuda-mode csharp-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-shell company-lsp lsp-mode company-ghci company-ghc ghc haskell-mode flx company-cabal company-anaconda color-theme-sanityinc-tomorrow cmm-mode centered-cursor-mode browse-at-remote packed anaconda-mode pythonic f dash s ahk-mode helm avy helm-core popup hydra font-lock+ evil goto-chg undo-tree bind-map bind-key async zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
- '(tetris-x-colors
-   [[229 192 123]
-    [97 175 239]
-    [209 154 102]
-    [224 108 117]
-    [152 195 121]
-    [198 120 221]
-    [86 182 194]])
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#cc6666")
-     (40 . "#de935f")
-     (60 . "#f0c674")
-     (80 . "#b5bd68")
-     (100 . "#8abeb7")
-     (120 . "#81a2be")
-     (140 . "#b294bb")
-     (160 . "#cc6666")
-     (180 . "#de935f")
-     (200 . "#f0c674")
-     (220 . "#b5bd68")
-     (240 . "#8abeb7")
-     (260 . "#81a2be")
-     (280 . "#b294bb")
-     (300 . "#cc6666")
-     (320 . "#de935f")
-     (340 . "#f0c674")
-     (360 . "#b5bd68"))))
- '(vc-annotate-very-old-color nil))
+    (nix-mode helm-nixos-options company-nixos-options nixos-options zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
