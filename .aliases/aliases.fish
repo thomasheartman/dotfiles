@@ -6,6 +6,7 @@ alias windot="/usr/bin/git --git-dir=/mnt/c/Users/thomas/dotfiles/ --work-tree=/
 alias p="pijul"
 
 alias sc="systemctl"
+alias jc="journalctl"
 
 # git
 alias g="git"
