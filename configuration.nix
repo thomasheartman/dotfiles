@@ -1,4 +1,5 @@
 # Edit this configuration file to define what should be installed on
+
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -16,21 +17,37 @@ in
       ];
 
     # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.kernelParams = [
-      # "acpi_osi=!" "acpi_osi=\"Windows 2009\"" "nomodeset"
-      "acpi_rev_override" "nomodeset"
-    ];
+    boot = {
+      loader.systemd-boot.enable = true;
+      loader.efi.canTouchEfiVariables = true;
+      kernelParams = ["acpi_rev_override" "nomodeset"];
+      kernelPackages = pkgs.linuxPackages_latest;
+
+      blacklistedKernelModules = [
+        "nouveau"
+        "rivafb"
+        "nvidiafb"
+        "rivatv"
+        "nv"
+        "uvcvideo"
+      ];
+
+      extraModprobeConfig = ''
+        # handle NVIDIA optimus power management quirk
+        options bbswitch load_state=-1 unload_state=1
+      '';
+    };
 
     system.autoUpgrade.enable = true;
 
     # networking.hostName = "nixos"; # Define your hostname.
+
     networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    # networking.networkmanager.enable = true;
     networking.wireless.networks = {
         Hartnet = { psk = "0x12FD10B"; };
     };
+
+    # networking.networkmanager.enable = true;
     # Configure network proxy if necessary
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -58,23 +75,31 @@ in
       alacritty
       autorandr
       curl
+      dotnet-sdk
+      dotnetPackages.Nuget
       emacs
       fd
       firefox
       fish
       git
       ispell
+      ntfs3g
+      pandoc
       pciutils
       pijul
+      powertop
       ripgrep
       slack
       spotify
       tmux
       vim
+      thunderbolt
+      weechat
       wget
       xcape
       xorg.xev
       xorg.xkbcomp
+      xwayland
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -97,8 +122,26 @@ in
     # services.printing.enable = true;
 
     # Enable sound.
+
     sound.enable = true;
     hardware.pulseaudio.enable = true;
+
+    hardware.nvidia = {
+      modesetting.enable = true;
+      optimus_prime = {
+        enable = true;
+        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = "PCI:0:2:0";
+      };
+    };
+
+    # hardware.bumblebee = { enable = true; pmMethod = "none"; };
+    # hardware.bumblebee = { enable = true; group = "video"; connectDisplay = true; pmMethod = "none"; };
+
+    # hardware.nvidiaOptimus.disable = true;
+    # hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+    # hardware.opengl.extraPackages32 = [ pkgs.linuxPackages.nvidia_x11.lib32 ];
+    # hardware.opengl.driSupport32Bit = true;
 
     services.xserver = {
       enable = true;
@@ -108,18 +151,40 @@ in
       xkbVariant = "dvp";
       xkbOptions = "ctrl:nocaps";
       exportConfiguration = true;
+
+      # displayManager.gdm = {
+      #   enable = true;
+      #   autoLogin.enable = true;
+      #   autoLogin.user = "thomas";
+      # };
+
       displayManager.sddm = {
         enable = true;
         autoLogin.enable = true;
         autoLogin.user = "thomas";
       };
+
+      # desktopManager.xfce.enable = true;
+      # desktopManager.gnome3.enable = true;
+      # desktopManager.mate.enable = true;
+
       desktopManager.plasma5.enable = true;
 
+      # videoDrivers = [ "nvidiaBeta" ];
+      # videoDrivers = [ "intel" ];
+      # # videoDrivers = [ "nouveau" ];
+      # videoDrivers = [ "modesetting" ];
+      # videoDrivers = [ "nvidia" ];
 
-      displayManager.sessionCommands = ''
-        ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
-        systemctl --user restart xcape.service
-        '';
+      # displayManager.sessionCommands = ''
+      #   ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
+      #   systemctl --user restart xcape.service
+      #   '';
+
+      windowManager.exwm = {
+        enable = true;
+        # enableDefaultConfig = false;
+      };
 
       # windowManager.xmonad = {
       #   enable = true;
@@ -155,14 +220,14 @@ in
     services.emacs.enable = true;
     services.emacs.defaultEditor = true;
 
-    systemd.user.services.xcape = {
+    systemd.user.services.kb = {
       enable = true;
-      description = "xcape";
-      wantedBy = [ "graphical.target" ];
+      description = "keyboard: layout tweaks and xcape";
+      wantedBy = [ "default.target" "sleep.target" ];
+      conflicts = [ "sleep.target" ];
+      after = [ "sleep.target" ];
       preStart = ''
-        echo "About to set custom kb layout"
-        ${pkgs.xorg.xkbcomp}/bin/xkbcomp /home/thomas/layout.xkb $DISPLAY
-        echo "Successfully (?) set custom kb layout"
+        ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
       '';
       restartIfChanged = true;
       serviceConfig = {
