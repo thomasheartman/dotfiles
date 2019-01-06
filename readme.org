@@ -8,7 +8,7 @@
    For cloning the repo and setting it up on new machines, the author recommends the following command: ~git clone --bare <git-repo-url> $HOME/dotfiles~
    Check the article for a more in-depth explanation
 
-   It would be worth looking into whether --recurse-submodules works when cloning with `--bare`.
+   It would be worth looking into whether --recurse-submodules works when cloning with ~--bare~.
     Something like this should take care of it (though note that I have not tested it yet):
 
     #+begin_src sh
