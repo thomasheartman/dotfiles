@@ -32,36 +32,40 @@ values."
    '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-    '(shell-scripts
+    '(
+       (auto-completion (haskell :variables haskell-completion-backend 'intero auto-completion-enable-help-tooltip t))
        autohotkey
+       common-lisp
+       csharp
+       elm
+       emacs-lisp
+       emoji
+       (erc :variables erc-server-list '(("irc.freenode.net" :port "6697" :ssl t :nick "t-hart")))
+       git
+       gpu
+       (haskell :variables haskell-enable-hindent-style "johan-tibell")
+       helm
+       html
+       javascript
+       markdown
+       nixos
+       ocaml
+       (org :variables org-want-todo-bindings t)
+       pdf
+       python
+       (ranger :variables ranger-show-preview t)
+       reason
+       rust
+       (semantic :disabled-for emacs-lisp)
+       shell-scripts
        spell-checking
-      syntax-checking
-      (typescript :variables typescript-fmt-on-save t)
-      windows-scripts
-      vimscript
-      yaml
-      python
-      javascript
-      html
-      rust
-      common-lisp
-      elm
-      reason
-      ocaml
-      (haskell :variables haskell-enable-hindent-style "johan-tibell")
-      csharp
-      gpu
-      helm
-      (ranger :variables ranger-show-preview t)
-      (auto-completion (haskell :variables haskell-completion-backend 'intero auto-completion-enable-help-tooltip t))
-      emacs-lisp
-      git
-      markdown
-      (org :variables org-want-todo-bindings
-        t)
-      version-control
-      nixos
-      (semantic :disabled-for emacs-lisp))
+       syntax-checking
+       (typescript :variables typescript-fmt-on-save t)
+       version-control
+       vimscript
+       windows-scripts
+       yaml
+       )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
