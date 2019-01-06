@@ -554,8 +554,38 @@ If COUNT is given, move COUNT - 1 lines downward first."
     "gd" 'magit-diff-popup "gp" 'magit-push "jt"
     'avy-goto-char-timer "o" 'helm-projectile-find-file)
 
-  (spacemacs/toggle-indent-guide-globally-on)
+  (global-company-mode)
+  (with-eval-after-load 'company
+    (add-hook 'company-mode-hook
+              (lambda ()
+                (add-to-list 'company-backends 'company-capf)))
+    (company-flx-mode +1)
+    (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+    (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
+    (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous)
+    (define-key company-active-map (kbd "<return>") nil))
+  ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
+  ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
+  (with-eval-after-load 'helm
+    (dolist (keymap (list helm-find-files-map helm-read-file-map))
+      (define-key keymap (kbd "C-w") 'helm-find-files-up-one-level)
+      (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)))
+  ;; Make C-/ expand yasnippet if available, else go into company
+  ;; Must unbind undo tree first
+  (with-eval-after-load 'undo-tree
+    (define-key undo-tree-map (kbd "C-_") nil)
+    (define-key undo-tree-map (kbd "C-/") nil))
+  ;; (defun nir-yasnippet-expand-or-complete ()
+  ;;   (interactive)
+  ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
+  ;; Must bind in global map, else undo tree stops loading
+  (with-eval-after-load 'yasnippet
+    (define-key global-map (kbd "C-_") 'yas-expand)
+    (define-key global-map (kbd "C-/") 'yas-expand))
 
+  (spacemacs/toggle-indent-guide-globally-on)
 
   (defun on-after-init()
     (unless (display-graphic-p (selected-frame))
@@ -731,36 +761,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
     'css-mode "i" 'impatient-mode)
   ;;magit
   ;; (add-hook 'git-commit-mode-hook (lambda () (save-selected-window (magit-process))))
-  (global-company-mode)
-  (with-eval-after-load 'company
-    (add-hook 'company-mode-hook
-              (lambda ()
-                (add-to-list 'company-backends 'company-capf)))
-    (company-flx-mode +1)
-    (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-    (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
-    (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
-    (define-key company-active-map (kbd "C-n") 'company-select-next)
-    (define-key company-active-map (kbd "C-p") 'company-select-previous)
-    (define-key company-active-map (kbd "<return>") nil))
-  ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
-  ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
-  (with-eval-after-load 'helm
-    (dolist (keymap (list helm-find-files-map helm-read-file-map))
-      (define-key keymap (kbd "C-w") 'helm-find-files-up-one-level)
-      (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)))
-  ;; Make C-/ expand yasnippet if available, else go into company
-  ;; Must unbind undo tree first
-  (with-eval-after-load 'undo-tree
-    (define-key undo-tree-map (kbd "C-_") nil)
-    (define-key undo-tree-map (kbd "C-/") nil))
-  ;; (defun nir-yasnippet-expand-or-complete ()
-  ;;   (interactive)
-  ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
-  ;; Must bind in global map, else undo tree stops loading
-  (with-eval-after-load 'yasnippet
-    (define-key global-map (kbd "C-_") 'yas-expand)
-    (define-key global-map (kbd "C-/") 'yas-expand))
   ;; ligatures
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode)
@@ -876,7 +876,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol t)
  '(package-selected-packages
    (quote
-    (nix-mode helm-nixos-options company-nixos-options nixos-options zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (pdf-tools tablist erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emojify emoji-cheat-sheet-plus company-emoji zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
