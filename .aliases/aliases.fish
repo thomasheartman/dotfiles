@@ -8,6 +8,8 @@ alias p="pijul"
 
 alias sc="systemctl"
 alias jc="journalctl"
+alias sus="systemctl suspend"
+alias hib="systemctl hibernate"
 
 # git
 alias g="git"
