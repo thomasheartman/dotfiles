@@ -1055,16 +1055,7 @@
             ],
             "name": "Default profile",
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": {
-                        "key_code": "delete_or_backspace"
-                    },
-                    "to": {
-                        "key_code": "vk_none"
-                    }
-                }
-            ],
+            "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "country_code": 0
             }
