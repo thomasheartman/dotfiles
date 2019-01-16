@@ -6,10 +6,10 @@ set -gx VISUAL $EDITOR
 # disable greeting
 set fish_greeting
 
-if not cat /etc/os-release | grep ID=nixos > /dev/null
-  if not set -q fish_user_paths[1]
-    set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin
-  end
+if not begin test -e /etc/os-release; and cat /etc/os-release | grep ID=nixos > /dev/null; end
+    if not set -q fish_user_paths[1]
+        set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin
+    end
 end
 
 function fish_user_key_bindings
