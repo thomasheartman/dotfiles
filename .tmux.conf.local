@@ -330,7 +330,7 @@ set -g @resurrect-capture-pane-contents 'on'
 # set -g default-shell /usr/bin/fish
 
 # run resurrect manually
-# run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
 
 # create new session if none exists when run as 'tmux attach'
 new-session -n $HOST
