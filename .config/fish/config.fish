@@ -19,10 +19,5 @@ end
 
 set -g fish_key_bindings fish_user_key_bindings
 
-#nix
-if test -e ~/.nix-profile/etc/profile.d/nix.sh; and type -q bass
-    bass source ~/.nix-profile/etc/profile.d/nix.sh
-end
-
 # ssh
 setenv SSH_ENV $HOME/.ssh/environment
