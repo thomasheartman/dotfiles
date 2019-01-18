@@ -905,6 +905,14 @@
                             "to": {
                                 "key_code": "non_us_pound"
                             }
+                        },
+                        {
+                            "from": {
+                                "key_code": "backslash"
+                            },
+                            "to": {
+                                "key_code": "return_or_enter"
+                            }
                         }
                     ]
                 },
