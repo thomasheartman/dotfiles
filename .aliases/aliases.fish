@@ -19,10 +19,7 @@ alias push="git push"
 alias oush="git push"
 alias pull="git pull"
 alias gf="git fix"
-alias stash="git stash"
 alias merge="git merge --no-ff"
-alias update="git update"
-alias tag="git tag -a"
 
 #take all uncommitted and un-staged changes currently in the working directory and add them to the previous commit, amending it before pushing the change up
 alias caa="git commit -a --amend -C HEAD"
