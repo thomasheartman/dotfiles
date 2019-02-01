@@ -1,6 +1,11 @@
 source ~/.aliases/aliases.fish
 
-set -gx EDITOR "emacsclient -t"
+switch (uname)
+    case Darwin
+        set -gx EDITOR "vim"
+    case '*'
+        set -gx EDITOR "emacsclient -t"
+end
 set -gx VISUAL $EDITOR
 
 # disable greeting
