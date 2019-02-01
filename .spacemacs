@@ -53,6 +53,7 @@ values."
        ocaml
        (org :variables org-want-todo-bindings t)
        pdf
+       prettier
        python
        (ranger :variables ranger-show-preview t)
        reason
@@ -61,7 +62,7 @@ values."
        shell-scripts
        spell-checking
        syntax-checking
-       (typescript :variables typescript-fmt-on-save t)
+       (typescript :variables typescript-fmt-on-save t typescript-fmt-tool 'prettier)
        version-control
        vimscript
        windows-scripts
@@ -607,13 +608,38 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   ;; editorconfig
   (editorconfig-mode t)
-  ;; js javascript
+
+  ;;----------------------------------------------------------------------------
+  ;; C# / Omnisharp setup
+  ;;----------------------------------------------------------------------------
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
+  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "c r" 'recompile)
+
+  (eval-after-load
+    'company
+    '(add-to-list 'company-backends #'company-omnisharp))
+
+  (defun csharp-mode-setup ()
+    (omnisharp-mode)
+    (company-mode)
+    (flycheck-mode)
+
+    (electric-pair-local-mode 1))
+
+  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
+
+  ;;----------------------------------------------------------------------------
+  ;; JS setup
+  ;;----------------------------------------------------------------------------
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
                                                    '(javascript-jshint)))
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (add-hook 'web-mode-hook 'eslintd-fix-mode)
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-tsx-mode 'prettier-js-mode)
   ;; json
   (setq-default js-indent-level 2)
   (setq json-reformat:indent-width 2)
@@ -638,74 +664,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (require 'lsp-ui-flycheck))
   (require 'company-lsp)
   (push 'company-lsp company-backends)
-
-  ;;----------------------------------------------------------------------------
-  ;; C# / Omnisharp setup
-  ;;----------------------------------------------------------------------------
-  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "=" 'omnisharp-code-format-entire-file)
-  (spacemacs/set-leader-keys-for-major-mode 'csharp-mode "c r" 'recompile)
-
-  (eval-after-load
-    'company
-    '(add-to-list 'company-backends #'company-omnisharp))
-
-  (defun csharp-mode-setup ()
-    (omnisharp-mode)
-    (company-mode)
-    (flycheck-mode)
-
-    (electric-pair-local-mode 1))
-
-  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
-
-
-  ;;----------------------------------------------------------------------------
-  ;; Reason setup
-  ;;----------------------------------------------------------------------------
-  (defun shell-cmd (cmd)
-    "Returns the stdout output of a shell command or nil if the command returned
-    an error"
-    (car (ignore-errors (apply 'process-lines
-                               (split-string cmd)))))
-  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                        (shell-cmd "which refmt")))
-         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                         (shell-cmd "which ocamlmerlin")))
-         (merlin-base-dir (when merlin-bin
-                            (replace-regexp-in-string "bin/ocamlmerlin$"
-                                                      "" merlin-bin))))
-    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-    (when merlin-bin
-      (add-to-list 'load-path
-                   (concat merlin-base-dir "share/emacs/site-lisp/"))
-      (setq merlin-command merlin-bin))
-    (when refmt-bin
-      (setq refmt-command refmt-bin)))
-  (require 'reason-mode)
-  (require 'merlin)
-  (add-hook 'reason-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'refmt-before-save)
-              (merlin-mode)
-              (emmet-mode)
-              (linum-mode)))
-  (setq merlin-ac-setup t)
-  (sp-local-pair 'reason-mode "'" nil :actions nil)
-
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
   ;;----------------------------------------------------------------------------
-  (defun scss-format ()
-    "Format scss file using sass-lint-auto-fix"
-    (interactive)
-    (shell-command (format "sass-lint-auto-fix %s" buffer-file-name)))
-
-  (add-hook 'scss-mode-hook
-    (lambda ()
-      (add-hook 'before-save-hook 'scss-format)))
-
-  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'scss-format)
-
+  (add-to-list 'auto-mode-alist
+    '("\\.scss$" . scss-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'prettier-js)
+  (add-hook 'scss-mode 'prettier-js-mode)
   ;;----------------------------------------------------------------------------
   ;; Haskell setup
   ;;----------------------------------------------------------------------------
@@ -763,6 +728,40 @@ If COUNT is given, move COUNT - 1 lines downward first."
     'css-mode "i" 'impatient-mode)
   ;;magit
   ;; (add-hook 'git-commit-mode-hook (lambda () (save-selected-window (magit-process))))
+
+  ;;----------------------------------------------------------------------------
+  ;; Reason setup
+  ;;----------------------------------------------------------------------------
+  (defun shell-cmd (cmd)
+    "Returns the stdout output of a shell command or nil if the command returned
+    an error"
+    (car (ignore-errors (apply 'process-lines
+                               (split-string cmd)))))
+  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
+                        (shell-cmd "which refmt")))
+         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
+                         (shell-cmd "which ocamlmerlin")))
+         (merlin-base-dir (when merlin-bin
+                            (replace-regexp-in-string "bin/ocamlmerlin$"
+                                                      "" merlin-bin))))
+    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
+    (when merlin-bin
+      (add-to-list 'load-path
+                   (concat merlin-base-dir "share/emacs/site-lisp/"))
+      (setq merlin-command merlin-bin))
+    (when refmt-bin
+      (setq refmt-command refmt-bin)))
+  (require 'reason-mode)
+  (require 'merlin)
+  (add-hook 'reason-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'refmt-before-save)
+              (merlin-mode)
+              (emmet-mode)
+              (linum-mode)))
+  (setq merlin-ac-setup t)
+  (sp-local-pair 'reason-mode "'" nil :actions nil)
+
   ;; ligatures
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode)
