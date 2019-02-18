@@ -104,12 +104,6 @@ command LCD lcd %:p:h
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Temporary disabling of arrow keys
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
 " " Remapping for line wrapping
 " noremap  <buffer> <silent> k gk
 " noremap  <buffer> <silent> j gj
