@@ -630,10 +630,16 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'csharp-mode-hook 'csharp-mode-setup)
 
   ;;----------------------------------------------------------------------------
+  ;; SCSS setup
+  ;;----------------------------------------------------------------------------
+  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'prettier-js)
+  (add-hook 'scss-mode-hook 'prettier-js-mode)
+  (flycheck-add-mode 'scss-stylelint 'scss-mode)
+  ;;----------------------------------------------------------------------------
   ;; JS setup
   ;;----------------------------------------------------------------------------
-  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
-                                                   '(javascript-jshint)))
+  ;; (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
+  ;;                                                  '(javascript-jshint)))
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
@@ -641,14 +647,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'typescript-tsx-mode 'prettier-js-mode)
-  ;; json
-  (setq-default js-indent-level 2)
-  (setq json-reformat:indent-width 2)
+  (add-hook 'json-mode-hook 'prettier-js-mode)
   ;; web-mode
-  (setq web-mode-script-padding 0)
-  (setq web-mode-style-padding 0)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
+  (spacemacs/set-leader-keys-for-major-mode 'web-mode "=" 'prettier-js)
   (add-to-list 'auto-mode-alist
                '("\\.vue$" . web-mode))
   (require 'web-mode)
@@ -665,13 +666,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (require 'lsp-ui-flycheck))
   (require 'company-lsp)
   (push 'company-lsp company-backends)
-  ;;----------------------------------------------------------------------------
-  ;; SCSS setup
-  ;;----------------------------------------------------------------------------
-  (add-to-list 'auto-mode-alist
-    '("\\.scss$" . scss-mode))
-  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'prettier-js)
-  (add-hook 'scss-mode 'prettier-js-mode)
   ;;----------------------------------------------------------------------------
   ;; Haskell setup
   ;;----------------------------------------------------------------------------
