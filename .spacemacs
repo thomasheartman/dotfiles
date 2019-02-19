@@ -547,9 +547,10 @@ If COUNT is given, move COUNT - 1 lines downward first."
         (setq evil-this-type 'exclusive))))
   (spacemacs/set-leader-keys "," 'ace-delete-window
     "-" 'split-window-below-and-focus "." 'ace-window
-    "\\" 'split-window-right-and-focus "gc" 'magit-commit
-    "gd" 'magit-diff-popup "gp" 'magit-push "jt"
-    'avy-goto-char-timer "o" 'helm-projectile-find-file)
+    "\\" 'split-window-right-and-focus
+    "gc" 'magit-commit "gd" 'magit-diff-popup "gp" 'magit-push
+    "gBb" 'magit-checkout "gBc" 'magit-branch-and-checkout
+    "jt" 'avy-goto-char-timer "o" 'helm-projectile-find-file)
 
   (global-company-mode)
   (with-eval-after-load 'company
