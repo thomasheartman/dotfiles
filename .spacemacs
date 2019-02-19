@@ -37,6 +37,7 @@ values."
        autohotkey
        common-lisp
        csharp
+       docker
        elm
        emacs-lisp
        emoji
