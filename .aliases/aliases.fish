@@ -64,3 +64,7 @@ switch (uname)
 end
 
 alias refresh="source ~/.config/fish/config.fish"
+
+if type -q teensy-loader-cli
+    alias ezflash="sudo teensy-loader-cli --mcu=atmega32u4 -vw"
+end
