@@ -41,6 +41,7 @@ values."
        emacs-lisp
        emoji
        (erc :variables erc-server-list '(("irc.freenode.net" :port "6697" :ssl t :nick "t-hart")))
+       exwm
        git
        gpu
        (haskell :variables haskell-enable-hindent-style "johan-tibell")
