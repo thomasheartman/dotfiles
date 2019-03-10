@@ -632,40 +632,41 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
   ;;----------------------------------------------------------------------------
-  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'prettier-js)
   (add-hook 'scss-mode-hook 'prettier-js-mode)
-  (flycheck-add-mode 'scss-stylelint 'scss-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'scss-mode "=" 'prettier-js)
+  (add-hook 'json-mode-hook 'prettier-js-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'json-mode "=" 'prettier-js)
+  (spacemacs/set-leader-keys-for-major-mode 'web-mode "=" 'prettier-js)
+
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'scss-stylelint 'scss-mode)
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
   ;;----------------------------------------------------------------------------
   ;; JS setup
   ;;----------------------------------------------------------------------------
-  ;; (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
-  ;;                                                  '(javascript-jshint)))
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+  ;; (setq-default flycheck-disabled-checkers (append flycheck-disabled-javascript
+  ;;                                                  '(checkers-jshint)))
+
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (add-hook 'web-mode-hook 'eslintd-fix-mode)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'typescript-tsx-mode 'prettier-js-mode)
-  (add-hook 'json-mode-hook 'prettier-js-mode)
+  (add-hook 'markdown-mode-hook 'prettier-js-mode)
+
   ;; web-mode
-  (spacemacs/set-leader-keys-for-major-mode 'web-mode "=" 'prettier-js)
-  (add-to-list 'auto-mode-alist
-               '("\\.vue$" . web-mode))
-  (require 'web-mode)
-  (add-hook 'web-mode-hook #'turn-on-smartparens-mode
-            t)
-  ;; vue js
-  (require 'vue-mode)
-  (add-to-list 'vue-mode-hook #'smartparens-mode)
-  (require 'lsp-ui)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (require 'lsp-vue)
-  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (with-eval-after-load 'web-mode
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode t))
+
   (with-eval-after-load 'lsp-ui
-    (require 'lsp-ui-flycheck))
+    (require 'lsp-ui-flycheck)
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
   (require 'company-lsp)
   (push 'company-lsp company-backends)
+
   ;;----------------------------------------------------------------------------
   ;; Haskell setup
   ;;----------------------------------------------------------------------------
@@ -716,13 +717,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (haskell-indentation-newline-and-indent))
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
-  ;; skewer mode
-  (add-hook 'css-mode-hook 'skewer-reload-stylesheets-start-editing)
-  ;; css mode
-  (spacemacs/set-leader-keys-for-major-mode
-    'css-mode "i" 'impatient-mode)
-  ;;magit
-  ;; (add-hook 'git-commit-mode-hook (lambda () (save-selected-window (magit-process))))
 
   ;;----------------------------------------------------------------------------
   ;; Reason setup
