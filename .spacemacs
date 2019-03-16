@@ -696,7 +696,37 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   ;; editorconfig
   (editorconfig-mode t)
-
+  ;;----------------------------------------------------------------------------
+  ;; JS
+  ;;----------------------------------------------------------------------------
+  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
+                                                   '(javascript-jshint)))
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  (add-hook 'web-mode-hook 'eslintd-fix-mode)
+  ;; json
+  (setq-default js-indent-level 2)
+  (setq json-reformat:indent-width 2)
+  ;; web-mode
+  (setq web-mode-script-padding 0)
+  (setq web-mode-style-padding 0)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (require 'web-mode)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode
+            t)
+  ;; vue js
+  (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
+  (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (with-eval-after-load 'lsp-ui
+    (require 'lsp-ui-flycheck))
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
   ;;----------------------------------------------------------------------------
