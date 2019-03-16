@@ -663,11 +663,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
        ((t (:inherit company-tooltip :weight bold :underline nil))))
     '(company-tooltip-common-selection
        ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-  ;; smartparens
-  ;; dotspacemacs-smartparens-strict-mode t
-  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-  ;; editorconfig
-  (editorconfig-mode t)
 
   ;;----------------------------------------------------------------------------
   ;; C# / Omnisharp setup
@@ -692,6 +687,15 @@ If COUNT is given, move COUNT - 1 lines downward first."
       ('csharp-mode-setup)))
 
   (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
+
+  (add-to-list 'auto-mode-alist
+    '("\\.cshtml$" . web-mode))
+
+  ;; smartparens
+  ;; dotspacemacs-smartparens-strict-mode t
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  ;; editorconfig
+  (editorconfig-mode t)
 
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
