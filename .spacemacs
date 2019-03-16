@@ -51,13 +51,9 @@ values."
        (javascript :variables node-add-modules-path t)
        markdown
        nixos
-<<<<<<< HEAD
-       (org :variables org-want-todo-bindings t)
-=======
        ocaml
        (org :variables org-want-todo-bindings t org-enable-reveal-js-support nil)
        parinfer
->>>>>>> bbc9234... Adds mixed pitch, parinfer, org-reveal
        pdf
        prettier
        python
