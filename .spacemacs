@@ -48,7 +48,7 @@ values."
        (haskell :variables haskell-enable-hindent-style "johan-tibell")
        helm
        html
-       javascript
+       (javascript :variables node-add-modules-path t)
        markdown
        nixos
        ocaml
