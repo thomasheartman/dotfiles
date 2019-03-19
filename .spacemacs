@@ -51,13 +51,11 @@ values."
        (javascript :variables node-add-modules-path t)
        markdown
        nixos
-       ocaml
        (org :variables org-want-todo-bindings t)
        pdf
        prettier
        python
        (ranger :variables ranger-show-preview t)
-       reason
        rust
        (semantic :disabled-for emacs-lisp)
        shell-scripts
@@ -601,6 +599,43 @@ If COUNT is given, move COUNT - 1 lines downward first."
     ;; windows specific setup
     (setq projectile-git-submodule-command nil))
 
+  (unless (string= system-type "windows-nt")
+    ;; do this unless we're on windows
+
+  ;;----------------------------------------------------------------------------
+  ;; Reason setup
+  ;;----------------------------------------------------------------------------
+  (defun shell-cmd (cmd)
+    "Returns the stdout output of a shell command or nil if the command returned
+    an error"
+    (car (ignore-errors (apply 'process-lines
+                               (split-string cmd)))))
+  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
+                        (shell-cmd "which refmt")))
+         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
+                         (shell-cmd "which ocamlmerlin")))
+         (merlin-base-dir (when merlin-bin
+                            (replace-regexp-in-string "bin/ocamlmerlin$"
+                                                      "" merlin-bin))))
+    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
+    (when merlin-bin
+      (add-to-list 'load-path
+                   (concat merlin-base-dir "share/emacs/site-lisp/"))
+      (setq merlin-command merlin-bin))
+    (when refmt-bin
+      (setq refmt-command refmt-bin)))
+  (require 'reason-mode)
+  (require 'merlin)
+  (add-hook 'reason-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'refmt-before-save)
+              (merlin-mode)
+              (emmet-mode)
+              (linum-mode)))
+  (setq merlin-ac-setup t)
+  (sp-local-pair 'reason-mode "'" nil :actions nil)
+    )
+
   (when (string= system-type "gnu/linux")
     ;; linux specific setup
     ())
@@ -725,38 +760,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
 
-  ;;----------------------------------------------------------------------------
-  ;; Reason setup
-  ;;----------------------------------------------------------------------------
-  (defun shell-cmd (cmd)
-    "Returns the stdout output of a shell command or nil if the command returned
-    an error"
-    (car (ignore-errors (apply 'process-lines
-                               (split-string cmd)))))
-  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                        (shell-cmd "which refmt")))
-         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                         (shell-cmd "which ocamlmerlin")))
-         (merlin-base-dir (when merlin-bin
-                            (replace-regexp-in-string "bin/ocamlmerlin$"
-                                                      "" merlin-bin))))
-    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-    (when merlin-bin
-      (add-to-list 'load-path
-                   (concat merlin-base-dir "share/emacs/site-lisp/"))
-      (setq merlin-command merlin-bin))
-    (when refmt-bin
-      (setq refmt-command refmt-bin)))
-  (require 'reason-mode)
-  (require 'merlin)
-  (add-hook 'reason-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'refmt-before-save)
-              (merlin-mode)
-              (emmet-mode)
-              (linum-mode)))
-  (setq merlin-ac-setup t)
-  (sp-local-pair 'reason-mode "'" nil :actions nil)
 
   ;; ligatures
   (if (fboundp 'mac-auto-operator-composition-mode)
