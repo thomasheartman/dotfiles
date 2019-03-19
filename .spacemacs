@@ -184,12 +184,9 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font
    '(
+      ("Input" :size 28)
       ("Hack" :size 28)
       ("Dank Mono" :size 28
-        :weight normal
-        :width normal
-        :powerline-scale 1.1)
-      ("Fira Code" :size 38
         :weight normal
         :width normal
         :powerline-scale 1.1)
@@ -597,7 +594,17 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'window-setup-hook 'on-after-init)
 
   (when (string= system-type "darwin")
+    ;; mac specific setup
     (setq dired-use-ls-dired nil))
+
+  (when (string= system-type "windows-nt")
+    ;; windows specific setup
+    (setq projectile-git-submodule-command nil))
+
+  (when (string= system-type "gnu/linux")
+    ;; linux specific setup
+    ())
+
 
   (custom-set-faces
     '(company-tooltip-common
