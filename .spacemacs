@@ -669,7 +669,12 @@ If COUNT is given, move COUNT - 1 lines downward first."
 
     (electric-pair-local-mode 1))
 
-  (add-hook 'csharp-mode-hook 'csharp-mode-setup)
+  (add-hook 'csharp-mode-hook
+    (lambda ()
+      (add-hook 'before-save-hook 'omnisharp-code-format-entire-file)
+      ('csharp-mode-setup)))
+
+  (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
 
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
