@@ -3,6 +3,7 @@
 	autocrlf = input
   preloadindex = true
 	filemode = false
+	ignorecase = false
 
 [push]
   default = upstream
