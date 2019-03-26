@@ -1089,7 +1089,39 @@
                     "basic.to_if_alone_timeout_milliseconds": 1000,
                     "basic.to_if_held_down_threshold_milliseconds": 500
                 },
-                "rules": []
+                "rules": [
+                    {
+                        "description": "ctrl+backspace to alt+backspace",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs",
+                                            "^io\\.alacritty",
+                                            "^com\\.apple\\.Terminal",
+                                            "^com\\.googlecode\\.iterm2"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": "control"
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": "option"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
             },
             "devices": [
                 {
@@ -1242,30 +1274,6 @@
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "country_code": 0
-            },
-            "complex_modifications": {
-                "rules": [
-                    {
-                        "description": "ctrl+backspace to alt+backspace",
-                        "manipulators": [
-                            {
-                                "from": {
-                                  "key_code": "delete_or_backspace",
-                                  "modifiers": {
-                                        "mandatory": "control"
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": "option"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    }
-                ]
             }
         }
     ]
