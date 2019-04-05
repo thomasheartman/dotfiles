@@ -18,8 +18,8 @@ if not begin test -e /etc/os-release; and cat /etc/os-release | grep ID=nixos > 
 end
 
 function fish_user_key_bindings
-  fish_vi_key_bindings
-  bind -M insert \cN accept-autosuggestion
+  fish_default_key_bindings
+  bind \cN accept-autosuggestion
 end
 
 set -g fish_key_bindings fish_user_key_bindings
