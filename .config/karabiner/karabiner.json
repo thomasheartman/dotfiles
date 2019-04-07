@@ -1097,10 +1097,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs",
-                                            "^io\\.alacritty",
-                                            "^com\\.apple\\.Terminal",
-                                            "^com\\.googlecode\\.iterm2"
+                                            "^org\\.gnu\\.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -1114,6 +1111,37 @@
                                 "to": [
                                     {
                                         "key_code": "delete_or_backspace",
+                                        "modifiers": "option"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ctrl+del to alt+del",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs",
+                                            "^io\\.alacritty",
+                                            "^com\\.apple\\.Terminal",
+                                            "^com\\.googlecode\\.iterm2"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_forward",
+                                    "modifiers": {
+                                        "mandatory": "control"
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_forward",
                                         "modifiers": "option"
                                     }
                                 ],
