@@ -485,14 +485,14 @@ you should place your code here."
   (spacemacs/toggle-camel-case-motion-globally-on)
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
-  (global-set-key (kbd "C-h")
-    'backward-delete-char-untabify)
+  ;; (global-set-key (kbd "C-h")
+  ;;   'backward-delete-char-untabify)
   (evil-define-key 'normal
     global-map
     (kbd "gs")
     'transpose-chars)
   (with-eval-after-load 'helm-buffers
-    (define-key helm-buffer-map (kbd "C-h") #'backward-delete-char-untabify)
+    ;; (define-key helm-buffer-map (kbd "C-h") #'backward-delete-char-untabify)
     (define-key helm-buffer-map (kbd "C-d") #'helm-buffer-run-kill-buffers))
   ;; evil
   ;; text objects
@@ -581,21 +581,23 @@ If COUNT is given, move COUNT - 1 lines downward first."
         (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1)
     (setq company-emoji-insert-unicode t)
-    (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-    (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
+    ;; (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+    ;; (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
     (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous)
     (define-key company-active-map (kbd "<return>") nil))
   ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
   ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
-  (with-eval-after-load 'helm
-    (dolist (keymap (list helm-find-files-map helm-read-file-map))
-      (define-key keymap (kbd "C-w") 'helm-find-files-up-one-level)
-      (define-key helm-map (kbd "C-h") nil)
-      (define-key helm-map (kbd "C-h") 'helm-ff-delete-char-backward)
-      (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-      (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)))
+
+  ;; (with-eval-after-load 'helm
+  ;;   (dolist (keymap (list helm-find-files-map helm-read-file-map))
+  ;;     (define-key keymap (kbd "C-w") 'helm-find-files-up-one-level)
+  ;;     (define-key helm-map (kbd "C-h") nil)
+  ;;     (define-key helm-map (kbd "C-h") 'helm-ff-delete-char-backward)
+  ;;     (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+  ;;     (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)))
+
   ;; Make C-/ expand yasnippet if available, else go into company
   ;; Must unbind undo tree first
   (with-eval-after-load 'undo-tree
