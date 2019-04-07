@@ -587,6 +587,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     "\\" 'split-window-right-and-focus "gc" 'magit-commit
     "gd" 'magit-diff-popup "gp" 'magit-push "gBb"
     'magit-checkout "gBc" 'magit-branch-and-checkout
+    "gR" 'magit-file-checkout
     "jt" 'avy-goto-char-timer "o" 'helm-projectile-find-file)
   (global-company-mode)
   (with-eval-after-load 'company
