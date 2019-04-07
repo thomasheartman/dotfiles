@@ -538,7 +538,15 @@ you should place your code here."
     'evil-next-visual-line)
   (evil-define-key '(normal visual)
     global-map
+    (kbd "<down>")
+    'evil-next-visual-line)
+  (evil-define-key '(normal visual)
+    global-map
     (kbd "k")
+    'evil-previous-visual-line)
+  (evil-define-key '(normal visual)
+    global-map
+    (kbd "<up>")
     'evil-previous-visual-line)
   (evil-define-key '(normal visual)
     global-map
