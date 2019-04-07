@@ -491,6 +491,12 @@ you should place your code here."
     global-map
     (kbd "gs")
     'transpose-chars)
+  ;; Let M-up and -down move the current line linewise
+  (define-key global-map (kbd "M-<up>") 'move-line-up)
+  (define-key global-map (kbd "M-<down>") 'move-line-down)
+  ;; Let M-up and -down move selections linewise
+  (define-key evil-visual-state-map (kbd "M-<down>") (concat ":m '>+1" (kbd "RET") "gv=gv"))
+  (define-key evil-visual-state-map (kbd "M-<up>") (concat ":m '<-2" (kbd "RET") "gv=gv"))
   (with-eval-after-load 'helm-buffers
     ;; (define-key helm-buffer-map (kbd "C-h") #'backward-delete-char-untabify)
     (define-key helm-buffer-map (kbd "C-d") #'helm-buffer-run-kill-buffers))
@@ -673,8 +679,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (forward-line 1)
       (transpose-lines 1)
       (forward-line -1)))
-  (define-key global-map (kbd "M-<up>") 'move-line-up)
-  (define-key global-map (kbd "M-<down>") 'move-line-down)
   (when (string= system-type "darwin")
     ;; mac specific setup
     (setq dired-use-ls-dired nil)
