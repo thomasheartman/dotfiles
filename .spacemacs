@@ -684,8 +684,10 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (when (string= system-type "windows-nt")
     ;; windows specific setup
     (setq projectile-git-submodule-command nil))
-  (unless (string= system-type "windows-nt")
-    ;; do this unless we're on windows
+
+
+  (unless (or (string= system-type "windows-nt") (string= system-type "darwin"))
+    ;; do this unless we're on windows or mac
 
     ;;----------------------------------------------------------------------------
     ;; Reason setup
@@ -718,7 +720,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
         (emmet-mode)
         (linum-mode)))
     (setq merlin-ac-setup t)
-    (sp-local-pair 'reason-mode "'" nil :actions nil))
+    (sp-local-pair 'reason-mode "'" nil :actions nil)
+    )
 
   (when (string= system-type "gnu/linux")
     ;; linux specific setup
