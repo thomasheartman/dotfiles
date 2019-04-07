@@ -224,7 +224,7 @@ values."
     ;; If non-nil, J and K move lines up and down when in visual mode.
     ;; (default nil)
     dotspacemacs-visual-line-move-text
-    nil
+    t
     ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
     ;; (default nil)
     dotspacemacs-ex-substitute-global
