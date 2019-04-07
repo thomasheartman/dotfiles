@@ -50,6 +50,8 @@ values."
        html
        (javascript :variables node-add-modules-path
          t)
+       (latex :variables latex-enable-folding
+         t)
        markdown
        nixos
        (org :variables org-want-todo-bindings
@@ -613,7 +615,31 @@ If COUNT is given, move COUNT - 1 lines downward first."
     :hook
     ;; for use in all text modes
     (text-mode . mixed-pitch-mode))
-  (defun on-after-init ()
+
+
+  ;;----------------------------------------------------------------------------
+  ;; LaTeX setup
+  ;;----------------------------------------------------------------------------
+
+  ;; disable automatic hard wrapping of lines
+  (add-hook 'TeX-mode-hook (spacemacs/toggle-auto-fill-mode-off))
+
+  ;; make , i i not cut off the last letter of a list item when inserting a new one.
+  (defun spacemacs/latex-insert-item ()
+    (interactive "*")
+    (if (evil-normal-state-p)
+      (progn (evil-open-below 1)
+        (beginning-of-line)
+        (call-interactively 'LaTeX-insert-item))
+      (call-interactively 'LaTeX-insert-item)))
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode
+    "i" 'spacemacs/latex-insert-item)
+
+  ;;----------------------------------------------------------------------------
+  ;; end LaTeX setup
+  ;;----------------------------------------------------------------------------
+
+  (defun on-after-init()
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default
         "unspecified-bg"
@@ -640,7 +666,10 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (define-key global-map (kbd "M-<down>") 'move-line-down)
   (when (string= system-type "darwin")
     ;; mac specific setup
-    (setq dired-use-ls-dired nil))
+    (setq dired-use-ls-dired nil)
+    (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+    )
+
   (when (string= system-type "windows-nt")
     ;; windows specific setup
     (setq projectile-git-submodule-command nil))
