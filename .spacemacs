@@ -558,7 +558,7 @@ you should place your code here."
     'evil-inner-buffer)
   (define-key evil-normal-state-map (kbd "RET") 'spacemacs/evil-insert-line-below)
   (define-key evil-normal-state-map (kbd "<S-return>") 'spacemacs/evil-insert-line-above)
-  (setq case-fold-search nil)
+  (setq case-fold-search t)
   (setq evil-v$-gets-eol nil)
   ;; stop `v$' from selecting newlines
   (evil-define-motion evil-end-of-line
