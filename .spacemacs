@@ -544,9 +544,8 @@ you should place your code here."
       (when (= orig-point (point))
         (move-beginning-of-line 1))))
 
-  (define-key global-map (kbd "C-^") 'smarter-move-beginning-of-line)
-  (define-key global-map (kbd "C-$") 'move-end-of-line)
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+  (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
 
   (evil-leader/set-key "/" 'spacemacs/helm-project-do-ag)
   (evil-define-key 'visual evil-surround-mode-map
