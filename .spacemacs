@@ -483,6 +483,10 @@ you should place your code here."
   (global-visual-line-mode t)
   ;; motions
   (spacemacs/toggle-camel-case-motion-globally-on)
+  (with-eval-after-load 'nix-mode
+    (setq nix-indent-function #'nix-indent-line))
+  (global-set-key (kbd "<backtab>") 'evil-shift-left-line)
+  (global-set-key (kbd "<tab>") 'evil-shift-right-line)
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
   ;; (global-set-key (kbd "C-h")
