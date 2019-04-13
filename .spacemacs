@@ -646,6 +646,11 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (with-eval-after-load 'undo-tree
     (define-key undo-tree-map (kbd "C-_") nil)
     (define-key undo-tree-map (kbd "C-/") nil))
+  (defun insert-iso-timestamp ()
+    (interactive)
+    (universal-argument)
+    (insert (format-time-string "%FT%T%:z")))
+  (spacemacs/set-leader-keys "id" 'insert-iso-timestamp)
   ;; (defun nir-yasnippet-expand-or-complete ()
   ;;   (interactive)
   ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
