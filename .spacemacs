@@ -794,15 +794,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
     'csharp-mode "c r" 'recompile)
   (eval-after-load 'company
     '(add-to-list 'company-backends #'company-omnisharp))
-  (defun csharp-mode-setup ()
-    (omnisharp-mode)
-    (company-mode)
-    (flycheck-mode)
-    (electric-pair-local-mode 1))
   (add-hook 'csharp-mode-hook
     (lambda ()
       (add-hook 'before-save-hook 'omnisharp-code-format-entire-file)
-      ('csharp-mode-setup)))
+      (omnisharp-mode)
+      (company-mode)
+      (flycheck-mode)
+      (electric-pair-local-mode 1)))
   (add-to-list 'auto-mode-alist
     '("\\.cshtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist
