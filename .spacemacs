@@ -555,6 +555,8 @@ you should place your code here."
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
 
+  (evil-define-key '(hybrid insert) global-map (kbd "C-@") 'undo-tree-undo)
+
   (evil-leader/set-key "/" 'spacemacs/helm-project-do-rg)
   (evil-define-key 'visual evil-surround-mode-map
     "S" 'evil-surround-region)
@@ -652,7 +654,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; Make C-/ expand yasnippet if available, else go into company
   ;; Must unbind undo tree first
   (with-eval-after-load 'undo-tree
-    (define-key undo-tree-map (kbd "C-_") nil)
     (define-key undo-tree-map (kbd "C-/") nil))
   (defun insert-date ()
     (interactive)
@@ -667,7 +668,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
   ;; Must bind in global map, else undo tree stops loading
   (with-eval-after-load 'yasnippet
-    (define-key global-map (kbd "C-_") 'yas-expand)
     (define-key global-map (kbd "C-/") 'yas-expand))
   (spacemacs/toggle-indent-guide-globally-on)
   (use-package org-re-reveal :after org)
