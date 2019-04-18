@@ -493,6 +493,9 @@ you should place your code here."
   (evil-define-key 'hybrid global-map (kbd "C-o") 'evil-open-below)
   (evil-define-key 'hybrid global-map (kbd "M-o") 'evil-open-above)
 
+  ;; elfeed
+  (setq-default elfeed-search-filter "@2-weeks-ago +unread")
+
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
   ;; (global-set-key (kbd "C-h")
