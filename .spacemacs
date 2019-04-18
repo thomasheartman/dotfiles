@@ -31,7 +31,8 @@ values."
     ;; List of configuration layers to load.
     dotspacemacs-configuration-layers
     '((auto-completion (haskell :variables haskell-completion-backend'intero
-                         auto-completion-enable-help-tooltip t)) autohotkey
+                         auto-completion-enable-help-tooltip t))
+       autohotkey
        common-lisp
        csharp
        docker
