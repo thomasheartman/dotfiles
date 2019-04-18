@@ -1,4 +1,6 @@
 /*
+Grabbed from here: https://gist.github.com/lheckemann/402e61e8e53f136f239ecd8c17ab1deb
+
 Save this file to ~/default.nix or your preferred path (make sure to
 change the location in the update-profile script if you choose a
 different place).
@@ -17,6 +19,7 @@ buildEnv {
         dotnet-sdk
         dotnetPackages.Nuget
         emacs
+
         firefox
         haskellPackages.apply-refact
         haskellPackages.hlint
