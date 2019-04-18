@@ -1,9 +1,15 @@
-* Comics                                                             :comics:
-** [[https://xkcd.com/rss.xml][XKCD]]
-** [[https://www.smbc-comics.com/comic/rss][SMBC]]
-** [[http://www.commitstrip.com/en/feed/][Commit Strip]]
-** [[https://www.monkeyuser.com/feed.xml][Monkey User]]
-** [[Scandinavia and the World][http://feeds.feedburner.com/satwcomic]]
-** [[http://feeds.feedburner.com/oatmealfeed][The oatmeal]]
-** [[http://www.awkwardzombie.com/awkward.php][Awkward Zombie]]
-** [[http://www.giantitp.com/comics/oots.rss][Order of the Stick]]
+* Feed                                                               :elfeed:
+  The top level of the tree must be tagget with ~elfeed~ to be recognised by elfeed.
+** Comics                                                            :comics:
+*** [[https://xkcd.com/rss.xml][XKCD]]
+*** [[https://www.smbc-comics.com/comic/rss][SMBC]]
+*** [[http://www.commitstrip.com/en/feed/][Commit Strip]]
+*** [[https://www.monkeyuser.com/feed.xml][Monkey User]]
+*** [[http://feeds.feedburner.com/satwcomic][Scandinavia and the World]]
+*** [[http://feeds.feedburner.com/oatmealfeed][The oatmeal]]
+*** [[http://www.awkwardzombie.com/awkward.php][Awkward Zombie]]
+*** [[http://www.giantitp.com/comics/oots.rss][Order of the Stick]]
+** Blogs                                                                :dev:
+*** https://hydraz.semi.works/feed.xml
+*** http://yannesposito.com/Scratch/en/blog/feed/feed.xml
+*** https://dpwright.com/atom.xml
