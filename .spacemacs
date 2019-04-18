@@ -36,6 +36,7 @@ values."
        common-lisp
        csharp
        docker
+       (elfeed :variables rmh-elfeed-org-files (list "~/feeds.org"))
        elm
        emacs-lisp
        emoji
