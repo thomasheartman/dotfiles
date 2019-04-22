@@ -801,17 +801,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (require 'web-mode)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode
     t)
-  ;; vue js
-  (require 'vue-mode)
-  (add-to-list 'vue-mode-hook #'smartparens-mode)
-  (require 'lsp-ui)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (require 'lsp-vue)
-  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
-  (with-eval-after-load 'lsp-ui
-    (require 'lsp-ui-flycheck))
-  (require 'company-lsp)
-  (push 'company-lsp company-backends)
+
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
   ;;----------------------------------------------------------------------------
