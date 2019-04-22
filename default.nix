@@ -15,11 +15,11 @@ buildEnv {
   paths = with xfce; [
         alacritty
         cargo
+        direnv
         docker
         dotnet-sdk
         dotnetPackages.Nuget
         emacs
-
         firefox
         haskellPackages.apply-refact
         haskellPackages.hlint
