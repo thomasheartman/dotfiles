@@ -30,7 +30,7 @@ values."
     '()
     ;; List of configuration layers to load.
     dotspacemacs-configuration-layers
-    '((auto-completion (haskell :variables haskell-completion-backend'intero
+    '((auto-completion (haskell :variables haskell-completion-backend 'intero
                          auto-completion-enable-help-tooltip t))
        autohotkey
        common-lisp
@@ -532,7 +532,6 @@ you should place your code here."
   ;; create "il"/"al" (inside/around) line text objects:
   (define-and-bind-text-object "l" "^\\s-*"
     "\\s-*$")
-
 
   (defun smarter-move-beginning-of-line (arg)
     "Move point back to indentation of beginning of line.
