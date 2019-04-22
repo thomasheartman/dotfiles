@@ -13,17 +13,24 @@
 *** https://hydraz.semi.works/feed.xml
 *** http://yannesposito.com/Scratch/en/blog/feed/feed.xml
 *** https://dpwright.com/atom.xml
-** Rust                                                            :dev:rust:
-*** https://blog.rust-lang.org/feed.xml
-*** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]
-*** https://this-week-in-rust.org/rss.xml
-*** http://feeds.feedburner.com/steveklabnik/words
-** Haskell                                           :dev:haskell:functional:
-*** https://planet.haskell.org/rss20.xml
-*** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]
-*** https://www.fpcomplete.com/blog/rss.xml
-*** https://haskellweekly.news/haskell-weekly.atom?format=xml
-*** http://haskellnews.org/feed
-*** https://mmhaskell.com/blog?format=RSS
-*** http://neilmitchell.blogspot.com/feeds/posts/default
-*** https://lexi-lambda.github.io/feeds/all.rss.xml
+*** https://bodil.lol/rss.xml                                          :rust:
+*** https://hacks.mozilla.org/feed/
+*** https://www.sam.today/atom.xml/                                     :nix:
+*** Web / design                                                        :web:
+**** https://css-tricks.com/feed/
+**** https://accssible.com/atom.xml
+**** https://www.scottohara.me/feed.xml
+*** Rust                                                           :dev:rust:
+**** https://blog.rust-lang.org/feed.xml
+**** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                     :reddit:
+**** https://this-week-in-rust.org/rss.xml
+**** http://feeds.feedburner.com/steveklabnik/words
+*** Haskell                                          :dev:haskell:functional:
+**** https://planet.haskell.org/rss20.xml
+**** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]                                                  :reddit:
+**** https://www.fpcomplete.com/blog/rss.xml
+**** https://haskellweekly.news/haskell-weekly.atom?format=xml
+**** http://haskellnews.org/feed
+**** https://mmhaskell.com/blog?format=RSS
+**** http://neilmitchell.blogspot.com/feeds/posts/default
+**** https://lexi-lambda.github.io/feeds/all.rss.xml
