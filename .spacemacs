@@ -84,7 +84,7 @@ values."
     dotspacemacs-additional-packages
     '(all-the-icons atom-one-dark-theme color-theme-sanityinc-tomorrow
        company-flx company-lsp editorconfig eslintd-fix
-       evil-smartparens gitter js-format lsp-rust
+       evil-smartparens (direnv :config (direnv-mode)) js-format lsp-rust
        lsp-ui lsp-vue mixed-pitch org-re-reveal p4 structured-haskell-mode
        vue-mode zerodark-theme)
     ;; A list of packages that cannot be updated.
