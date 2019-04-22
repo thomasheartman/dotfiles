@@ -808,6 +808,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'scss-mode-hook 'prettier-js-mode)
   (spacemacs/set-leader-keys-for-major-mode
     'scss-mode "=" 'prettier-js)
+  (add-hook 'css-mode-hook 'prettier-js-mode)
+  (spacemacs/set-leader-keys-for-major-mode
+    'css-mode "=" 'prettier-js)
   (add-hook 'json-mode-hook 'prettier-js-mode)
   (spacemacs/set-leader-keys-for-major-mode
     'json-mode "=" 'prettier-js)
