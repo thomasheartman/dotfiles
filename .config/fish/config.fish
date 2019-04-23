@@ -17,6 +17,10 @@ if not begin test -e /etc/os-release; and cat /etc/os-release | grep ID=nixos > 
     end
 end
 
+if cat /etc/os-release | grep ID=ubuntu > /dev/null;
+    any-nix-shell fish --info-right | source
+end
+
 function fish_user_key_bindings
   fish_default_key_bindings
   bind \cN accept-autosuggestion
