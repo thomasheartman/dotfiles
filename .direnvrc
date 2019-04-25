@@ -1,0 +1,32 @@
+use_nix() {
+  local path="$(nix-instantiate --find-file nixpkgs)"
+
+  if [ -f "${path}/.version-suffix" ]; then
+    local version="$(< $path/.version-suffix)"
+  elif [ -f "${path}/.git" ]; then
+    local version="$(< $(< ${path}/.git/HEAD))"
+  fi
+
+  local cache=".direnv/cache-${version:-unknown}"
+
+  if [[ ! -e "$cache" ]] || \
+    [[ "$HOME/.direnvrc" -nt "$cache" ]] || \
+    [[ .envrc -nt "$cache" ]] || \
+    [[ default.nix -nt "$cache" ]] || \
+    [[ shell.nix -nt "$cache" ]];
+  then
+    [ -d .direnv ] || mkdir .direnv
+    local tmp=$(nix-shell --show-trace --pure "$@" \
+      --run "\"$direnv\" dump bash")
+    echo "$tmp" > "$cache"
+  fi
+
+  local path_backup=$PATH
+  eval "$(< $cache)"
+  export PATH=$PATH:$path_backup
+
+  if [[ $# = 0 ]]; then
+    watch_file default.nix
+    watch_file shell.nix
+  fi
+}
