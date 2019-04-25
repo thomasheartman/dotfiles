@@ -784,9 +784,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; JS
   ;;----------------------------------------------------------------------------
-  (with-eval-after-load 'flycheck
-    (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers
-                                               '(javascript-jshint))))
+
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
