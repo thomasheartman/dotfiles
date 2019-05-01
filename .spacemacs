@@ -55,6 +55,7 @@ values."
        (latex :variables latex-enable-folding
          t)
        markdown
+       (mu4e :variables mu4e-use-maildirs-extension t mu4e-enable-async-operations t)
        nixos
        (org :variables org-want-todo-bindings
          t org-enable-reveal-js-support nil)
@@ -494,6 +495,82 @@ you should place your code here."
 
   ;; elfeed
   (setq-default elfeed-search-filter "@2-weeks-ago +unread")
+
+  ;;----------------------------------------------------------------------------
+  ;; email setup
+  ;;----------------------------------------------------------------------------
+  ;; find mu4e path on NixOS
+  (let ((mu4epath
+          (concat
+            (f-dirname
+              (file-truename
+                (executable-find "mu")))
+            "/../share/emacs/site-lisp/mu4e")))
+    (when (and
+            (string-prefix-p "/nix/store/" mu4epath)
+            (file-directory-p mu4epath))
+      (add-to-list 'load-path mu4epath)))
+
+  ;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/.mail"
+    mu4e-trash-folder "/Trash"
+    mu4e-refile-folder "/Archive"
+    mu4e-get-mail-command "mbsync -a"
+    mu4e-update-interval nil
+    mu4e-compose-signature-auto-include nil
+    mu4e-view-show-images t
+    mu4e-view-show-addresses t)
+
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+    '(("/gmail/INBOX" . ?g)
+       ("/college/INBOX" . ?c)))
+
+  ;;; Bookmarks
+  (setq mu4e-bookmarks
+    `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+       ("date:today..now" "Today's messages" ?t)
+       ("date:7d..now" "Last 7 days" ?w)
+       ("mime:image/*" "Messages with images" ?p)
+       (,(mapconcat 'identity
+           (mapcar
+             (lambda (maildir)
+               (concat "maildir:" (car maildir)))
+             mu4e-maildir-shortcuts) " OR ")
+         "All inboxes" ?i)))
+
+  (setq mu4e-contexts
+    `( ,(make-mu4e-context
+          :name "gmail"
+          :enter-func (lambda () (mu4e-message "Switch to the gmail context"))
+          ;; leave-func not defined
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches msg
+                            :to "thomas.o.hartmann@gmail.com")))
+          :vars '(  ( user-mail-address      . "thomas.o.hartmann@gmail.com")
+                   ( user-full-name     . "Thomas Hartmann")
+                   ( mu4e-compose-signature .
+                     (concat
+                       "Cheers.\n"
+                       "Thomas Hartmann\n"))))
+       ,(make-mu4e-context
+          :name "thomashartmann.dev"
+          :enter-func (lambda () (mu4e-message "Switch to the .dev context"))
+          ;; leave-fun not defined
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches msg
+                            :to "contact@thomashartmann.dev")))
+          :vars '(  ( user-mail-address      . "contact@thomashartmann.dev")
+                   ( user-full-name     . "Thomas Hartmann")
+                   ( mu4e-compose-signature .
+                     (concat
+                       "Thanks.\n"
+                       "Thomas Hartmann\n"))))))
+  ;;----------------------------------------------------------------------------
+  ;; end email setup
+  ;;----------------------------------------------------------------------------
 
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
