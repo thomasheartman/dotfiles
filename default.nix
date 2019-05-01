@@ -15,6 +15,7 @@ buildEnv {
   paths = with xfce; [
         alacritty
         cargo
+        chromium
         direnv
         docker
         dotnet-sdk
