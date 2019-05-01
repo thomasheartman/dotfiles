@@ -29,6 +29,7 @@ buildEnv {
         haskellPackages.hoogle
         haskellPackages.hakyll
         ispell
+        mu
         nodejs
         opam
         pandoc
