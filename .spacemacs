@@ -702,7 +702,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
         (setq evil-this-type 'exclusive))))
   (spacemacs/set-leader-keys "," 'ace-delete-window
     "-" 'split-window-below-and-focus "." 'ace-window
-    "\\" 'split-window-right-and-focus "gc" 'magit-commit
+    "\\" 'split-window-right-and-focus "|" 'split-window-right-and-focus
+    "gc" 'magit-commit
     "gd" 'magit-diff-popup "gp" 'magit-push "gBb"
     'magit-checkout "gBc" 'magit-branch-and-checkout
     "gR" 'magit-file-checkout
