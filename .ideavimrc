@@ -1,3 +1,4 @@
 so ~/.vimrc
 
 set surround
+set ignorecase
