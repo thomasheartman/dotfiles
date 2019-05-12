@@ -759,6 +759,22 @@ If COUNT is given, move COUNT - 1 lines downward first."
     ;; for use in all text modes
     (text-mode . mixed-pitch-mode))
 
+  ;;----------------------------------------------------------------------------
+  ;; Ranger setup
+  ;;----------------------------------------------------------------------------
+  (with-eval-after-load 'ranger
+    (setq
+      ranger-override-dired-mode t
+      ranger-cleanup-eagerly t
+      ranger-show-hidden t
+      ranger-parent-depth 0
+      ranger-show-literal t
+      ranger-dont-show-binary t
+      ranger-max-preview-size 10))
+  ;;----------------------------------------------------------------------------
+  ;; end Ranger setup
+  ;;----------------------------------------------------------------------------
+
 
   ;;----------------------------------------------------------------------------
   ;; LaTeX setup
