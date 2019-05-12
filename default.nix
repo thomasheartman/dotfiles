@@ -31,6 +31,7 @@ buildEnv {
         haskellPackages.hoogle
         haskellPackages.hakyll
         ispell
+        kodi
         mu
         nodejs
         opam
