@@ -16,6 +16,8 @@
 *** https://bodil.lol/rss.xml                                          :rust:
 *** https://hacks.mozilla.org/feed/
 *** https://www.sam.today/atom.xml/                                     :nix:
+*** https://chrispenner.ca/atom.xml                                 :haskell:
+*** https://sakshamsharma.com/rss.xml                               :haskell:
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
