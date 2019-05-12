@@ -21,6 +21,7 @@ buildEnv {
         dotnet-sdk
         dotnetPackages.Nuget
         emacs
+        ffmpeg
         firefox
         haskellPackages.apply-refact
         haskellPackages.hlint
@@ -43,6 +44,7 @@ buildEnv {
         spotify
         stack
         teensy-loader-cli
+        vlc
 
     (writeScriptBin "update-profile" ''
       #!${stdenv.shell}
