@@ -399,6 +399,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (message "%s" "Starting user config.")
   (setq vc-follow-symlinks t
     ;; file system
     create-lockfiles
@@ -484,6 +485,7 @@ you should place your code here."
   ;; lines
   (global-visual-line-mode t)
   ;; motions
+  (message "%s" "Starting motions configuration.")
   (spacemacs/toggle-camel-case-motion-globally-on)
   (with-eval-after-load 'nix-mode
     (setq nix-indent-function #'nix-indent-line))
@@ -492,86 +494,90 @@ you should place your code here."
 
   (evil-define-key 'hybrid global-map (kbd "C-o") 'evil-open-below)
   (evil-define-key 'hybrid global-map (kbd "M-o") 'evil-open-above)
+  (message "%s" "Finished motions configuration.")
 
   ;; elfeed
   (setq-default elfeed-search-filter "@2-weeks-ago +unread")
+  (message "%s" "Configured elfeed.")
 
   ;;----------------------------------------------------------------------------
   ;; email setup
   ;;----------------------------------------------------------------------------
   ;; find mu4e path on NixOS
-  (let ((mu4epath
-          (concat
-            (f-dirname
-              (file-truename
-                (executable-find "mu")))
-            "/../share/emacs/site-lisp/mu4e")))
-    (when (and
-            (string-prefix-p "/nix/store/" mu4epath)
-            (file-directory-p mu4epath))
-      (add-to-list 'load-path mu4epath)))
+  (when (string= system-type "gnu/linux")
+    (let ((mu4epath
+            (concat
+              (f-dirname
+                (file-truename
+                  (executable-find "mu")))
+              "/../share/emacs/site-lisp/mu4e")))
+      (when (and
+              (string-prefix-p "/nix/store/" mu4epath)
+              (file-directory-p mu4epath))
+        (add-to-list 'load-path mu4epath)))
 
   ;;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/.mail"
-    mu4e-trash-folder "/Trash"
-    mu4e-refile-folder "/Archive"
-    mu4e-get-mail-command "mbsync -a"
-    mu4e-update-interval nil
-    mu4e-compose-signature-auto-include nil
-    mu4e-view-show-images t
-    mu4e-view-show-addresses t)
+    (setq mu4e-maildir "~/.mail"
+      mu4e-trash-folder "/Trash"
+      mu4e-refile-folder "/Archive"
+      mu4e-get-mail-command "mbsync -a"
+      mu4e-update-interval nil
+      mu4e-compose-signature-auto-include nil
+      mu4e-view-show-images t
+      mu4e-view-show-addresses t)
 
   ;;; Mail directory shortcuts
-  (setq mu4e-maildir-shortcuts
-    '(("/gmail/INBOX" . ?g)
-       ("/college/INBOX" . ?c)))
+    (setq mu4e-maildir-shortcuts
+      '(("/gmail/INBOX" . ?g)
+         ("/college/INBOX" . ?c)))
 
   ;;; Bookmarks
-  (setq mu4e-bookmarks
-    `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-       ("date:today..now" "Today's messages" ?t)
-       ("date:7d..now" "Last 7 days" ?w)
-       ("mime:image/*" "Messages with images" ?p)
-       (,(mapconcat 'identity
-           (mapcar
-             (lambda (maildir)
-               (concat "maildir:" (car maildir)))
-             mu4e-maildir-shortcuts) " OR ")
-         "All inboxes" ?i)))
+    (setq mu4e-bookmarks
+      `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+         ("date:today..now" "Today's messages" ?t)
+         ("date:7d..now" "Last 7 days" ?w)
+         ("mime:image/*" "Messages with images" ?p)
+         (,(mapconcat 'identity
+             (mapcar
+               (lambda (maildir)
+                 (concat "maildir:" (car maildir)))
+               mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
 
-  (setq mu4e-contexts
-    `( ,(make-mu4e-context
-          :name "gmail"
-          :enter-func (lambda () (mu4e-message "Switch to the gmail context"))
-          ;; leave-func not defined
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches msg
-                            :to "thomas.o.hartmann@gmail.com")))
-          :vars '(  ( user-mail-address      . "thomas.o.hartmann@gmail.com")
-                   ( user-full-name     . "Thomas Hartmann")
-                   ( mu4e-compose-signature .
-                     (concat
-                       "Cheers.\n"
-                       "Thomas Hartmann\n"))))
-       ,(make-mu4e-context
-          :name "thomashartmann.dev"
-          :enter-func (lambda () (mu4e-message "Switch to the .dev context"))
-          ;; leave-fun not defined
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches msg
-                            :to "contact@thomashartmann.dev")))
-          :vars '(  ( user-mail-address      . "contact@thomashartmann.dev")
-                   ( user-full-name     . "Thomas Hartmann")
-                   ( mu4e-compose-signature .
-                     (concat
-                       "Thanks.\n"
-                       "Thomas Hartmann\n"))))))
+    (setq mu4e-contexts
+      `( ,(make-mu4e-context
+            :name "gmail"
+            :enter-func (lambda () (mu4e-message "Switch to the gmail context"))
+            ;; leave-func not defined
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg
+                              :to "thomas.o.hartmann@gmail.com")))
+            :vars '(  ( user-mail-address      . "thomas.o.hartmann@gmail.com")
+                     ( user-full-name     . "Thomas Hartmann")
+                     ( mu4e-compose-signature .
+                       (concat
+                         "Cheers.\n"
+                         "Thomas Hartmann\n"))))
+         ,(make-mu4e-context
+            :name "thomashartmann.dev"
+            :enter-func (lambda () (mu4e-message "Switch to the .dev context"))
+            ;; leave-fun not defined
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg
+                              :to "contact@thomashartmann.dev")))
+            :vars '(  ( user-mail-address      . "contact@thomashartmann.dev")
+                     ( user-full-name     . "Thomas Hartmann")
+                     ( mu4e-compose-signature .
+                       (concat
+                         "Thanks.\n"
+                         "Thomas Hartmann\n"))))))
+    (message "%s" "Configured mu4e."))
   ;;----------------------------------------------------------------------------
   ;; end email setup
   ;;----------------------------------------------------------------------------
-
+  (message "%s" "Configuring key remapping.")
   ;; key translation
   (define-key key-translation-map (kbd "<S-return>") (kbd "<S-return>"))
   ;; (global-set-key (kbd "C-h")
@@ -758,7 +764,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     :hook
     ;; for use in all text modes
     (text-mode . mixed-pitch-mode))
-
+  (message "%s" "Configured key remapping.")
   ;;----------------------------------------------------------------------------
   ;; Ranger setup
   ;;----------------------------------------------------------------------------
@@ -771,6 +777,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
       ranger-show-literal t
       ranger-dont-show-binary t
       ranger-max-preview-size 10))
+  (message "%s" "Configured ranger.")
   ;;----------------------------------------------------------------------------
   ;; end Ranger setup
   ;;----------------------------------------------------------------------------
@@ -793,6 +800,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (call-interactively 'LaTeX-insert-item)))
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
     "i" 'spacemacs/latex-insert-item)
+  (message "%s" "Configured Latex.")
 
   ;;----------------------------------------------------------------------------
   ;; end LaTeX setup
@@ -853,6 +861,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; C# / Omnisharp setup
   ;;----------------------------------------------------------------------------
+  (message "%s" "Configuring C#/omnisharp.")
   (spacemacs/set-leader-keys-for-major-mode
     'csharp-mode "=" 'omnisharp-code-format-entire-file)
   (spacemacs/set-leader-keys-for-major-mode
@@ -870,6 +879,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
     '("\\.cshtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist
     '("\\.cshtml$" . web-mode))
+  (message "%s" "Configured C#/omnisharp.")
+
   ;; smartparens
   ;; dotspacemacs-smartparens-strict-mode t
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
@@ -878,9 +889,11 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; JS
   ;;----------------------------------------------------------------------------
+  (message "%s" "Configuring JS.")
 
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (add-hook 'web-mode-hook 'eslintd-fix-mode)
   ;; json
@@ -894,6 +907,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (require 'web-mode)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode
     t)
+  (message "%s" "Configured JS.")
 
   ;;----------------------------------------------------------------------------
   ;; SCSS setup
@@ -909,6 +923,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     'json-mode "=" 'prettier-js)
   (spacemacs/set-leader-keys-for-major-mode
     'web-mode "=" 'prettier-js)
+  (message "%s" "Configured prettier modes.")
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'scss-stylelint 'scss-mode)
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
@@ -917,6 +932,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; JS setup
   ;;----------------------------------------------------------------------------
 
+  (message "%s" "Configuring eslint modes.")
   ;; (setq-default flycheck-disabled-checkers (append flycheck-disabled-javascript
   ;;                                                  '(checkers-jshint)))
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
@@ -926,6 +942,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-hook 'typescript-tsx-mode 'prettier-js-mode)
   (add-hook 'markdown-mode-hook 'prettier-js-mode)
   ;; web-mode
+  (message "%s" "Configuring web mode.")
   (with-eval-after-load 'web-mode
     (add-hook 'web-mode-hook #'turn-on-smartparens-mode
       t))
@@ -934,10 +951,12 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (add-hook 'lsp-mode-hook 'lsp-ui-mode))
   (require 'company-lsp)
   (push 'company-lsp company-backends)
+  (message "%s" "Configured web stuff.")
   ;;----------------------------------------------------------------------------
   ;; Haskell setup
   ;;----------------------------------------------------------------------------
   ;; insert space after λ> in repl
+  (message "%s" "Configuring haskell.")
   (when (configuration-layer/package-usedp 'haskell)
     (add-hook 'haskell-interactive-mode-hook
       (lambda ()
@@ -983,6 +1002,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (haskell-indentation-newline-and-indent))
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
+  (message "%s" "Configured haskell.")
+  (message "%s" "Finished user-config.")
   )
 
 
