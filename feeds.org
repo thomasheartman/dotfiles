@@ -18,6 +18,7 @@
 *** https://www.sam.today/atom.xml/                                     :nix:
 *** https://chrispenner.ca/atom.xml                                 :haskell:
 *** https://sakshamsharma.com/rss.xml                               :haskell:
+*** https://ngortheone.com/index.xml                                   :rust:
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
