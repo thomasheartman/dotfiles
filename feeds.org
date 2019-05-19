@@ -37,3 +37,5 @@
 **** https://mmhaskell.com/blog?format=RSS
 **** http://neilmitchell.blogspot.com/feeds/posts/default
 **** https://lexi-lambda.github.io/feeds/all.rss.xml
+** Self
+*** https://thomashartmann.dev/rss.xml
