@@ -83,11 +83,31 @@ values."
     ;; packages, then consider creating a layer. You can also put the
     ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages
-    '(all-the-icons atom-one-dark-theme color-theme-sanityinc-tomorrow
-       company-flx company-lsp editorconfig eslintd-fix
-       evil-smartparens (direnv :config (direnv-mode)) js-format lsp-rust
-       lsp-ui lsp-vue mixed-pitch org-re-reveal p4 structured-haskell-mode
-       vue-mode zerodark-theme)
+    '(
+       all-the-icons
+       atom-one-dark-theme
+       color-theme-sanityinc-tomorrow
+       company-flx
+       company-lsp
+       editorconfig
+       eslintd-fix
+       evil-smartparens
+       (direnv :config (direnv-mode))
+       js-format
+       lsp-rust
+       lsp-ui
+       lsp-vue
+       mixed-pitch
+       org-re-reveal
+       (reason-mode
+         :location (recipe
+                     :repo "reasonml-editor/reason-mode"
+                     :fetcher github
+                     :files ("reason-mode.el" "refmt.el" "reason-indent.el" "reason-interaction.el")))
+       structured-haskell-mode
+       vue-mode
+       zerodark-theme
+       )
     ;; A list of packages that cannot be updated.
     dotspacemacs-frozen-packages
     '()
