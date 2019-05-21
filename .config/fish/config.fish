@@ -17,10 +17,6 @@ if not begin test -e /etc/os-release && cat /etc/os-release | grep ID=nixos > /d
     end
 end
 
-if cat /etc/os-release | grep ID=ubuntu > /dev/null;
-    any-nix-shell fish --info-right | source
-end
-
 function fish_user_key_bindings
   fish_default_key_bindings
   bind \cN accept-autosuggestion
@@ -30,3 +26,5 @@ set -g fish_key_bindings fish_user_key_bindings
 
 # ssh
 setenv SSH_ENV $HOME/.ssh/environment
+
+direnv hook fish | source
