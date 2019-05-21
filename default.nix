@@ -33,8 +33,6 @@ buildEnv {
         ispell
         kodi
         mu
-        nodejs
-        opam
         pandoc
         pijul
         powertop
