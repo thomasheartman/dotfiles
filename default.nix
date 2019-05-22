@@ -29,7 +29,6 @@ buildEnv {
         haskellPackages.stylish-haskell
         haskellPackages.hasktags
         haskellPackages.hoogle
-        haskellPackages.hakyll
         ispell
         kodi
         mu
