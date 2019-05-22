@@ -22,7 +22,7 @@ buildEnv {
         dotnetPackages.Nuget
         emacs
         ffmpeg
-        firefox
+        firefox-devedition-bin
         haskellPackages.apply-refact
         haskellPackages.hlint
         haskellPackages.hindent
