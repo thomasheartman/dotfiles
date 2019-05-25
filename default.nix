@@ -18,8 +18,6 @@ buildEnv {
         chromium
         direnv
         docker
-        dotnet-sdk
-        dotnetPackages.Nuget
         emacs
         ffmpeg
         firefox-devedition-bin
@@ -35,7 +33,6 @@ buildEnv {
         pandoc
         pijul
         powertop
-        python3
         ripgrep
         slack
         spotify
