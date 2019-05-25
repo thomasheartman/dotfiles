@@ -37,7 +37,6 @@ buildEnv {
         powertop
         python3
         ripgrep
-        rustc
         slack
         spotify
         stack
