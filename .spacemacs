@@ -527,7 +527,8 @@ you should place your code here."
   ;; rust setup
   ;;----------------------------------------------------------------------------
   (with-eval-after-load 'lsp-mode
-    (add-hook 'rust-mode-hook #'lsp))
+    (add-hook 'rust-mode-hook #'lsp)
+    (add-hook 'rust-mode-hook 'lsp-ui-mode))
 
   ;;----------------------------------------------------------------------------
   ;; end rust setup
