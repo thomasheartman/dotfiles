@@ -29,9 +29,13 @@ buildEnv {
         haskellPackages.hoogle
         ispell
         kodi
+        libusb
+        moka-icon-theme
         mu
+        pavucontrol
         pandoc
         pijul
+        postman
         powertop
         ripgrep
         slack
@@ -39,6 +43,7 @@ buildEnv {
         stack
         teensy-loader-cli
         vlc
+        xfce.xfwm4-themes
 
     (writeScriptBin "update-profile" ''
       #!${stdenv.shell}
