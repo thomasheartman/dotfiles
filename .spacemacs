@@ -73,6 +73,7 @@ values."
        (semantic :disabled-for emacs-lisp)
        shell-scripts
        spell-checking
+       sql
        syntax-checking
        (typescript :variables typescript-fmt-on-save
          t typescript-fmt-tool 'prettier)
