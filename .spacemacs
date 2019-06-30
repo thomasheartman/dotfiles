@@ -427,87 +427,89 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (message "%s" "Starting user config.")
   (setq vc-follow-symlinks t
-        ;; file system
-        create-lockfiles
-        nil
-        ;; key bindings
-        dotspacemacs-distinguish-gui-tab
-        t ;; to differentiate between C-i and tab
+    ;; file system
+    create-lockfiles
+    nil
+    ;; key bindings
+    dotspacemacs-distinguish-gui-tab
+    t ;; to differentiate between C-i and tab
 
-        ;; whitespace
-        whitespace-style
-        '(face spaces tabs newline indentation space-mark
-               tab-mark)
-        ;; centered buffer mode
-        spacemacs-centered-buffer-mode-min-content-width
-        1200
-        spacemacs-centered-buffer-mode-max-content-width
-        1200
-        ;; company
-        company-flx-limit
-        50
-        company-idle-delay
-        0
-        company-minimum-prefix-length
-        1
-        company-selection-wrap-around
-        t
-        company-tooltip-align-annotations
-        t
-        company-frontends
-        '(company-pseudo-tooltip-unless-just-one-frontend
-          company-echo-metadata-frontend company-preview-if-just-one-frontend
-          company-tng-frontend)
-        ;; auto-completion
-        tab-always-indent
-        t
-        auto-completion-return-key-behavior
-        nil
-        auto-completion-tab-key-behavior
-        nil
-        auto-completion-enable-snippets-in-popup
-        t
-        auto-completion-enable-help-tooltip
-        t
-        auto-completion-enable-sort-by-usage
-        t
-        ;; neotree
-        neo-confirm-create-file
-        'off-p
-        neo-confirm-create-directory
-        'off-p
-        neo-confirm-delete-directory-recursively
-        'off-p
-        neo-confirm-delete-file
-        'off-p
-        neo-confirm-kill-buffers-for-files-in-directory
-        'off-p
-        neo-theme
-        (if (display-graphic-p)
-            'icons
-          'arrow)
-        ;; elm-lang
-        elm-format-on-save
-        t
-        elm-tags-on-save
-        t
-        elm-sort-imports-on-save
-        t
-        ;; javascript js
-        js2-strict-missing-semi-warning
-        nil
-        js-indent-level
-        2
-        css-indent-offset
-        2
-        flycheck-javascript-eslint-executable
-        "eslint_d"
-        ;; mac-specific
-        mac-use-title-bar
-        t
-        ;; rust-lang
-        rust-format-on-save
-        t)
+    ;; whitespace
+    whitespace-style
+    '(face spaces tabs newline indentation space-mark
+       tab-mark)
+    ;; centered buffer mode
+    spacemacs-centered-buffer-mode-min-content-width
+    1200
+    spacemacs-centered-buffer-mode-max-content-width
+    1200
+    ;; company
+    company-flx-limit
+    50
+    company-idle-delay
+    0
+    company-minimum-prefix-length
+    1
+    company-selection-wrap-around
+    t
+    company-tooltip-align-annotations
+    t
+    company-frontends
+    '(company-pseudo-tooltip-unless-just-one-frontend
+       company-echo-metadata-frontend company-preview-if-just-one-frontend
+       company-tng-frontend)
+    ;; auto-completion
+    tab-always-indent
+    t
+    auto-completion-return-key-behavior
+    nil
+    auto-completion-tab-key-behavior
+    nil
+    auto-completion-enable-snippets-in-popup
+    t
+    auto-completion-enable-help-tooltip
+    t
+    auto-completion-enable-sort-by-usage
+    t
+    ;; neotree
+    neo-confirm-create-file
+    'off-p
+    neo-confirm-create-directory
+    'off-p
+    neo-confirm-delete-directory-recursively
+    'off-p
+    neo-confirm-delete-file
+    'off-p
+    neo-confirm-kill-buffers-for-files-in-directory
+    'off-p
+    neo-theme
+    (if (display-graphic-p)
+      'icons
+      'arrow)
+    ;; elm-lang
+    elm-format-on-save
+    t
+    elm-tags-on-save
+    t
+    elm-sort-imports-on-save
+    t
+    ;; javascript js
+    js2-strict-missing-semi-warning
+    nil
+    js-indent-level
+    2
+    css-indent-offset
+    2
+    flycheck-javascript-eslint-executable
+    "eslint_d"
+    ;; mac-specific
+    mac-use-title-bar
+    t
+    ;; rust-lang
+    rust-format-on-save
+    t
+
+    tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
   ;; motions
@@ -600,73 +602,73 @@ you should place your code here."
   ;; find mu4e path on NixOS
   (when (string= system-type "gnu/linux")
     (let ((mu4epath
-           (concat
-            (f-dirname
-             (file-truename
-              (executable-find "mu")))
-            "/../share/emacs/site-lisp/mu4e")))
+            (concat
+              (f-dirname
+                (file-truename
+                  (executable-find "mu")))
+              "/../share/emacs/site-lisp/mu4e")))
       (when (and
-             (string-prefix-p "/nix/store/" mu4epath)
-             (file-directory-p mu4epath))
+              (string-prefix-p "/nix/store/" mu4epath)
+              (file-directory-p mu4epath))
         (add-to-list 'load-path mu4epath)))
 
   ;;; Set up some common mu4e variables
     (setq mu4e-maildir "~/.mail"
-          mu4e-trash-folder "/Trash"
-          mu4e-refile-folder "/Archive"
-          mu4e-get-mail-command "mbsync -a"
-          mu4e-update-interval nil
-          mu4e-compose-signature-auto-include nil
-          mu4e-view-show-images t
-          mu4e-view-show-addresses t)
+      mu4e-trash-folder "/Trash"
+      mu4e-refile-folder "/Archive"
+      mu4e-get-mail-command "mbsync -a"
+      mu4e-update-interval nil
+      mu4e-compose-signature-auto-include nil
+      mu4e-view-show-images t
+      mu4e-view-show-addresses t)
 
   ;;; Mail directory shortcuts
     (setq mu4e-maildir-shortcuts
-          '(("/gmail/INBOX" . ?g)
-            ("/college/INBOX" . ?c)))
+      '(("/gmail/INBOX" . ?g)
+         ("/college/INBOX" . ?c)))
 
   ;;; Bookmarks
     (setq mu4e-bookmarks
-          `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-            ("date:today..now" "Today's messages" ?t)
-            ("date:7d..now" "Last 7 days" ?w)
-            ("mime:image/*" "Messages with images" ?p)
-            (,(mapconcat 'identity
-                         (mapcar
-                          (lambda (maildir)
-                            (concat "maildir:" (car maildir)))
-                          mu4e-maildir-shortcuts) " OR ")
-             "All inboxes" ?i)))
+      `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+         ("date:today..now" "Today's messages" ?t)
+         ("date:7d..now" "Last 7 days" ?w)
+         ("mime:image/*" "Messages with images" ?p)
+         (,(mapconcat 'identity
+             (mapcar
+               (lambda (maildir)
+                 (concat "maildir:" (car maildir)))
+               mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
 
     (setq mu4e-contexts
-          `( ,(make-mu4e-context
-               :name "gmail"
-               :enter-func (lambda () (mu4e-message "Switch to the gmail context"))
-               ;; leave-func not defined
-               :match-func (lambda (msg)
-                             (when msg
-                               (mu4e-message-contact-field-matches msg
-                                                                   :to "thomas.o.hartmann@gmail.com")))
-               :vars '(  ( user-mail-address      . "thomas.o.hartmann@gmail.com")
-                         ( user-full-name     . "Thomas Hartmann")
-                         ( mu4e-compose-signature .
-                                                  (concat
-                                                   "Cheers.\n"
-                                                   "Thomas Hartmann\n"))))
-             ,(make-mu4e-context
-               :name "thomashartmann.dev"
-               :enter-func (lambda () (mu4e-message "Switch to the .dev context"))
-               ;; leave-fun not defined
-               :match-func (lambda (msg)
-                             (when msg
-                               (mu4e-message-contact-field-matches msg
-                                                                   :to "contact@thomashartmann.dev")))
-               :vars '(  ( user-mail-address      . "contact@thomashartmann.dev")
-                         ( user-full-name     . "Thomas Hartmann")
-                         ( mu4e-compose-signature .
-                                                  (concat
-                                                   "Thanks.\n"
-                                                   "Thomas Hartmann\n"))))))
+      `( ,(make-mu4e-context
+            :name "gmail"
+            :enter-func (lambda () (mu4e-message "Switch to the gmail context"))
+            ;; leave-func not defined
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg
+                              :to "thomas.o.hartmann@gmail.com")))
+            :vars '(  ( user-mail-address      . "thomas.o.hartmann@gmail.com")
+                     ( user-full-name     . "Thomas Hartmann")
+                     ( mu4e-compose-signature .
+                       (concat
+                         "Cheers.\n"
+                         "Thomas Hartmann\n"))))
+         ,(make-mu4e-context
+            :name "thomashartmann.dev"
+            :enter-func (lambda () (mu4e-message "Switch to the .dev context"))
+            ;; leave-fun not defined
+            :match-func (lambda (msg)
+                          (when msg
+                            (mu4e-message-contact-field-matches msg
+                              :to "contact@thomashartmann.dev")))
+            :vars '(  ( user-mail-address      . "contact@thomashartmann.dev")
+                     ( user-full-name     . "Thomas Hartmann")
+                     ( mu4e-compose-signature .
+                       (concat
+                         "Thanks.\n"
+                         "Thomas Hartmann\n"))))))
     (message "%s" "Configured mu4e."))
   ;;----------------------------------------------------------------------------
   ;; end email setup
@@ -693,16 +695,16 @@ you should place your code here."
   ;; text objects
   (defmacro define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-line"))
-          (outer-name (make-symbol "outer-line")))
+           (outer-name (make-symbol "outer-line")))
       `(progn
          (evil-define-text-object ,inner-name
            (count &optional beg end type)
            (evil-select-paren ,start-regex ,end-regex
-                              beg end type count nil))
+             beg end type count nil))
          (evil-define-text-object ,outer-name
            (count &optional beg end type)
            (evil-select-paren ,start-regex ,end-regex
-                              beg end type count t))
+             beg end type count t))
          (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
          (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
   ;; create "il"/"al" (inside/around) line text objects:
@@ -793,9 +795,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (move-end-of-line count)
     (when evil-track-eol
       (setq temporary-goal-column most-positive-fixnum
-            this-command 'next-line))
+        this-command 'next-line))
     (unless (and (evil-visual-state-p)
-                 evil-v$-gets-eol)
+              evil-v$-gets-eol)
       (evil-adjust-cursor)
       (when (eolp)
         ;; prevent "c$" and "d$" from deleting blank lines
@@ -811,8 +813,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (global-company-mode)
   (with-eval-after-load 'company
     (add-hook 'company-mode-hook
-              (lambda ()
-                (add-to-list 'company-backends 'company-capf)))
+      (lambda ()
+        (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1)
     (setq company-emoji-insert-unicode t)
     ;; (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
@@ -864,13 +866,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   (with-eval-after-load 'ranger
     (setq
-     ranger-override-dired-mode t
-     ranger-cleanup-eagerly t
-     ranger-show-hidden t
-     ranger-parent-depth 0
-     ranger-show-literal t
-     ranger-dont-show-binary t
-     ranger-max-preview-size 10))
+      ranger-override-dired-mode t
+      ranger-cleanup-eagerly t
+      ranger-show-hidden t
+      ranger-parent-depth 0
+      ranger-show-literal t
+      ranger-dont-show-binary t
+      ranger-max-preview-size 10))
   (message "%s" "Configured ranger.")
   ;;----------------------------------------------------------------------------
   ;; end Ranger setup
@@ -898,9 +900,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (defun spacemacs/latex-insert-item ()
     (interactive "*")
     (if (evil-normal-state-p)
-        (progn (evil-open-below 1)
-               (beginning-of-line)
-               (call-interactively 'LaTeX-insert-item))
+      (progn (evil-open-below 1)
+        (beginning-of-line)
+        (call-interactively 'LaTeX-insert-item))
       (call-interactively 'LaTeX-insert-item)))
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode
     "i" 'spacemacs/latex-insert-item)
@@ -913,13 +915,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (defun on-after-init()
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default
-                           "unspecified-bg"
-                           (selected-frame))))
+        "unspecified-bg"
+        (selected-frame))))
   (add-hook 'window-setup-hook 'on-after-init)
   (defmacro save-column (&rest body)
     `(let ((column (current-column)))
        (unwind-protect
-           (progn ,@body)
+         (progn ,@body)
          (move-to-column column))))
   (put 'save-column 'lisp-indent-function 0)
   (defun move-line-up ()
@@ -951,16 +953,16 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (set-fontset-font t 'unicode "Symbola" nil 'prepend)
     ;; set fonts correctly
     (setq-default dotspacemacs-default-font '(("Hack" :size 28)
-                                              ("Input Mono" :size 28)
-                                              ("Dank Mono" :size 28
-                                               :weight normal
-                                               :width normal
-                                               :powerline-scale 1.1))))
+                                               ("Input Mono" :size 28)
+                                               ("Dank Mono" :size 28
+                                                 :weight normal
+                                                 :width normal
+                                                 :powerline-scale 1.1))))
 
   (custom-set-faces '(company-tooltip-common ((t (:inherit company-tooltip :weight bold
-                                                           :underline nil))))
-                    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold
-                                                                     :underline nil)))))
+                                                   :underline nil))))
+    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold
+                                             :underline nil)))))
 
   ;;----------------------------------------------------------------------------
   ;; C# / Omnisharp setup
@@ -973,16 +975,16 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (eval-after-load 'company
     '(add-to-list 'company-backends #'company-omnisharp))
   (add-hook 'csharp-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'omnisharp-code-format-entire-file)
-              (omnisharp-mode)
-              (company-mode)
-              (flycheck-mode)
-              (electric-pair-local-mode 1)))
+    (lambda ()
+      (add-hook 'before-save-hook 'omnisharp-code-format-entire-file)
+      (omnisharp-mode)
+      (company-mode)
+      (flycheck-mode)
+      (electric-pair-local-mode 1)))
   (add-to-list 'auto-mode-alist
-               '("\\.cshtml\\'" . web-mode))
+    '("\\.cshtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist
-               '("\\.cshtml$" . web-mode))
+    '("\\.cshtml$" . web-mode))
   (message "%s" "Configured C#/omnisharp.")
 
   ;; smartparens
@@ -1010,7 +1012,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (setq web-mode-css-indent-offset 2)
   (require 'web-mode)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode
-            t)
+    t)
   (message "%s" "Configured JS.")
 
   ;;----------------------------------------------------------------------------
@@ -1049,7 +1051,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (message "%s" "Configuring web mode.")
   (with-eval-after-load 'web-mode
     (add-hook 'web-mode-hook #'turn-on-smartparens-mode
-              t))
+      t))
   (with-eval-after-load 'lsp-ui
     (require 'lsp-ui-flycheck)
     (add-hook 'lsp-mode-hook 'lsp-ui-mode))
@@ -1064,13 +1066,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (message "%s" "Configuring haskell.")
   (when (configuration-layer/package-usedp 'haskell)
     (add-hook 'haskell-interactive-mode-hook
-              (lambda ()
-                (setq-local evil-move-cursor-back nil))))
+      (lambda ()
+        (setq-local evil-move-cursor-back nil))))
   ;; start repl in insert mode
   (when (configuration-layer/package-usedp 'haskell)
     (defadvice haskell-interactive-switch
-        (after spacemacs/haskell-interactive-switch-advice
-               activate)
+      (after spacemacs/haskell-interactive-switch-advice
+        activate)
       (when (eq dotspacemacs-editing-style 'vim)
         (call-interactively 'evil-insert))))
   ;; make `=` available for formatting
@@ -1081,15 +1083,15 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; reset indentation after a blank line
   (defun haskell-indentation-advice ()
     (when (and (< 1 (line-number-at-pos))
-               (save-excursion
-                 (forward-line -1)
-                 (string= ""
-                          (s-trim (buffer-substring (line-beginning-position)
-                                                    (line-end-position))))))
+            (save-excursion
+              (forward-line -1)
+              (string= ""
+                (s-trim (buffer-substring (line-beginning-position)
+                          (line-end-position))))))
       (delete-region (line-beginning-position)
-                     (point))))
+        (point))))
   (advice-add 'haskell-indentation-newline-and-indent
-              :after 'haskell-indentation-advice)
+    :after 'haskell-indentation-advice)
   (with-eval-after-load "haskell-mode"
     ;; This changes the evil "O" and "o" keys for haskell-mode to make sure that
     ;; indentation is done correctly. See
@@ -1178,66 +1180,18 @@ If COUNT is given, move COUNT - 1 lines downward first."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-    ;; custom-set-variables was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-    '(evil-want-Y-yank-to-eol t)
-    '(package-selected-packages (quote (exwm xelb zoom-window magit-p4 p4 company-flx
-                                         editorconfig js-format gitter slime-company
-                                         slime common-lisp-snippets web-beautify livid-mode
-                                         skewer-mode simple-httpd json-mode json-snatcher
-                                         json-reformat js2-refactor multiple-cursors
-                                         js2-mode js-doc company-tern dash-functional
-                                         tern coffee-mode memoize all-the-icons company-quickhelp
-                                         git-gutter-fringe+ git-gutter-fringe fringe-helper
-                                         git-gutter+ git-gutter diff-hl company-web
-                                         web-completion-data web-mode tagedit slim-mode
-                                         scss-mode sass-mode pug-mode less-css-mode
-                                         helm-css-scss haml-mode emmet-mode xterm-color
-                                         shell-pop multi-term mmm-mode markdown-toc
-                                         markdown-mode gh-md flyspell-correct-helm
-                                         flyspell-correct flycheck-rust flycheck-pos-tip
-                                         flycheck-elm flycheck eshell-z eshell-prompt-extras
-                                         esh-help auto-dictionary helm-company helm-c-yasnippet
-                                         fuzzy company-statistics company auto-yasnippet
-                                         yasnippet ac-ispell auto-complete evil-avy
-                                         atom-one-dark-theme toml-mode racer pos-tip
-                                         cargo rust-mode elm-mode smeargle orgit org-projectile
-                                         org-category-capture org-present org-pomodoro
-                                         alert log4e gntp org-mime org-download magit-gitflow
-                                         htmlize helm-gitignore gnuplot gitignore-mode
-                                         gitconfig-mode gitattributes-mode git-timemachine
-                                         git-messenger git-link evil-magit magit magit-popup
-                                         git-commit ghub with-editor ws-butler winum
-                                         which-key volatile-highlights vi-tilde-fringe
-                                         uuidgen use-package toc-org spaceline restart-emacs
-                                         request rainbow-delimiters popwin persp-mode
-                                         pcre2el paradox org-plus-contrib org-bullets
-                                         open-junk-file neotree move-text macrostep
-                                         lorem-ipsum linum-relative link-hint indent-guide
-                                         hungry-delete hl-todo highlight-parentheses
-                                         highlight-numbers highlight-indentation helm-themes
-                                         helm-swoop helm-projectile helm-mode-manager
-                                         helm-make helm-flx helm-descbinds helm-ag
-                                         google-translate golden-ratio flx-ido fill-column-indicator
-                                         fancy-battery eyebrowse expand-region exec-path-from-shell
-                                         evil-visualstar evil-visual-mark-mode evil-unimpaired
-                                         evil-tutor evil-surround evil-search-highlight-persist
-                                         evil-numbers evil-nerd-commenter evil-mc evil-matchit
-                                         evil-lisp-state evil-indent-plus evil-iedit-state
-                                         evil-exchange evil-escape evil-ediff evil-args
-                                         evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump
-                                         diminish define-word column-enforce-mode clean-aindent-mode
-                                         auto-highlight-symbol auto-compile aggressive-indent
-                                         adaptive-wrap ace-window ace-link ace-jump-helm-line))))
-  (custom-set-faces
-    ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold
-                                   :underline nil))))
-    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold
-                                             :underline nil))))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (lsp-rust live-py-mode json-navigator hierarchy insert-shebang importmagic epc ctable concurrent deferred impatient-mode hlint-refactor hindent helm-pydoc helm-org-rifle helm-nixos-options helm-mu helm-hoogle helm-git-grep haskell-snippets glsl-mode gitignore-templates flycheck-haskell flycheck-bashate fish-mode exwm zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
