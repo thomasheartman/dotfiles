@@ -543,12 +543,33 @@ you should place your code here."
   ;;----------------------------------------------------------------------------
 
   (message "%s" "Configuring EXWM")
+  (setq
+    exwm-workspace-show-all-buffers t
+    exwm-layout-show-all-buffers t)
+  (setq exwm-input-global-keys
+    `(([?\s-r] . exwm-reset)
+       ([?\s-w] . exwm-workspace-switch)
+       ([?\M- ] . spacemacs/exwm-app-launcher)
+       ([?\s-s] . exwm-workspace-move-window)
+       ([?\s-n] . next-buffer)
+       ([?\s-p] . previous-buffer)
+       ([?\M-x] . helm-M-x)
+       ([?\s-|] . split-window-right-and-focus)
+       ([?\s-_] . split-window-below-and-focus)
+       ,@(mapcar (lambda (i)
+                   `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (exwm-workspace-switch-create ,i))))
+           (number-sequence 0 9))))
+
+
   (require 'exwm-randr)
-  (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
   (add-hook 'exwm-randr-screen-change-hook
     (lambda ()
       (start-process-shell-command
-        "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
+        "autorandr" nil "autorandr -c")))
   (exwm-randr-enable)
   (message "%s" "Configured EXWM")
 
