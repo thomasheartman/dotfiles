@@ -20,7 +20,7 @@ buildEnv {
         docker
         emacs
         ffmpeg
-        firefox-devedition-bin
+        firefox
         haskellPackages.apply-refact
         haskellPackages.hlint
         haskellPackages.hindent
