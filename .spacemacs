@@ -509,6 +509,8 @@ you should place your code here."
     rust-format-on-save
     t
 
+    browse-url-browser-function 'browse-url-firefox
+
     tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
