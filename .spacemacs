@@ -561,9 +561,7 @@ you should place your code here."
        ([s-left] . previous-buffer)
        ([?\M-x] . helm-M-x)
        ([?\s-|] . split-window-right-and-focus)
-       ([?\s-/] . split-window-right-and-focus)
        ([?\s-_] . split-window-below-and-focus)
-       ([s--] . split-window-below-and-focus)
        ,@(mapcar (lambda (i)
                    `(,(kbd (format "s-%d" i)) .
                       (lambda ()
