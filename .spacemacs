@@ -45,7 +45,7 @@ values."
                                           :ssl t
                                           :nick "t-hart")))
        exwm
-       fsharp
+       ;; fsharp
        git
        gpu
        (haskell :variables haskell-enable-hindent-style
@@ -73,7 +73,7 @@ values."
        (semantic :disabled-for emacs-lisp)
        shell-scripts
        spell-checking
-       sql
+       ;; sql
        syntax-checking
        (typescript :variables typescript-fmt-on-save
          t typescript-fmt-tool 'prettier)
