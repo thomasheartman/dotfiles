@@ -984,6 +984,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (omnisharp-mode)
       (company-mode)
       (flycheck-mode)
+      (lsp-ui-mode)
       (electric-pair-local-mode 1)))
   (add-to-list 'auto-mode-alist
     '("\\.cshtml\\'" . web-mode))
@@ -1003,7 +1004,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
 
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    (flycheck-add-mode 'javascript-eslint 'web-mode))
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (add-to-list 'flycheck-checkers 'lsp-ui))
   (add-hook 'js2-mode-hook 'eslintd-fix-mode)
   (add-hook 'web-mode-hook 'eslintd-fix-mode)
   ;; json
