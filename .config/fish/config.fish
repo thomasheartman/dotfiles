@@ -24,4 +24,6 @@ set -g fish_key_bindings fish_user_key_bindings
 # ssh
 setenv SSH_ENV $HOME/.ssh/environment
 
-direnv hook fish | source
+if type -q direnv
+    direnv hook fish | source
+end
