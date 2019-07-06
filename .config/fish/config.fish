@@ -6,6 +6,7 @@ switch (uname)
         set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin
     case '*'
         set -gx EDITOR "emacsclient -t"
+        bind \b 'backward-kill-word'
 end
 set -gx VISUAL $EDITOR
 
