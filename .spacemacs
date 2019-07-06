@@ -292,7 +292,7 @@ values."
     ;; define the position to display `helm', options are `bottom', `top',
     ;; `left', or `right'. (default 'bottom)
     dotspacemacs-helm-position
-    'right
+    'bottom
     ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
     ;; in all non-asynchronous sources. If set to `source', preserve individual
     ;; source settings. Else, disable fuzzy matching in all sources.
