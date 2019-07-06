@@ -511,6 +511,8 @@ you should place your code here."
 
     browse-url-browser-function 'browse-url-firefox
 
+    powerline-default-separator nil
+
     tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
