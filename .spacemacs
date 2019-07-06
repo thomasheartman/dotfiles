@@ -197,9 +197,9 @@ values."
     dotspacemacs-themes
     '(atom-one-dark zerodark spacemacs-dark)
     dotspacemacs-mode-line-theme
-    ;; 'all-the-icons
+    'all-the-icons
 
-    'vanilla
+    ;; 'vanilla
     ;; If non nil the cursor color matches the state color in GUI Emacs.
     dotspacemacs-colorize-cursor-according-to-state
     t
