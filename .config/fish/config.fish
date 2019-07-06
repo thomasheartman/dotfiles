@@ -7,6 +7,7 @@ switch (uname)
     case '*'
         set -gx EDITOR "emacsclient -t"
         bind \b 'backward-kill-word'
+        bind \e\[4~ 'kill-word'
 end
 set -gx VISUAL $EDITOR
 
