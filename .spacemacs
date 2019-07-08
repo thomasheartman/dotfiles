@@ -45,7 +45,7 @@ values."
                                           :ssl t
                                           :nick "t-hart")))
        exwm
-       ;; fsharp
+       fsharp
        git
        gpu
        (haskell :variables haskell-enable-hindent-style
@@ -73,7 +73,7 @@ values."
        (semantic :disabled-for emacs-lisp)
        shell-scripts
        spell-checking
-       ;; sql
+       sql
        syntax-checking
        (typescript :variables typescript-fmt-on-save
          t typescript-fmt-tool 'prettier)
@@ -508,8 +508,6 @@ you should place your code here."
     ;; rust-lang
     rust-format-on-save
     t
-
-    browse-url-browser-function 'browse-url-firefox
 
     powerline-default-separator nil
 
@@ -956,6 +954,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (when (string= system-type "gnu/linux")
     ;; linux specific setup
     ;; activate emoji
+    (setq browse-url-browser-function 'browse-url-firefox)
     (set-fontset-font t 'unicode "Symbola" nil 'prepend)
     ;; set fonts correctly
     (setq-default dotspacemacs-default-font '(("Hack" :size 28)
