@@ -7,7 +7,6 @@ switch (uname)
     case '*'
         set -gx EDITOR "emacsclient -t"
         bind \b 'backward-kill-word'
-        bind \e\[4~ 'kill-word'
 end
 set -gx VISUAL $EDITOR
 
@@ -17,6 +16,7 @@ set fish_greeting
 function fish_user_key_bindings
   fish_default_key_bindings
   bind \cN accept-autosuggestion
+  bind \e\[4~ 'kill-word'
 end
 
 set -g fish_key_bindings fish_user_key_bindings
