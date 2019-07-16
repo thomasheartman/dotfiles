@@ -35,7 +35,6 @@ buildEnv {
         pavucontrol
         pandoc
         pijul
-        postman
         powertop
         ripgrep
         slack
