@@ -509,11 +509,15 @@ you should place your code here."
     rust-format-on-save
     t
 
-    powerline-default-separator nil
+    browse-url-browser-function 'browse-url-firefox
 
     tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
+
+  ;; mode line
+  (setq powerline-default-separator nil)
+
   ;; motions
   (message "%s" "Starting motions configuration.")
   (spacemacs/toggle-camel-case-motion-globally-on)
