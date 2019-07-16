@@ -868,9 +868,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (with-eval-after-load 'yasnippet
     (define-key global-map (kbd "C-/") 'yas-expand))
   (spacemacs/toggle-indent-guide-globally-on)
-  (use-package org-re-reveal :after org)
-  (with-eval-after-load 'org-re-reveal
-    (setq org-re-reveal-klipsify-src t))
   (use-package mixed-pitch
     :hook
     ;; for use in all text modes
