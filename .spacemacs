@@ -567,11 +567,18 @@ you should place your code here."
        ([?\s-|] . split-window-right-and-focus)
        ([?\s-_] . split-window-below-and-focus)
        ,@(mapcar (lambda (i)
-                   `(,(kbd (format "s-%d" i)) .
+                   `(,(kbd (format "s-C-%d" i)) .
                       (lambda ()
                         (interactive)
                         (exwm-workspace-switch-create ,i))))
-           (number-sequence 0 9))))
+           (number-sequence 0 9))
+       ,@(mapcar (lambda (i)
+                   `(,(kbd (format "s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (winum-select-window-by-number ,i))))
+           (number-sequence 0 9))
+       ))
 
 
   (require 'exwm-randr)
