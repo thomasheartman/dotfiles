@@ -94,6 +94,7 @@ values."
        color-theme-sanityinc-tomorrow
        company-flx
        company-lsp
+       dotnet
        editorconfig
        eslintd-fix
        evil-smartparens
@@ -198,8 +199,6 @@ values."
     '(atom-one-dark zerodark spacemacs-dark)
     dotspacemacs-mode-line-theme
     'all-the-icons
-
-    ;; 'vanilla
     ;; If non nil the cursor color matches the state color in GUI Emacs.
     dotspacemacs-colorize-cursor-according-to-state
     t
@@ -509,8 +508,6 @@ you should place your code here."
     rust-format-on-save
     t
 
-    browse-url-browser-function 'browse-url-firefox
-
     tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
@@ -656,6 +653,7 @@ you should place your code here."
   ;;----------------------------------------------------------------------------
   ;; find mu4e path on NixOS
   (when (string= system-type "gnu/linux")
+    (setq browse-url-browser-function 'browse-url-firefox)
     (let ((mu4epath
             (concat
               (f-dirname
@@ -991,7 +989,14 @@ If COUNT is given, move COUNT - 1 lines downward first."
     ;; mac specific setup
     (setq dired-use-ls-dired nil)
     (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-    )
+    (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
+    (add-to-list 'package-pinned-packages '(spaceline . "melpa-stable"))
+    (add-to-list 'package-pinned-packages '(spaceline-all-the-icons . "melpa-stable"))
+    (add-to-list 'package-pinned-packages '(all-the-icons . "melpa-stable"))
+    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+    (setenv "PATH" (concat (getenv "PATH") ":/Library/Frameworks/Mono.framework/Commands:/usr/local/share/dotnet:~/.dotnet/tools"))
+    (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands" "/usr/local/share/dotnet" "~/.dotnet/tools"))))
+
 
   (when (string= system-type "windows-nt")
     ;; windows specific setup
@@ -1033,6 +1038,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (omnisharp-mode)
       (company-mode)
       (flycheck-mode)
+      (dotnet-mode)
       (lsp-ui-mode)
       (electric-pair-local-mode 1)))
   (add-to-list 'auto-mode-alist
@@ -1040,12 +1046,61 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (add-to-list 'auto-mode-alist
     '("\\.cshtml$" . web-mode))
   (message "%s" "Configured C#/omnisharp.")
-
   ;; smartparens
   ;; dotspacemacs-smartparens-strict-mode t
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   ;; editorconfig
   (editorconfig-mode t)
+
+  ;;----------------------------------------------------------------------------
+  ;; F#
+  ;;----------------------------------------------------------------------------
+  (add-hook 'fsharp-mode-hook 'dotnet-mode)
+  ;; fantomas
+  (defun fsharp-fantomas-format-region (start end)
+    (interactive "r")
+    (let ((source (shell-quote-argument (buffer-substring-no-properties start end)))
+           (ok-buffer "*fantomas*")
+           (error-buffer "*fantomas-errors*"))
+      (save-window-excursion
+        (shell-command-on-region
+          start end (format "fantomas --indent 2 --pageWidth 99 --stdin %s --stdout" source)
+          ok-buffer nil error-buffer)
+        (if (get-buffer error-buffer)
+          (progn
+            ;; (kill-buffer error-buffer)
+            (message "Can't format region."))
+          (delete-region start end)
+          (insert (with-current-buffer ok-buffer
+                    (s-chomp (buffer-string))))
+          (delete-trailing-whitespace)
+          (message "Region formatted.")))))
+
+  (defun fsharp-fantomas-format-defun ()
+    (interactive)
+    (let ((origin (point))
+           (start) (end))
+      (fsharp-beginning-of-block)
+      (setq start (point))
+      (fsharp-end-of-block)
+      ;; skip whitespace, empty lines, comments
+      (while (and (not (= (line-number-at-pos) 1))
+               (s-matches? "^\n$\\|^//\\|^(\\*" (thing-at-point 'line)))
+        (forward-line -1))
+      (move-end-of-line 1)
+      (setq end (point))
+      (fsharp-fantomas-format-region start end)
+      (goto-char origin)))
+
+  (defun fsharp-fantomas-format-buffer ()
+    (interactive)
+    (let ((origin (point)))
+      (fsharp-fantomas-format-region (point-min) (point-max))
+      (goto-char origin)))
+  ;;----------------------------------------------------------------------------
+  ;; end F#
+  ;;----------------------------------------------------------------------------
+
   ;;----------------------------------------------------------------------------
   ;; JS
   ;;----------------------------------------------------------------------------
@@ -1165,8 +1220,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
   (message "%s" "Configured haskell.")
-  (message "%s" "Finished user-config.")
-  )
+  (message "%s" "Finished user-config."))
+
 
 
 ;; Do not write anything past this comment. This is where Emacs will
