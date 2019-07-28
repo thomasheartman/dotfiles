@@ -556,16 +556,30 @@ you should place your code here."
     exwm-layout-show-all-buffers t)
   (setq exwm-input-global-keys
     `(([?\s-r] . exwm-reset)
-       ([?\s-w] . exwm-workspace-switch)
        ([?\M- ] . spacemacs/exwm-app-launcher)
+
+       ;; workspaces
+       ([?\s-w] . exwm-workspace-switch)
        ([?\s-s] . exwm-workspace-move-window)
+
+       ;; buffer management
        ([?\s-n] . next-buffer)
-       ([s-right] . next-buffer)
        ([?\s-p] . previous-buffer)
-       ([s-left] . previous-buffer)
+
+       ;; window navigation
+       ([s-up] . evil-window-up)
+       ([s-down] . evil-window-down)
+       ([s-right] . evil-window-right)
+       ([s-left] . evil-window-left)
+
+       ;; misc
        ([?\M-x] . helm-M-x)
+
+       ;; window splitting
        ([?\s-|] . split-window-right-and-focus)
        ([?\s-_] . split-window-below-and-focus)
+
+       ;; workspace / window numerical
        ,@(mapcar (lambda (i)
                    `(,(kbd (format "s-C-%d" i)) .
                       (lambda ()
@@ -577,9 +591,21 @@ you should place your code here."
                       (lambda ()
                         (interactive)
                         (winum-select-window-by-number ,i))))
-           (number-sequence 0 9))
-       ))
+           (number-sequence 0 9))))
 
+
+  (exwm-input-set-key (kbd "s-C-M-s")
+    (lambda ()
+      (interactive)
+      (start-process "" nil "systemctl suspend")))
+  (exwm-input-set-key (kbd "s-C-M-h")
+    (lambda ()
+      (interactive)
+      (start-process "" nil "systemctl hibernate")))
+  (exwm-input-set-key (kbd "s-C-M-o")
+    (lambda ()
+      (interactive)
+      (start-process "" nil "xset dpms force off")))
 
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
