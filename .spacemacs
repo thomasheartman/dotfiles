@@ -597,15 +597,29 @@ you should place your code here."
   (exwm-input-set-key (kbd "s-C-M-s")
     (lambda ()
       (interactive)
-      (start-process "" nil "systemctl suspend")))
+      (shell-command "systemctl suspend")))
+
   (exwm-input-set-key (kbd "s-C-M-h")
     (lambda ()
       (interactive)
-      (start-process "" nil "systemctl hibernate")))
+      (shell-command "systemctl hibernate")))
+
   (exwm-input-set-key (kbd "s-C-M-o")
     (lambda ()
       (interactive)
-      (start-process "" nil "xset dpms force off")))
+      (shell-command "xset dpms force off")))
+
+
+  (exwm-input-set-key (kbd "s-C-M-p")
+    (lambda ()
+      (interactive)
+      (shell-command "systemctl poweroff")))
+
+  (exwm-input-set-key (kbd "s-C-M-r")
+    (lambda ()
+      (interactive)
+      (shell-command "systemctl reboot")))
+
 
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
