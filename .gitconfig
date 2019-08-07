@@ -23,7 +23,10 @@
 
 [user]
   name = Thomas Hartmann
-  email = thomas.o.hartmann@gmail.com
+	email = thomas.o.hartmann@gmail.com
+
+[includeIf "gitdir:~/projects/work/"]
+  path = ~/projects/work/.gitconfig
 
 [filter "lfs"]
   clean = git-lfs clean %f
