@@ -59,6 +59,7 @@ values."
        lsp
        markdown
        (mu4e :variables mu4e-use-maildirs-extension t mu4e-enable-async-operations t)
+       multiple-cursors
        nixos
        (org :variables org-want-todo-bindings
          t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5")
