@@ -1056,8 +1056,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; F#
   ;;----------------------------------------------------------------------------
-  (add-hook 'fsharp-mode-hook 'dotnet-mode)
   ;; fantomas
+  (message "%s" "Configuring F#.")
   (defun fsharp-fantomas-format-region (start end)
     (interactive "r")
     (let ((source (shell-quote-argument (buffer-substring-no-properties start end)))
@@ -1065,17 +1065,20 @@ If COUNT is given, move COUNT - 1 lines downward first."
            (error-buffer "*fantomas-errors*"))
       (save-window-excursion
         (shell-command-on-region
-          start end (format "fantomas --indent 2 --pageWidth 99 --stdin %s --stdout" source)
+          start end (format "fantomas --force --reorderOpenDeclaration --preserveEOL --stdin %s --stdout" source)
           ok-buffer nil error-buffer)
         (if (get-buffer error-buffer)
           (progn
-            ;; (kill-buffer error-buffer)
-            (message "Can't format region."))
+            (kill-buffer error-buffer)
+            (message "Fantomas: Can't format region."))
           (delete-region start end)
           (insert (with-current-buffer ok-buffer
                     (s-chomp (buffer-string))))
           (delete-trailing-whitespace)
-          (message "Region formatted.")))))
+          (when (get-buffer error-buffer)
+            (kill-buffer error-buffer))
+          (kill-buffer ok-buffer)
+          (message "Fantomas: Region formatted.")))))
 
   (defun fsharp-fantomas-format-defun ()
     (interactive)
@@ -1098,6 +1101,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (let ((origin (point)))
       (fsharp-fantomas-format-region (point-min) (point-max))
       (goto-char origin)))
+
+  (add-hook 'fsharp-mode-hook
+    (lambda ()
+      (add-hook 'before-save-hook 'fsharp-fantomas-format-buffer t 'local)
+      (lsp-mode)
+      (dotnet-mode)))
+  (message "%s" "Finished configuring F#.")
   ;;----------------------------------------------------------------------------
   ;; end F#
   ;;----------------------------------------------------------------------------
