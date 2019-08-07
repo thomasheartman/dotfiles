@@ -122,16 +122,10 @@
 
   # TH shortcuts
   #utility
-  fix = "!f(){ standard --fix; git gud;}; f"
   fs = "!f(){ git fetch --prune; git st;}; f"
-  gud = "!f(){ git add . ; git commit; }; f"
-  nb = "checkout -b $1";" #new branch locally and at origin
   pushup = "push -u origin HEAD" #push branch to origin
   del = "!f(){ git push origin --delete "$1"; git branch -D "$1"; }; f"
-  gf = "!f(){ git add . ; git commit -m \"${1-No message supplied}\"; git push; }; f" # gotta go fast! Identical to 'fast'
-  fast = "!f(){ git add . ; git commit -m \"${1-No message supplied}\"; git push; }; f" #WARNING: can be dangerous
   rekt = "!f() { git reset --hard ${1-\"@{0}\"}; }; f" # CHANGE: revert to the last commit rather than to upstream
-  sync = "!f(){ git add . ; git commit \"${1-No message supplied}\"; git pull; git push; }; f"
 
   #housekeeping
   #merges and then deletes the merged branch. HANDLE WITH CARE
@@ -146,9 +140,8 @@
   tidy = "!f() { if [ $# -eq 0 ]; then REBASE_TARGET="@{u}"; elif [ ${#1} -ge 4 ]; then REBASE_TARGET=$1; else REBASE_TARGET="head~$1"; fi; git rebase -i $REBASE_TARGET; }; f"
   rename = git branch -m
 
-# [credential]
-  # helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
   diffc = "diff --cached"
+
 [status]
 	submoduleSummary = true
 [credential]
