@@ -446,7 +446,7 @@ you should place your code here."
     company-flx-limit
     50
     company-idle-delay
-    0.5
+    0.2
     company-minimum-prefix-length
     1
     company-selection-wrap-around
