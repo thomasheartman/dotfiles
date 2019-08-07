@@ -1035,7 +1035,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     '(add-to-list 'company-backends #'company-omnisharp))
   (add-hook 'csharp-mode-hook
     (lambda ()
-      (add-hook 'before-save-hook 'omnisharp-code-format-entire-file)
+      (add-hook 'before-save-hook 'omnisharp-code-format-entire-file t 'local)
       (omnisharp-mode)
       (company-mode)
       (flycheck-mode)
