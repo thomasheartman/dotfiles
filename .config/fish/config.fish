@@ -3,7 +3,7 @@ source ~/.aliases/aliases.fish
 switch (uname)
     case Darwin
         set -gx EDITOR "vim"
-        set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin
+        set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin $HOME/.dotnet/tools
     case '*'
         set -gx EDITOR "emacsclient -t"
         bind \b 'backward-kill-word'
