@@ -28,9 +28,9 @@ buildEnv {
         haskellPackages.hasktags
         haskellPackages.hoogle
         ispell
-        kodi
         libusb
         moka-icon-theme
+        mpv
         mu
         pavucontrol
         pandoc
