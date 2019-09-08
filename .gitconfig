@@ -25,9 +25,6 @@
   name = Thomas Hartmann
 	email = thomas.o.hartmann@gmail.com
 
-[includeIf "gitdir:~/projects/work/"]
-  path = ~/projects/work/.gitconfig
-
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
@@ -146,3 +143,6 @@
 	submoduleSummary = true
 [credential]
 	helper = cache --timeout=144000
+
+[includeIf "gitdir:~/projects/work/"]
+  path = ~/projects/work/.gitconfig
