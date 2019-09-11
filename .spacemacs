@@ -523,6 +523,9 @@ you should place your code here."
   (evil-define-key '(hybrid insert) global-map (kbd "C-,") 'evil-shift-left-line)
   (evil-define-key '(hybrid insert) global-map (kbd "C-.") 'evil-shift-right-line)
 
+  (with-eval-after-load 'helm
+    (define-key helm-find-files-map (kbd "C-<backspace>") 'clean-aindent--bsunindent))
+
   (evil-define-key 'hybrid global-map (kbd "C-o") 'evil-open-below)
   (evil-define-key 'hybrid global-map (kbd "M-o") 'evil-open-above)
   (message "%s" "Finished motions configuration.")
@@ -878,14 +881,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (define-key company-active-map (kbd "<return>") nil))
   ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
   ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
-
-  ;; (with-eval-after-load 'helm
-  ;;   (dolist (keymap (list helm-find-files-map helm-read-file-map))
-  ;;     (define-key keymap (kbd "C-w") 'helm-find-files-up-one-level)
-  ;;     (define-key helm-map (kbd "C-h") nil)
-  ;;     (define-key helm-map (kbd "C-h") 'helm-ff-delete-char-backward)
-  ;;     (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-  ;;     (define-key helm-find-files-map (kbd "C-h") 'helm-ff-delete-char-backward)))
 
   ;; Make C-/ expand yasnippet if available, else go into company
   ;; Must unbind undo tree first
