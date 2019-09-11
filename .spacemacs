@@ -1064,7 +1064,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
            (error-buffer "*fantomas-errors*"))
       (save-window-excursion
         (shell-command-on-region
-          start end (format "fantomas --force --reorderOpenDeclaration --preserveEOL --stdin %s --stdout" source)
+          start end (format "fantomas --force --preserveEOL --reorderOpenDeclaration --pageWidth 80 --stdin %s --stdout" source)
           ok-buffer nil error-buffer)
         (if (get-buffer error-buffer)
           (progn
