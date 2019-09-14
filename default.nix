@@ -9,6 +9,8 @@ Install using `nix-env -f ~ --set`, from then on use `update-profile`.
 { pkgs ? import <nixpkgs> {}
 , name ? "user-env"
 }: with pkgs;
+let wally-cli = import ./wally-cli.nix;
+in
 buildEnv {
   inherit name;
   extraOutputsToInstall = ["out" "bin" "lib"];
@@ -42,6 +44,7 @@ buildEnv {
         stack
         teensy-loader-cli
         vlc
+        wally-cli
         xfce.xfwm4-themes
 
     (writeScriptBin "update-profile" ''
