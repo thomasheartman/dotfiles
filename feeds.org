@@ -21,6 +21,7 @@
 *** http://degoes.net/feed.xml                                   :functional:
 *** https://ngortheone.com/index.xml                                   :rust:
 *** https://v4.chriskrycho.com/feeds/blog.xml
+*** https://josephg.com/blog/rss/                                       :dev:
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
