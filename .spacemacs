@@ -145,7 +145,7 @@ values."
     ;; If non-nil, Spacemacs will not try to refresh packages on startup.
     ;; In other words, it will not try and reach out to MELPA/ELPA/other
     ;; repositories. If you need to update packages, do it manually.
-    configuration-layer--package-archives-refreshed t
+    ;; configuration-layer--package-archives-refreshed t
     ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
     ;; possible. Set it to nil if you have no way to use HTTPS in your
     ;; environment, otherwise it is strongly recommended to let it set to t.
