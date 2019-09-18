@@ -31,6 +31,7 @@ values."
     ;; List of configuration layers to load.
     dotspacemacs-configuration-layers
     '(
+       csv
        (auto-completion (haskell :variables haskell-completion-backend 'intero
                           auto-completion-enable-help-tooltip t))
        autohotkey
