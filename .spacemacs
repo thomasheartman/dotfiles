@@ -63,7 +63,8 @@ values."
        multiple-cursors
        nixos
        (org :variables org-want-todo-bindings
-         t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5")
+         t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5" org-highlight-latex-and-related '(latex script entities))
+
        parinfer
        pdf
        prettier
