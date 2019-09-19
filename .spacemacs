@@ -112,7 +112,6 @@ values."
                      :repo "reasonml-editor/reason-mode"
                      :fetcher github
                      :files ("reason-mode.el" "refmt.el" "reason-indent.el" "reason-interaction.el")))
-       structured-haskell-mode
        vue-mode
        zerodark-theme
        )
