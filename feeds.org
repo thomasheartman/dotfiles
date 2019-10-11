@@ -22,6 +22,7 @@
 *** https://ngortheone.com/index.xml                                   :rust:
 *** https://v4.chriskrycho.com/feeds/blog.xml
 *** https://josephg.com/blog/rss/                                       :dev:
+*** https://amos.me/index.xml                                          :rust:
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
