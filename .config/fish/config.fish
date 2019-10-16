@@ -10,6 +10,9 @@ switch (uname)
 end
 set -gx VISUAL $EDITOR
 
+# explicitly set the lang to one that supports UTF-8 for TMUX unicode support
+set -x LANG en_US.UTF-8
+
 # disable greeting
 set fish_greeting
 
