@@ -78,6 +78,7 @@ values."
        spell-checking
        sql
        syntax-checking
+       (terraform :variables terraform-auto-format-on-save t)
        (typescript :variables typescript-fmt-on-save
          t typescript-fmt-tool 'prettier)
        version-control
@@ -550,6 +551,15 @@ you should place your code here."
   ;; end rust setup
   ;;----------------------------------------------------------------------------
 
+  ;;----------------------------------------------------------------------------
+  ;; terraform setup
+  ;;----------------------------------------------------------------------------
+  (spacemacs/set-leader-keys-for-major-mode
+    'terraform-mode "f" 'terraform-format-buffer)
+
+  ;;----------------------------------------------------------------------------
+  ;; end terraform setup
+  ;;----------------------------------------------------------------------------
 
   ;;----------------------------------------------------------------------------
   ;; EXWM setup
