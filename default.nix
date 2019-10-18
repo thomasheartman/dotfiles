@@ -34,6 +34,7 @@ buildEnv {
         moka-icon-theme
         mpv
         mu
+        nixfmt
         pavucontrol
         pandoc
         pijul
