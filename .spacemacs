@@ -74,6 +74,7 @@ values."
        react
        rust
        (semantic :disabled-for emacs-lisp)
+       (shell :variables shell-default-shell 'eshell shell-enable-smart-eshell t shell-default-position 'right shell-default-width 50)
        shell-scripts
        spell-checking
        sql
@@ -942,6 +943,17 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; end Ranger setup
   ;;----------------------------------------------------------------------------
+
+  ;;----------------------------------------------------------------------------
+  ;; Eshell setup
+  ;;----------------------------------------------------------------------------
+  (add-hook 'eshell-mode-hook
+    'direnv-mode)
+  (message "%s" "Configured eshell.")
+  ;;----------------------------------------------------------------------------
+  ;; end Eshell setup
+  ;;----------------------------------------------------------------------------
+
 
   ;;----------------------------------------------------------------------------
   ;; Org setup
