@@ -525,8 +525,27 @@ you should place your code here."
   ;; motions
   (message "%s" "Starting motions configuration.")
   (spacemacs/toggle-camel-case-motion-globally-on)
+
+
+  ;;----------------------------------------------------------------------------
+  ;; nix setup
+  ;;----------------------------------------------------------------------------
+  (message "%s" "Starting nix setup")
   (with-eval-after-load 'nix-mode
     (setq nix-indent-function #'nix-indent-line))
+
+  (spacemacs/set-leader-keys-for-major-mode
+    'nix-mode "=" 'nix-format-buffer)
+  (spacemacs/set-leader-keys-for-major-mode
+    'nix-mode "f" 'nix-format-buffer)
+  (add-hook 'nix-mode
+    (lambda ()
+      (add-hook 'before-save-hook 'nix-format-buffer nil 'local)))
+  (message "%s" "Nix setup complete.")
+  ;;----------------------------------------------------------------------------
+  ;; end nix setup
+  ;;----------------------------------------------------------------------------
+
   (evil-define-key '(hybrid insert) global-map (kbd "C-,") 'evil-shift-left-line)
   (evil-define-key '(hybrid insert) global-map (kbd "C-.") 'evil-shift-right-line)
 
