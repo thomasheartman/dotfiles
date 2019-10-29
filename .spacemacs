@@ -97,6 +97,7 @@ values."
        all-the-icons
        atom-one-dark-theme
        color-theme-sanityinc-tomorrow
+       company-box
        company-flx
        company-lsp
        dash
@@ -1007,6 +1008,11 @@ If COUNT is given, move COUNT - 1 lines downward first."
     :hook
     ;; for use in all text modes
     (text-mode . mixed-pitch-mode))
+
+  (use-package company-box
+    :hook
+    (company-mode . company-box-mode))
+
   (message "%s" "Configured key remapping.")
   ;;----------------------------------------------------------------------------
   ;; Ranger setup
