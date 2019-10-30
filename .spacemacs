@@ -611,10 +611,9 @@ you should place your code here."
 
   (message "Configuring yaml mode.")
   (with-eval-after-load 'yaml-mode
-    (add-hook 'yaml-mode
+    (add-hook 'yaml-mode-hook
       (lambda ()
-        (whitespace-mode)
-        (setq mixed-pitch-mode -1))))
+        (whitespace-mode))))
 
   (message "Finished configuring yaml mode.")
   ;;----------------------------------------------------------------------------
@@ -1007,11 +1006,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (use-package mixed-pitch
     :hook
     ;; for use in all text modes
-    (text-mode . mixed-pitch-mode))
-
-  (use-package company-box
-    :hook
-    (company-mode . company-box-mode))
+    (org-mode . mixed-pitch-mode)
+    (markdown-mode . mixed-pitch-mode)
+    (LaTeX-mode . mixed-pitch-mode))
 
   (message "%s" "Configured key remapping.")
   ;;----------------------------------------------------------------------------
