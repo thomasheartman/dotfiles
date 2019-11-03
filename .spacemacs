@@ -565,7 +565,15 @@ you should place your code here."
   ;;----------------------------------------------------------------------------
   (with-eval-after-load 'lsp-mode
     (add-hook 'rust-mode-hook #'lsp)
+    (add-hook 'rust-mode-hook 'lsp-mode)
+    (add-hook 'rust-mode-hook 'racer-mode)
     (add-hook 'rust-mode-hook 'lsp-ui-mode))
+
+  (defun my-set-racer-cmd ()
+    (interactive)
+    (setq racer-cmd (executable-find "racer")))
+
+  (add-hook 'racer-mode-hook 'my-set-racer-cmd)
 
   ;;----------------------------------------------------------------------------
   ;; end rust setup
