@@ -977,6 +977,13 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   (add-hook 'eshell-mode-hook
     'direnv-mode)
+  (add-hook 'eshell-mode-hook
+    (lambda ()
+      (setenv "TERM" "xterm-256color")))
+  (add-hook 'eshell-before-prompt-hook (setq xterm-color-preserve-properties t))
+  (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
+  (setq eshell-output-filter-functions
+    (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
   (message "%s" "Configured eshell.")
   ;;----------------------------------------------------------------------------
   ;; end Eshell setup
