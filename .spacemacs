@@ -606,6 +606,9 @@ you should place your code here."
        ([?\s-w] . exwm-workspace-switch)
        ([?\s-s] . exwm-workspace-move-window)
 
+       ([?\s-}]  . spacemacs/exwm-workspace-next)
+       ([?\s-{]  . spacemacs/exwm-workspace-prev)
+
        ;; buffer management
        ([?\s-n] . next-buffer)
        ([?\s-p] . previous-buffer)
