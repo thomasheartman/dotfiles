@@ -459,7 +459,7 @@ you should place your code here."
     company-flx-limit
     50
     company-idle-delay
-    0.2
+    0.1
     company-minimum-prefix-length
     1
     company-selection-wrap-around
@@ -909,6 +909,7 @@ you should place your code here."
     'evil-inner-buffer)
   (define-key evil-normal-state-map (kbd "RET") 'spacemacs/evil-insert-line-below)
   (define-key evil-normal-state-map (kbd "<S-return>") 'spacemacs/evil-insert-line-above)
+  (define-key evil-hybrid-state-map (kbd "TAB") #'company-indent-or-complete-common)
   (setq case-fold-search t)
   (setq evil-v$-gets-eol nil)
   ;; stop `v$' from selecting newlines
@@ -944,6 +945,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (setq company-emoji-insert-unicode t)
     ;; (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
     ;; (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
+    (define-key company-active-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
     (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous)
