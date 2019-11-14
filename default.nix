@@ -13,6 +13,7 @@ in buildEnv {
   extraOutputsToInstall = [ "out" "bin" "lib" ];
   paths = with xfce; [
     alacritty
+    bat
     cacert
     chromium
     direnv
@@ -27,6 +28,7 @@ in buildEnv {
     haskellPackages.hasktags
     haskellPackages.hoogle
     ispell
+    jq
     libusb
     moka-icon-theme
     moreutils
@@ -38,6 +40,7 @@ in buildEnv {
     pijul
     powertop
     ripgrep
+    skim
     slack
     spotify
     stack
@@ -46,6 +49,7 @@ in buildEnv {
     vlc
     wally-cli
     xfce.xfwm4-themes
+    z-lua
 
     (writeScriptBin "update-profile" ''
       #!${stdenv.shell}

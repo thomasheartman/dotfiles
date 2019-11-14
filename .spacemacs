@@ -72,7 +72,7 @@ values."
        (ranger :variables ranger-show-preview
          t)
        react
-       rust
+       ;; rust
        (semantic :disabled-for emacs-lisp)
        (shell :variables shell-default-shell 'eshell shell-enable-smart-eshell t shell-default-position 'right shell-default-width 50)
        shell-scripts
@@ -99,11 +99,14 @@ values."
        color-theme-sanityinc-tomorrow
        company-flx
        company-lsp
+       dash
+       (direnv :config (direnv-mode))
        dotnet
        editorconfig
+       eglot
        eslintd-fix
        evil-smartparens
-       (direnv :config (direnv-mode))
+       ht
        js-format
        lsp-rust
        lsp-ui
@@ -114,6 +117,9 @@ values."
                      :repo "reasonml-editor/reason-mode"
                      :fetcher github
                      :files ("reason-mode.el" "refmt.el" "reason-indent.el" "reason-interaction.el")))
+       rustic
+       toml-mode
+       cargo
        vue-mode
        zerodark-theme
        )
@@ -512,8 +518,8 @@ you should place your code here."
     mac-use-title-bar
     t
     ;; rust-lang
-    rust-format-on-save
-    t
+    ;; rust-format-on-save
+    ;; t
 
     tags-add-tables nil)
   ;; lines
@@ -563,17 +569,33 @@ you should place your code here."
   ;;----------------------------------------------------------------------------
   ;; rust setup
   ;;----------------------------------------------------------------------------
+
+  ;; (with-eval-after-load 'lsp-mode
+  ;;   (add-hook 'rust-mode-hook #'lsp)
+  ;;   (add-hook 'rust-mode-hook 'lsp-mode)
+  ;;   (add-hook 'rust-mode-hook 'racer-mode)
+  ;;   (add-hook 'rust-mode-hook 'lsp-ui-mode))
+
   (with-eval-after-load 'lsp-mode
-    (add-hook 'rust-mode-hook #'lsp)
-    (add-hook 'rust-mode-hook 'lsp-mode)
-    (add-hook 'rust-mode-hook 'racer-mode)
-    (add-hook 'rust-mode-hook 'lsp-ui-mode))
+    (add-hook 'rustic-mode-hook #'lsp)
+    (add-hook 'rustic-mode-hook 'lsp-mode)
+    (add-hook 'rustic-mode-hook 'lsp-ui-mode))
 
-  (defun my-set-racer-cmd ()
-    (interactive)
-    (setq racer-cmd (executable-find "racer")))
+  ;; (setq rustic-lsp-server 'rust-analyzer
+  ;;   rustic-lsp-client 'eglot)
+  (setq rustic-lsp-client 'eglot)
+  (setq rustic-format-on-save t)
 
-  (add-hook 'racer-mode-hook 'my-set-racer-cmd)
+  ;; (defun my-set-racer-rust-src-path ()
+  ;;   (interactive)
+  ;;   (setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src" (substring (shell-command-to-string "rustc --print sysroot") 0 -1))))
+
+  ;; (defun my-set-racer-cmd ()
+  ;;   (interactive)
+  ;;   (setq racer-cmd (executable-find "racer"))
+  ;;   my-set-racer-rust-src-path)
+
+  ;; (add-hook 'racer-mode-hook 'my-set-racer-cmd)
 
   ;;----------------------------------------------------------------------------
   ;; end rust setup
