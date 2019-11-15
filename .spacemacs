@@ -98,7 +98,6 @@ values."
        all-the-icons
        atom-one-dark-theme
        color-theme-sanityinc-tomorrow
-       company-box
        company-flx
        company-lsp
        dash
@@ -962,8 +961,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
     ;; (define-key company-active-map (kbd "C-h") 'evil-delete-backward-char)
     (define-key company-active-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
     (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
-    (define-key company-active-map (kbd "C-n") 'company-select-next)
-    (define-key company-active-map (kbd "C-p") 'company-select-previous)
+    ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
+    ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
     (define-key company-active-map (kbd "<return>") nil))
   ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
   ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
@@ -1045,6 +1044,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
 
   (message "%s" "Configured eshell.")
+
   ;;----------------------------------------------------------------------------
   ;; end Eshell setup
   ;;----------------------------------------------------------------------------
