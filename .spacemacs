@@ -37,6 +37,7 @@ values."
        autohotkey
        common-lisp
        csharp
+       dhall
        docker
        (elfeed :variables rmh-elfeed-org-files (list "~/feeds.org"))
        elm
