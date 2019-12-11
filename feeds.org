@@ -23,6 +23,7 @@
 *** https://v4.chriskrycho.com/feeds/blog.xml
 *** https://josephg.com/blog/rss/                                       :dev:
 *** https://amos.me/index.xml                                          :rust:
+*** https://bartoszmilewski.com/feed/
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
@@ -41,5 +42,6 @@
 **** https://mmhaskell.com/blog?format=RSS
 **** http://neilmitchell.blogspot.com/feeds/posts/default
 **** https://lexi-lambda.github.io/feeds/all.rss.xml
+**** https://williamyaoh.com/feed.atom
 ** Self
 *** https://thomashartmann.dev/rss.xml
