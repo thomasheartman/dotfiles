@@ -581,10 +581,13 @@ you should place your code here."
     (add-hook 'rustic-mode-hook 'lsp-mode)
     (add-hook 'rustic-mode-hook 'lsp-ui-mode))
 
+  (add-to-list 'auto-mode-alist '("\\.rs$" . rustic-mode))
+
   ;; (setq rustic-lsp-server 'rust-analyzer
   ;;   rustic-lsp-client 'eglot)
-  (setq rustic-lsp-client 'eglot)
-  (setq rustic-format-on-save t)
+  (with-eval-after-load 'rustic-mode
+    (setq rustic-lsp-client 'eglot)
+    (setq rustic-format-on-save t))
 
   ;; (defun my-set-racer-rust-src-path ()
   ;;   (interactive)
