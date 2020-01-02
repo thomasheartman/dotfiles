@@ -874,14 +874,6 @@ you should place your code here."
     "S" 'evil-surround-region)
   (evil-define-key 'normal
     global-map
-    (kbd "C-a")
-    'evil-numbers/inc-at-pt)
-  (evil-define-key 'normal
-    global-map
-    (kbd "C-x")
-    'evil-numbers/dec-at-pt)
-  (evil-define-key 'normal
-    global-map
     (kbd "C-<tab>")
     'next-buffer)
   (evil-define-key 'normal
