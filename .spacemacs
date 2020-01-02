@@ -932,7 +932,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     "gd" 'magit-diff-popup "gp" 'magit-push "gBb"
     'magit-checkout "gBc" 'magit-branch-and-checkout
     "gR" 'magit-file-checkout "gF" 'magit-pull
-    "jt" 'avy-goto-char-timer "o" 'helm-projectile-find-file)
+    "jt" 'avy-goto-char-timer "o" 'helm-projectile-find-file "xc" 'count-words)
   (global-company-mode)
   (with-eval-after-load 'company
     (add-hook 'company-mode-hook
