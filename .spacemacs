@@ -865,6 +865,8 @@ you should place your code here."
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
 
+  (setq delete-active-region 'kill)
+
   (evil-define-key '(hybrid insert) global-map (kbd "C-@") 'undo-tree-undo)
 
   (evil-leader/set-key "/" 'spacemacs/helm-project-do-rg)
