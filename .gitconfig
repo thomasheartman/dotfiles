@@ -34,6 +34,7 @@
 
   # common shortcuts
   co = checkout
+  s = switch
   ci = commit
   br = branch -a
   sh = stash
