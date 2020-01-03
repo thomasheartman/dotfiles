@@ -479,7 +479,7 @@ you should place your code here."
     auto-completion-tab-key-behavior
     nil
     auto-completion-enable-snippets-in-popup
-    t
+    nil
     auto-completion-enable-help-tooltip
     t
     auto-completion-enable-sort-by-usage
