@@ -1380,6 +1380,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
   (message "%s" "Configured haskell.")
+
+  (with-eval-after-load 'pdf-outline-buffer-mode (setq variable-pitch-mode t))
   (message "%s" "Finished user-config."))
 
 
