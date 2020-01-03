@@ -883,6 +883,16 @@ you should place your code here."
       (when (= orig-point (point))
         (move-beginning-of-line 1))))
 
+  ;; make kill and movements in visual line mode still act on logical lines
+  (define-key visual-line-mode-map [remap kill-line] nil)
+  (define-key visual-line-mode-map [remap move-end-of-line] nil)
+  (define-key visual-line-mode-map [remap move-beginning-of-line] nil)
+
+  ;; make kill and movements in org mode act on logical lines
+  (define-key org-mode-map [remap kill-line] nil)
+  (define-key org-mode-map [remap move-end-of-line] nil)
+  (define-key org-mode-map [remap move-beginning-of-line] nil)
+
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
 
