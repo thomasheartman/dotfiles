@@ -586,6 +586,10 @@ you should place your code here."
 
   ;; (setq rustic-lsp-server 'rust-analyzer
   ;;   rustic-lsp-client 'eglot)
+<<<<<<<
+=======
+
+>>>>>>>
   (with-eval-after-load 'rustic-mode
     (setq rustic-lsp-client 'eglot)
     (setq rustic-format-on-save t))
