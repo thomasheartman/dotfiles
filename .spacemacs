@@ -634,7 +634,6 @@ you should place your code here."
   ;;----------------------------------------------------------------------------
 
   (message "%s" "Configuring EXWM")
-  (server-start)
   (setq
     exwm-workspace-show-all-buffers t
     exwm-layout-show-all-buffers t)
