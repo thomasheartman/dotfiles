@@ -111,7 +111,6 @@ values."
        js-format
        lsp-rust
        lsp-ui
-       lsp-vue
        mixed-pitch
        (reason-mode
          :location (recipe
@@ -121,7 +120,6 @@ values."
        rustic
        toml-mode
        cargo
-       vue-mode
        zerodark-theme
        )
     ;; A list of packages that cannot be updated.
