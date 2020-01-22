@@ -1405,6 +1405,18 @@ If COUNT is given, move COUNT - 1 lines downward first."
       "o" 'haskell-evil-open-below "O" 'haskell-evil-open-above))
   (message "%s" "Configured haskell.")
 
+  ;;----------------------------------------------------------------------------
+  ;; macOS setup
+  ;;----------------------------------------------------------------------------
+  (when (eq system-type 'darwin)
+    (message "Configuring for macOS")
+    (setq mac-option-modifier nil
+      mac-command-modifier 'meta)
+    (setq lsp-ui-doc-use-childframe nil)
+    (message "macOS configuration complete"))
+  ;;----------------------------------------------------------------------------
+  ;; end  macOS setup
+  ;;----------------------------------------------------------------------------
   (with-eval-after-load 'pdf-outline-buffer-mode (setq variable-pitch-mode t))
   (message "%s" "Finished user-config."))
 
