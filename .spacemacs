@@ -521,6 +521,10 @@ you should place your code here."
     ;; rust-format-on-save
     ;; t
 
+    ;; when entering text with an active selection, overwrite the selection with
+    ;; the input
+    delete-selection-mode t
+
     tags-add-tables nil)
   ;; lines
   (global-visual-line-mode t)
