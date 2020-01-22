@@ -563,7 +563,7 @@ you should place your code here."
     (define-key helm-find-files-map (kbd "C-<backspace>") 'clean-aindent--bsunindent))
 
   (evil-define-key 'hybrid global-map (kbd "C-o") 'evil-open-below)
-  (evil-define-key 'hybrid global-map (kbd "M-o") 'evil-open-above)
+  (evil-define-key 'hybrid global-map (kbd "C-S-o") 'evil-open-above)
   (message "%s" "Finished motions configuration.")
 
   ;; elfeed
