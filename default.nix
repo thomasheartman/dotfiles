@@ -48,8 +48,8 @@ in buildEnv {
     tmux
     vlc
     wally-cli
+    watchexec
     xfce.xfwm4-themes
-    z-lua
 
     (writeScriptBin "update-profile" ''
       #!${stdenv.shell}
