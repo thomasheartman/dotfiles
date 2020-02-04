@@ -887,6 +887,14 @@ you should place your code here."
     (define-key org-mode-map [remap move-end-of-line] nil)
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
+  ;; add C-<RET> as mapping to move point to before search hit
+  (define-key isearch-mode-map (kbd "<C-return>")
+    (lambda () (interactive)
+      (isearch-repeat (if (eq isearch-forward nil)
+                        'forward
+                        'backward))
+      (isearch-exit)))
+
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
 
@@ -972,6 +980,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
     ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
     ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
     (define-key company-active-map (kbd "<return>") nil))
+
   ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
   ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
 
