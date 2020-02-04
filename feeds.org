@@ -24,6 +24,7 @@
 *** https://josephg.com/blog/rss/                                       :dev:
 *** https://amos.me/index.xml                                          :rust:
 *** https://bartoszmilewski.com/feed/
+*** https://blog.ploeh.dk/rss                         :haskell:functional:f#:
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
@@ -33,6 +34,7 @@
 **** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                     :reddit:
 **** https://this-week-in-rust.org/rss.xml
 **** http://feeds.feedburner.com/steveklabnik/words
+**** https://readrust.net/all/feed.rss                                 :rust:
 *** Haskell                                          :dev:haskell:functional:
 **** https://planet.haskell.org/rss20.xml
 **** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]                                                  :reddit:
