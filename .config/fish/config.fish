@@ -30,3 +30,8 @@ setenv SSH_ENV $HOME/.ssh/environment
 if type -q direnv
     direnv hook fish | source
 end
+
+# fix fish in emacs
+function fish_title
+  true
+end
