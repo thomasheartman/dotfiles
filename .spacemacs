@@ -659,6 +659,7 @@ you should place your code here."
        ([?\s-h] . evil-window-left)
 
        ([?\s-m] . spacemacs/toggle-maximize-buffer)
+       ([?\s-b] . lazy-helm/helm-mini)
 
        ;; window splitting
        ([?\s-|] . split-window-right-and-focus)
