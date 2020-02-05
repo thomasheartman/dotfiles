@@ -639,7 +639,7 @@ you should place your code here."
     exwm-layout-show-all-buffers t)
   (setq exwm-input-global-keys
     `(([?\s-r] . exwm-reset)
-       ([?\M- ] . spacemacs/exwm-app-launcher)
+       ([?\s- ] . spacemacs/exwm-app-launcher)
 
        ;; workspaces
        ([?\s-w] . exwm-workspace-switch)
@@ -653,13 +653,12 @@ you should place your code here."
        ([?\s-p] . previous-buffer)
 
        ;; window navigation
-       ([s-up] . evil-window-up)
-       ([s-down] . evil-window-down)
-       ([s-right] . evil-window-right)
-       ([s-left] . evil-window-left)
+       ([?\s-k] . evil-window-up)
+       ([?\s-j] . evil-window-down)
+       ([?\s-l] . evil-window-right)
+       ([?\s-h] . evil-window-left)
 
-       ;; misc
-       ([?\M-x] . helm-M-x)
+       ([?\s-m] . spacemacs/toggle-maximize-buffer)
 
        ;; window splitting
        ([?\s-|] . split-window-right-and-focus)
