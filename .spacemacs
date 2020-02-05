@@ -32,7 +32,7 @@ values."
     dotspacemacs-configuration-layers
     '(perl5
        csv
-       (auto-completion (haskell :variables haskell-completion-backend 'intero
+       (auto-completion (haskell :variables haskell-completion-backend 'lsp
                           auto-completion-enable-help-tooltip t))
        autohotkey
        common-lisp
