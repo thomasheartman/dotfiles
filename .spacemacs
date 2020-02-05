@@ -887,13 +887,31 @@ you should place your code here."
     (define-key org-mode-map [remap move-end-of-line] nil)
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
-  ;; add C-<RET> as mapping to move point to before search hit
-  (define-key isearch-mode-map (kbd "<C-return>")
-    (lambda () (interactive)
-      (isearch-repeat (if (eq isearch-forward nil)
-                        'forward
-                        'backward))
-      (isearch-exit)))
+  (defun move-point-before-match ()
+    "Move point to the near side of the match, rather than the
+    far side, when searching.
+
+    When searching forward, move point to the start of the
+    match. When searching backward, move point to the end of the
+    match."
+    (interactive)
+    (isearch-repeat (if (eq isearch-forward nil) 'forward 'backward))
+    (isearch-exit))
+
+  (defun kill-up-to-match ()
+    "Kill up to the selected match. When searching, this will
+    kill the text up until the found match and leave point just
+    before it.
+
+    Immediately yanking the text back into the buffer will leave
+    the buffer in its previous state, but with point at the end
+    of the yanked text."
+    (interactive)
+    (move-point-before-match)
+    (call-interactively 'kill-region))
+
+  (define-key isearch-mode-map (kbd "<M-return>") 'kill-up-to-match)
+  (define-key isearch-mode-map (kbd "<C-return>") 'move-point-before-match)
 
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
