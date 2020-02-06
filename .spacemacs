@@ -891,29 +891,30 @@ you should place your code here."
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
   (defun move-point-before-match ()
-    "Move point to the near side of the match, rather than the
-    far side, when searching.
+    "Move point to the near side of the match, rather than the far side, when
+    searching.
 
-    When searching forward, move point to the start of the
-    match. When searching backward, move point to the end of the
-    match."
+    When searching forward, move point to the start of the match. When searching
+    backward, move point to the end of the match."
     (interactive)
     (isearch-repeat (if (eq isearch-forward nil) 'forward 'backward))
     (isearch-exit))
 
-  (defun kill-up-to-match ()
-    "Kill up to the selected match. When searching, this will
-    kill the text up until the found match and leave point just
-    before it.
+  (defun kill-from-search ()
+    "Kill up to the selected match. When searching forward, this will kill the
+    text up until the found match and leave point just before it. When searching
+    backward, it will kill to the first character of the match (i.e. the
+    character furthest away from point)
 
-    Immediately yanking the text back into the buffer will leave
-    the buffer in its previous state, but with point at the end
-    of the yanked text."
+    Immediately yanking the text back into the buffer will leave the buffer in
+    its previous state, but with point at the end of the yanked text."
     (interactive)
-    (move-point-before-match)
+    (when (eq isearch-forward t)
+      (isearch-repeat 'backward))
+    (isearch-exit)
     (call-interactively 'kill-region))
 
-  (define-key isearch-mode-map (kbd "<M-return>") 'kill-up-to-match)
+  (define-key isearch-mode-map (kbd "<M-return>") 'kill-from-search)
   (define-key isearch-mode-map (kbd "<C-return>") 'move-point-before-match)
 
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
