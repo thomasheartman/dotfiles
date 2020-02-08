@@ -890,32 +890,37 @@ you should place your code here."
     (define-key org-mode-map [remap move-end-of-line] nil)
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
-  (defun move-point-before-match ()
-    "Move point to the near side of the match, rather than the far side, when
-    searching.
+  (defun isearch-vim-style-movement (&optional f)
+    "Move point to the start of the matched string, rather than the end.
 
-    When searching forward, move point to the start of the match. When searching
-    backward, move point to the end of the match."
-    (interactive)
-    (isearch-repeat (if (eq isearch-forward nil) 'forward 'backward))
-    (isearch-exit))
-
-  (defun kill-from-search ()
-    "Kill up to the selected match. When searching forward, this will kill the
-    text up until the found match and leave point just before it. When searching
-    backward, it will kill to the first character of the match (i.e. the
-    character furthest away from point)
-
-    Immediately yanking the text back into the buffer will leave the buffer in
-    its previous state, but with point at the end of the yanked text."
+  Additionally, when passed a function, will also execute that
+  function after exiting isearch."
     (interactive)
     (when (eq isearch-forward t)
       (isearch-repeat 'backward))
     (isearch-exit)
-    (call-interactively 'kill-region))
+    (unless (eq f nil)
+      (call-interactively f)))
 
-  (define-key isearch-mode-map (kbd "<M-return>") 'kill-from-search)
-  (define-key isearch-mode-map (kbd "<C-return>") 'move-point-before-match)
+  (defun isearch-vim-style-kill ()
+    "Kill up to the search match when searching forward. When
+  searching backward, kill to the beginning of the match."
+    (interactive)
+    (isearch-vim-style-movement 'kill-region))
+
+  (defun isearch-vim-style-copy ()
+    "Copy up the search match when searching forward. When
+  searching backward, copy to the start of the search match."
+    (interactive)
+    (isearch-vim-style-movement 'kill-ring-save)
+    ;; set prefix arg to move point back to where search started
+    (let ((current-prefix-arg '(4)))
+      (call-interactively 'set-mark-command)))
+
+
+  (define-key isearch-mode-map (kbd "<M-return>") 'isearch-vim-style-kill)
+  (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
+  (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-movement)
 
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
@@ -1502,7 +1507,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dap-mode bui tree-mode zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (dap-mode bui company-plsense zoom-window magit-p4 p4 company-flx editorconfig js-format gitter slime-company slime common-lisp-snippets web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode memoize all-the-icons company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-web web-completion-data web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term mmm-mode markdown-toc markdown-mode gh-md flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip flycheck-elm flycheck eshell-z eshell-prompt-extras esh-help auto-dictionary helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-avy atom-one-dark-theme toml-mode racer pos-tip cargo rust-mode elm-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
