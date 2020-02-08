@@ -900,7 +900,7 @@ you should place your code here."
 
   (defun isearch-vim-style-kill ()
     "Kill up to the search match when searching forward. When
-    searching backward, kill to the beginning of the match."
+  searching backward, kill to the beginning of the match."
     (interactive)
     (isearch-vim-style-exit)
     (call-interactively 'kill-region))
