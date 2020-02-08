@@ -891,10 +891,11 @@ you should place your code here."
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
   (defun isearch-vim-style-movement (&optional f)
-    "Move point to the start of the matched string, rather than the end.
+    "When moving to a match, always place point at the beginning
+    of the match, regardless of search direction.
 
-  Additionally, when passed a function, will also execute that
-  function after exiting isearch."
+    Additionally, when passed a function, will also execute that
+    function after exiting isearch."
     (interactive)
     (when (eq isearch-forward t)
       (isearch-repeat 'backward))
@@ -904,13 +905,13 @@ you should place your code here."
 
   (defun isearch-vim-style-kill ()
     "Kill up to the search match when searching forward. When
-  searching backward, kill to the beginning of the match."
+    searching backward, kill to the beginning of the match."
     (interactive)
     (isearch-vim-style-movement 'kill-region))
 
   (defun isearch-vim-style-copy ()
     "Copy up the search match when searching forward. When
-  searching backward, copy to the start of the search match."
+    searching backward, copy to the start of the search match."
     (interactive)
     (isearch-vim-style-movement 'kill-ring-save)
     ;; set prefix arg to move point back to where search started
