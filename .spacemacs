@@ -890,38 +890,34 @@ you should place your code here."
     (define-key org-mode-map [remap move-end-of-line] nil)
     (define-key org-mode-map [remap move-beginning-of-line] nil))
 
-  (defun isearch-vim-style-movement (&optional f)
-    "When moving to a match, always place point at the beginning
-    of the match, regardless of search direction.
-
-    Additionally, when passed a function, will also execute that
-    function after exiting isearch."
+  (defun isearch-vim-style-exit ()
+    "Move point to the start of the matched string, regardless
+    of search direction."
     (interactive)
     (when (eq isearch-forward t)
-      (isearch-repeat 'backward))
-    (isearch-exit)
-    (unless (eq f nil)
-      (call-interactively f)))
+      (goto-char isearch-other-end))
+    (isearch-exit))
 
   (defun isearch-vim-style-kill ()
     "Kill up to the search match when searching forward. When
     searching backward, kill to the beginning of the match."
     (interactive)
-    (isearch-vim-style-movement 'kill-region))
+    (isearch-vim-style-exit)
+    (call-interactively 'kill-region))
 
   (defun isearch-vim-style-copy ()
-    "Copy up the search match when searching forward. When
+    "Copy up to the search match when searching forward. When
     searching backward, copy to the start of the search match."
     (interactive)
-    (isearch-vim-style-movement 'kill-ring-save)
+    (isearch-vim-style-exit)
+    (call-interactively 'kill-ring-save)
     ;; set prefix arg to move point back to where search started
     (let ((current-prefix-arg '(4)))
       (call-interactively 'set-mark-command)))
 
-
+  (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
   (define-key isearch-mode-map (kbd "<M-return>") 'isearch-vim-style-kill)
   (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
-  (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-movement)
 
   (define-key global-map [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
   (evil-define-key 'hybrid global-map (kbd "C-a") 'smarter-move-beginning-of-line)
