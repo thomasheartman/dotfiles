@@ -916,9 +916,7 @@ you should place your code here."
     (interactive)
     (isearch-vim-style-exit)
     (call-interactively 'kill-ring-save)
-    ;; set prefix arg to move point back to where search started
-    (let ((current-prefix-arg '(4)))
-      (call-interactively 'set-mark-command)))
+    (exchange-point-and-mark))
 
   (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
   (define-key isearch-mode-map (kbd "<M-return>") 'isearch-vim-style-kill)
