@@ -711,11 +711,16 @@ you should place your code here."
 
 
   (require 'exwm-randr)
-  (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "DP2" 1 "eDP1" 2 "DP1"))
+  (defun my-exwm-randr-screen-change-hook ()
+    (interactive)
+    (start-process-shell-command
+      "autorandr" nil "autorandr -c"))
   (add-hook 'exwm-randr-screen-change-hook
     (lambda ()
-      (start-process-shell-command
-        "autorandr" nil "autorandr -c")))
+      (my-exwm-randr-screen-change-hook)))
+  ;; (add-hook 'exwm-randr-screen-change-hook
+  ;;  (my-exwm-randr-screen-change-hook))
   (exwm-randr-enable)
   (message "%s" "Configured EXWM")
 
