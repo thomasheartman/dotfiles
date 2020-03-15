@@ -25,6 +25,8 @@
 *** https://amos.me/index.xml                                          :rust:
 *** https://bartoszmilewski.com/feed/
 *** https://blog.ploeh.dk/rss                         :haskell:functional:f#:
+*** http://cachestocaches.com/feed                                    :emacs:
+
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
