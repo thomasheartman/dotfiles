@@ -1478,7 +1478,8 @@ If COUNT is given, move COUNT - 1 lines downward first."
   (require 'window-purpose)
   (use-package forge
     :after magit
-    :config (add-to-list 'forge-alist '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository)))
+    :config (add-to-list 'forge-alist '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
+    (define-key magit-mode-map (kbd "C-c M-w") 'forge-copy-url-at-point-as-kill))
   (message "Git config complete.")
   ;;----------------------------------------------------------------------------
   ;; end git setup
