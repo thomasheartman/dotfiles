@@ -1136,6 +1136,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (call-interactively 'org-backward-heading-same-level))
     (setq org-capture-templates '(("j" "Journal entry" entry (function org-journal-find-location)
                                     "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
+    (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"REVIEW\"")
     (setq org-journal-file-header "#+TODO: TODO(t) REVIEW(r) | DONE(d)"))
   (message "%s" "Configured org.")
   ;;----------------------------------------------------------------------------
