@@ -30,15 +30,17 @@ values."
     '()
     ;; List of configuration layers to load.
     dotspacemacs-configuration-layers
-    '(perl5
-       csv
+    '(
+       perl5
        (auto-completion (haskell :variables haskell-completion-backend 'lsp
                           auto-completion-enable-help-tooltip t))
        autohotkey
        common-lisp
        csharp
+       csv
        dhall
        docker
+       elixir
        (elfeed :variables rmh-elfeed-org-files (list "~/feeds.org"))
        elm
        emacs-lisp
@@ -62,6 +64,7 @@ values."
        markdown
        (mu4e :variables mu4e-use-maildirs-extension t mu4e-enable-async-operations t)
        multiple-cursors
+       nginx
        nixos
        (org :variables org-want-todo-bindings
          t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5" org-highlight-latex-and-related '(latex script entities) org-enable-org-journal-support t)
