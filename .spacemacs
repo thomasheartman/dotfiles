@@ -64,7 +64,7 @@ values."
        multiple-cursors
        nixos
        (org :variables org-want-todo-bindings
-         t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5" org-highlight-latex-and-related '(latex script entities))
+         t org-enable-reveal-js-support nil org-html-html5-fancy t org-html-doctype "html5" org-highlight-latex-and-related '(latex script entities) org-enable-org-journal-support t)
 
        parinfer
        pdf
@@ -1102,6 +1102,36 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   (spacemacs/set-leader-keys-for-major-mode
     'org-mode "i b" 'org-insert-structure-template)
+  (defun kill-buffer-and-window-unconditionally ()
+    "Kill the current buffer and window regardless of modified state."
+    (interactive)
+    (set-buffer-modified-p nil)
+    (kill-buffer-and-window))
+  (defun org-journal-save-entry-and-exit()
+    "Simple convenience function.
+  Saves the buffer of the current day's entry and kills the window
+  Similar to org-capture like behavior"
+    (interactive)
+    (save-buffer)
+    (kill-buffer-and-window))
+  (with-eval-after-load 'org-journal
+    (define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
+    (define-key org-journal-mode-map (kbd "C-c C-k") 'kill-buffer-and-window-unconditionally)
+    (defun org-journal-find-location ()
+      ;; Open today's journal, but specify a non-nil prefix argument in order to
+      ;; inhibit inserting the heading; org-capture will insert the heading.
+      (org-journal-new-entry t)
+      ;; Position point on the journal's top-level heading so that org-capture
+      ;; will add the new entry as a child entry.
+      (goto-char (point-min))
+      ;; If the first line is not a heading, move to the first heading in the file.
+      (call-interactively 'org-forward-heading-same-level)
+      ;; In case the first line was a heading, move back to the previous top-level heading.
+      ;; If we're on the first top-level heading, this function does nothing.
+      (call-interactively 'org-backward-heading-same-level))
+    (setq org-capture-templates '(("j" "Journal entry" entry (function org-journal-find-location)
+                                    "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
+    (setq org-journal-file-header "#+TODO: TODO(t) REVIEW(r) | DONE(d)"))
   (message "%s" "Configured org.")
   ;;----------------------------------------------------------------------------
   ;; end Org setup
