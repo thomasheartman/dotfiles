@@ -22,8 +22,8 @@
   prompt = false
 
 [user]
-  name = Thomas Hartmann
-	email = thomas.o.hartmann@gmail.com
+  name = Thomas Heartman
+	email = thomas.heartman+git@gmail.com
 
 [filter "lfs"]
   clean = git-lfs clean %f
