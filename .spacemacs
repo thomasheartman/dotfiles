@@ -1134,10 +1134,33 @@ If COUNT is given, move COUNT - 1 lines downward first."
       ;; In case the first line was a heading, move back to the previous top-level heading.
       ;; If we're on the first top-level heading, this function does nothing.
       (call-interactively 'org-backward-heading-same-level))
-    (setq
-      org-journal-carryover-items "TODO=\"TODO\"|TODO=\"REVIEW\"|TODO=\"BLOCKED\"'"
-      org-journal-file-header (concat "#+TODO: TODO(t) BLOCKED(b@) REVIEW(r) | DONE(d)\n"
-                                "#+PROPERTY: LOG_INTO_DRAWER t")))
+
+    (setq todo-items '(("TODO". "t")
+                        ("BLOCKED" . "b@")
+                        ("REVIEW". "r")))
+
+    (setq done-items '(("DONE" . "d")))
+
+    (defun create-todo-item (item)
+      (format "%s(%s)" (car item) (cdr item)))
+
+    (defun create-todo-match-string (todo) (format "TODO=\"%s\"" todo))
+
+    (setq org-journal-carryover-items
+      (mapconcat
+        (lambda (x) (create-todo-match-string (car x)))
+        todo-items
+        "|")
+
+      org-journal-file-header
+      (concat
+        (format "#+TODO: %s | %s"
+          (mapconcat 'create-todo-item todo-items " ")
+          (mapconcat 'create-todo-item done-items " "))
+        "\n"
+        "#+PROPERTY: LOG_INTO_DRAWER t"))
+
+)
   (setq org-capture-templates
     '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
         "* TODO %?\n %i\n %a")
