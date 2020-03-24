@@ -1135,39 +1135,37 @@ If COUNT is given, move COUNT - 1 lines downward first."
       ;; If we're on the first top-level heading, this function does nothing.
       (call-interactively 'org-backward-heading-same-level))
 
-    (setq todo-items '(("TODO". "t")
-                        ("BLOCKED" . "b@")
-                        ("REVIEW". "r")))
-
-    (setq done-items '(("DONE" . "d")))
 
     (defun create-todo-item (item)
       (format "%s(%s)" (car item) (cdr item)))
 
     (defun create-todo-match-string (todo) (format "TODO=\"%s\"" todo))
 
-    (setq org-journal-carryover-items
-      (mapconcat
-        (lambda (x) (create-todo-match-string (car x)))
-        todo-items
-        "|")
+    (let ((todo-items '(("TODO". "t")
+                         ("BLOCKED" . "b@")
+                         ("REVIEW". "r")))
+           (done-items '(("DONE" . "d"))))
+      (setq
+        org-journal-carryover-items
+        (mapconcat
+          (lambda (x) (create-todo-match-string (car x)))
+          todo-items
+          "|")
 
-      org-journal-file-header
-      (concat
-        (format "#+TODO: %s | %s"
-          (mapconcat 'create-todo-item todo-items " ")
-          (mapconcat 'create-todo-item done-items " "))
-        "\n"
-        "#+PROPERTY: LOG_INTO_DRAWER t"))
-
-)
+        org-journal-file-header
+        (concat
+          (format "#+TODO: %s | %s"
+            (mapconcat 'create-todo-item todo-items " ")
+            (mapconcat 'create-todo-item done-items " "))
+          "\n"
+          "#+PROPERTY: LOG_INTO_DRAWER t"))))
   (setq org-capture-templates
     '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
         "* TODO %?\n %i\n %a")
        ("p" "Post" entry (file+headline "~/projects/blog/notes.org" "Posts")
-         "* IDEA %^{header}\n%U%i\n%?" :empty-lines 1))
-    ("j" "Journal entry" entry (function org-journal-find-location)
-      "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?"))
+         "* IDEA %^{header}\n%U%i\n%?" :empty-lines 1)
+       ("j" "Journal entry" entry (function org-journal-find-location)
+         "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
   (message "%s" "Configured org.")
   ;;----------------------------------------------------------------------------
   ;; end Org setup
