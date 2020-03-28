@@ -31,6 +31,7 @@
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
 **** https://www.scottohara.me/feed.xml
+**** https://daverupert.com/atom.xml
 *** Rust                                                           :dev:rust:
 **** https://blog.rust-lang.org/feed.xml
 **** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                     :reddit:
