@@ -21,6 +21,7 @@ in buildEnv {
     emacs
     ffmpeg
     firefox
+    gnupg
     haskellPackages.apply-refact
     haskellPackages.hlint
     haskellPackages.hindent
