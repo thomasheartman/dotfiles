@@ -1105,68 +1105,34 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;----------------------------------------------------------------------------
   ;; Org setup
   ;;----------------------------------------------------------------------------
-  (spacemacs/set-leader-keys-for-major-mode
-    'org-mode "i b" 'org-insert-structure-template)
-  (defun kill-buffer-and-window-unconditionally ()
-    "Kill the current buffer and window regardless of modified state."
-    (interactive)
-    (set-buffer-modified-p nil)
-    (kill-buffer-and-window))
-  (defun org-journal-save-entry-and-exit()
-    "Simple convenience function.
-  Saves the buffer of the current day's entry and kills the window
-  Similar to org-capture like behavior"
-    (interactive)
-    (save-buffer)
-    (kill-buffer-and-window))
-  (with-eval-after-load 'org-journal
-    (define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
-    (define-key org-journal-mode-map (kbd "C-c C-k") 'kill-buffer-and-window-unconditionally)
-    (defun org-journal-find-location ()
-      ;; Open today's journal, but specify a non-nil prefix argument in order to
-      ;; inhibit inserting the heading; org-capture will insert the heading.
-      (org-journal-new-entry t)
-      ;; Position point on the journal's top-level heading so that org-capture
-      ;; will add the new entry as a child entry.
-      (goto-char (point-min))
-      ;; If the first line is not a heading, move to the first heading in the file.
-      (call-interactively 'org-forward-heading-same-level)
-      ;; In case the first line was a heading, move back to the previous top-level heading.
-      ;; If we're on the first top-level heading, this function does nothing.
-      (call-interactively 'org-backward-heading-same-level))
 
+  (defun my-create-log-msg (text)
+    "Create a log message with a timestamp."
+    (format "[%s] %s" (format-time-string "%T:%3N") text))
 
-    (defun create-todo-item (item)
-      (format "%s(%s)" (car item) (cdr item)))
+  (defun my-print-log-msg (text)
+    (message "%s" (my-create-log-msg text)))
 
-    (defun create-todo-match-string (todo) (format "TODO=\"%s\"" todo))
+  (defun log-config-start (what)
+    "Log the start of a configuration."
+    (my-print-log-msg (format "Configuring %s" what)))
 
-    (let ((todo-items '(("TODO". "t")
-                         ("BLOCKED" . "b@")
-                         ("REVIEW". "r")))
-           (done-items '(("DONE" . "d"))))
-      (setq
-        org-journal-carryover-items
-        (mapconcat
-          (lambda (x) (create-todo-match-string (car x)))
-          todo-items
-          "|")
+  (defun log-config-end (what)
+    "Log the end of a configuration."
+    (my-print-log-msg (format "Finished configuring %s" what)))
 
-        org-journal-file-header
-        (concat
-          (format "#+TODO: %s | %s"
-            (mapconcat 'create-todo-item todo-items " ")
-            (mapconcat 'create-todo-item done-items " "))
-          "\n"
-          "#+PROPERTY: LOG_INTO_DRAWER t"))))
-  (setq org-capture-templates
-    '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-        "* TODO %?\n %i\n %a")
-       ("p" "Post" entry (file+headline "~/projects/blog/notes.org" "Posts")
-         "* IDEA %^{header}\n%U%i\n%?" :empty-lines 1)
-       ("j" "Journal entry" entry (function org-journal-find-location)
-         "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
-  (message "%s" "Configured org.")
+  ;; TODO: find a way to make this work without lambdas in the calling function
+  (defun configure (what config)
+    "Configure something and wrap it in logs."
+    (log-config-start what)
+    (funcall-interactively config)
+    (log-config-end what))
+
+  (configure "Org mode"
+    '(lambda () (org-babel-load-file
+                  (expand-file-name "config/org-mode.org"
+                    user-emacs-directory))))
+
   ;;----------------------------------------------------------------------------
   ;; end Org setup
   ;;----------------------------------------------------------------------------
