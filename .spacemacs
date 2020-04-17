@@ -1130,7 +1130,7 @@ If COUNT is given, move COUNT - 1 lines downward first."
 
   (configure "Org mode"
     '(lambda () (org-babel-load-file
-                  (expand-file-name "config/org-mode.org"
+                  (expand-file-name "config.org"
                     user-emacs-directory))))
 
   ;;----------------------------------------------------------------------------
