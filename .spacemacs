@@ -116,6 +116,7 @@ values."
        lsp-rust
        lsp-ui
        mixed-pitch
+       org-ref
        (reason-mode
          :location (recipe
                      :repo "reasonml-editor/reason-mode"
