@@ -671,6 +671,9 @@ you should place your code here."
        ([?\s-m] . spacemacs/toggle-maximize-buffer)
        ([?\s-b] . lazy-helm/helm-mini)
 
+       ;; other
+       ([?\s-c] . org-capture)
+
        ;; window splitting
        ([?\s-|] . split-window-right-and-focus)
        ([?\s-_] . split-window-below-and-focus)
