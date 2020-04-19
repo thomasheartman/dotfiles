@@ -23,12 +23,6 @@ in buildEnv {
     ffmpeg
     firefox
     gnupg
-    haskellPackages.apply-refact
-    haskellPackages.hlint
-    haskellPackages.hindent
-    haskellPackages.stylish-haskell
-    haskellPackages.hasktags
-    haskellPackages.hoogle
     ispell
     jq
     libusb
