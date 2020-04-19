@@ -13,6 +13,7 @@ in buildEnv {
   extraOutputsToInstall = [ "out" "bin" "lib" ];
   paths = with xfce; [
     alacritty
+    autojump
     bat
     cacert
     chromium
