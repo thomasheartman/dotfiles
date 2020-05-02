@@ -76,7 +76,6 @@ values."
        (ranger :variables ranger-show-preview
          t)
        react
-       ;; rust
        (semantic :disabled-for emacs-lisp)
        (shell :variables shell-default-shell 'eshell shell-enable-smart-eshell t shell-default-position 'right shell-default-width 50 shell-default-term-shell (executable-find "fish") multi-term-program (executable-find "fish"))
        shell-scripts
@@ -113,7 +112,6 @@ values."
        forge
        ht
        js-format
-       lsp-rust
        lsp-ui
        mixed-pitch
        org-ref
@@ -524,9 +522,6 @@ you should place your code here."
     ;; mac-specific
     mac-use-title-bar
     t
-    ;; rust-lang
-    ;; rust-format-on-save
-    ;; t
 
     ;; when entering text with an active selection, overwrite the selection with
     ;; the input
@@ -576,42 +571,6 @@ you should place your code here."
   ;; elfeed
   (setq-default elfeed-search-filter "@2-weeks-ago +unread")
   (message "%s" "Configured elfeed.")
-
-  ;;----------------------------------------------------------------------------
-  ;; rust setup
-  ;;----------------------------------------------------------------------------
-
-  ;; (with-eval-after-load 'lsp-mode
-  ;;   (add-hook 'rust-mode-hook #'lsp)
-  ;;   (add-hook 'rust-mode-hook 'lsp-mode)
-  ;;   (add-hook 'rust-mode-hook 'racer-mode)
-  ;;   (add-hook 'rust-mode-hook 'lsp-ui-mode))
-
-  (with-eval-after-load 'lsp-mode
-    (add-hook 'rustic-mode-hook #'lsp)
-    (add-hook 'rustic-mode-hook 'lsp-mode)
-    (add-hook 'rustic-mode-hook 'lsp-ui-mode))
-
-  (add-to-list 'auto-mode-alist '("\\.rs$" . rustic-mode))
-
-  (with-eval-after-load 'rustic-mode
-    (setq rustic-lsp-client 'eglot)
-    (setq rustic-format-on-save t))
-
-  ;; (defun my-set-racer-rust-src-path ()
-  ;;   (interactive)
-  ;;   (setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src" (substring (shell-command-to-string "rustc --print sysroot") 0 -1))))
-
-  ;; (defun my-set-racer-cmd ()
-  ;;   (interactive)
-  ;;   (setq racer-cmd (executable-find "racer"))
-  ;;   my-set-racer-rust-src-path)
-
-  ;; (add-hook 'racer-mode-hook 'my-set-racer-cmd)
-
-  ;;----------------------------------------------------------------------------
-  ;; end rust setup
-  ;;----------------------------------------------------------------------------
 
   ;;----------------------------------------------------------------------------
   ;; yaml setup
