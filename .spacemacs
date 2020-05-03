@@ -103,7 +103,9 @@ values."
        company-flx
        company-lsp
        dash
-       (direnv :config (direnv-mode))
+       (direnv :config (direnv-mode) :init
+         (define-key global-map (kbd "C-c d u") 'direnv-update-environment)
+         (define-key global-map (kbd "C-c d a") 'direnv-allow))
        dotnet
        editorconfig
        eglot
