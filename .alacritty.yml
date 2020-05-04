@@ -38,11 +38,8 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  faux_multiplier: 3
-  auto_scroll: false
+  multiplier: 3
 
-# Display tabs using this many cells (changes require restart)
-tabspaces: 2
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: true
