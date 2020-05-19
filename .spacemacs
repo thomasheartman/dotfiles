@@ -79,6 +79,7 @@ values."
        (ranger :variables ranger-show-preview
          t)
        react
+       rust
        (semantic :disabled-for emacs-lisp)
        (shell :variables shell-default-shell 'eshell shell-enable-smart-eshell t shell-default-position 'right shell-default-width 50 shell-default-term-shell (executable-find "fish") multi-term-program (executable-find "fish"))
        shell-scripts
