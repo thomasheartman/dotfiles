@@ -9,7 +9,7 @@ switch (uname)
         set DARWIN_NIX_CONFIG "/etc/static/fish/config.fish"
         [ -f $DARWIN_NIX_CONFIG ]; and source $DARWIN_NIX_CONFIG;
     case '*'
-        set -gx EDITOR "emacsclient -t"
+        set -gx EDITOR "emacsclient"
         bind \b 'backward-kill-word'
 end
 set -gx VISUAL $EDITOR
