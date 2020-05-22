@@ -611,7 +611,9 @@ you should place your code here."
   (message "%s" "Configuring EXWM")
   (setq
     exwm-workspace-show-all-buffers t
-    exwm-layout-show-all-buffers t)
+    exwm-layout-show-all-buffers t
+    persp-init-frame-behaviour nil) ;; based on https://github.com/ch11ng/exwm/wiki/Notes-to-Spacemacs-users
+
   (setq exwm-input-global-keys
     `(([?\s-r] . exwm-reset)
        ([?\s- ] . spacemacs/exwm-app-launcher)
