@@ -11,6 +11,8 @@
 *** [[http://www.giantitp.com/comics/oots.rss][Order of the Stick]]
 ** Blogs                                                                :dev:
 *** https://hydraz.semi.works/feed.xml
+*** http://www.julian.digital/feed
+*** [[https://buttondown.email/cassidoo/rss][Cassidoo]]
 *** http://yannesposito.com/Scratch/en/blog/feed/feed.xml
 *** https://dpwright.com/atom.xml
 *** https://bodil.lol/rss.xml                                          :rust:
@@ -26,7 +28,8 @@
 *** https://bartoszmilewski.com/feed/
 *** https://blog.ploeh.dk/rss                         :haskell:functional:f#:
 *** http://cachestocaches.com/feed                                    :emacs:
-
+*** [[https://deterministic.space/feed.xml][Pascal Hertleif]]
+*** [[https://peppe.rs/index.xml][nerdypepper]]
 *** Web / design                                                        :web:
 **** https://css-tricks.com/feed/
 **** https://accssible.com/atom.xml
@@ -34,6 +37,7 @@
 **** https://daverupert.com/atom.xml
 *** Rust                                                           :dev:rust:
 **** https://blog.rust-lang.org/feed.xml
+**** [[https://thesquareplanet.com/feed.xml][Jon Gjengset (the square planet)]]                                  :rust:
 **** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                     :reddit:
 **** https://this-week-in-rust.org/rss.xml
 **** http://feeds.feedburner.com/steveklabnik/words
@@ -48,5 +52,7 @@
 **** http://neilmitchell.blogspot.com/feeds/posts/default
 **** https://lexi-lambda.github.io/feeds/all.rss.xml
 **** https://williamyaoh.com/feed.atom
+** Other feeds
+*** https://weekly.nixos.org/feeds/all.rss.xml                    :nixos:nix:
 ** Self
 *** https://thomashartmann.dev/rss.xml
