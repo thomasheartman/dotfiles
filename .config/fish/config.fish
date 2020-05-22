@@ -2,8 +2,12 @@ source ~/.aliases/aliases.fish
 
 switch (uname)
     case Darwin
-        set -gx EDITOR "vim"
+        set -gx EDITOR "emacsclient"
+        set -gx NIX_PATH darwin-config=$HOME/.nixpkgs/darwin-configuration.nix $HOME/.nix-defexpr/channels $NIX_PATH
         set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin $HOME/.dotnet/tools
+        [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+        set DARWIN_NIX_CONFIG "/etc/static/fish/config.fish"
+        [ -f $DARWIN_NIX_CONFIG ]; and source $DARWIN_NIX_CONFIG;
     case '*'
         set -gx EDITOR "emacsclient -t"
         bind \b 'backward-kill-word'
