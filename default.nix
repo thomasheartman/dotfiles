@@ -7,7 +7,8 @@
 */
 { pkgs ? import <nixpkgs> { }, name ? "user-env" }:
 with pkgs;
-let wally-cli = import ./wally-cli.nix;
+let
+  wally-cli = import ./wally-cli.nix;
 in buildEnv {
   inherit name;
   extraOutputsToInstall = [ "out" "bin" "lib" ];
@@ -19,10 +20,8 @@ in buildEnv {
     chromium
     direnv
     docker
-    emacs
     ffmpeg
     firefox
-    gnupg
     ispell
     jq
     libusb
@@ -39,7 +38,6 @@ in buildEnv {
     skim
     slack
     spotify
-    stack
     teensy-loader-cli
     tmux
     vlc
