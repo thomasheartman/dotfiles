@@ -25,7 +25,7 @@
 *** https://v4.chriskrycho.com/feeds/blog.xml
 *** https://josephg.com/blog/rss/                                       :dev:
 *** https://amos.me/index.xml                                          :rust:
-*** https://bartoszmilewski.com/feed/
+*** [[https://bartoszmilewski.com/feed/][Bartosz Milewski]]
 *** https://blog.ploeh.dk/rss                         :haskell:functional:f#:
 *** http://cachestocaches.com/feed                                    :emacs:
 *** [[https://deterministic.space/feed.xml][Pascal Hertleif]]
