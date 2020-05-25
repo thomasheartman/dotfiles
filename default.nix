@@ -16,6 +16,7 @@ in buildEnv {
     alacritty
     autojump
     bat
+    bitwarden-cli
     cacert
     chromium
     direnv
