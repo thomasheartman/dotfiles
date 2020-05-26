@@ -54,5 +54,6 @@
 **** https://williamyaoh.com/feed.atom
 ** Other feeds
 *** https://weekly.nixos.org/feeds/all.rss.xml                    :nixos:nix:
+*** [[https://css-tricks.com/feed/][CSS-tricks]]                                                      :web:css:
 ** Self
 *** https://thomashartmann.dev/rss.xml
