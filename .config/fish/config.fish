@@ -3,15 +3,20 @@ source ~/.aliases/aliases.fish
 switch (uname)
     case Darwin
         set -gx EDITOR "emacsclient"
-        set -gx NIX_PATH darwin-config=$HOME/.nixpkgs/darwin-configuration.nix $HOME/.nix-defexpr/channels $NIX_PATH
         set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin $HOME/.dotnet/tools
         [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
         set DARWIN_NIX_CONFIG "/etc/static/fish/config.fish"
         [ -f $DARWIN_NIX_CONFIG ]; and source $DARWIN_NIX_CONFIG;
+        if type -q any-nix-shell
+            any-nix-shell fish --info-right | source
+        end
+
     case '*'
         set -gx EDITOR "emacsclient"
         bind \b 'backward-kill-word'
 end
+
+
 set -gx VISUAL $EDITOR
 
 # explicitly set the lang to one that supports UTF-8 for TMUX unicode support
