@@ -997,10 +997,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; (define-key company-quickhelp-mode-map (kbd "C-n") 'company-select-next)
   ;; (define-key company-quickhelp-mode-map (kbd "C-p") 'company-select-previous))
 
-  ;; Make C-/ expand yasnippet if available, else go into company
-  ;; Must unbind undo tree first
-  (with-eval-after-load 'undo-tree
-    (define-key undo-tree-map (kbd "C-/") nil))
   (defun insert-date ()
     (interactive)
     (insert (format-time-string "%F")))
@@ -1031,8 +1027,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;;   (interactive)
   ;;   (unless (call-interactively 'yas-expand) (call-interactively 'company-yasnippet)))
   ;; Must bind in global map, else undo tree stops loading
-  (with-eval-after-load 'yasnippet
-    (define-key global-map (kbd "C-/") 'yas-expand))
   (spacemacs/toggle-indent-guide-globally-on)
 
   (use-package mixed-pitch
