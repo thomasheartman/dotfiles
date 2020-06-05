@@ -55,5 +55,6 @@
 ** Other feeds
 *** https://weekly.nixos.org/feeds/all.rss.xml                    :nixos:nix:
 *** [[https://css-tricks.com/feed/][CSS-tricks]]                                                      :web:css:
+*** https://www.nngroup.com/feed/rss/                                    :ux:
 ** Self
 *** https://thomashartmann.dev/rss.xml
