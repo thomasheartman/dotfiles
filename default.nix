@@ -25,7 +25,6 @@ in buildEnv {
     ispell
     jq
     libusb
-    moka-icon-theme
     moreutils
     mpv
     mu
