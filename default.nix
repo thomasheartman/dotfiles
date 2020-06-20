@@ -8,11 +8,10 @@
 { pkgs ? import <nixpkgs> { }, name ? "user-env" }:
 with pkgs;
 let
-  wally-cli = import ./wally-cli.nix;
 in buildEnv {
   inherit name;
   extraOutputsToInstall = [ "out" "bin" "lib" ];
-  paths = with xfce; [
+  paths = [
     alacritty
     autojump
     bat
@@ -44,7 +43,6 @@ in buildEnv {
     vlc
     wally-cli
     watchexec
-    xfce.xfwm4-themes
 
     (writeScriptBin "update-profile" ''
       #!${stdenv.shell}
