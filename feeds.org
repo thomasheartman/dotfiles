@@ -57,4 +57,5 @@
 *** [[https://css-tricks.com/feed/][CSS-tricks]]                                                      :web:css:
 *** https://www.nngroup.com/feed/rss/                                    :ux:
 ** Self
-*** https://thomashartmann.dev/rss.xml
+*** [[https://thomashartmann.dev/rss.xml][thomashartmann.dev]]
+*** [[https://blog.thomasheartman.com/rss.xml][blog.thomasheartman.com]]
