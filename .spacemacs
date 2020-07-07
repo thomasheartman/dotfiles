@@ -122,6 +122,7 @@ values."
        lsp-ui
        mini-modeline
        mixed-pitch
+       ob-http
        org-ref
        (reason-mode
          :location (recipe
