@@ -6,8 +6,8 @@
 
 ;;; Code:
 (eval-when-compile (defvar my-config-dir))
-(unless my-config-dir
-	(setq my-config-dir (file-name-directory (or load-file-name buffer-file-name))))
+(unless (boundp 'my-config-dir)
+  (setq my-config-dir (file-name-directory (or load-file-name buffer-file-name))))
 
 
 (message "Using config dir: %s" my-config-dir)

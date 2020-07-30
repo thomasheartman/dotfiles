@@ -50,6 +50,12 @@
 		   :config
 		   (load-theme 'one-dark t))
     #+END_SRC
+*** Font
+    The default font size is a bit small on my monitors, so we'll
+    increase it sufficiently.
+    #+BEGIN_SRC emacs-lisp
+      (set-face-attribute 'default nil :height 200)
+    #+END_SRC
 ** Misc
 
 *** ido mode
@@ -160,7 +166,13 @@
      #+BEGIN_SRC emacs-lisp
        (setq redisplay-dont-pause t)
      #+END_SRC
-
+*** Garbage collection
+    Inspired by the [[https://github.com/lewang/flx][flx's readme]], we can increase the GC threshold
+    significantly from the default. In addition to when using flx,
+    this might also come in handy in other situations.
+    #+BEGIN_SRC emacs-lisp
+      (setq gc-cons-threshold 20000000) 
+    #+END_SRC
 * Ivy
 
 * Flycheck
@@ -170,23 +182,48 @@
       :config (global-flycheck-mode))
   #+END_SRC
 
-* TODO Company
-  Completion is important!  
+* TODO Company                                                   :keybinding:
+  Completion is important! [[https://github.com/company-mode/company-mode][Company-mode repo]]
 
-  We need to set this up properly. In
-  addition to wanting to use tab-n-go, I also want to be able to use
-  TAB to expand completions with function arguments (like Rust
-  Analyzer). Furthermore, I also want to find a key combination that
-  will always trigger ~company-complete~. 
+  We need to set this up properly. In addition to wanting to use
+  tab-n-go, I also want to be able to use TAB to expand completions
+  with function arguments (like Rust Analyzer). Furthermore, I also
+  want to find a key combination that will always trigger
+  ~company-complete~. (C-f5?)
 
+  
   And! the completion selection should wrap around when it reaches the
   end of the list (or the start when searching backwards)
 
+  In addition to the basic company-mode configuration, I also use
+  [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior.  This requires a little extra
+  bit of configuration to get set up.
+
   #+BEGIN_SRC emacs-lisp
+    (defun my-company-tng-setup ()
+      (setq company-require-match nil
+	    company-frontends '(company-tng-frontend
+				company-pseudo-tooltip-frontend
+				company-echo-metadata-frontend))
+      (let ((keymap company-active-map))
+	(define-key keymap [return] nil)
+	(define-key keymap (kbd "RET") nil)))
     (use-package company
       :config
       (global-company-mode)
-      (company-tng-configure-default))
+      (global-set-key (kbd "C-<f5>") 'company-complete)
+      (my-company-tng-setup)
+      (setq company-idle-delay 0.2))
+  #+END_SRC
+
+  When using varying font sizes within a buffer, this can make the
+  company completion dropdown misaligned (with itself, even). Using
+  the [[https://github.com/tumashu/company-posframe][company-posframe package]] appears to fix this by putting
+  completions in a separate frame.
+  #+BEGIN_SRC emacs-lisp
+    (use-package company-posframe
+      :after company
+      :config (company-posframe-mode 1))
   #+END_SRC
 * Magit
 
@@ -195,11 +232,13 @@
   let's set them up.
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-      (add-hook 'text-mode-hook 'rainbow-delimiters-mode))
+      :hook ((prog-mode text-mode) . rainbow-delimiters-mode))
   #+END_SRC
 
 * Direnv mode
 
 * LSP
+
+* Nix mode
+
+* Rust mode
