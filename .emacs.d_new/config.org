@@ -143,7 +143,7 @@
     Make lines wrap visually if they're longer than what can fit in
     the window.
     #+BEGIN_SRC emacs-lisp
-      (visual-line-mode)
+      (global-visual-line-mode)
     #+END_SRC
 
     
@@ -174,7 +174,26 @@
       (setq gc-cons-threshold 20000000) 
     #+END_SRC
 * Ivy
+  Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
+  Swiper) using counsel. We'll also replace normal isearch with Ivy's
+  ~swiper-isearch~ and the regular ~yank-pop~ functionality with
+  ~counsel-yank-pop~.
 
+  For searches, I also prefer using a fuzzier regex pattern than the
+  default, so this is set up by assigning ~ivy--regex-fuzzy~. 
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package counsel
+      :config
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t
+	    ivy-count-format "(%d/%d)"
+	    ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
+				    (t . ivy--regex-fuzzy))
+	    ivy-wrap t)
+      (global-set-key (kbd "C-S-s") 'swiper-isearch)
+      (global-set-key (kbd "M-y") 'counsel-yank-pop))
+  #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp  
     (use-package flycheck
@@ -187,14 +206,8 @@
 
   We need to set this up properly. In addition to wanting to use
   tab-n-go, I also want to be able to use TAB to expand completions
-  with function arguments (like Rust Analyzer). Furthermore, I also
-  want to find a key combination that will always trigger
-  ~company-complete~. (C-f5?)
-
+  with function arguments (like Rust Analyzer). 
   
-  And! the completion selection should wrap around when it reaches the
-  end of the list (or the start when searching backwards)
-
   In addition to the basic company-mode configuration, I also use
   [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior.  This requires a little extra
   bit of configuration to get set up.
@@ -213,7 +226,8 @@
       (global-company-mode)
       (global-set-key (kbd "C-<f5>") 'company-complete)
       (my-company-tng-setup)
-      (setq company-idle-delay 0.2))
+      (setq company-idle-delay 0.2
+	    company-selection-wrap-around t))
   #+END_SRC
 
   When using varying font sizes within a buffer, this can make the
@@ -224,6 +238,17 @@
     (use-package company-posframe
       :after company
       :config (company-posframe-mode 1))
+  #+END_SRC
+
+  To make completions a bit smoother, I use [[https://github.com/PythonNut/company-flx][company-flx]] to allow for
+  fuzzy matching when company uses the company-capf backend. I'll also
+  add ~fuzzy~ to the list of completion styles.
+  #+BEGIN_SRC emacs-lisp
+    (use-package company-flx
+      :after company
+      :config
+      (company-flx-mode 1)
+      (add-to-list 'completion-styles 'fuzzy))
   #+END_SRC
 * Magit
 
@@ -238,7 +263,14 @@
 * Direnv mode
 
 * LSP
-
+  [[https://github.com/emacs-lsp/lsp-mode][GitHub repo]]
 * Nix mode
 
 * Rust mode
+
+* Yasnippet
+  [[https://github.com/joaotavora/yasnippet][GitHub repo]]
+* Hydra
+  [[https://github.com/abo-abo/hydra][GitHub repo]]
+* ace-window
+  [[https://github.com/abo-abo/ace-window][GitHub repo]]
