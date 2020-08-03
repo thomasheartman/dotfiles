@@ -13,7 +13,7 @@
    Before we do anything else, let's make sure we've got [[https://github.com/jwiegley/use-package][use-package]]
    ready to go! This bit of setup is a modified version of what Greg
    Stein's example from Caches to Caches post [[http://cachestocaches.com/2015/8/getting-started-use-package/][Getting started with
-   use-package]]. 
+   use-package]].
    #+BEGIN_SRC emacs-lisp
      (require 'package)
      (setq package-enable-at-startup nil)
@@ -67,7 +67,7 @@
             ido-everywhere t)
       (ido-mode 1)
     #+end_src
- 
+
     We can also use ido-mode for find file at point.
     #+BEGIN_SRC emacs-lisp
       (setq ido-use-filename-at-point 'guess)
@@ -104,13 +104,13 @@
 	    inhibit-startup-echo-area-message t)
     #+END_SRC
 
- 
+
 *** recent files (recentf)                                       :keybinding:
     Mickey Petersen suggests using the recent files package in his
     [[https://www.masteringemacs.org/article/find-files-faster-recent-files-package][Find Files Faster with the Recent Files Package]], so we'll copy his
     suggested configuration here.
-    
-    #+BEGIN_SRC emacs-lisp    
+
+    #+BEGIN_SRC emacs-lisp
       (require 'recentf)
 
       (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
@@ -135,7 +135,7 @@
     #+END_SRC
 
     Further, let's enable line numbers everywhere and make them relative.
-    #+BEGIN_SRC emacs-lisp    
+    #+BEGIN_SRC emacs-lisp
       (global-display-line-numbers-mode)
       (setq display-line-numbers 'relative)
     #+END_SRC
@@ -146,7 +146,18 @@
       (global-visual-line-mode)
     #+END_SRC
 
-    
+    I prefer ending sentences with single spaces (even if I see the
+    benefits of using two, as recommended by Emacs), so let's also
+    tell Emacs that it's okay.
+    #+BEGIN_SRC emacs-lisp
+      (setq sentence-end-double-space nil)
+    #+END_SRC
+
+    I also want files to auto-update if they change on disk.
+    #+begin_src emacs-lisp
+      (global-auto-revert-mode)
+    #+end_src
+
 **** Removing suspend-frame                                      :keybinding:
      To disable suspend-frame (I don't think I've ever meant to
      activate it), we'll instead replace it by a message saying it has
@@ -171,8 +182,17 @@
     significantly from the default. In addition to when using flx,
     this might also come in handy in other situations.
     #+BEGIN_SRC emacs-lisp
-      (setq gc-cons-threshold 20000000) 
+      (setq gc-cons-threshold 20000000)
     #+END_SRC
+*** OS-specifics                                                         :os:
+    Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
+**** macOS                                                            :macos:
+     On macOS, I want the CMD key to act as Meta, and the Alt key as super, because this works better with their location on the keyboard and their corresponding keys on Linux.
+     #+begin_src emacs-lisp
+       (when (eq system-type 'darwin)
+         (setq mac-option-modifier nil
+               mac-command-modifier 'meta))
+     #+end_src
 * Ivy
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
   Swiper) using counsel. We'll also replace normal isearch with Ivy's
@@ -180,7 +200,7 @@
   ~counsel-yank-pop~.
 
   For searches, I also prefer using a fuzzier regex pattern than the
-  default, so this is set up by assigning ~ivy--regex-fuzzy~. 
+  default, so this is set up by assigning ~ivy--regex-fuzzy~.
 
   #+BEGIN_SRC emacs-lisp
     (use-package counsel
@@ -195,7 +215,7 @@
       (global-set-key (kbd "M-y") 'counsel-yank-pop))
   #+END_SRC
 * Flycheck
-  #+BEGIN_SRC emacs-lisp  
+  #+BEGIN_SRC emacs-lisp
     (use-package flycheck
       :ensure t
       :config (global-flycheck-mode))
@@ -206,8 +226,8 @@
 
   We need to set this up properly. In addition to wanting to use
   tab-n-go, I also want to be able to use TAB to expand completions
-  with function arguments (like Rust Analyzer). 
-  
+  with function arguments (like Rust Analyzer).
+
   In addition to the basic company-mode configuration, I also use
   [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior.  This requires a little extra
   bit of configuration to get set up.
@@ -274,3 +294,11 @@
   [[https://github.com/abo-abo/hydra][GitHub repo]]
 * ace-window
   [[https://github.com/abo-abo/ace-window][GitHub repo]]
+* TODO Surround
+  I want to find some way to have the equivalent of vim/evil-surround
+  but in pure Emacs-mode. Not sure how to do it just yet, but it
+  should be possible. The easiest may be to use evil-surround, just
+  mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
+* Org mode
+** auto-fill-mode
+** structure templates (using org-tempo or yasnippet)
