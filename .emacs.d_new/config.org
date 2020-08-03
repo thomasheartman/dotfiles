@@ -212,7 +212,7 @@
 				    (t . ivy--regex-fuzzy))
 	    ivy-wrap t)
       (global-set-key (kbd "C-S-s") 'swiper-isearch)
-      (global-set-key (kbd "M-y") 'counsel-yank-pop))
+      (global-set-key (kbd "C-M-y") 'counsel-yank-pop))
   #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
