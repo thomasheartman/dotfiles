@@ -10,5 +10,5 @@ let
   rust = pkgs.latest.rustChannels.stable.rust;
 
 in pkgs.mkShell {
-  buildInputs = [ pkgs.rust-analyzer rust pkgs.cargo-watch ];
+  buildInputs = with pkgs; [ cargo-watch rust rust-analyzer cargo-edit ];
 }
