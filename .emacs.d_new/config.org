@@ -271,7 +271,21 @@
       (add-to-list 'completion-styles 'fuzzy))
   #+END_SRC
 * Magit
+  Because it's simply one of the best git experiences out there, of
+  course I want to enable and use Magit:
+  #+BEGIN_SRC emacs-lisp
+    (use-package magit
+      :config
+      (global-set-key (kbd "C-x g") 'magit-status)
+      (global-set-key (kbd "C-x M-g") 'magit-dispatch))
+  #+END_SRC
 
+  Additionally, to smooth out the workflow with GitHub and GitLab,
+  let's also use Forge.
+  #+BEGIN_SRC emacs-lisp
+    (use-package forge
+      :after magit)
+  #+END_SRC
 * Rainbow delimiters
   Rainbow delimiters make it much easier to read a lot of code, so
   let's set them up.
