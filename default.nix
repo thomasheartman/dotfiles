@@ -27,6 +27,7 @@ in buildEnv {
     libusb
     moreutils
     mpv
+    msmtp
     mu
     nixfmt
     pavucontrol
