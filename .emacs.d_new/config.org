@@ -327,6 +327,14 @@
       (global-set-key (kbd "M-i") 'change-inner)
       (global-set-key (kbd "M-o") 'change-outer))
   #+end_src
+* [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
 * Org mode
 ** auto-fill-mode
 ** structure templates (using org-tempo or yasnippet)
+** abbrev-mode
+* [[https://github.com/rejeep/wrap-region.el][wrap-region]] / [[https://github.com/Fuco1/smartparens][smartparens]]
+  I need something to wrap a region in delimiters. It seems both of
+  these can do that. Additionally, smartparens can also delete or
+  change surrounding delimiters, giving me that sweet vim-like control
+  that I crave.
+* [[https://github.com/smihica/emmet-mode][emmet-mode]]
