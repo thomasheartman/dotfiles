@@ -149,3 +149,5 @@
   path = ~/projects/work/.gitconfig
 [gitlab "gitlab.intility.no/api/v4"]
 	user = thomas.heartman
+[merge]
+	conflictStyle = diff3
