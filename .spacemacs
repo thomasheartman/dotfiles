@@ -449,6 +449,29 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (message "%s" "Starting user config.")
+
+  (when (string= system-type "darwin")
+    ;; mac specific setup
+    (setq dired-use-ls-dired nil)
+    (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+    (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
+    (add-to-list 'package-pinned-packages '(spaceline . "melpa-stable"))
+    (add-to-list 'package-pinned-packages '(spaceline-all-the-icons . "melpa-stable"))
+    (add-to-list 'package-pinned-packages '(all-the-icons . "melpa-stable"))
+    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+    (setenv "PATH" (concat (getenv "PATH") ":/Library/Frameworks/Mono.framework/Commands:/usr/local/share/dotnet:~/.dotnet/tools:/run/current-system/sw/bin"))
+    (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands" "/usr/local/share/dotnet" "~/.dotnet/tools" "/run/current-system/sw/bin")))
+
+    ;; because this path isn't populated when the packages load, we need to set these manually
+    (setq multi-term-program (executable-find "fish")
+      shell-default-term-shell (executable-find "fish"))
+
+
+    (message "Exec path is %s" exec-path)
+    (message "Fish is %s" (executable-find "fish"))
+    (message "%s" "Configured mac setup"))
+
+
   (setq frame-resize-pixelwise t)
   (setq vc-follow-symlinks t
     ;; file system
@@ -1159,17 +1182,6 @@ If COUNT is given, move COUNT - 1 lines downward first."
       (forward-line 1)
       (transpose-lines 1)
       (forward-line -1)))
-  (when (string= system-type "darwin")
-    ;; mac specific setup
-    (setq dired-use-ls-dired nil)
-    (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-    (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
-    (add-to-list 'package-pinned-packages '(spaceline . "melpa-stable"))
-    (add-to-list 'package-pinned-packages '(spaceline-all-the-icons . "melpa-stable"))
-    (add-to-list 'package-pinned-packages '(all-the-icons . "melpa-stable"))
-    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-    (setenv "PATH" (concat (getenv "PATH") ":/Library/Frameworks/Mono.framework/Commands:/usr/local/share/dotnet:~/.dotnet/tools"))
-    (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands" "/usr/local/share/dotnet" "~/.dotnet/tools"))))
 
 
   (when (string= system-type "windows-nt")
