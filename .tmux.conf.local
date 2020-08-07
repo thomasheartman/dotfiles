@@ -333,22 +333,22 @@ set -g pane-base-index 1
 
 #plugins
 # resurrect
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @resurrect-capture-pane-contents 'on'
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @resurrect-capture-pane-contents 'on'
 
 # set shell
-# set -g default-shell /usr/bin/fish
+set -g default-shell /run/current-system/sw/bin/fish
 
 # run resurrect manually
-run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+# run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
 
 # create new session if none exists when run as 'tmux attach'
 new-session -n $HOST
 
 # install TPM if it's not here
-if "test ! -d ~/.tmux/plugins/tpm" \
-   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+# if "test ! -d ~/.tmux/plugins/tpm" \
+#    "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
+# run '~/.tmux/plugins/tpm/tpm'
