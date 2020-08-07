@@ -338,3 +338,4 @@
   change surrounding delimiters, giving me that sweet vim-like control
   that I crave.
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
+* [[https://github.com/editorconfig/editorconfig-emacs][editorconfig]]
