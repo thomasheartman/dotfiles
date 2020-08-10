@@ -199,7 +199,7 @@
          (setq mac-option-modifier nil
                mac-command-modifier 'meta))
      #+end_src
-* Ivy
+* Ivy                                                            :keybinding:
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
   Swiper) using counsel. We'll also replace normal isearch with Ivy's
   ~swiper-isearch~ and the regular ~yank-pop~ functionality with
@@ -217,8 +217,8 @@
 	    ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
 				    (t . ivy--regex-fuzzy))
 	    ivy-wrap t)
-      (global-set-key (kbd "C-S-s") 'swiper-isearch)
-      (global-set-key (kbd "C-M-y") 'counsel-yank-pop))
+      :bind (("C-S-s" . swiper-isearch)
+	     ("C-M-y" . counsel-yank-pop)))
   #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
@@ -276,7 +276,7 @@
       (company-flx-mode 1)
       (add-to-list 'completion-styles 'fuzzy))
   #+END_SRC
-* Magit
+* Magit                                                          :keybinding:
   Because it's simply one of the best git experiences out there, of
   course I want to enable and use Magit:
   #+BEGIN_SRC emacs-lisp
@@ -303,7 +303,7 @@
 
 * LSP
   [[https://github.com/emacs-lsp/lsp-mode][GitHub repo]]
-* Nix mode
+* Nix mode                                                       :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
   :END:
@@ -344,7 +344,7 @@
   but in pure Emacs-mode. Not sure how to do it just yet, but it
   should be possible. The easiest may be to use evil-surround, just
   mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
-* TODO Change inner
+* TODO Change inner                                              :keybinding:
   Note: this could do with some improvements to also accept closing parens,
   braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
   ~parens~. Should actually be fairly doable. This has been reported previously
@@ -354,9 +354,8 @@
   To emulate some of Vim's behavior, we'll use [[https://github.com/magnars/change-inner.el][change-inner.el]]:
   #+begin_src emacs-lisp
     (use-package change-inner
-      :config
-      (global-set-key (kbd "M-i") 'change-inner)
-      (global-set-key (kbd "M-o") 'change-outer))
+      :bind (("M-i" . change-inner)
+	     ("M-o" . change-outer)))
   #+end_src
 * [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
 * Org mode
