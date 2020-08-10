@@ -158,6 +158,12 @@
       (global-auto-revert-mode)
     #+end_src
 
+    Trailing whitespace is something I prefer to avoid, so let's
+    delete that on save.
+    #+begin_src emacs-lisp
+      (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    #+end_src
+
 **** Removing suspend-frame                                      :keybinding:
      To disable suspend-frame (I don't think I've ever meant to
      activate it), we'll instead replace it by a message saying it has
