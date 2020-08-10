@@ -304,6 +304,32 @@
 * LSP
   [[https://github.com/emacs-lsp/lsp-mode][GitHub repo]]
 * Nix mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
+  :END:
+
+  Using NixOS as my main OS and Nix shells for dev environments on
+  other platforms, it's quite important to get this mode set up.
+
+  Of note: nix-mode seems to have a dependency on json-mode, so make
+  sure to only initialize after said mode.
+  #+begin_src emacs-lisp
+    (use-package nix-mode
+      :after json-mode
+      :mode "\\.nix\\'"
+      :bind (:map nix-mode-map
+		  ("C-c C-f" . nix-format-buffer)))
+  #+end_src
+* JSON mode
+  :PROPERTIES:
+  :REPO:      [[https://github.com/joshwnj/json-mode][GitHub]]
+  :END:
+  For JSON support and, more specifically, for Nix mode, which seems
+  to require this.
+
+  #+begin_src emacs-lisp
+    (use-package json-mode)
+  #+end_src
 
 * Rust mode
 
