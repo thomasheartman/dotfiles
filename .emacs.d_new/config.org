@@ -225,7 +225,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package counsel
-      :demand
+      :demand t
       :config
       (ivy-mode 1)
       (setq ivy-use-virtual-buffers t
@@ -310,7 +310,7 @@
   #+BEGIN_SRC emacs-lisp
     ;; (use-package forge
     ;;   :after magit
-    ;;   :demand
+    ;;   :demand t
     ;;   :config
     ;;   (add-to-list 'forge-alist
     ;; 	       '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
@@ -340,7 +340,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package which-key
-      :demand
+      :demand t
       :config
       (which-key-mode)
       (setq which-key-show-early-on-C-h t)
