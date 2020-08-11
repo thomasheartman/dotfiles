@@ -151,3 +151,5 @@
 	user = thomas.heartman
 [merge]
 	conflictStyle = diff3
+[github]
+	user = thomasheartman
