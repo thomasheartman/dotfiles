@@ -394,7 +394,9 @@
     (use-package markdown-mode
       :mode (("\\.md\\'" . gfm-mode))
       :after
-      (edit-indirect))
+      (edit-indirect)
+      :config
+      (setq markdown-asymmetric-header t))
   #+end_src
 * Edit-indirect
   :PROPERTIES:
