@@ -605,7 +605,6 @@
    #+end_src
 
 
-* auto-fill-mode
 * structure templates (using org-tempo or yasnippet)
 * abbrev-mode
 * [[https://github.com/rejeep/wrap-region.el][wrap-region]] / [[https://github.com/Fuco1/smartparens][smartparens]]
