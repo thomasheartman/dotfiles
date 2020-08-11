@@ -385,3 +385,26 @@
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     (add-hook 'text-mode-hook 'flyspell-mode)
   #+end_src
+* Markdown mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
+  :END:
+
+  #+begin_src emacs-lisp
+    (use-package markdown-mode
+      :mode (("\\.md\\'" . gfm-mode))
+      :after
+      (edit-indirect))
+  #+end_src
+* Edit-indirect
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
+  :END:
+
+  To edit arbitrary code in separate buffers (the same way org mode
+  does), the package edit-indirect exist. This is required by markdown
+  mode to edit source code blocks in separate buffers.
+
+  #+begin_src emacs-lisp
+    (use-package edit-indirect)
+  #+end_src
