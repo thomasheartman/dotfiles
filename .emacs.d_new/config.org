@@ -384,6 +384,21 @@
 	     ("M-o" . change-outer)))
   #+end_src
 * [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magnars/multiple-cursors.el][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package multiple-cursors
+      :config
+      (define-key mc/keymap (kbd "<return>") nil)
+      :bind
+      ("C-S-n" . 'mc/mark-next-like-this-symbol)
+      ("C-S-p" . 'mc/mark-previous-like-this-symbol)
+      ("C-S-j" . 'mc/mark-next-like-this)
+      ("C-S-k" . 'mc/mark-previous-like-this)
+      ("C-S-a" . 'mc/mark-all-like-this))
+  #+END_SRC
 * Org mode
 ** auto-fill-mode
 ** structure templates (using org-tempo or yasnippet)
