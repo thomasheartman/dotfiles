@@ -325,10 +325,33 @@
       :hook ((prog-mode text-mode) . rainbow-delimiters-mode))
   #+END_SRC
 
-* Direnv mode
+* which-key
+  :PROPERTIES:
+  :REPO:     [[https://github.com/justbur/emacs-which-key/][GitHub]]
+  :END:
+
+  which-key shows you a pop-up when you're in the middle of typing key
+  combinations. If you forget what the exact combination is, this can
+  be a very useful guide.
+
+  Because I generally don't want which-key to pop up and disturb the
+  current frame, I'd like it only to trigger manually. The recommended
+  way of doing this is by increasing the initial idle delay.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package which-key
+      :demand
+      :config
+      (which-key-mode)
+      (setq which-key-show-early-on-C-h t)
+      (setq which-key-idle-delay 10000)
+      (setq which-key-idle-secondary-delay 0.05y))
+  #+END_SRC
 
 * LSP
   [[https://github.com/emacs-lsp/lsp-mode][GitHub repo]]
+
+* Direnv mode
 * Nix mode                                                       :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
