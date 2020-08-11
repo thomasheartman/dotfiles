@@ -624,3 +624,19 @@
   #+begin_src emacs-lisp
     (use-package edit-indirect)
   #+end_src
+* Notmuch
+* Elfeed
+* link-hint
+  :PROPERTIES:
+  :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
+  :END:
+
+  Link-hint allows you to open any links in the current frame by
+  typing a sequence of letters indicated by an overlay.
+  #+BEGIN_SRC emacs-lisp
+    (use-package link-hint
+      :bind
+      ("C-c l o" . link-hint-open-link)
+      ("C-c l c" . link-hint-copy-link))
+  #+END_SRC
+* Perspectives
