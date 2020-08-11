@@ -1461,8 +1461,9 @@ If COUNT is given, move COUNT - 1 lines downward first."
   ;; issues with circular dependencies causing emacs to crawl to a halt.
   ;; See https://github.com/bmag/emacs-purpose/issues/158#issuecomment-547293349
   ;; for more information
+  (when (eq system-type 'darwin)
+    (require 'window-purpose))
 
-  (require 'window-purpose)
   (use-package forge
     :after magit
     :config (add-to-list 'forge-alist '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
