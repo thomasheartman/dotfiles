@@ -124,6 +124,7 @@ values."
        mixed-pitch
        ob-http
        org-ref
+       notmuch
        (reason-mode
          :location (recipe
                      :repo "reasonml-editor/reason-mode"
