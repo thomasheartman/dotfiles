@@ -457,9 +457,17 @@
     (use-package json-mode)
   #+end_src
 
-* Rust mode
-
 * Yasnippet
+  :PROPERTIES:
+  :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :demand t
+      :config
+      (yas-global-mode 1))
+  #+END_SRC
   [[https://github.com/joaotavora/yasnippet][GitHub repo]]
 * Hydra
   [[https://github.com/abo-abo/hydra][GitHub repo]]
