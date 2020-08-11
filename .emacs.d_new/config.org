@@ -137,7 +137,7 @@
     Further, let's enable line numbers everywhere and make them relative.
     #+BEGIN_SRC emacs-lisp
       (global-display-line-numbers-mode)
-      (setq display-line-numbers 'relative)
+      (setq-default display-line-numbers 'relative)
     #+END_SRC
 
     Make lines wrap visually if they're longer than what can fit in
