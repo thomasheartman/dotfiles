@@ -9,5 +9,5 @@ let
   runDc = writeShellScriptBin "dc" "doctl $@";
 in stdenv.mkDerivation {
   name = "digital_ocean_k8s";
-  buildInputs = [ kc dc runKc runDc ];
+  buildInputs = [ kc dc runKc runDc dhall dhall-json ];
 }
