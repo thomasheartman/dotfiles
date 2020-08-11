@@ -285,7 +285,7 @@
       (company-flx-mode 1)
       (add-to-list 'completion-styles 'fuzzy))
   #+END_SRC
-* TODO Magit                                                     :keybinding:
+* Magit                                                          :keybinding:
   Because it's simply one of the best git experiences out there, of
   course I want to enable and use Magit:
   #+BEGIN_SRC emacs-lisp
@@ -296,10 +296,6 @@
 
   Additionally, to smooth out the workflow with GitHub and GitLab,
   let's also use Forge.
-
-  Note: this is currently commented out because Forge seems to throw
-  errors when I've already got spacemacs set up in
-  ~user-emacs-directory~. Comment this back in when I switch over.
   #+BEGIN_SRC emacs-lisp
     ;; (use-package forge
     ;;   :after magit
