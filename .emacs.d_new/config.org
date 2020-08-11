@@ -325,7 +325,7 @@
       :hook ((prog-mode text-mode) . rainbow-delimiters-mode))
   #+END_SRC
 
-* which-key
+* which-key                                                      :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/justbur/emacs-which-key/][GitHub]]
   :END:
