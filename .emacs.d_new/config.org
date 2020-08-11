@@ -746,3 +746,8 @@
       ("C-c l c" . link-hint-copy-link))
   #+END_SRC
 * Perspectives
+* Vim-like isearch motions
+* mark-region
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
+  :END:
