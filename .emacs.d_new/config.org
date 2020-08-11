@@ -164,6 +164,14 @@
       (add-hook 'before-save-hook 'delete-trailing-whitespace)
     #+end_src
 
+    For text modes, let's always use auto-fill mode and orgtbl-mode:
+    #+begin_src emacs-lisp
+      (defun my-text-mode-hook ()
+	(auto-fill-mode)
+	(orgtbl-mode))
+      (add-hook 'text-mode-hook 'my-text-mode-hook)
+    #+end_src
+
 **** Removing suspend-frame                                      :keybinding:
      To disable suspend-frame (I don't think I've ever meant to
      activate it), we'll instead replace it by a message saying it has
