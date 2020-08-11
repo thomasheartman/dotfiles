@@ -430,12 +430,11 @@
 *** Capture templates
     Configure capture templates to use for adding new entries to the inbox.
     #+begin_src emacs-lisp
-      (add-to-list 'org-capture-templates
-                   '("i" "Inbox (GTD)" entry (file "~/gtd/inbox.org")
-                     "* %^{title}\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1))
-      (add-to-list 'org-capture-templates
-                   '("p" "Project (GTD)" entry (file+headline "~/gtd/main.org" "Tasks")
-                     "* %^{title} [/]\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1))
+      (setq org-capture-templates
+	    '(("i" "Inbox (GTD)" entry (file "~/gtd/inbox.org")
+	       "* %^{title}\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1)
+	      ("p" "Project (GTD)" entry (file+headline "~/gtd/main.org" "Tasks")
+	       "* %^{title} [/]\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1)))
     #+end_src
 
 *** Refile targets
