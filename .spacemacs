@@ -660,11 +660,14 @@ you should place your code here."
        ([?\s-l] . evil-window-right)
        ([?\s-h] . evil-window-left)
 
-       ([?\s-m] . spacemacs/toggle-maximize-buffer)
-       ([?\s-b] . lazy-helm/helm-mini)
+       ([?\C-\M-\S-\s-c] . evil-window-up)
+       ([?\C-\M-\S-\s-t] . evil-window-down)
+       ([?\C-\M-\S-\s-n] . evil-window-right)
+       ([?\C-\M-\S-\s-h] . evil-window-left)
 
-       ;; other
-       ([?\s-c] . org-capture)
+
+       ([?\s-c ?c] . org-capture)
+       ([?\s-c ?p] . persp-key-map)
 
        ;; window splitting
        ([?\s-|] . split-window-right-and-focus)
@@ -685,31 +688,29 @@ you should place your code here."
            (number-sequence 0 9))))
 
 
-  (exwm-input-set-key (kbd "s-C-M-s")
-    (lambda ()
-      (interactive)
-      (shell-command "systemctl suspend")))
-
-  (exwm-input-set-key (kbd "s-C-M-h")
-    (lambda ()
-      (interactive)
-      (shell-command "systemctl hibernate")))
-
-  (exwm-input-set-key (kbd "s-C-M-o")
-    (lambda ()
-      (interactive)
-      (shell-command "xset dpms force off")))
-
-
-  (exwm-input-set-key (kbd "s-C-M-p")
-    (lambda ()
-      (interactive)
-      (shell-command "systemctl poweroff")))
-
-  (exwm-input-set-key (kbd "s-C-M-r")
-    (lambda ()
-      (interactive)
-      (shell-command "systemctl reboot")))
+  ;; (setq exwm-input-simulation-keys
+  ;; '(([?\s-o] . (kbd "ø"))
+  ;; ([?\s-O] . (kbd "Ø"))
+  ;; ([?\s-a] . (kbd "å"))
+  ;; ([?\s-A] . (kbd "Å"))
+  ;; ([?\s-\"] . (kbd "æ"))
+  ;; ([?\s-'] . (kbd "Æ"))
+  ;; ([?\s-e] . (kbd "æ"))
+  ;; ([?\s-E] . (kbd "Æ"))
+  ;; ([?\C-n] . [down])
+  ;; (([?\C-p] . [up]))))
+  (setq exwm-input-simulation-keys
+    '(
+       ;; movement
+       ([?\M-b] . [C-left])
+       ([?\M-f] . [C-right])
+       ([?\C-p] . [up])
+       ([?\C-n] . [down])
+       ([?\C-a] . [home])
+       ([?\C-e] . [end])
+       ([?\C-k] . [S-end delete])
+       ;; search
+       ([?\C-s] . [?\C-f])))
 
 
   (require 'exwm-randr)
