@@ -491,40 +491,6 @@
     (use-package json-mode)
   #+end_src
 
-* Yasnippet
-  :PROPERTIES:
-  :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
-  :END:
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package yasnippet
-      :demand t
-      :config
-      (yas-global-mode 1))
-  #+END_SRC
-  [[https://github.com/joaotavora/yasnippet][GitHub repo]]
-* Hydra
-  [[https://github.com/abo-abo/hydra][GitHub repo]]
-* ace-window
-  [[https://github.com/abo-abo/ace-window][GitHub repo]]
-* TODO Surround
-  I want to find some way to have the equivalent of vim/evil-surround
-  but in pure Emacs-mode. Not sure how to do it just yet, but it
-  should be possible. The easiest may be to use evil-surround, just
-  mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
-* TODO Change inner                                              :keybinding:
-  Note: this could do with some improvements to also accept closing parens,
-  braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
-  ~parens~. Should actually be fairly doable. This has been reported previously
-  ([[https://github.com/magnars/change-inner.el/issues/8][issue]]) and been deemed not worth doing. Another option is [[https://gist.github.com/alphapapa/fd7edf8104215028f3da][this gist]] by
-  Alphapapa, which could work well.
-
-  To emulate some of Vim's behavior, we'll use [[https://github.com/magnars/change-inner.el][change-inner.el]]:
-  #+begin_src emacs-lisp
-    (use-package change-inner
-      :bind (("M-i" . change-inner)
-	     ("M-o" . change-outer)))
-  #+end_src
 * [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]                                               :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/magnars/multiple-cursors.el][GitHub]]
@@ -541,6 +507,94 @@
       ("C-S-k" . 'mc/mark-previous-like-this)
       ("C-S-a" . 'mc/mark-all-like-this))
   #+END_SRC
+* Spell checker
+  Enable regular spell checking in all text modes and prog type spell
+  checking in prog modes:
+  #+begin_src emacs-lisp
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+  #+end_src
+* Edit-indirect
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
+  :END:
+
+  To edit arbitrary code in separate buffers (the same way org mode
+  does), the package edit-indirect exist. This is required by markdown
+  mode to edit source code blocks in separate buffers.
+
+  #+begin_src emacs-lisp
+    (use-package edit-indirect)
+  #+end_src
+* Markdown mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
+  :END:
+
+  #+begin_src emacs-lisp
+    (use-package markdown-mode
+      :mode (("\\.md\\'" . gfm-mode))
+      :after
+      (edit-indirect)
+      :config
+      (setq markdown-asymmetric-header t))
+  #+end_src
+* link-hint
+  :PROPERTIES:
+  :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
+  :END:
+
+  Link-hint allows you to open any links in the current frame by
+  typing a sequence of letters indicated by an overlay.
+  #+BEGIN_SRC emacs-lisp
+    (use-package link-hint
+      :bind
+      ("C-c l o" . link-hint-open-link)
+      ("C-c l c" . link-hint-copy-link))
+  #+END_SRC
+* Vim-like isearch motions
+  #+begin_src emacs-lisp
+    (defun isearch-vim-style-exit ()
+      "Move point to the start of the matched string, regardless
+      of search direction."
+      (interactive)
+      (when (eq isearch-forward t)
+	(goto-char isearch-other-end))
+      (isearch-exit))
+
+    (defun isearch-vim-style-kill ()
+      "Kill up to the search match when searching forward. When
+      searching backward, kill to the beginning of the match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-region))
+
+    (defun isearch-vim-style-copy ()
+      "Copy up to the search match when searching forward. When
+      searching backward, copy to the start of the search match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-ring-save)
+      (exchange-point-and-mark))
+
+    (defun my-define-key (map binding func)
+      (define-key map (kbd binding) func))
+
+    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
+    (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
+    (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
+  #+end_src
+* expand-region
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
+  :END:
+  Expand-region increases the selected region by semantic units.
+  #+begin_src emacs-lisp
+    (use-package expand-region
+      :bind
+      ("C-=" . 'er/expand-region)
+      ("C-M-=" . 'er/contract-region))
+  #+end_src
 * Org mode
 
 ** Getting Things Done (GTD)                                            :GTD:
@@ -722,9 +776,62 @@
      (setq org-log-into-drawer t)
    #+end_src
 
+   While I like electric-pair-mode, the fact that ~<~ inserts a
+   closing ~>~ is an issue for templates. This code is based on [[https://www.topbug.net/blog/2016/09/29/emacs-disable-certain-pairs-for-electric-pair-mode/][this
+   blog post]].
 
-* structure templates (using org-tempo or yasnippet)
-* abbrev-mode
+   #+begin_src emacs-lisp
+     (defun my-org-mode-hook ()
+       (setq-local electric-pair-inhibit-predicate
+		   `(lambda (c)
+		      (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))
+     (add-hook 'org-mode-hook 'my-org-mode-hook)
+   #+end_src
+
+
+** TODO structure templates (using org-tempo or yasnippet)
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-12 Wed 14:52]
+   :END:
+   Do this! Make ~<s~ always expandable!
+* TODO Yasnippet
+  :PROPERTIES:
+  :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 14:46]
+  :END:
+  Todo: set up key binds and make it work with some snippets.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :demand t
+      :config
+      (yas-global-mode 1))
+  #+END_SRC
+  [[https://github.com/joaotavora/yasnippet][GitHub repo]]
+* TODO Surround
+  I want to find some way to have the equivalent of vim/evil-surround
+  but in pure Emacs-mode. Not sure how to do it just yet, but it
+  should be possible. The easiest may be to use evil-surround, just
+  mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
+* TODO Change inner                                              :keybinding:
+  Note: this could do with some improvements to also accept closing parens,
+  braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
+  ~parens~. Should actually be fairly doable. This has been reported previously
+  ([[https://github.com/magnars/change-inner.el/issues/8][issue]]) and been deemed not worth doing. Another option is [[https://gist.github.com/alphapapa/fd7edf8104215028f3da][this gist]] by
+  Alphapapa, which could work well.
+
+  To emulate some of Vim's behavior, we'll use [[https://github.com/magnars/change-inner.el][change-inner.el]]:
+  #+begin_src emacs-lisp
+    (use-package change-inner
+      :bind (("M-i" . change-inner)
+	     ("M-o" . change-outer)))
+  #+end_src
+* Hydra
+  [[https://github.com/abo-abo/hydra][GitHub repo]]
+* ace-window
+  [[https://github.com/abo-abo/ace-window][GitHub repo]]
 * [[https://github.com/rejeep/wrap-region.el][wrap-region]] / [[https://github.com/Fuco1/smartparens][smartparens]]
   I need something to wrap a region in delimiters. It seems both of
   these can do that. Additionally, smartparens can also delete or
@@ -732,94 +839,7 @@
   that I crave.
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
 * [[https://github.com/editorconfig/editorconfig-emacs][editorconfig]]
-* Spell checker
-  Enable regular spell checking in all text modes and prog type spell
-  checking in prog modes:
-  #+begin_src emacs-lisp
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-    (add-hook 'text-mode-hook 'flyspell-mode)
-  #+end_src
-* Markdown mode
-  :PROPERTIES:
-  :REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
-  :END:
-
-  #+begin_src emacs-lisp
-    (use-package markdown-mode
-      :mode (("\\.md\\'" . gfm-mode))
-      :after
-      (edit-indirect)
-      :config
-      (setq markdown-asymmetric-header t))
-  #+end_src
-* Edit-indirect
-  :PROPERTIES:
-  :REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
-  :END:
-
-  To edit arbitrary code in separate buffers (the same way org mode
-  does), the package edit-indirect exist. This is required by markdown
-  mode to edit source code blocks in separate buffers.
-
-  #+begin_src emacs-lisp
-    (use-package edit-indirect)
-  #+end_src
 * Notmuch
 * Elfeed
-* link-hint
-  :PROPERTIES:
-  :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
-  :END:
-
-  Link-hint allows you to open any links in the current frame by
-  typing a sequence of letters indicated by an overlay.
-  #+BEGIN_SRC emacs-lisp
-    (use-package link-hint
-      :bind
-      ("C-c l o" . link-hint-open-link)
-      ("C-c l c" . link-hint-copy-link))
-  #+END_SRC
 * Perspectives
-* Vim-like isearch motions
-  #+begin_src emacs-lisp
-    (defun isearch-vim-style-exit ()
-      "Move point to the start of the matched string, regardless
-      of search direction."
-      (interactive)
-      (when (eq isearch-forward t)
-	(goto-char isearch-other-end))
-      (isearch-exit))
-
-    (defun isearch-vim-style-kill ()
-      "Kill up to the search match when searching forward. When
-      searching backward, kill to the beginning of the match."
-      (interactive)
-      (isearch-vim-style-exit)
-      (call-interactively 'kill-region))
-
-    (defun isearch-vim-style-copy ()
-      "Copy up to the search match when searching forward. When
-      searching backward, copy to the start of the search match."
-      (interactive)
-      (isearch-vim-style-exit)
-      (call-interactively 'kill-ring-save)
-      (exchange-point-and-mark))
-
-    (defun my-define-key (map binding func)
-      (define-key map (kbd binding) func))
-
-    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
-    (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
-    (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
-  #+end_src
-* expand-region
-  :PROPERTIES:
-  :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
-  :END:
-  Expand-region increases the selected region by semantic units.
-  #+begin_src emacs-lisp
-    (use-package expand-region
-      :bind
-      ("C-=" . 'er/expand-region)
-      ("C-M-=" . 'er/contract-region))
-  #+end_src
+* pdf-tools
