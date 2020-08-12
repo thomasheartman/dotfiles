@@ -214,6 +214,19 @@
        (setq redisplay-dont-pause t)
      #+END_SRC
 
+**** Silence 'function got redefined' warnings
+     It seems some packages redefine certain functions defined
+     elsewhere. This creates noise in the startup messages. Because I
+     don't mind this at the moment, I'll silence it:
+     #+BEGIN_SRC emacs-lisp
+       (setq ad-redefinition-action 'accept)
+     #+END_SRC
+
+**** Activate winner-mode
+     #+BEGIN_SRC emacs-lisp
+       (winner-mode)
+     #+END_SRC
+
 *** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
