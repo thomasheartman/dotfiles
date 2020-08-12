@@ -152,8 +152,12 @@
 *** Quality of life things
     Additionally, let's enable a few things that just makes life
     better in general:
+
+    Electric pair mode is great for automatic insertion of matching
+    braces. However, it clashes with smartparens, so we'll leave it
+    out for now.
     #+BEGIN_SRC emacs-lisp
-      (electric-pair-mode)
+      ;; (electric-pair-mode)
     #+END_SRC
 
     Further, let's enable line numbers everywhere and make them relative.
@@ -856,17 +860,167 @@
 	     ("M-o" . change-outer)))
   #+end_src
 * Hydra
-  [[https://github.com/abo-abo/hydra][GitHub repo]]
+  :PROPERTIES:
+  :REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    (use-package hydra)
+  #+END_SRC
+
 * ace-window
-  [[https://github.com/abo-abo/ace-window][GitHub repo]]
-* [[https://github.com/rejeep/wrap-region.el][wrap-region]] / [[https://github.com/Fuco1/smartparens][smartparens]]
-  I need something to wrap a region in delimiters. It seems both of
-  these can do that. Additionally, smartparens can also delete or
-  change surrounding delimiters, giving me that sweet vim-like control
-  that I crave.
+  :PROPERTIES:
+  :REPO:     [[https://github.com/abo-abo/ace-window][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package ace-window
+      :config
+      (setq aw-dispatch-always t)
+      :bind
+      ("C-x w" . ace-window))
+  #+END_SRC
+* TODO [#C] Window movement and management
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 20:28]
+  :END:
+  TODO: make winner-undo and redo work as expected. At the moment,
+  they're a bit all over the place.
+
+  First, let's define window-splitting functions that also move focus.
+  We'll also assign them to some easily reachable key combinations.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun split-window-right-and-focus ()
+      (interactive)
+      (split-window-right)
+      (windmove-right))
+
+    (defun split-window-below-and-focus ()
+      (interactive)
+      (split-window-below)
+      (windmove-down))
+
+    (global-set-key (kbd "C-x |") 'split-window-right-and-focus)
+    (global-set-key (kbd "C-x -") 'split-window-below-and-focus)
+    (global-set-key (kbd "C-x _") 'split-window-below-and-focus)
+  #+END_SRC
+
+  Next, let's define a hydra to make window work as easy as possible.
+  #+BEGIN_SRC emacs-lisp
+    (defhydra hydra-window-movement (global-map "C-x w")
+      "
+    Move      Split       Resize
+    -----------------------------------
+    _←_: ←    _|_: right  _m_: maximize
+    _↓_: ↓    ___: below  _d_: delete
+    _↑_: ↑    _u_: undo
+    _→_: →    _r_: redo
+
+    _a_: ace-window _q_: quit
+    "
+      ("<up>" windmove-up)
+      ("<down>" windmove-down)
+      ("<left>" windmove-left)
+      ("<right>" windmove-right)
+
+      ("|" split-window-right-and-focus)
+      ("_" split-window-below-and-focus)
+      ("u" winner-undo)
+      ("r" winner-redo)
+
+      ("m" delete-other-windows)
+      ("d" ace-delete-window)
+      ("a" ace-window)
+      ("q" nil)
+      )
+  #+END_SRC
+
+* TODO [#B] Smartparens
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 22:13]
+  :END:
+
+  This setup is heavily inspired by [[https://gist.github.com/oantolin/5751fbaa7b8ab4f9570893f2adfe1862][this Gist]], which was linked to
+  from [[https://www.reddit.com/r/emacs/comments/6j2s95/i_still_cant_find_an_efficient_and_simple/][this Reddit thread]] about smartparens configs. Further, [[https://ebzzry.io/en/emacs-pairs/][this
+  blog post]] contains a number of well-illustrated examples of how the
+  movement works.
+
+  TODO: this might still need quite a bit of tweaking.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package smartparens
+      :init
+      (smartparens-global-mode)
+      :hook (eval-expression-minibuffer-setup . smartparens-mode)
+      :config
+      (require 'smartparens-config)
+      (custom-set-variables
+       '(sp-base-key-bindings 'sp))
+
+      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+      )
+  #+END_SRC
+
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
-* [[https://github.com/editorconfig/editorconfig-emacs][editorconfig]]
+* Editorconfig
+  :PROPERTIES:
+  :REPO:     [[https://github.com/editorconfig/editorconfig-emacs][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package editorconfig
+      :ensure t
+      :config
+      (editorconfig-mode 1))
+  #+END_SRC
+
 * Notmuch
+  :PROPERTIES:
+  :WEBSITE:  [[https://notmuchmail.org/][Notmuch]] [[https://notmuchmail.org/notmuch-emacs/][Notmuch-emacs]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package notmuch
+      :bind ("<f7>" . notmuch)
+      :config
+      (setq message-send-mail-function 'message-send-mail-with-sendmail
+	    notmuch-fcc-dirs "sent +sent -unread -inbox"))
+  #+END_SRC
+
 * Elfeed
-* Perspectives
+  :PROPERTIES:
+  :REPO:     [[https://github.com/skeeto/elfeed][GitHub]]
+  :END:
+
+
+** Elfeed-org
+   :PROPERTIES:
+   :REPO:     [[https://github.com/remyhonig/elfeed-org][GitHub]]
+   :END:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed-org
+       :init
+       (elfeed-org)
+       :bind
+       ("<f5> f" . elfeed)
+       :config
+       (setq rmh-elfeed-org-files '("~/feeds.org")
+	     elfeed-search-filter "@2-weeks-ago +unread"))
+   #+END_SRC
+
+* Perspectives? Or eyebrowse? or ...
+  https://github.com/nex3/perspective-el or
+  https://github.com/Bad-ptr/persp-mode.el
+
+  https://depp.brause.cc/eyebrowse/ ?
+* Projectile
+  https://github.com/bbatsov/projectile
 * pdf-tools
+* shift-line-up and down
+  In a number of prog modes, it'd be useful to be able to move lines
+  up and down. Maybe even expressions up and down. M-<up>, for instance?
+* exwm
