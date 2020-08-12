@@ -820,13 +820,21 @@
   :LOGBOOK:
   - State "TODO"       from              [2020-08-12 Wed 14:46]
   :END:
-  Todo: set up key binds and make it work with some snippets.
+
+  Add yasnippet. For the time being, add my new emacs dir as a primary
+  source of snippets.
+
+  For some reason, snippets didn't seem to be loading properly, so I
+  added reload directive to force reload.
 
   #+BEGIN_SRC emacs-lisp
     (use-package yasnippet
       :demand t
       :config
-      (yas-global-mode 1))
+      (yas-global-mode 1)
+      (setq yas-snippet-dirs '("~/.emacs.d_new/snippets"
+			       "~/.emacs.d/snippets"))
+      (yas-reload-all))
   #+END_SRC
   [[https://github.com/joaotavora/yasnippet][GitHub repo]]
 * TODO Surround
