@@ -45,10 +45,32 @@
       (set-scroll-bar-mode nil)
     #+END_SRC
 *** Theme
+    :PROPERTIES:
+    :REPO:     [[https://github.com/balajisivaraman/emacs-one-themes][GitHub]]
+    :END:
+
+    I've been stuck with the Atom One Dark theme since I first saw it
+    a couple of years ago. This theme is the best Emacs-version I've
+    seen of it thus far.
+
+    However, the theme also affects certain font faces by default,
+    enabling mixed-pitch-mode for certain headings and changing other
+    font sizes. While it's not terrible, Emacs does better without
+    changing these things, so let's disable those changes.
+
     #+BEGIN_SRC emacs-lisp
       (use-package one-themes
-		   :config
-		   (load-theme 'one-dark t))
+	:init
+	(setq emacs-one-use-variable-pitch nil
+	      emacs-one-scale-org-headlines nil
+	      emacs-one-height-minus-1 1.0
+	      emacs-one-height-plus-1 1.0
+	      emacs-one-height-plus-2 1.0
+	      emacs-one-height-plus-3 1.0
+	      emacs-one-height-plus-4 1.0)
+	:config
+	(load-theme 'one-dark t))
+
     #+END_SRC
 *** Font
     The default font size is a bit small on my monitors, so we'll
