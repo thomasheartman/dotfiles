@@ -778,7 +778,45 @@
   #+END_SRC
 * Perspectives
 * Vim-like isearch motions
-* mark-region
+  #+begin_src emacs-lisp
+    (defun isearch-vim-style-exit ()
+      "Move point to the start of the matched string, regardless
+      of search direction."
+      (interactive)
+      (when (eq isearch-forward t)
+	(goto-char isearch-other-end))
+      (isearch-exit))
+
+    (defun isearch-vim-style-kill ()
+      "Kill up to the search match when searching forward. When
+      searching backward, kill to the beginning of the match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-region))
+
+    (defun isearch-vim-style-copy ()
+      "Copy up to the search match when searching forward. When
+      searching backward, copy to the start of the search match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-ring-save)
+      (exchange-point-and-mark))
+
+    (defun my-define-key (map binding func)
+      (define-key map (kbd binding) func))
+
+    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
+    (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
+    (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
+  #+end_src
+* expand-region
   :PROPERTIES:
   :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
   :END:
+  Expand-region increases the selected region by semantic units.
+  #+begin_src emacs-lisp
+    (use-package expand-region
+      :bind
+      ("C-=" . 'er/expand-region)
+      ("C-M-=" . 'er/contract-region))
+  #+end_src
