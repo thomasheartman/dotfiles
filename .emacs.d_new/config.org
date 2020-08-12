@@ -213,11 +213,14 @@
        (setq redisplay-dont-pause t)
      #+END_SRC
 
-*** browser / opening urls
+*** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
     #+BEGIN_SRC emacs-lisp
-      (setq browse-url-browser-function 'browse-url-firefox)
+      (setq browse-url-browser-function
+	    (if (eq system-type 'darwin)
+		'browse-url-default-macosx-browser
+	      'browse-url-firefox))
     #+END_SRC
 *** Garbage collection
     Inspired by the [[https://github.com/lewang/flx][flx's readme]], we can increase the GC threshold
