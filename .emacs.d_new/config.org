@@ -235,6 +235,15 @@
          (setq mac-option-modifier nil
                mac-command-modifier 'meta))
      #+end_src
+***** Resizing
+      Using Amethyst as a window manager on macOS, the Emacs frame will
+      often not expand to take up the whole allotted space, leaving a
+      gap between itself and the edge of the screen or other
+      applications. To fix this, make frames resize pixelwise:
+      #+begin_src emacs-lisp
+	(when (eq system-type 'darwin)
+	  (setq frame-resize-pixelwise t))
+      #+end_src
 * Ivy                                                            :keybinding:
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
   Swiper) using counsel. We'll also replace normal isearch with Ivy's
@@ -303,6 +312,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package company-posframe
       :after company
+      :unless (eq system-type 'darwin)
       :config (company-posframe-mode 1))
   #+END_SRC
 
