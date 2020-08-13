@@ -1036,6 +1036,26 @@
 	     elfeed-search-filter "@2-weeks-ago +unread"))
    #+END_SRC
 
+
+* Origami
+  :PROPERTIES:
+  :REPO:     [[https://github.com/gregsexton/origami.el][GitHub]]
+  :END:
+
+  Origami provides code folding.
+  #+BEGIN_SRC emacs-lisp
+    (use-package origami
+      :bind
+      ("<C-M-tab>" . origami-recursively-toggle-node)
+      :init
+      (global-origami-mode)
+      :config
+      (setq origami-parser-alist
+            (append origami-parser-alist
+                    '((rust-mode . origami-c-style-parser)))))
+  #+END_SRC
+
+
 * Perspectives? Or eyebrowse? or ...
   https://github.com/nex3/perspective-el or
   https://github.com/Bad-ptr/persp-mode.el
