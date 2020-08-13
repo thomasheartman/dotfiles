@@ -817,12 +817,17 @@
    #+end_src
 
 
-** TODO structure templates (using org-tempo or yasnippet)
+** templates (org-tempo)
    :LOGBOOK:
+   - State "DONE"       from "TODO"       [2020-08-13 Thu 09:29]
+   - State "TODO"       from "TODO"       [2020-08-13 Thu 09:29]
    - State "TODO"       from              [2020-08-12 Wed 14:52]
    :END:
-   TODO: confirm this on newer version of Org
 
+   To reclaim the functionality of expanding ~<s~, ~<q~ and others
+   into org blocks, we need to add ~org-tempo~ to the list of
+   org-modules. More info is found in the Reddit thread [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/][Get
+   easy-templates back in org-mode 9.2]].
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'org-modules 'org-tempo)
    #+END_SRC
