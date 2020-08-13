@@ -1,0 +1,1309 @@
+#+TITLE: Heartmacs
+#+PROPERTY: header-args :results silent :tangle yes :comments both
+#+TAGS: keybinding | { os : macos | linux } | GTD
+
+* Package setup
+** Package archives
+   Set up archives for packages:
+   #+BEGIN_SRC emacs-lisp
+     (setq package-archives '(("gnu" . "https://elpa.gnu.org./packages/")
+			      ("melpa" . "https://melpa.org/packages/")))
+   #+END_SRC
+** use-package
+   Before we do anything else, let's make sure we've got [[https://github.com/jwiegley/use-package][use-package]]
+   ready to go! This bit of setup is a modified version of what Greg
+   Stein's example from Caches to Caches post [[http://cachestocaches.com/2015/8/getting-started-use-package/][Getting started with
+   use-package]].
+   #+BEGIN_SRC emacs-lisp
+     (require 'package)
+     (setq package-enable-at-startup nil)
+     (package-initialize)
+
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (eval-when-compile
+       (require 'use-package)
+       (setq use-package-always-ensure t))
+   #+END_SRC
+
+* Emacs
+
+** Visual
+  These changes relate to how Emacs itself looks, including frames,
+  windows, and the like.
+*** Frames
+    Get rid of tool bars and menu bars:
+    #+BEGIN_SRC emacs-lisp
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+    #+END_SRC
+*** Windows
+    Let's get rid of scroll bars:
+    #+BEGIN_SRC emacs-lisp
+      (set-scroll-bar-mode nil)
+    #+END_SRC
+*** Theme
+    :PROPERTIES:
+    :REPO:     [[https://github.com/balajisivaraman/emacs-one-themes][GitHub]]
+    :END:
+
+    I've been stuck with the Atom One Dark theme since I first saw it
+    a couple of years ago. This theme is the best Emacs-version I've
+    seen of it thus far.
+
+    However, the theme also affects certain font faces by default,
+    enabling mixed-pitch-mode for certain headings and changing other
+    font sizes. While it's not terrible, Emacs does better without
+    changing these things, so let's disable those changes.
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package one-themes
+	:init
+	(setq emacs-one-use-variable-pitch nil
+	      emacs-one-scale-org-headlines nil
+	      emacs-one-height-minus-1 1.0
+	      emacs-one-height-plus-1 1.0
+	      emacs-one-height-plus-2 1.0
+	      emacs-one-height-plus-3 1.0
+	      emacs-one-height-plus-4 1.0)
+	:config
+	(load-theme 'one-dark t))
+
+    #+END_SRC
+*** Font
+    The default font size is a bit small on my monitors, so we'll
+    increase it sufficiently.
+    #+BEGIN_SRC emacs-lisp
+      (set-face-attribute 'default nil :height 200)
+    #+END_SRC
+** Misc
+
+*** ido mode
+    Inspired by the [[https://www.masteringemacs.org/article/introduction-to-ido-mode][Introduction to ido mode article]] from Mastering
+    Emacs, let's enable ido mode everywhere and also enable
+    flex-matching.
+    #+begin_src emacs-lisp
+      (setq ido-enable-flex-matching t
+            ido-everywhere t)
+      (ido-mode 1)
+    #+end_src
+
+    We can also use ido-mode for find file at point.
+    #+BEGIN_SRC emacs-lisp
+      (setq ido-use-filename-at-point 'guess)
+    #+END_SRC
+
+    When entering a buffer name that doesn't exist when changing
+    buffers, let's let ido-mode create a new buffer.
+    #+BEGIN_SRC emacs-lisp
+    (setq ido-create-new-buffer 'always)
+    #+END_SRC
+
+*** Prompts
+    Taking another cue from Mastering Emacs ([[https://www.masteringemacs.org/article/disabling-prompts-emacs][Disabling Prompts in
+    Emacs]]), let's reduce the amount of prompts we come across in
+    Emacs:
+    #+BEGIN_SRC emacs-lisp
+      (fset 'yes-or-no-p 'y-or-n-p)
+      (setq confirm-nonexistent-file-or-buffer nil)
+    #+END_SRC
+
+    We can also disable prompts about killing buffers with live
+    processes attached.
+    #+BEGIN_SRC emacs-lisp
+      (setq kill-buffer-query-funcions
+	    (remq 'process-kill-buffer-query-function
+		  kill-buffer-query-functions))
+    #+END_SRC
+
+*** Startup
+    Let's get rid of splash screens and startup messages that we don't
+    need (also from [[https://www.masteringemacs.org/article/disabling-prompts-emacs][Disabling Prompts in Emacs]]):
+    #+BEGIN_SRC emacs-lisp
+      (setq inhibit-startup-message t
+	    inhibit-startup-echo-area-message t)
+    #+END_SRC
+
+
+*** recent files (recentf)                                       :keybinding:
+    Mickey Petersen suggests using the recent files package in his
+    [[https://www.masteringemacs.org/article/find-files-faster-recent-files-package][Find Files Faster with the Recent Files Package]], so we'll copy his
+    suggested configuration here.
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'recentf)
+
+      (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+
+      (recentf-mode t)
+
+      (setq recentf-max-saved-items 50)
+
+      (defun ido-recentf-open ()
+	"Use `ido-completing-read to \\[find-file] a recent file"
+	(interactive)
+	(if (find-file (ido-completing-read "Find recent file: " recentf-list))
+	    (message "Opening file ...")
+	  (message "Aborting")))
+    #+END_SRC
+
+*** Quality of life things
+    Additionally, let's enable a few things that just makes life
+    better in general:
+
+    Electric pair mode is great for automatic insertion of matching
+    braces. However, it clashes with smartparens, so we'll leave it
+    out for now.
+    #+BEGIN_SRC emacs-lisp
+      ;; (electric-pair-mode)
+    #+END_SRC
+
+    Further, let's enable line numbers everywhere and make them relative.
+    #+BEGIN_SRC emacs-lisp
+      (global-display-line-numbers-mode)
+      (setq-default display-line-numbers 'relative)
+    #+END_SRC
+
+    Make lines wrap visually if they're longer than what can fit in
+    the window.
+    #+BEGIN_SRC emacs-lisp
+      (global-visual-line-mode)
+    #+END_SRC
+
+    I prefer ending sentences with single spaces (even if I see the
+    benefits of using two, as recommended by Emacs), so let's also
+    tell Emacs that it's okay.
+    #+BEGIN_SRC emacs-lisp
+      (setq sentence-end-double-space nil)
+    #+END_SRC
+
+    I also want files to auto-update if they change on disk.
+    #+begin_src emacs-lisp
+      (global-auto-revert-mode)
+    #+end_src
+
+    Trailing whitespace is something I prefer to avoid, so let's
+    delete that on save.
+    #+begin_src emacs-lisp
+      (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    #+end_src
+
+    For text modes, let's always use auto-fill mode and orgtbl-mode:
+    #+begin_src emacs-lisp
+      (defun my-text-mode-hook ()
+	(auto-fill-mode)
+	(abbrev-mode))
+      (add-hook 'text-mode-hook 'my-text-mode-hook)
+    #+end_src
+
+**** Removing suspend-frame                                      :keybinding:
+     To disable suspend-frame (I don't think I've ever meant to
+     activate it), we'll instead replace it by a message saying it has
+     been unmapped.
+     #+BEGIN_SRC emacs-lisp
+       (global-set-key [remap suspend-frame]
+	 (lambda ()
+	   (interactive)
+	   (message "This keybinding is disabled (was 'suspend-frame')")))
+     #+END_SRC
+
+**** Don't pause redisplay on input events
+     According to [[https://www.masteringemacs.org/article/improving-performance-emacs-display-engine][Improving the performance of Emacs's Display Engine?]]
+     by Mickey Petersen, Emacs defaults to pausing all display
+     redrawing on any input. This may have been useful previously, but
+     is not necessary anymore.
+     #+BEGIN_SRC emacs-lisp
+       (setq redisplay-dont-pause t)
+     #+END_SRC
+
+**** Silence 'function got redefined' warnings
+     It seems some packages redefine certain functions defined
+     elsewhere. This creates noise in the startup messages. Because I
+     don't mind this at the moment, I'll silence it:
+     #+BEGIN_SRC emacs-lisp
+       (setq ad-redefinition-action 'accept)
+     #+END_SRC
+
+**** Activate winner-mode
+     #+BEGIN_SRC emacs-lisp
+       (winner-mode)
+     #+END_SRC
+
+*** browser / opening urls                                               :os:
+    Without setting a browser, it seems that links don't open (at
+    least not on Linux). Let's set it to Firefox:
+    #+BEGIN_SRC emacs-lisp
+      (setq browse-url-browser-function
+	    (if (eq system-type 'darwin)
+		'browse-url-default-macosx-browser
+	      'browse-url-firefox))
+    #+END_SRC
+*** Garbage collection
+    Inspired by the [[https://github.com/lewang/flx][flx's readme]], we can increase the GC threshold
+    significantly from the default. In addition to when using flx,
+    this might also come in handy in other situations.
+    #+BEGIN_SRC emacs-lisp
+      (setq gc-cons-threshold 20000000)
+    #+END_SRC
+*** OS-specifics                                                         :os:
+    Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
+**** TODO macOS                                                       :macos:
+     :LOGBOOK:
+     - State "TODO"       from              [2020-08-13 Thu 17:56]
+     :END:
+     TODO: rewrite this to use noweb references so that you don't need
+     all the duplicate ~when~ statements. In that case, though, you
+     might also need to disable tangling for for the extra options.
+
+     On macOS, I want the CMD key to act as Meta, and the Alt key as super, because this works better with their location on the keyboard and their corresponding keys on Linux.
+     #+begin_src emacs-lisp
+       (when (eq system-type 'darwin)
+         (setq mac-option-modifier nil
+               mac-command-modifier 'meta))
+     #+end_src
+***** Resizing
+      Using Amethyst as a window manager on macOS, the Emacs frame will
+      often not expand to take up the whole allotted space, leaving a
+      gap between itself and the edge of the screen or other
+      applications. To fix this, make frames resize pixelwise:
+      #+begin_src emacs-lisp
+	(when (eq system-type 'darwin)
+	  (setq frame-resize-pixelwise t))
+      #+end_src
+*** TODO Window functions
+    :LOGBOOK:
+    - State "TODO"       from              [2020-08-13 Thu 20:16]
+    :END:
+    One of the things I really like about Spacemacs is that the key
+    for maximizing a window if there are other windows in the frame is
+    also the key for bringing the other windows back if the current
+    window is the only one.
+
+    Turns out that function is based on [[https://gist.github.com/mads-hartmann/3402786][this gist]], which we can
+    casually copy here.
+    #+BEGIN_SRC emacs-lisp
+      (defun my-maximize-or-undo-window ()
+        "If there are multiple windows in the frame, maximize the
+        current one. If there is only one window in the current frame,
+        revert to the previous multi-window configuration."
+        (interactive)
+        (save-excursion
+          (if (and (= 1 (count-windows))
+                   (assoc ?_ register-alist))
+              (jump-to-register ?_)
+            (progn
+              (window-configuration-to-register ?_)
+              (delete-other-windows)))))
+    #+END_SRC
+
+* Ivy                                                            :keybinding:
+  Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
+  Swiper) using counsel. We'll also replace normal isearch with Ivy's
+  ~swiper-isearch~ and the regular ~yank-pop~ functionality with
+  ~counsel-yank-pop~.
+
+  For searches, I also prefer using a fuzzier regex pattern than the
+  default, so this is set up by assigning ~ivy--regex-fuzzy~.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package counsel
+      :demand t
+      :config
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t
+	    ivy-count-format "(%d/%d)"
+	    ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
+				    (t . ivy--regex-fuzzy))
+	    ivy-wrap t)
+      :bind (("C-S-s" . swiper-isearch)
+	     ("C-M-y" . counsel-yank-pop)))
+  #+END_SRC
+* Flycheck
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck
+      :ensure t
+      :config (global-flycheck-mode))
+  #+END_SRC
+
+* TODO Company                                                   :keybinding:
+  Completion is important! [[https://github.com/company-mode/company-mode][Company-mode repo]]
+
+  We need to set this up properly. In addition to wanting to use
+  tab-n-go, I also want to be able to use TAB to expand completions
+  with function arguments (like Rust Analyzer).
+
+  In addition to the basic company-mode configuration, I also use
+  [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior.  This requires a little extra
+  bit of configuration to get set up.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun my-company-tng-setup ()
+      (setq company-require-match nil
+	    company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
+				company-echo-metadata-frontend
+				company-tng-frontend
+				company-preview-if-just-one-frontend))
+      (let ((keymap company-active-map))
+	(define-key keymap [return] nil)
+	(define-key keymap (kbd "TAB") 'company-complete-selection)
+	(define-key keymap (kbd "<C-right>") 'company-complete-common)
+	(define-key keymap (kbd "RET") nil)))
+    (use-package company
+      :config
+      (global-company-mode)
+      (global-set-key (kbd "C-<f5>") 'company-complete)
+      (my-company-tng-setup)
+      (setq company-idle-delay 0.2
+	    company-selection-wrap-around t))
+  #+END_SRC
+
+  When using varying font sizes within a buffer, this can make the
+  company completion dropdown misaligned (with itself, even). Using
+  the [[https://github.com/tumashu/company-posframe][company-posframe package]] appears to fix this by putting
+  completions in a separate frame.
+  #+BEGIN_SRC emacs-lisp
+    (use-package company-posframe
+      :after company
+      :unless (eq system-type 'darwin)
+      :config (company-posframe-mode 1))
+  #+END_SRC
+
+  To make completions a bit smoother, I use [[https://github.com/PythonNut/company-flx][company-flx]] to allow for
+  fuzzy matching when company uses the company-capf backend. I'll also
+  add ~fuzzy~ to the list of completion styles.
+  #+BEGIN_SRC emacs-lisp
+    (use-package company-flx
+      :after company
+      :config
+      (company-flx-mode 1)
+      (add-to-list 'completion-styles 'fuzzy))
+  #+END_SRC
+* TODO Magit                                                     :keybinding:
+  Because it's simply one of the best git experiences out there, of
+  course I want to enable and use Magit:
+  #+BEGIN_SRC emacs-lisp
+    (use-package magit
+      :bind (("C-x g" . magit-status)
+	     ("C-x M-g" . magit-dispatch)))
+  #+END_SRC
+
+  Additionally, to smooth out the workflow with GitHub and GitLab,
+  let's also use Forge.
+
+  Note: this is currently commented out because Forge seems to throw
+  errors when I've already got spacemacs set up in
+  ~user-emacs-directory~. Comment this back in when I switch over.
+  #+BEGIN_SRC emacs-lisp
+    ;; (use-package forge
+    ;;   :after magit
+    ;;   :demand t
+    ;;   :config
+    ;;   (add-to-list 'forge-alist
+    ;; 	       '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
+    ;;   :bind (:map magit-mode-map
+    ;; 	      ("C-c M-w" . forge-copy-url-at-point-as-kill)))
+  #+END_SRC
+* Rainbow delimiters
+  Rainbow delimiters make it much easier to read a lot of code, so
+  let's set them up.
+  #+BEGIN_SRC emacs-lisp
+    (use-package rainbow-delimiters
+      :hook (prog-mode . rainbow-delimiters-mode))
+  #+END_SRC
+
+* which-key                                                      :keybinding:
+  :PROPERTIES:
+  :REPO:     [[https://github.com/justbur/emacs-which-key/][GitHub]]
+  :END:
+
+  which-key shows you a pop-up when you're in the middle of typing key
+  combinations. If you forget what the exact combination is, this can
+  be a very useful guide.
+
+  Because I generally don't want which-key to pop up and disturb the
+  current frame, I'd like it only to trigger manually. The recommended
+  way of doing this is by increasing the initial idle delay.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package which-key
+      :demand t
+      :config
+      (which-key-mode)
+      (setq which-key-show-early-on-C-h t)
+      (setq which-key-idle-delay 10000)
+      (setq which-key-idle-secondary-delay 0.05))
+  #+END_SRC
+
+* TODO LSP mode                                                  :keybinding:
+  :PROPERTIES:
+  :REPO:     [[https://github.com/emacs-lsp/lsp-mode][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-11 Tue 20:06]
+  :END:
+
+  TODO: run ~lsp-doctor~ and find out what you can fix. See [[https://emacs-lsp.github.io/lsp-mode/page/performance/][the
+  performance page for more details]].
+
+  This setup is nearly identical to the recommended approach in their
+  [[https://emacs-lsp.github.io/lsp-mode/page/installation/][installation instructions]], with some minor tweaks.
+
+  #+BEGIN_SRC emacs-lisp
+    (setq lsp-keymap-prefix "<f6>")
+
+    (use-package lsp-mode
+      :demand t
+      :hook
+      ((lsp-mode . lsp-enable-which-key-integration))
+      :commands lsp)
+    (use-package lsp-ui :commands lsp-ui-mode
+      :config
+      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+
+    (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
+      :bind (:map lsp-mode-map
+		  ("<f6> w s" . lsp-ivy-workspace-symbol)))
+
+    (use-package lsp-treemacs :commands lsp-treemacs-error-list)
+
+    (use-package dap-mode)
+  #+END_SRC
+
+* Rust mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/rust-lang/rust-mode][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package rust-mode
+      :mode "\\.rs\\'"
+      :after lsp-mode
+      :hook
+      (rust-mode . lsp-mode)
+      :config
+      (message "configuring rust-mode")
+      (setq rust-format-on-save t
+	    lsp-rust-server 'rust-analyzer))
+  #+END_SRC
+
+  We can also use [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] to improve flycheck cargo handling.
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck-rust
+      :after rust-mode
+      :hook
+      (flycheck-mode . flycheck-rust-setup))
+  #+END_SRC
+
+* Direnv mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/wbolster/emacs-direnv][GitHub]]
+  :END:
+
+  [[https://direnv.net/][direnv]] is a great way to load directory-specific environments into
+  your shell. direnv-mode does the same thing in Emacs. It works using
+  Nix shells.
+  #+BEGIN_SRC emacs-lisp
+    (use-package direnv
+      :demand t
+      :config
+      (direnv-mode)
+      :bind
+      (("<f5> d a" . direnv-allow)
+       ("<f5> d u" . direnv-update-environment)))
+  #+END_SRC
+* Nix mode                                                       :keybinding:
+  :PROPERTIES:
+  :REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
+  :END:
+
+  Using NixOS as my main OS and Nix shells for dev environments on
+  other platforms, it's quite important to get this mode set up.
+
+  Of note: nix-mode seems to have a dependency on json-mode, so make
+  sure to only initialize after said mode.
+  #+begin_src emacs-lisp
+    (use-package nix-mode
+      :after json-mode
+      :mode "\\.nix\\'"
+      :bind (:map nix-mode-map
+		  ("C-c C-f" . nix-format-buffer)))
+  #+end_src
+* JSON mode
+  :PROPERTIES:
+  :REPO:      [[https://github.com/joshwnj/json-mode][GitHub]]
+  :END:
+  For JSON support and, more specifically, for Nix mode, which seems
+  to require this.
+
+  #+begin_src emacs-lisp
+    (use-package json-mode)
+  #+end_src
+
+* [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]                                               :keybinding:
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magnars/multiple-cursors.el][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package multiple-cursors
+      :config
+      (define-key mc/keymap (kbd "<return>") nil)
+      :bind
+      ("C-S-n" . 'mc/mark-next-like-this-symbol)
+      ("C-S-p" . 'mc/mark-previous-like-this-symbol)
+      ("C-S-j" . 'mc/mark-next-like-this)
+      ("C-S-k" . 'mc/mark-previous-like-this)
+      ("C-S-a" . 'mc/mark-all-like-this))
+  #+END_SRC
+* Spell checker
+  Enable regular spell checking in all text modes and prog type spell
+  checking in prog modes:
+  #+begin_src emacs-lisp
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+  #+end_src
+* Edit-indirect
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
+  :END:
+
+  To edit arbitrary code in separate buffers (the same way org mode
+  does), the package edit-indirect exist. This is required by markdown
+  mode to edit source code blocks in separate buffers.
+
+  #+begin_src emacs-lisp
+    (use-package edit-indirect)
+  #+end_src
+* Markdown mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
+  :END:
+
+  #+begin_src emacs-lisp
+    (use-package markdown-mode
+      :mode (("\\.md\\'" . gfm-mode))
+      :after
+      (edit-indirect)
+      :config
+      (setq markdown-asymmetric-header t))
+  #+end_src
+* TODO link-hint
+  :PROPERTIES:
+  :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 18:06]
+  :END:
+
+  TODO: remove ~C-c l~ binding. It conflicts with Org mode's binding
+  of the same combo.
+
+  Link-hint allows you to open any links in the current frame by
+  typing a sequence of letters indicated by an overlay.
+  #+BEGIN_SRC emacs-lisp
+    (use-package link-hint
+      :bind
+      ("C-c l o" . link-hint-open-link)
+      ("C-c l c" . link-hint-copy-link))
+  #+END_SRC
+* Vim-like isearch motions
+  #+begin_src emacs-lisp
+    (defun isearch-vim-style-exit ()
+      "Move point to the start of the matched string, regardless
+      of search direction."
+      (interactive)
+      (when (eq isearch-forward t)
+	(goto-char isearch-other-end))
+      (isearch-exit))
+
+    (defun isearch-vim-style-kill ()
+      "Kill up to the search match when searching forward. When
+      searching backward, kill to the beginning of the match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-region))
+
+    (defun isearch-vim-style-copy ()
+      "Copy up to the search match when searching forward. When
+      searching backward, copy to the start of the search match."
+      (interactive)
+      (isearch-vim-style-exit)
+      (call-interactively 'kill-ring-save)
+      (exchange-point-and-mark))
+
+    (defun my-define-key (map binding func)
+      (define-key map (kbd binding) func))
+
+    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
+    (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
+    (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
+  #+end_src
+* expand-region
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
+  :END:
+  Expand-region increases the selected region by semantic units.
+  #+begin_src emacs-lisp
+    (use-package expand-region
+      :bind
+      ("C-=" . 'er/expand-region)
+      ("C-M-=" . 'er/contract-region))
+  #+end_src
+* Org mode
+
+** Getting Things Done (GTD)                                            :GTD:
+   Because I am working on implementing the GTD methodology, I want to configure org mode to work with this as easily as possible. This section is based heavily on [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][this blog post]] by Nicolas Petton over at [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Emacs Café]].
+
+*** Capture templates
+    Configure capture templates to use for adding new entries to the inbox.
+    #+begin_src emacs-lisp
+      (setq org-capture-templates
+	    '(("i" "Inbox (GTD)" entry (file "~/gtd/inbox.org")
+	       "* %^{title}\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1)
+	      ("p" "Project (GTD)" entry (file+headline "~/gtd/main.org" "Tasks")
+	       "* %^{title} [/]\n  :LOGBOOK:\n  - Created %U\n  :END:\n  %i%?"  :empty-lines 1)))
+    #+end_src
+
+*** Refile targets
+    Configure refile targets for when moving items from the inbox to their correct positions. The ~(nil :maxlevel . N)~ entry means that the current file will also be searched for refile targets, and the ~(org-buffer-list :maxlevel . N)~ entry means that any org buffer is also used for targets.
+    #+begin_src emacs-lisp
+      (setq org-refile-targets '((nil :maxlevel . 5)
+                                 (org-buffer-list :maxlevel . 2)
+                                 ("~/gtd/main.org" :maxlevel . 3)
+                                 ("~/gtd/someday-maybe.org" :level . 1)
+                                 ("~/gtd/tickler.org" :maxlevel . 2)))
+    #+end_src
+
+*** Tags
+    I want to set up set of common tags. We'll define a group of mutually exclusive tags (prefixed with an '@') for /context/, and another set of tags for categories.
+    #+begin_src emacs-lisp
+      (setq org-tag-alist '((:startgroup)
+                            ("@errand" . ?e)
+                            ("@office" . ?o)
+                            ("@home" . ?h)
+                            ("@computer" . ?c)
+                            ("@phone" . ?9)
+                            (:endgroup)
+                            (:newline)
+                            (:startgroup)
+                            ("fitness" . ?f)
+                            (:grouptags)
+                            (:startgroup)
+                            ("LesMills" . ?l)
+                            (:grouptags)
+                            ("SHBAM" . ?S)
+                            ("BODYATTACK" . ?A)
+                            ("BODYCOMBAT" . ?C)
+                            ("BODYPUMP" .?P)
+                            (:endgroup)
+                            (:endgroup)
+                            (:startgroup)
+                            ("website" . ?s)
+                            (:grouptags)
+                            ("blog" . ?b)
+                            (:endgroup)
+                            (:startgroup)
+                            ("work" . ?w)
+                            (:grouptags)
+                            ("intility" . ?i)
+                            (:endgroup)
+                            (:startgroup)
+                            ("home" . ?H)
+                            (:grouptags)
+                            ("clothing")
+                            (:endgroup)
+                            ("finance" . ?F)
+                            ("personal" . ?p)
+                            ("design" . ?D)
+                            (:startgroup)
+                            ("review" . ?r)
+                            (:grouptags)
+                            ("watch")
+                            ("read")
+                            ("listen")
+                            (:endgroup)
+                            (:startgrouptag)
+                            ("dev" . ?d)
+                            (:grouptags)
+                            ("kubernetes" . ?8)
+                            ("language" . ?L)
+                            (:endgrouptag)
+                            ("GTD" . ?g)
+                            ("productivity")))
+    #+end_src
+
+    I also want to enable setting tags with a single press and without a pop-up menu:
+    #+begin_src emacs-lisp
+      (setq org-use-fast-tag-selection t)
+      (setq org-fast-tag-selection-single-key t)
+    #+end_src
+*** todo keywords
+    Here's the set of keywords I use for tracking states for my list items:
+    #+begin_src emacs-lisp
+      (setq org-todo-keywords
+            '((sequence "TODO(t!)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELED(c!)")))
+    #+end_src
+
+*** key bindings                                                 :keybinding:
+    Since let's also define some sensible bindings for org mode! In
+    particular, let's make it easy to create capture templates and to
+    view the agenda.
+    #+BEGIN_SRC emacs-lisp
+      (global-set-key (kbd "<f5> c") 'org-capture)
+      (global-set-key (kbd "<f5> a") 'org-agenda)
+    #+END_SRC
+** Agenda
+
+*** Agenda files                                                        :GTD:
+    We only want to show agenda items from the GTD files where actual items lie, so there's no some day / maybe list included.
+    #+begin_src emacs-lisp
+      (setq org-agenda-files '("~/gtd/inbox.org"
+                               "~/gtd/main.org"
+                               "~/gtd/tickler.org"))
+    #+end_src
+
+
+
+*** Custom commands
+    Let's create some custom commands to use with the agenda view:
+    #+begin_src emacs-lisp
+      (setq org-agenda-custom-commands
+            '(("w" "Work" tags-todo "work")
+              ("b" "Blog" tags-todo "blog")
+              ("e" "Emacs" tags-todo "emacs")
+              ("o" "Org" tags-todo "org")
+              ("g" "GTD" tags-todo "GTD")))
+    #+end_src
+
+*** Weekly view
+    For the weekly view, instead of seeing the current week (Monday through Sunday), I prefer seeing the next ~n~ and the previous ~m~ days.
+    #+begin_src emacs-lisp
+      (setq org-agenda-start-on-weekday nil
+            org-agenda-span 10
+            org-agenda-start-day "-3d")
+    #+end_src
+
+** Org-ref
+   I use [[https://github.com/jkitchin/org-ref][org-ref]] for managing bibliographies and citations.
+
+   #+begin_src emacs-lisp
+     (use-package org-ref
+       :after org
+       :init (setq reftex-default-bibliography'("~/gtd/bibliography/references.bib")
+                   org-ref-bibliography-notes "~/gtd/bibliography/notes.org"
+                   org-ref-default-bibliography'("~/gtd/bibliography/references.bib")
+                   org-ref-pdf-directory "~/gtd/bibliography/bibtex-pdfs/"
+                   bibtex-completion-bibliography "~/gtd/bibliography/references.bib"
+                   bibtex-completion-library-path "~/gtd/bibliography/bibtex-pdfs"
+                   bibtex-completion-notes-path "~/gtd/bibliography/helm-bibtext-notes"))
+   #+end_src
+
+** Babel
+   In addition to the basic org-babel setup, we can add some more
+   languages and a couple extra packages to make it even smoother to
+   work with.
+
+   First off, let's add some more languages.
+   #+BEGIN_SRC emacs-lisp
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . t)
+        (shell . t)))
+   #+END_SRC
+
+   One such package is [[https://github.com/zweifisch/ob-http][ob-http]], which allows you to make HTTP requests from org source blocks:
+   #+begin_src emacs-lisp
+     (use-package ob-http
+       :init (add-to-list 'org-babel-load-languages '(http . t)))
+   #+end_src
+
+   Because I trust myself (somewhat foolishly perhaps) to only execute org code
+   blocks that I know to be safe, I don't want to be prompted when executing a code block:
+   #+begin_src emacs-lisp
+     (setq org-confirm-babel-evaluate nil)
+   #+end_src
+
+** Other settings
+   I like seeing symbols in my buffer, rather than LaTeX commands. This makes '\alpha + \pi' look like 'α + π' and also displays sub- and superscripts properly.
+   #+begin_src emacs-lisp
+     (setq org-pretty-entities t)
+   #+end_src
+
+   I also want my footnotes to be automatically sorted and renumbered whenever I insert a new one.
+   #+begin_src emacs-lisp
+     (setq org-footnote-auto-adjust t)
+   #+end_src
+
+
+   Furthermore, I /always/ want to org to log into drawers, so let's set that too:
+   #+begin_src emacs-lisp
+     (setq org-log-into-drawer t)
+   #+end_src
+
+   While I like electric-pair-mode, the fact that ~<~ inserts a
+   closing ~>~ is an issue for templates. This code is based on [[https://www.topbug.net/blog/2016/09/29/emacs-disable-certain-pairs-for-electric-pair-mode/][this
+   blog post]].
+
+   #+begin_src emacs-lisp
+     (defun my-org-mode-hook ()
+       (setq-local electric-pair-inhibit-predicate
+		   `(lambda (c)
+		      (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))
+     (add-hook 'org-mode-hook 'my-org-mode-hook)
+   #+end_src
+
+
+** templates (org-tempo)
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2020-08-13 Thu 09:29]
+   - State "TODO"       from "TODO"       [2020-08-13 Thu 09:29]
+   - State "TODO"       from              [2020-08-12 Wed 14:52]
+   :END:
+
+   To reclaim the functionality of expanding ~<s~, ~<q~ and others
+   into org blocks, we need to add ~org-tempo~ to the list of
+   org-modules. More info is found in the Reddit thread [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/][Get
+   easy-templates back in org-mode 9.2]].
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'org-modules 'org-tempo)
+   #+END_SRC
+
+* Yasnippet
+  :PROPERTIES:
+  :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 14:46]
+  :END:
+
+  Add yasnippet. For the time being, add my new emacs dir as a primary
+  source of snippets.
+
+  For some reason, snippets didn't seem to be loading properly, so I
+  added reload directive to force reload.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :demand t
+      :config
+      (yas-global-mode 1)
+      (setq yas-snippet-dirs '("~/.emacs.d_new/snippets"
+			       "~/.emacs.d/snippets"))
+      (yas-reload-all))
+  #+END_SRC
+
+* TODO [#C] Surround
+  I want to find some way to have the equivalent of vim/evil-surround
+  but in pure Emacs-mode. Not sure how to do it just yet, but it
+  should be possible. The easiest may be to use evil-surround, just
+  mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
+* TODO [#C] Change inner                                         :keybinding:
+  Note: this could do with some improvements to also accept closing parens,
+  braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
+  ~parens~. Should actually be fairly doable. This has been reported previously
+  ([[https://github.com/magnars/change-inner.el/issues/8][issue]]) and been deemed not worth doing. Another option is [[https://gist.github.com/alphapapa/fd7edf8104215028f3da][this gist]] by
+  Alphapapa, which could work well.
+
+  To emulate some of Vim's behavior, we'll use [[https://github.com/magnars/change-inner.el][change-inner.el]]:
+  #+begin_src emacs-lisp
+    (use-package change-inner
+      :bind (("M-i" . change-inner)
+	     ("M-o" . change-outer)))
+  #+end_src
+* Hydra
+  :PROPERTIES:
+  :REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    (use-package hydra)
+  #+END_SRC
+
+* TODO ace-window
+  :PROPERTIES:
+  :REPO:     [[https://github.com/abo-abo/ace-window][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 09:32]
+  :END:
+  TODO: merge this with the window movement and management section
+  below. That hydra uses ace-window, so it should be part of this
+  use-package declaration.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package ace-window
+      :config
+      (setq aw-dispatch-always t)
+      :bind
+      ("C-x w" . ace-window))
+  #+END_SRC
+* TODO [#C] Window movement and management
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 20:28]
+  :END:
+  TODO: make winner-undo and redo work as expected. At the moment,
+  they're a bit all over the place.
+
+  First, let's define window-splitting functions that also move focus.
+  We'll also assign them to some easily reachable key combinations.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun split-window-right-and-focus ()
+      (interactive)
+      (split-window-right)
+      (windmove-right))
+
+    (defun split-window-below-and-focus ()
+      (interactive)
+      (split-window-below)
+      (windmove-down))
+
+    (global-set-key (kbd "C-x |") 'split-window-right-and-focus)
+    (global-set-key (kbd "C-x -") 'split-window-below-and-focus)
+    (global-set-key (kbd "C-x _") 'split-window-below-and-focus)
+  #+END_SRC
+
+  Next, let's define a hydra to make window work as easy as possible.
+  #+BEGIN_SRC emacs-lisp
+    (defhydra hydra-window-movement (global-map "C-x w")
+      "
+    Move    ^^Split     ^^Resize          ^^Other
+    ------------------------------------------------------
+    _←_: ←    _|_: right  _m_: maximize     _b_: switch buffer
+    _↓_: ↓    ___: below  _d_: ace-delete
+    _↑_: ↑    _u_: undo   _k_: del window
+    _→_: →    _r_: redo
+
+    _a_: ace-window _q_: quit
+    "
+      ("<up>" windmove-up)
+      ("<down>" windmove-down)
+      ("<left>" windmove-left)
+      ("<right>" windmove-right)
+
+      ("|" split-window-right-and-focus)
+      ("_" split-window-below-and-focus)
+      ("u" winner-undo)
+      ("r" winner-redo)
+
+      ("m" my-maximize-or-undo-window)
+      ("d" ace-delete-window)
+      ("k" delete-window)
+
+      ("b" ivy-switch-buffer)
+
+      ("a" ace-window)
+      ("q" nil))
+  #+END_SRC
+
+* TODO [#B] Smartparens
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-12 Wed 22:13]
+  :END:
+
+  This setup is heavily inspired by [[https://gist.github.com/oantolin/5751fbaa7b8ab4f9570893f2adfe1862][this Gist]], which was linked to
+  from [[https://www.reddit.com/r/emacs/comments/6j2s95/i_still_cant_find_an_efficient_and_simple/][this Reddit thread]] about smartparens configs. Further, [[https://ebzzry.io/en/emacs-pairs/][this
+  blog post]] contains a number of well-illustrated examples of how the
+  movement works.
+
+  TODO: this might still need quite a bit of tweaking.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package smartparens
+      :init
+      (smartparens-global-mode)
+      :hook (eval-expression-minibuffer-setup . smartparens-mode)
+      :config
+      (require 'smartparens-config)
+      (custom-set-variables
+       '(sp-base-key-bindings 'sp))
+
+      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+      )
+  #+END_SRC
+
+* [[https://github.com/smihica/emmet-mode][emmet-mode]]
+* Editorconfig
+  :PROPERTIES:
+  :REPO:     [[https://github.com/editorconfig/editorconfig-emacs][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package editorconfig
+      :ensure t
+      :config
+      (editorconfig-mode 1))
+  #+END_SRC
+
+* Notmuch
+  :PROPERTIES:
+  :WEBSITE:  [[https://notmuchmail.org/][Notmuch]] [[https://notmuchmail.org/notmuch-emacs/][Notmuch-emacs]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package notmuch
+      :bind ("<f7>" . notmuch)
+      :config
+      (setq message-send-mail-function 'message-send-mail-with-sendmail
+	    notmuch-fcc-dirs "sent +sent -unread -inbox"))
+  #+END_SRC
+
+* Elfeed
+  :PROPERTIES:
+  :REPO:     [[https://github.com/skeeto/elfeed][GitHub]]
+  :END:
+
+
+** Elfeed-org
+   :PROPERTIES:
+   :REPO:     [[https://github.com/remyhonig/elfeed-org][GitHub]]
+   :END:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed-org
+       :init
+       (elfeed-org)
+       :bind
+       ("<f5> f" . elfeed)
+       :config
+       (setq rmh-elfeed-org-files '("~/feeds.org")
+	     elfeed-search-filter "@2-weeks-ago +unread"))
+   #+END_SRC
+
+
+* Origami
+  :PROPERTIES:
+  :REPO:     [[https://github.com/gregsexton/origami.el][GitHub]]
+  :END:
+
+  Origami provides code folding.
+  #+BEGIN_SRC emacs-lisp
+    (use-package origami
+      :bind
+      ("<C-M-tab>" . origami-recursively-toggle-node)
+      :init
+      (global-origami-mode)
+      :config
+      (setq origami-parser-alist
+            (append origami-parser-alist
+                    '((rust-mode . origami-c-style-parser)))))
+  #+END_SRC
+
+
+* Perspectives? Or eyebrowse? or ...
+  https://github.com/nex3/perspective-el or
+  https://github.com/Bad-ptr/persp-mode.el
+
+  https://depp.brause.cc/eyebrowse/ ?
+* Projectile
+  https://github.com/bbatsov/projectile
+* pdf-tools
+  :PROPERTIES:
+  :REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package pdf-tools
+      :ensure t
+      :config
+      (pdf-tools-install)
+      (setq-default pdf-view-display-size 'fit-page))
+  #+END_SRC
+
+* shift-line-up and down
+  In a number of prog modes, it'd be useful to be able to move lines
+  up and down. Maybe even expressions up and down. M-<up>, for instance?
+* exwm
+  :PROPERTIES:
+  :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
+  :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
+  :END:
+
+  I use EXWM as my window manager on NixOS, so let's get that set up.
+
+  This is based on a mix between my own setup and [[https://github.com/daedreth/UncleDavesEmacs][UncleDavesEmacs]]
+  setup.
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package exwm
+      :ensure t
+      :after ivy
+      :config
+      (require 'exwm-config)
+
+      (server-start)
+
+      (exwm-config-ido)
+
+      (setq exwm-workspace-number 3
+            exwm-workspace-show-all-buffers t
+            exwm-layout-show-all-buffers t)
+
+      (defun my-exwm-launcher (command)
+        "A super-simple launcher"
+        (interactive (list (read-shell-command "Launch application: ")))
+        (start-process-shell-command command nil command))
+
+      (defvar my-exwm-toggle-workspace 0
+        "Previously selected workspace. Used with the below function.")
+      (defun my-exwm-previous-workspace ()
+        "Switch to previous active workspace."
+        (interactive)
+        (exwm-workspace-switch my-exwm-toggle-workspace))
+      (defadvice exwm-workspace-switch (before save-toggle-workspace activate)
+        (setq my-exwm-toggle-workspace exwm-workspace-current-index))
+      ;; (exwm-input-set-key (kbd "<s-tab>") #'my-exwm-previous-workspace)
+
+      (defun my-exwm-switch-workspace (operator)
+        (exwm-workspace-switch
+         (mod (funcall operator exwm-workspace-current-index 1) (length exwm-workspace--list))))
+
+      (defun my-exwm-next-workspace-by-index ()
+        "Switch to the next workspace."
+        (interactive)
+        (my-exwm-switch-workspace '+))
+
+      (defun my-exwm-previous-workspace-by-index ()
+        "Switch to the previous workspace."
+        (interactive)
+        (my-exwm-switch-workspace '-))
+
+      (setq exwm-input-global-keys
+        `(([?\s-r] . exwm-reset)
+          ([?\s- ] . my-exwm-launcher)
+
+           ;; workspaces
+           ([?\s-w] . exwm-workspace-switch)
+           ([?\s-s] . exwm-workspace-move-window)
+
+           ;; buffer management
+           ([?\s-n] . next-buffer)
+           ([?\s-p] . previous-buffer)
+           ([?\s-b] . ivy-switch-buffer)
+
+           ;; window navigation and management
+           ([?\s-k] . windmove-up)
+           ([?\s-j] . windmove-down)
+           ([?\s-l] . windmove-right)
+           ([?\s-h] . windmove-left)
+           ([\s-up] . windmove-up)
+           ([\s-down] . windmove-down)
+           ([\s-right] . windmove-right)
+           ([\s-left] . windmove-left)
+           ([?\s-m] . my-maximize-or-undo-window)
+
+           ;; workspace navigation and management
+           ([\s-tab] . my-exwm-previous-workspace)
+           ([?\s->] . my-exwm-next-workspace-by-index)
+           ([?\s-<] . my-exwm-previous-workspace-by-index)
+
+           ([?\s-c ?c] . org-capture)
+
+           ;; window splitting and management
+           ([?\s-|] . split-window-right-and-focus)
+           ([?\s-_] . split-window-below-and-focus)
+
+           ;; workspace / window numerical
+           ,@(mapcar (lambda (i)
+                       `(,(kbd (format "s-C-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 9))
+           ,@(mapcar (lambda (i)
+                       `(,(kbd (format "s-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (winum-select-window-by-number ,i))))
+                     (number-sequence 0 9))))
+
+      (setq exwm-input-simulation-keys
+            '(
+              ;; movement
+              ([?\M-b] . [C-left])
+              ([?\M-f] . [C-right])
+              ([?\C-p] . [up])
+              ([?\C-n] . [down])
+              ([?\C-a] . [home])
+              ([?\C-e] . [end])
+              ([?\C-k] . [S-end C-x])
+              ;; cut and paste
+              ;; ([?\C-w] . ?\C-x)
+              ([?\M-w] . [C-c])
+              ([?\C-y] . [C-v])
+              ;; search
+              ([?\C-s] . [?\C-f])))
+
+      (add-hook 'exwm-update-title-hook (lambda () (exwm-workspace-rename-buffer exwm-title)))
+
+      ;; configure RandR support
+      (require 'exwm-randr)
+      (setq exwm-randr-workspace-monitor-plist '(0 "DP2" 1 "eDP1" 2 "DP1"))
+
+      (defun my-exwm-randr-screen-change-hook ()
+        (interactive)
+        (start-process-shell-command
+         "autorandr" nil "autorandr -c"))
+
+      (add-hook 'exwm-randr-screen-change-hook
+                (lambda ()
+                  (my-exwm-randr-screen-change-hook)))
+
+      (exwm-randr-enable)
+
+
+     ;; this little bit will make sure that XF86 keys work in exwm buffers as well
+      (dolist (k '(XF86AudioLowerVolume
+                   XF86AudioRaiseVolume
+                   XF86PowerOff
+                   XF86AudioMute
+                   XF86AudioPlay
+                   XF86AudioStop
+                   XF86AudioPrev
+                   XF86AudioNext
+                   XF86ScreenSaver
+                   XF68Back
+                   XF86Forward
+                   Scroll_Lock
+                   print))
+        (cl-pushnew k exwm-input-prefix-keys))
+
+      (exwm-init)
+    )
+  #+END_SRC
+** desktop-environment
+
+   Can we make volume controls etc work from emacs? [[https://melpa.org/#/desktop-environment][This Melpa package]]
+   says that we can.
+* multiterm
+  :PROPERTIES:
+  :REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
+  :WIKI:     [[https://www.emacswiki.org/emacs/MultiTerm][EmacsWiki]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package multi-term
+      :bind
+      ("<f9>" . multi-term-dedicated-toggle))
+  #+END_SRC
+
+
+* TODO [#C] Aweshell
+  :PROPERTIES:
+  :REPO:     [[https://github.com/manateelazycat/aweshell][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 18:50]
+  :END:
+
+  Aweshell was created by the same person that created multi-term.
+  It's extends eshell with a number of features.
+
+  It looks cool, but it's not on Melpa and I'm not ready to start
+  looking at local code hosting just yet.

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: snippet-template
+# key: !
+# contributor: Thomas Heartman
+# --
+
+# -*- mode: snippet -*-
+# name: $1
+# key: $2
+# expand-env: $3
+# contributor: Thomas Heartman
+# --
+$0
