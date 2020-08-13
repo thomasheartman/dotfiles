@@ -763,7 +763,17 @@
    #+end_src
 
 ** Babel
-   In addition to the basic org-babel setup, we can add some extra packages to make it even smoother to work with.
+   In addition to the basic org-babel setup, we can add some more
+   languages and a couple extra packages to make it even smoother to
+   work with.
+
+   First off, let's add some more languages.
+   #+BEGIN_SRC emacs-lisp
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . t)
+        (shell . t)))
+   #+END_SRC
 
    One such package is [[https://github.com/zweifisch/ob-http][ob-http]], which allows you to make HTTP requests from org source blocks:
    #+begin_src emacs-lisp
