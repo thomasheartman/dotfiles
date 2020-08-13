@@ -564,10 +564,16 @@
       :config
       (setq markdown-asymmetric-header t))
   #+end_src
-* link-hint
+* TODO link-hint
   :PROPERTIES:
   :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 18:06]
+  :END:
+
+  TODO: remove ~C-c l~ binding. It conflicts with Org mode's binding
+  of the same combo.
 
   Link-hint allows you to open any links in the current frame by
   typing a sequence of letters indicated by an overlay.
