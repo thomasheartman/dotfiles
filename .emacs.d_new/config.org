@@ -1064,6 +1064,18 @@
 * Projectile
   https://github.com/bbatsov/projectile
 * pdf-tools
+  :PROPERTIES:
+  :REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package pdf-tools
+      :ensure t
+      :config
+      (pdf-tools-install)
+      (setq-default pdf-view-display-size 'fit-page))
+  #+END_SRC
+
 * shift-line-up and down
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
