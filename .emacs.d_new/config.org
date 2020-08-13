@@ -882,10 +882,16 @@
     (use-package hydra)
   #+END_SRC
 
-* ace-window
+* TODO ace-window
   :PROPERTIES:
   :REPO:     [[https://github.com/abo-abo/ace-window][GitHub]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 09:32]
+  :END:
+  TODO: merge this with the window movement and management section
+  below. That hydra uses ace-window, so it should be part of this
+  use-package declaration.
 
   #+BEGIN_SRC emacs-lisp
     (use-package ace-window
@@ -924,11 +930,11 @@
   #+BEGIN_SRC emacs-lisp
     (defhydra hydra-window-movement (global-map "C-x w")
       "
-    Move      Split       Resize
-    -----------------------------------
-    _←_: ←    _|_: right  _m_: maximize
-    _↓_: ↓    ___: below  _d_: delete
-    _↑_: ↑    _u_: undo
+    Move    ^^Split     ^^Resize          ^^Other
+    ------------------------------------------------------
+    _←_: ←    _|_: right  _m_: maximize     _b_: switch buffer
+    _↓_: ↓    ___: below  _d_: ace-delete
+    _↑_: ↑    _u_: undo   _k_: del window
     _→_: →    _r_: redo
 
     _a_: ace-window _q_: quit
@@ -945,9 +951,12 @@
 
       ("m" delete-other-windows)
       ("d" ace-delete-window)
+      ("k" delete-window)
+
+      ("b" ivy-switch-buffer)
+
       ("a" ace-window)
-      ("q" nil)
-      )
+      ("q" nil))
   #+END_SRC
 
 * TODO [#B] Smartparens
