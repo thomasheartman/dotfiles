@@ -1093,3 +1093,153 @@
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
 * exwm
+  :PROPERTIES:
+  :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
+  :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
+  :END:
+
+  I use EXWM as my window manager on NixOS, so let's get that set up.
+
+  This is based on a mix between my own setup and [[https://github.com/daedreth/UncleDavesEmacs][UncleDavesEmacs]]
+  setup.
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package exwm
+      :ensure t
+      :config
+
+      (require 'exwm-config)
+
+      (server-start)
+
+      (exwm-config-ido)
+
+      (setq exwm-workspace-number 3
+            exwm-workspace-show-all-buffers t
+            exwm-layout-show-all-buffers t)
+
+      (defun my-exwm-launcher (command)
+        "A copy of the spacemacs exwm launcher: https://github.com/djeis97/spacemacs-configs/blob/a10ddd940bca28f9d8be7fa900761344ea611a5f/layers/exwm/packages.el#L172"
+        (interactive (list (read-shell-command exwm-app-launcher--prompt)))
+        (start-process-shell-command command nil command))
+
+      (setq exwm-input-global-keys
+        `(([?\s-r] . exwm-reset)
+          ([?\s- ] . my-exwm-launcher)
+
+           ;; workspaces
+           ([?\s-w] . exwm-workspace-switch)
+           ([?\s-s] . exwm-workspace-move-window)
+
+           ;; buffer management
+           ([?\s-n] . next-buffer)
+           ([?\s-p] . previous-buffer)
+
+           ;; window navigation
+           ([?\s-k] . windmove-up)
+           ([?\s-j] . windmove-down)
+           ([?\s-l] . windmove-right)
+           ([?\s-h] . windmove-left)
+
+           ([?\C-\M-\S-\s-c] . windmove-up)
+           ([?\C-\M-\S-\s-t] . windmove-down)
+           ([?\C-\M-\S-\s-n] . windmove-right)
+           ([?\C-\M-\S-\s-h] . windmove-left)
+
+
+           ([?\s-c ?c] . org-capture)
+
+           ;; window splitting
+           ([?\s-|] . split-window-right-and-focus)
+           ([?\s-_] . split-window-below-and-focus)
+
+           ;; workspace / window numerical
+           ,@(mapcar (lambda (i)
+                       `(,(kbd (format "s-C-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 9))
+           ,@(mapcar (lambda (i)
+                       `(,(kbd (format "s-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (winum-select-window-by-number ,i))))
+                     (number-sequence 0 9))))
+
+      (setq exwm-input-simulation-keys
+            '(
+              ;; movement
+              ([?\M-b] . [C-left])
+              ([?\M-f] . [C-right])
+              ([?\C-p] . [up])
+              ([?\C-n] . [down])
+              ([?\C-a] . [home])
+              ([?\C-e] . [end])
+              ([?\C-k] . [S-end delete])
+              ;; search
+              ([?\C-s] . [?\C-f])))
+
+
+      ;; configure RandR support
+      (require 'exwm-randr)
+      (setq exwm-randr-workspace-monitor-plist '(0 "DP2" 1 "eDP1" 2 "DP1"))
+
+      (defun my-exwm-randr-screen-change-hook ()
+        (interactive)
+        (start-process-shell-command
+         "autorandr" nil "autorandr -c"))
+
+      (add-hook 'exwm-randr-screen-change-hook
+                (lambda ()
+                  (my-exwm-randr-screen-change-hook)))
+
+      (exwm-randr-enable)
+
+
+      ;; from uncle dave
+
+     ;; this little bit will make sure that XF86 keys work in exwm buffers as well
+      (dolist (k '(XF86AudioLowerVolume
+                   XF86AudioRaiseVolume
+                   XF86PowerOff
+                   XF86AudioMute
+                   XF86AudioPlay
+                   XF86AudioStop
+                   XF86AudioPrev
+                   XF86AudioNext
+                   XF86ScreenSaver
+                   XF68Back
+                   XF86Forward
+                   Scroll_Lock
+                   print))
+        (cl-pushnew k exwm-input-prefix-keys))
+    )
+  #+END_SRC
+* multiterm
+  :PROPERTIES:
+  :REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
+  :WIKI:     [[https://www.emacswiki.org/emacs/MultiTerm][EmacsWiki]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package multi-term
+      :bind
+      ("<f9>" . multi-term-dedicated-toggle))
+  #+END_SRC
+
+
+* TODO [#C] Aweshell
+  :PROPERTIES:
+  :REPO:     [[https://github.com/manateelazycat/aweshell][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-13 Thu 18:50]
+  :END:
+
+  Aweshell was created by the same person that created multi-term.
+  It's extends eshell with a number of features.
+
+  It looks cool, but it's not on Melpa and I'm not ready to start
+  looking at local code hosting just yet.
