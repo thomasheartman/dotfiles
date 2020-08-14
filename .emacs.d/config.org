@@ -249,29 +249,49 @@
     #+END_SRC
 *** OS-specifics                                                         :os:
     Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
-**** TODO macOS                                                       :macos:
+**** macOS                                                            :macos:
+     :PROPERTIES:
+     :header-args: :tangle no
+     :END:
      :LOGBOOK:
      - State "TODO"       from              [2020-08-13 Thu 17:56]
      :END:
-     TODO: rewrite this to use noweb references so that you don't need
-     all the duplicate ~when~ statements. In that case, though, you
-     might also need to disable tangling for for the extra options.
 
-     On macOS, I want the CMD key to act as Meta, and the Alt key as super, because this works better with their location on the keyboard and their corresponding keys on Linux.
-     #+begin_src emacs-lisp
+     #+begin_src emacs-lisp :tangle yes :noweb yes
        (when (eq system-type 'darwin)
-         (setq mac-option-modifier nil
-               mac-command-modifier 'meta))
+         <<resize>>
+         <<macos-exec-path>>
+         <<macos-key-config>>)
      #+end_src
 ***** Resizing
       Using Amethyst as a window manager on macOS, the Emacs frame will
       often not expand to take up the whole allotted space, leaving a
       gap between itself and the edge of the screen or other
       applications. To fix this, make frames resize pixelwise:
+      #+name: resize
       #+begin_src emacs-lisp
-	(when (eq system-type 'darwin)
-	  (setq frame-resize-pixelwise t))
+        (setq frame-resize-pixelwise t)
       #+end_src
+***** $PATH and ~exec-path~
+      Dealing with path variables can be tricky. Because I use
+      #+name: macos-exec-path
+      #+BEGIN_SRC emacs-lisp
+        (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands"
+                                            "/usr/local/share/dotnet"
+                                            "~/.dotnet/tools"
+                                            "/run/current-system/sw/bin")))
+      #+END_SRC
+***** Key switching
+      On macOS, I want the CMD key to act as Meta, and the Alt key as
+      super, because this works better with their location on the
+      keyboard and their corresponding keys on Linux.
+      #+name: macos-key-config
+      #+BEGIN_SRC emacs-lisp
+        (setq mac-option-modifier nil
+              mac-command-modifier 'meta)
+      #+END_SRC
+
+
 *** TODO Window functions
     :LOGBOOK:
     - State "TODO"       from              [2020-08-13 Thu 20:16]
