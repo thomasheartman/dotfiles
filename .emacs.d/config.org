@@ -1330,3 +1330,77 @@
 
   It looks cool, but it's not on Melpa and I'm not ready to start
   looking at local code hosting just yet.
+
+* TODO Bibtex
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-14 Fri 08:38]
+  :END:
+  Get BibTex to work properly. [[http://www.jonathanleroux.org/bibtex-mode.html][Here's the manual]]. See what you can
+  find.
+
+* Minimodelines
+
+  There are a number of different minimodeline packages out there,
+  including [[https://github.com/tautologyclub/feebleline][feebleline]] and [[https://github.com/kiennq/emacs-mini-modeline][mini-modeline]]. I've had some issues with
+  feebleline, so let's use mini-modeline for now.
+
+
+** TODO Window dividers
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-14 Fri 10:24]
+   :END:
+
+   Todo: make this work. I wasn't able to set customizable variables
+   outside of the customize buffer. If I want to be able to set it
+   conditionally, then that's a bit of a bummer.
+
+
+   If we're removing the mode line, it might be prudent to also use
+   window dividers so we can tell where a window ends and another one
+   begins.
+
+   See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Window-Dividers.html#Window-Dividers][the Window Dividers]] section of the emacs manual for more
+   information. There's also some more info in [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Window-Dividers.html][this section]].
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (window-divider-mode)
+     (customize-save-variable window-divider red)
+     (customize-save-variable window-divider-default-right-width 1)
+     (customize-save-variable window-divider-default-bottom-width 1)
+     (customize-save-variable window-divider-default-places t)
+   #+END_SRC
+
+* C#
+
+** csharp-mode
+   :PROPERTIES:
+   :REPO:     [[https://github.com/josteink/csharp-mode][GitHub]]
+   :END:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package csharp-mode
+       :mode "\\.cs\\'"
+       :hook
+       (csharp-mode . lsp-mode))
+   #+END_SRC
+
+
+** TODO omnisharp-emacs
+   :PROPERTIES:
+   :REPO:     [[https://github.com/OmniSharp/omnisharp-emacs][GitHub]]
+   :END:
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-14 Fri 14:06]
+   :END:
+
+   TODO: find out if you /actually/ need this. I suspect not with lsp
+   mode.
+
+   For C#, the language server is a separate package, so we must
+   install it independently.
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (use-package omnisharp
+       :after company
+       :config
+       (add-to-list 'company-backends 'company-omnisharp))
+   #+END_SRC
