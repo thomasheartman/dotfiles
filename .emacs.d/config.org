@@ -318,6 +318,152 @@
               (delete-other-windows)))))
     #+END_SRC
 
+    Further, I'd love to be able to maximize windows vertically or
+    horizontally. Again, this is functionality Spacemacs has, so let's
+    go from there.
+
+    And if we can maximize horizontally and vertically, why not make
+    it more fine-grained? What if you only want to expand in one
+    direction?
+
+    And finally: what if you just want to 'eat' the next window in a
+    given direction? Yeah, we can do all of them.
+
+    First, let's define functionality to delete windows in a direction
+    until there's nothing left to delete.
+    #+BEGIN_SRC emacs-lisp
+      (defun delete-until-end (move)
+        (while (condition-case nil (funcall move) (error nil))
+          (delete-window)))
+    #+END_SRC
+
+    Now, let's implement this for the four directions. NOTE: I'm sure
+    this can be done in a fancier, metaprogramming-like way. Please,
+    /do/ @ me!
+    #+BEGIN_SRC emacs-lisp
+      (defun delete-windows-to-the-left ()
+        "Delete all windows to the left of the current one"
+        (interactive)
+        (delete-until-end 'windmove-left))
+
+      (defun delete-windows-to-the-right ()
+        "Delete all windows to the right of the current one"
+        (interactive)
+        (delete-until-end 'windmove-right))
+
+      (defun delete-windows-above ()
+        "Delete all windows above the current one"
+        (interactive)
+        (delete-until-end 'windmove-up))
+
+      (defun delete-windows-below ()
+        "Delete all windows below the current one"
+        (interactive)
+        (delete-until-end 'windmove-down))
+    #+END_SRC
+
+    Now horizontal and vertical are just extensions of what we've got
+    above:
+    #+BEGIN_SRC emacs-lisp
+      (defun maximize-window-horizontally ()
+        (interactive)
+        (save-excursion
+          (delete-windows-to-the-left)
+          (delete-windows-to-the-right)))
+
+      (defun maximize-window-vertically ()
+        (interactive)
+        (save-excursion
+          (delete-windows-above)
+          (delete-windows-below)))
+    #+END_SRC
+
+    Swell! That only leaves eating the next window in one direction.
+    Again, let's define the base function and then one-line
+    implementations! Or ... before we got too ahead of ourselves,
+    let's think about how Emacs works with windows.
+
+    If you delete a window, another window will take its place so that
+    we don't get an empty hole in the frame. However, from what I've
+    gathered, Emacs follows a few simple rules when deciding which
+    window will grow to take the newly opened space.
+
+    - If there is only one window left, grow this one.
+    - If there are multiple candidates that could fill the void,
+      always pick the candidate to the left or above. In other words:
+      windows only grow downwards and to the right.
+
+    #+BEGIN_EXAMPLE
+      +--------+
+      |  |  |  |
+      |  |  |x | <- if we delete the window to the left
+      |  |  |  |
+      +--------+
+
+
+
+      +--------+
+      |     |  |
+      |     |x | <- this is what we'll get
+      |     |  |
+      +--------+
+    #+END_EXAMPLE
+
+    This last point is quite important. It means that if you want to
+    grow a window up or to the left: that's not as easy as you might
+    have thought. Further: you can't just swap the buffers and delete
+    to the right either, because that wouldn't always work.
+
+    As an example, say you have this setup, where ~x~ is your current window.
+    #+BEGIN_EXAMPLE
+      +----+----+
+      |    |    |
+      |    |----|
+      |    | x  |
+      +----+----+
+    #+END_EXAMPLE
+
+    If you want to simply expand one window to the left (into the tall
+    window), you'd expect to end up with a horizontally split screen.
+    But if we swap the two windows first and expand to the right,
+    we'll get a horizontal split instead.
+    #+BEGIN_EXAMPLE
+      +---------+                                        +---------+
+      |         |                                        |    |    |
+      |---------| <- we want this, but we'll get this -> |    |    |
+      |         |                                        |    |    |
+      +---------+                                        +---------+
+    #+END_EXAMPLE
+
+    #+BEGIN_SRC emacs-lisp
+      (defun delete-window-direction (move)
+        "Delete a window in the specified direction and return to where
+        you were. If there are no more windows in said direction, don't
+        do anything."
+        (save-excursion
+          (if (condition-case nil (funcall move) (error nil))
+              (delete-window)
+            (message "No window to delete in that direction."))))
+
+      (defun delete-window-right ()
+        (interactive)
+        (delete-window-direction 'windmove-right))
+
+      (defun delete-window-left ()
+        (interactive)
+        (delete-window-direction 'windmove-left))
+
+      (defun delete-window-up ()
+        (interactive)
+        (delete-window-direction 'windmove-up))
+
+      (defun delete-window-down ()
+        (interactive)
+        (delete-window-direction 'windmove-down))
+    #+END_SRC
+
+
+
 * Ivy                                                            :keybinding:
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
   Swiper) using counsel. We'll also replace normal isearch with Ivy's
