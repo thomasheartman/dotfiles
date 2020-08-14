@@ -1137,12 +1137,18 @@
   #+BEGIN_SRC emacs-lisp
     (defhydra hydra-window-movement (global-map "C-x w")
       "
-    Move    ^^Split     ^^Resize          ^^Other
+    Move    ^^Split     ^^Resize            ^^Other
     ------------------------------------------------------
-    _←_: ←    _|_: right  _m_: maximize     _b_: switch buffer
-    _↓_: ↓    ___: below  _d_: ace-delete   _f_: find file
-    _↑_: ↑    _u_: undo   _k_: del window
-    _→_: →    _r_: redo
+    _←_: ←    _|_: right    _m_: maximize       _b_: switch buffer
+    _↓_: ↓    ___: below    _d_: ace-delete     _f_: find file
+    _↑_: ↑    _u_: undo     _k_: del window   _SPC_: app launcher
+    _→_: →    _r_: redo     _B_: balance
+                          _h/H_: grow left
+                          _l/L_: grow right
+                          _k/K_: grow up
+                          _j/J_: grow down
+                          _z_: max horiz
+                          _v_: max vert
 
     _a_: ace-window _q_: quit
     "
@@ -1159,14 +1165,47 @@
       ("m" my-maximize-or-undo-window)
       ("d" ace-delete-window)
       ("k" delete-window)
+      ("B" balance-windows)
+      ("h" delete-window-left)
+      ("H" delete-windows-to-the-left)
+      ("l" delete-window-right)
+      ("L" delete-windows-to-the-right)
+      ("k" delete-window-up)
+      ("K" delete-windows-above)
+      ("j" delete-window-down)
+      ("J" delete-windows-below)
+      ("z" maximize-window-horizontally)
+      ("v" maximize-window-vertically )
 
       ("b" ivy-switch-buffer)
       ("f" counsel-find-file)
+      ("<SPC>" my-exwm-launcher)
 
       ("a" ace-window)
       ("q" nil))
   #+END_SRC
-
+** TODO Hydra additional features [4/6]
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-14 Fri 20:51]
+   :END:
+   In addition to what we've got defined, let's add some more:
+   - [X] maximize window horizontally and vertically (see spacemacs
+     code for this)
+   - [X] maximize window left/right, up/down (same as maximize, but only
+     in one direction)
+   - [ ] grow window left/right, up/down :: instead of maximizing,
+        just eat the next window in the desired direction. This isn't
+        as easy as you might expect. Posted about this on reddit. It
+        works when eating downwards or to the right, but not the other
+        directions.
+   - [X] launch X app in window
+   - [ ] define a number of standard window layouts [0/3] :: should
+        probably map these to numbers, so it's ~C-x w 1~, for
+        instance.
+     - [ ] vertical split
+     - [ ] horizontal split
+     - [ ] | |-| <- 1 + 2
+   - [X] shortcut to balance windows
 * TODO [#B] Smartparens
   :PROPERTIES:
   :REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
