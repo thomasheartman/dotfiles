@@ -1156,6 +1156,7 @@
     (use-package exwm
       :ensure t
       :after ivy
+      :unless (eq system-type 'darwin)
       :config
       (require 'exwm-config)
 
