@@ -1604,3 +1604,34 @@
        :config
        (add-to-list 'company-backends 'company-omnisharp))
    #+END_SRC
+
+* TODO Prefixes
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-14 Fri 21:25]
+  :END:
+
+  Similarly to how spacemacs has the leader key and a number of
+  mnemonic bindings, it'd be nice to do something similar.
+
+  I'd define a standard prefix, possibly a function key, and then spin
+  off from there. I'd like separate ones for
+  - things :: various apps and utilities. Elfeed, notmuch, org-agenda,
+              notes, etc
+  - lsp / prog :: a key that gets you access to all bindings specified
+                  for the major prog mode you're working in.
+  - errors :: flycheck and or flyspell. Probably a hydra that lets you
+              go from error to error (or just suggestions), correct
+              them, or view all in a separate window
+
+* TODO Replace all checks of system type with noweb reference
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-14 Fri 21:39]
+  :END:
+
+  Right now, I've got a number of calls to ~(eq system-type 'darwin)~
+  in the code. If I ever want to change how I check that, that's a
+  pain. Instead, see if we can't create a ~<<is-macos>>~ code block
+  and reference it with noweb refs.
+
+* Transpose-frame
+  https://www.emacswiki.org/emacs/TransposeFrame
