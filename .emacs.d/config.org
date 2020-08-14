@@ -333,12 +333,13 @@
       :config
       (ivy-mode 1)
       (setq ivy-use-virtual-buffers t
-	    ivy-count-format "(%d/%d)"
-	    ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
-				    (t . ivy--regex-fuzzy))
-	    ivy-wrap t)
+            ivy-count-format "(%d/%d)"
+            ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
+                                    (t . ivy--regex-fuzzy))
+            ivy-wrap t)
       :bind (("C-S-s" . swiper-isearch)
-	     ("C-M-y" . counsel-yank-pop)))
+             ("C-M-y" . counsel-yank-pop)
+             ("C-x C-f" . counsel-find-file)))
   #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
@@ -992,7 +993,7 @@
     Move    ^^Split     ^^Resize          ^^Other
     ------------------------------------------------------
     _←_: ←    _|_: right  _m_: maximize     _b_: switch buffer
-    _↓_: ↓    ___: below  _d_: ace-delete
+    _↓_: ↓    ___: below  _d_: ace-delete   _f_: find file
     _↑_: ↑    _u_: undo   _k_: del window
     _→_: →    _r_: redo
 
@@ -1013,6 +1014,7 @@
       ("k" delete-window)
 
       ("b" ivy-switch-buffer)
+      ("f" counsel-find-file)
 
       ("a" ace-window)
       ("q" nil))
