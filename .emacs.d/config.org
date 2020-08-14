@@ -552,8 +552,9 @@
   course I want to enable and use Magit:
   #+BEGIN_SRC emacs-lisp
     (use-package magit
+      :demand t
       :bind (("C-x g" . magit-status)
-	     ("C-x M-g" . magit-dispatch)))
+             ("C-x M-g" . magit-dispatch)))
   #+END_SRC
 
   Additionally, to smooth out the workflow with GitHub and GitLab,
