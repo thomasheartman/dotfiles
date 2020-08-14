@@ -1528,7 +1528,21 @@
 
   There are a number of different minimodeline packages out there,
   including [[https://github.com/tautologyclub/feebleline][feebleline]] and [[https://github.com/kiennq/emacs-mini-modeline][mini-modeline]]. I've had some issues with
-  feebleline, so let's use mini-modeline for now.
+  feebleline on macOS, but it seems to work fine on Linux and I quite
+  like it. So let's activate it unless I'm on a mac.
+
+  UPDATE: It seems to have caused some perf issues on Linux too, so I
+  think it's best to avoid this for now.
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package feebleline
+      :demand t
+      :unless (eq system-type 'darwin)
+      :config
+      (feebleline-mode t))
+  #+END_SRC
+
+
 
 
 ** TODO Window dividers
