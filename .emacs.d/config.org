@@ -1176,8 +1176,8 @@
     Move    ^^Split     ^^Resize            ^^Other
     ------------------------------------------------------
     _←_: ←    _|_: right    _m_: maximize       _b_: switch buffer
-    _↓_: ↓    ___: below    _d_: ace-delete     _f_: find file
-    _↑_: ↑    _u_: undo     _k_: del window   ^^SPC: app launcher
+    _↓_: ↓    ___: below    _D_: ace-delete     _f_: find file
+    _↑_: ↑    _u_: undo     _d_: del window   ^^SPC: app launcher
     _→_: →    _r_: redo     _B_: balance
                       ^^_h_/_H_: grow left
                       ^^_l_/_L_: grow right
@@ -1199,8 +1199,8 @@
       ("r" winner-redo)
 
       ("m" my-maximize-or-undo-window)
-      ("d" ace-delete-window)
-      ("k" delete-window)
+      ("D" ace-delete-window)
+      ("d" delete-window)
       ("B" balance-windows)
       ("h" delete-window-left)
       ("H" delete-windows-to-the-left)
