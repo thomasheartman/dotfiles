@@ -1446,8 +1446,8 @@
 
            ;; workspace navigation and management
            ([\s-tab] . my-exwm-previous-workspace)
-           ([?\s->] . my-exwm-next-workspace-by-index)
-           ([?\s-<] . my-exwm-previous-workspace-by-index)
+           ([?\s-l] . my-exwm-next-workspace-by-index)
+           ([?\s-h] . my-exwm-previous-workspace-by-index)
 
            ([?\s-c ?c] . org-capture)
 
