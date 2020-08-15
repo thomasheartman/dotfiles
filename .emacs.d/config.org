@@ -445,17 +445,35 @@
               (delete-window)
             (message "No window to delete in that direction."))))
 
-      (defun delete-window-right ()
-        (interactive)
-        (delete-window-direction 'windmove-right))
-
-      (defun delete-window-left ()
-        (interactive)
-        (delete-window-direction 'windmove-left))
+      (defun delete-window-left-or-up (move move-back get-dimenson shrink)
+        (save-excursion
+          (if (condition-case nil (funcall move) (error nil))
+              (let ((delta (funcall get-dimenson)))
+                (delete-window)
+                (when (condition-case nil (funcall move) (error nil))
+                  (funcall shrink delta)
+                  (funcall move-back)))
+            (message "No window to delete in that direction."))))
 
       (defun delete-window-up ()
         (interactive)
-        (delete-window-direction 'windmove-up))
+        (delete-window-left-or-up
+         'windmove-up
+         'windmove-down
+         'window-total-height
+         'shrink-window))
+
+      (defun delete-window-left ()
+        (interactive)
+        (delete-window-left-or-up
+         'windmove-left
+         'windmove-right
+         'window-total-width
+         'shrink-window-horizontally))
+
+      (defun delete-window-right ()
+        (interactive)
+        (delete-window-direction 'windmove-right))
 
       (defun delete-window-down ()
         (interactive)
