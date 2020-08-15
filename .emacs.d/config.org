@@ -435,6 +435,20 @@
       +---------+                                        +---------+
     #+END_EXAMPLE
 
+    However, it is doable. Here's how (using left as the direction,
+    but it works for up too).
+
+    1. First move to the left window.
+    2. Before deleting it, get the width (height) of the window using
+       ~window-total-width~ (~window-total-height~).
+    3. After the window has been deleted, try and move to the left
+       again. If you can't, that means there was no third window to
+       the left that could have taken your place. If you /can/,
+       however: Move into that window and ~shrink-window-horizontally~
+       (~shrink-window~) by the width (height) of the window that we
+       deleted.
+    4. Then, move back into the window we started from.
+
     #+BEGIN_SRC emacs-lisp
       (defun delete-window-direction (move)
         "Delete a window in the specified direction and return to where
