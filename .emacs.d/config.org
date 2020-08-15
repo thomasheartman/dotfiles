@@ -1104,8 +1104,6 @@
       :demand t
       :config
       (yas-global-mode 1)
-      (setq yas-snippet-dirs '("~/.emacs.d_new/snippets"
-			       "~/.emacs.d/snippets"))
       (yas-reload-all))
   #+END_SRC
 
