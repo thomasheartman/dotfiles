@@ -1166,6 +1166,10 @@
   #+END_SRC
 
   Next, let's define a hydra to make window work as easy as possible.
+
+  We'll also set verbosity to 0, so as to not take up unnecessary
+  screen estate.
+
   #+BEGIN_SRC emacs-lisp
     (defhydra hydra-window-movement (global-map "C-x w")
       "
@@ -1173,14 +1177,14 @@
     ------------------------------------------------------
     _←_: ←    _|_: right    _m_: maximize       _b_: switch buffer
     _↓_: ↓    ___: below    _d_: ace-delete     _f_: find file
-    _↑_: ↑    _u_: undo     _k_: del window   _SPC_: app launcher
+    _↑_: ↑    _u_: undo     _k_: del window   ^^SPC: app launcher
     _→_: →    _r_: redo     _B_: balance
-                          _h/H_: grow left
-                          _l/L_: grow right
-                          _k/K_: grow up
-                          _j/J_: grow down
-                          _z_: max horiz
-                          _v_: max vert
+                      ^^_h_/_H_: grow left
+                      ^^_l_/_L_: grow right
+                      ^^_k_/_K_: grow up
+                      ^^_j_/_J_: grow down
+                    ^^^^    _z_: max horiz
+                    ^^^^    _v_: max vert
 
     _a_: ace-window _q_: quit
     "
@@ -1215,6 +1219,7 @@
 
       ("a" ace-window)
       ("q" nil))
+    (hydra-set-property 'hydra-window-movement :verbosity 0)
   #+END_SRC
 ** TODO Hydra additional features [4/6]
    :LOGBOOK:
