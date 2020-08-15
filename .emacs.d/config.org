@@ -1233,7 +1233,7 @@
       ("q" nil))
     (hydra-set-property 'hydra-window-movement :verbosity 0)
   #+END_SRC
-** TODO Hydra additional features [4/6]
+** TODO Hydra additional features [5/6]
    :LOGBOOK:
    - State "TODO"       from              [2020-08-14 Fri 20:51]
    :END:
@@ -1242,7 +1242,7 @@
      code for this)
    - [X] maximize window left/right, up/down (same as maximize, but only
      in one direction)
-   - [ ] grow window left/right, up/down :: instead of maximizing,
+   - [X] grow window left/right, up/down :: instead of maximizing,
         just eat the next window in the desired direction. This isn't
         as easy as you might expect. Posted about this on reddit. It
         works when eating downwards or to the right, but not the other
