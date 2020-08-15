@@ -738,10 +738,10 @@
       :config
       (define-key mc/keymap (kbd "<return>") nil)
       :bind
-      ("C-S-n" . 'mc/mark-next-like-this-symbol)
-      ("C-S-p" . 'mc/mark-previous-like-this-symbol)
-      ("C-S-j" . 'mc/mark-next-like-this)
-      ("C-S-k" . 'mc/mark-previous-like-this)
+      ("C->" . 'mc/mark-next-like-this-symbol)
+      ("C-<" . 'mc/mark-previous-like-this-symbol)
+      ("C-S-n" . 'mc/mark-next-like-this)
+      ("C-S-p" . 'mc/mark-previous-like-this)
       ("C-S-a" . 'mc/mark-all-like-this))
   #+END_SRC
 * Spell checker
