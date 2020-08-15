@@ -1357,6 +1357,10 @@
   https://github.com/Bad-ptr/persp-mode.el
 
   https://depp.brause.cc/eyebrowse/ ?
+
+  If you're using one of the persp-modes, then [[https://github.com/bbatsov/persp-projectile][persp-projectile]] is
+  probably a good integration.
+
 * Projectile
   :PROPERTIES:
   :REPO:     [[https://github.com/bbatsov/projectile][GitHub]]
@@ -1374,6 +1378,15 @@
             projectile-completion-system 'ivy))
   #+END_SRC
 
+
+
+** TODO Consider using counsel-projectile
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-15 Sat 12:42]
+   :END:
+   [[https://github.com/ericdanan/counsel-projectile][Counsel-projectile]] offers deeper Ivy integration than just pure
+   projectile. Revisit this package after you've spent some time with
+   regular old projectile and see what's up.
 * pdf-tools
   :PROPERTIES:
   :REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
