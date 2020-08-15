@@ -796,13 +796,26 @@
       ("C-c l c" . link-hint-copy-link))
   #+END_SRC
 * Vim-like isearch motions
+
+  As outlined in [[https://blog.thomasheartman.com/posts/my-first-emacs-lisp][this blog post]], I don't really like how isearch jumps
+  to the end of the search string when jumping forwards. At least not
+  as a general rule. I prefer Vim's style of searching, where you're
+  always placed at the beginning of the term. So I wrote some code to
+  deal with that.
+
+  In addition to defining of extra functions for copying and
+  deleting the selected text, Vim-style, we'll also remap the default
+  ~isearch-exit~ binding (~<return>~), to use the Vim-style binding
+  instead. In the event that I want to use the default isearch exit
+  functionality, let's bind that to something else.
+
   #+begin_src emacs-lisp
     (defun isearch-vim-style-exit ()
       "Move point to the start of the matched string, regardless
       of search direction."
       (interactive)
       (when (eq isearch-forward t)
-	(goto-char isearch-other-end))
+        (goto-char isearch-other-end))
       (isearch-exit))
 
     (defun isearch-vim-style-kill ()
@@ -823,7 +836,8 @@
     (defun my-define-key (map binding func)
       (define-key map (kbd binding) func))
 
-    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-vim-style-exit)
+    (define-key isearch-mode-map (kbd "<return>") 'isearch-vim-style-exit)
+    (define-key isearch-mode-map (kbd "<C-return>") 'isearch-exit)
     (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
     (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
   #+end_src
