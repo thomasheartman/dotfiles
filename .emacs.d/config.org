@@ -1771,14 +1771,17 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/Malabarba/aggressive-indent-mode][GitHub]]
   :END:
-  I don't know how this will be, but let's give it a go.
+
+  This seems to cause some serious slowdown issues in JS, at least.
+  For now, I'll enable it for Lisp, but leave it off otherwise. Most
+  languages I work in have a formatter anyway.
 
 
   #+BEGIN_SRC emacs-lisp
     (use-package aggressive-indent
       :demand t
-      :config
-      (global-aggressive-indent-mode 1))
+      :hook
+      emacs-lisp)
   #+END_SRC
 
 * Norwegian symbols for linux                                         :linux:
