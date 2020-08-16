@@ -1873,3 +1873,13 @@
   #+BEGIN_SRC emacs-lisp
     (use-package prettier-js)
   #+END_SRC
+
+* desktop (saving emacs sessions)
+  Apparently, the built-in desktop library can save your sessions and
+  restore them when you start back up. Let's try it out and see what
+  happens.
+
+  #+BEGIN_SRC emacs-lisp
+    (desktop-save-mode 1)
+    (setq desktop-restore-eager 10)
+  #+END_SRC
