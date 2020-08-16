@@ -1372,40 +1372,20 @@
   #+END_SRC
 
 
-* Perspectives? Or eyebrowse? or ...
-  https://github.com/nex3/perspective-el or
-  https://github.com/Bad-ptr/persp-mode.el
+* eyebrowse
+  :properties:
+  :repo:     [[https://depp.brause.cc/eyebrowse/][depp.brause.cc]]
+  :end:
+  i'm trying out eyebrowse for a while. I've had some issues with it
+  not working properly with X windows, but I'll try it out and see how
+  I get on.
 
-  https://depp.brause.cc/eyebrowse/ ?
-
-  Apparently, it's important to set the keymap prefix in the ~:init~
-  clause for persp-mode (as explained in [[https://github.com/Bad-ptr/persp-mode.el/issues/63][this issue]]).
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package persp-mode
-      :init (setq-default persp-keymap-prefix (kbd "C-c w"))
-      :config
-      (persp-mode 1))
-  #+END_SRC
-
-
-  If you're using one of the persp-modes, then [[https://github.com/bbatsov/persp-projectile][persp-projectile]] is
-  probably a good integration.
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package persp-projectile
-      :after persp-mode
-      :config
-      (persp-mode))
-  #+END_SRC
-
-  It seems Eyebrowse causes some issues with EXWM windows (locks
-  keyboard in firefox, for instance), so it might not be suitable.
-  Furthermore, now that the GitHub repo is archived, I don't know
-  where to go to raise issues.
-
+  because i've got all the functionality i want mapped in my window
+  hydra, i'll disable the regular ~eyebrowse-keymap-prefix~ by binding
+  it to a pretty stupid binding.
   #+BEGIN_SRC emacs-lisp
     (use-package eyebrowse
-      :init (setq-default eyebrowse-keymap-prefix (kbd "C-c w"))
+      :init (setq-default eyebrowse-keymap-prefix (kbd "C-c M-C-S-e"))
       :demand t
       :config
       (eyebrowse-mode 1)
