@@ -1140,8 +1140,13 @@
    into org blocks, we need to add ~org-tempo~ to the list of
    org-modules. More info is found in the Reddit thread [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/][Get
    easy-templates back in org-mode 9.2]].
+
+   Because org-tempo might not be available before 9.2, let's only add
+   it if it /is/ available.
+
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'org-modules 'org-tempo)
+     (when (not (version< (org-version) "9.2"))
+       (add-to-list 'org-modules 'org-tempo))
    #+END_SRC
 
 * Yasnippet
