@@ -1475,11 +1475,17 @@
 * shift-line-up and down
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
-* exwm
+* TODO exwm
   :PROPERTIES:
   :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
   :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-16 Sun 12:19]
+  :END:
+
+  Todo: make Norwegian input keys work in X-windows. Not sure why, but
+  setting them in ~exwm-input-simulation-keys~ doesn't seem to work.
 
   I use EXWM as my window manager on NixOS, so let's get that set up.
 
@@ -1533,53 +1539,53 @@
         (my-exwm-switch-workspace '-))
 
       (setq exwm-input-global-keys
-        `(([?\s-r] . exwm-reset)
-          ([?\s- ] . my-exwm-launcher)
+            `(([?\s-r] . exwm-reset)
+              ([?\s- ] . my-exwm-launcher)
 
-           ;; workspaces
-           ([?\s-w] . exwm-workspace-switch)
-           ([?\s-s] . exwm-workspace-move-window)
+              ;; workspaces
+              ([?\s-w] . exwm-workspace-switch)
+              ([?\s-s] . exwm-workspace-move-window)
 
-           ;; buffer management
-           ([?\s-n] . next-buffer)
-           ([?\s-p] . previous-buffer)
-           ([?\s-b] . ivy-switch-buffer)
+              ;; buffer management
+              ([?\s-n] . next-buffer)
+              ([?\s-p] . previous-buffer)
+              ([?\s-b] . ivy-switch-buffer)
 
-           ;; window navigation and management
-           ([?\s-k] . windmove-up)
-           ([?\s-j] . windmove-down)
-           ([?\s-l] . windmove-right)
-           ([?\s-h] . windmove-left)
-           ([\s-up] . windmove-up)
-           ([\s-down] . windmove-down)
-           ([\s-right] . windmove-right)
-           ([\s-left] . windmove-left)
-           ([?\s-m] . my-maximize-or-undo-window)
+              ;; window navigation and management
+              ([?\s-k] . windmove-up)
+              ([?\s-j] . windmove-down)
+              ([?\s-l] . windmove-right)
+              ([?\s-h] . windmove-left)
+              ([\s-up] . windmove-up)
+              ([\s-down] . windmove-down)
+              ([\s-right] . windmove-right)
+              ([\s-left] . windmove-left)
+              ([?\s-m] . my-maximize-or-undo-window)
 
-           ;; workspace navigation and management
-           ([\s-tab] . my-exwm-previous-workspace)
-           ([?\s-l] . my-exwm-next-workspace-by-index)
-           ([?\s-h] . my-exwm-previous-workspace-by-index)
+              ;; workspace navigation and management
+              ([\s-tab] . my-exwm-previous-workspace)
+              ([?\s-l] . my-exwm-next-workspace-by-index)
+              ([?\s-h] . my-exwm-previous-workspace-by-index)
 
-           ([?\s-c ?c] . org-capture)
+              ([?\s-c ?c] . org-capture)
 
-           ;; window splitting and management
-           ([?\s-|] . split-window-right-and-focus)
-           ([?\s-_] . split-window-below-and-focus)
+              ;; window splitting and management
+              ([?\s-|] . split-window-right-and-focus)
+              ([?\s-_] . split-window-below-and-focus)
 
-           ;; workspace / window numerical
-           ,@(mapcar (lambda (i)
-                       `(,(kbd (format "s-C-%d" i)) .
-                          (lambda ()
-                            (interactive)
-                            (exwm-workspace-switch-create ,i))))
-               (number-sequence 0 9))
-           ,@(mapcar (lambda (i)
-                       `(,(kbd (format "s-%d" i)) .
-                          (lambda ()
-                            (interactive)
-                            (winum-select-window-by-number ,i))))
-                     (number-sequence 0 9))))
+              ;; workspace / window numerical
+              ,@(mapcar (lambda (i)
+                          `(,(kbd (format "s-C-%d" i)) .
+                            (lambda ()
+                              (interactive)
+                              (exwm-workspace-switch-create ,i))))
+                        (number-sequence 0 9))
+              ,@(mapcar (lambda (i)
+                          `(,(kbd (format "s-%d" i)) .
+                            (lambda ()
+                              (interactive)
+                              (winum-select-window-by-number ,i))))
+                        (number-sequence 0 9))))
 
       (setq exwm-input-simulation-keys
             '(
@@ -1596,7 +1602,18 @@
               ([?\M-w] . [C-c])
               ([?\C-y] . [C-v])
               ;; search
-              ([?\C-s] . [?\C-f])))
+              ([?\C-s] . [C-f])
+              ;; Norwegian input
+              ([?\s-o] . [ø])
+              ([?\s-O] . [Ø])
+              ([?\s-a] . [å])
+              ([?\s-A] . [Å])
+              ([?\s-\"] . [æ])
+              ([?\s-'] . [Æ])
+              ([?\s-e] . [æ])
+              ([?\s-E] . [Æ])
+
+              ))
 
       (add-hook 'exwm-update-title-hook (lambda () (exwm-workspace-rename-buffer exwm-title)))
 
@@ -1616,7 +1633,7 @@
       (exwm-randr-enable)
 
 
-     ;; this little bit will make sure that XF86 keys work in exwm buffers as well
+      ;; this little bit will make sure that XF86 keys work in exwm buffers as well
       (dolist (k '(XF86AudioLowerVolume
                    XF86AudioRaiseVolume
                    XF86PowerOff
@@ -1633,7 +1650,7 @@
         (cl-pushnew k exwm-input-prefix-keys))
 
       (exwm-init)
-    )
+      )
   #+END_SRC
 ** desktop-environment
 
@@ -1754,24 +1771,6 @@
        (add-to-list 'company-backends 'company-omnisharp))
    #+END_SRC
 
-* TODO Prefixes
-  :LOGBOOK:
-  - State "TODO"       from              [2020-08-14 Fri 21:25]
-  :END:
-
-  Similarly to how spacemacs has the leader key and a number of
-  mnemonic bindings, it'd be nice to do something similar.
-
-  I'd define a standard prefix, possibly a function key, and then spin
-  off from there. I'd like separate ones for
-  - things :: various apps and utilities. Elfeed, notmuch, org-agenda,
-              notes, etc
-  - lsp / prog :: a key that gets you access to all bindings specified
-                  for the major prog mode you're working in.
-  - errors :: flycheck and or flyspell. Probably a hydra that lets you
-              go from error to error (or just suggestions), correct
-              them, or view all in a separate window
-
 * TODO Replace all checks of system type with noweb reference
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 21:39]
@@ -1784,3 +1783,37 @@
 
 * Transpose-frame
   https://www.emacswiki.org/emacs/TransposeFrame
+
+* Aggressive indent
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Malabarba/aggressive-indent-mode][GitHub]]
+  :END:
+  I don't know how this will be, but let's give it a go.
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package aggressive-indent
+      :demand t
+      :config
+      (global-aggressive-indent-mode 1))
+  #+END_SRC
+
+* Norwegian symbols for linux                                         :linux:
+  Compared to the English alphabet, Norwegian has three extra vowels:
+  æ, ø, and å. These are not normally accessible from a US keyboard,
+  but emacs lets us create our own mappings. These mappings map to how
+  macOS does it (for better unification of my keyboard layouts.
+  However, we also define an extra mapping for æ, because using ~s-e~
+  makes more sense than ~s-'~.
+  #+begin_src emacs-lisp
+    (when (string= system-type "gnu/linux")
+      (general-def key-translation-map
+        "s-O" "Ø"
+        "s-o" "ø"
+        "s-A" "Å"
+        "s-a" "å"
+        "s-\"" "Æ"
+        "s-'" "æ"
+        "s-E" "Æ"
+        "s-e" "æ"))
+  #+end_src
