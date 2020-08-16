@@ -41,11 +41,11 @@
   :END:
   General simplifies key binding.
   #+BEGIN_SRC emacs-lisp
-    (use-package general)
+    (use-package general
+      :demand t
+      :config
+      (general-auto-unbind-keys))
   #+END_SRC
-
-  https://github.com/noctuid/general.el see also [[https://github.com/noctuid/general.el#use-package-keywords][the section on
-  use-package integration]].
 
 ** TODO Prefixes
    :LOGBOOK:
