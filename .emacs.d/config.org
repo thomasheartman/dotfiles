@@ -1820,15 +1820,23 @@
       "<f5> i t" 'insert-iso-timestamp)
   #+END_SRC
 
-* JavaScript (rjsx-mode)
+* TODO JavaScript (rjsx-mode)
   :PROPERTIES:
   :REPO:     [[https://github.com/felipeochoa/rjsx-mode/][GitHub]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-16 Sun 19:53]
+  :END:
+  Consider using [[https://github.com/magnars/js2-refactor.el][js2-refactor]] if rjsx (and lsp) isn't enough.
+
   rjsx-mode extends js2-mode to add support for JSX.
   #+BEGIN_SRC emacs-lisp
     (use-package rjsx-mode
+      :after
+      (prettier-js lsp-mode)
       :hook
       (rjsx-mode . prettier-js-mode)
+      (rjsx-mode . lsp-mode)
       :config
       (setq js2-strict-missing-semi-warning nil))
   #+END_SRC
