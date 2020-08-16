@@ -1407,7 +1407,8 @@
   :END:
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
-      :after ivy
+      :after (ivy ripgrep)
+      :demand t
       :bind
       (:map projectile-mode-map
             ("C-c p" . projectile-command-map))
@@ -1427,6 +1428,17 @@
    [[https://github.com/ericdanan/counsel-projectile][Counsel-projectile]] offers deeper Ivy integration than just pure
    projectile. Revisit this package after you've spent some time with
    regular old projectile and see what's up.
+
+* Ripgrep
+  :PROPERTIES:
+  :REPO:     [[https://github.com/nlamirault/ripgrep.el][GitHub]]
+  :END:
+
+  Projectile needs Ripgrep to enable ripgrep searches!
+  #+BEGIN_SRC emacs-lisp
+    (use-package ripgrep)
+  #+END_SRC
+
 * pdf-tools
   :PROPERTIES:
   :REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
