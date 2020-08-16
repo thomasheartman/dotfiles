@@ -1452,10 +1452,13 @@
       (setq-default pdf-view-display-size 'fit-page))
   #+END_SRC
 
-* shift-line-up and down
+* TODO shift-line-up and down
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-16 Sun 13:27]
+  :END:
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
-* TODO exwm
+* TODO [#C] exwm
   :PROPERTIES:
   :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
   :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
@@ -1663,7 +1666,7 @@
   It looks cool, but it's not on Melpa and I'm not ready to start
   looking at local code hosting just yet.
 
-* TODO Bibtex
+* TODO [#C] Bibtex
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 08:38]
   :END:
@@ -1751,7 +1754,7 @@
        (add-to-list 'company-backends 'company-omnisharp))
    #+END_SRC
 
-* TODO Replace all checks of system type with noweb reference
+* TODO [#C] Replace all checks of system type with noweb reference
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 21:39]
   :END:
