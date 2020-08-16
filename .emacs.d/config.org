@@ -268,6 +268,19 @@
        (winner-mode)
      #+END_SRC
 
+**** Backups
+     Emacs makes backups by default. I don't want this.
+
+     I'll also turn off auto-save and similar files.
+
+     These settings are based on the ErgoEmacs articles [[http://ergoemacs.org/emacs/emacs_auto_save.html][Emacs: Auto
+     Save]] and [[http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html][Emacs: Turn Off Backup]].
+     #+BEGIN_SRC emacs-lisp
+       (setq make-backup-files nil
+             auto-save-default nil
+             create-lockfiles nil)
+     #+END_SRC
+
 *** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
