@@ -9,6 +9,13 @@
      (setq package-archives '(("gnu" . "https://elpa.gnu.org./packages/")
 			      ("melpa" . "https://melpa.org/packages/")))
    #+END_SRC
+
+   Additionally, I'll sometimes want to use local packages. I'll put
+   them in a directory local to my emacs config:
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp"))
+   #+END_SRC
+
 ** use-package
    Before we do anything else, let's make sure we've got [[https://github.com/jwiegley/use-package][use-package]]
    ready to go! This bit of setup is a modified version of what Greg
