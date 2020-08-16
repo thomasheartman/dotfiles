@@ -1803,3 +1803,40 @@
         "s-E" "Æ"
         "s-e" "æ"))
   #+end_src
+
+* desktop.el
+  See https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Emacs-Sessions.html#Saving-Emacs-Sessions
+
+* Timestamps
+  Having a simple way to insert the current timestamp in an
+  ISO-friendly manner can be quite useful.
+  #+BEGIN_SRC emacs-lisp
+    (defun insert-iso-timestamp ()
+      (interactive)
+      (insert (format-time-string "%FT%T%:z")))
+    (general-def
+      "<f5> i t" 'insert-iso-timestamp)
+  #+END_SRC
+
+* JavaScript (rjsx-mode)
+  :PROPERTIES:
+  :REPO:     [[https://github.com/felipeochoa/rjsx-mode/][GitHub]]
+  :END:
+  rjsx-mode extends js2-mode to add support for JSX.
+  #+BEGIN_SRC emacs-lisp
+    (use-package rjsx-mode
+      :hook
+      (rjsx-mode . prettier-js-mode)
+      :config
+      (setq js2-strict-missing-semi-warning nil))
+  #+END_SRC
+
+* Prettier
+  :PROPERTIES:
+  :REPO:     [[https://github.com/prettier/prettier-emacs][GitHub]]
+  :END:
+
+  For indenting JS, CSS, HTML (maybe markdown?), let's use prettier!
+  #+BEGIN_SRC emacs-lisp
+    (use-package prettier-js)
+  #+END_SRC
