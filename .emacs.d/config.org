@@ -28,6 +28,36 @@
        (setq use-package-always-ensure t))
    #+END_SRC
 
+* General
+  :PROPERTIES:
+  :REPO:     [[https://github.com/noctuid/general.el][GitHub]]
+  :END:
+  General simplifies key binding.
+  #+BEGIN_SRC emacs-lisp
+    (use-package general)
+  #+END_SRC
+
+  https://github.com/noctuid/general.el see also [[https://github.com/noctuid/general.el#use-package-keywords][the section on
+  use-package integration]].
+
+** TODO Prefixes
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-14 Fri 21:25]
+   :END:
+
+   Similarly to how spacemacs has the leader key and a number of
+   mnemonic bindings, it'd be nice to do something similar.
+
+   I'd define a standard prefix, possibly a function key, and then spin
+   off from there. I'd like separate ones for
+   - things :: various apps and utilities. Elfeed, notmuch, org-agenda,
+               notes, etc
+   - lsp / prog :: a key that gets you access to all bindings specified
+                   for the major prog mode you're working in.
+   - errors :: flycheck and or flyspell. Probably a hydra that lets you
+               go from error to error (or just suggestions), correct
+               them, or view all in a separate window
+
 * Emacs
 
 ** Visual
