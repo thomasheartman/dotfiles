@@ -1682,6 +1682,15 @@
 
 
 
+** Eshell-autojump
+   :PROPERTIES:
+   :REPO:     [[https://github.com/coldnew/eshell-autojump][GitHub]]
+   :END:
+   #+BEGIN_SRC emacs-lisp
+     (use-package elisp-autojump
+       :demand t)
+   #+END_SRC
+
 * TODO [#C] Bibtex
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 08:38]
