@@ -1308,6 +1308,7 @@
       :init
       (smartparens-global-mode)
       :hook (eval-expression-minibuffer-setup . smartparens-mode)
+      (eshell-mode . smartparens-mode)
       :config
       (require 'smartparens-config)
       (custom-set-variables
