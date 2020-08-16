@@ -1,5 +1,5 @@
 #+TITLE: Heartmacs
-#+PROPERTY: header-args :results silent :tangle yes :comments both
+#+PROPERTY: header-args :results silent :tangle yes :comments both :noweb yes
 #+TAGS: keybinding | { os : macos | linux } | GTD
 
 * Package setup
