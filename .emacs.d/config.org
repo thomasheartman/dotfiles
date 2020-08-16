@@ -1259,6 +1259,15 @@
       ("f" counsel-find-file)
       ("<SPC>" my-exwm-launcher)
 
+      ;; eyebrowse
+      (">" eyebrowse-next-window-config)
+      ("<" eyebrowse-prev-window-config)
+      ("." eyebrowse-switch-to-window-config)
+      ("," eyebrowse-rename-window-config)
+      ("'" eyebrowse-last-window-config)
+      ("\"" eyebrowse-close-window-config)
+      ("c" eyebrowse-create-window-config)
+
       ("a" ace-window)
       ("q" nil))
     (hydra-set-property 'hydra-window-movement :verbosity 0)
@@ -1388,8 +1397,41 @@
 
   https://depp.brause.cc/eyebrowse/ ?
 
+  Apparently, it's important to set the keymap prefix in the ~:init~
+  clause for persp-mode (as explained in [[https://github.com/Bad-ptr/persp-mode.el/issues/63][this issue]]).
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package persp-mode
+      :init (setq-default persp-keymap-prefix (kbd "C-c w"))
+      :config
+      (persp-mode 1))
+  #+END_SRC
+
+
   If you're using one of the persp-modes, then [[https://github.com/bbatsov/persp-projectile][persp-projectile]] is
   probably a good integration.
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package persp-projectile
+      :after persp-mode
+      :config
+      (persp-mode))
+  #+END_SRC
+
+  It seems Eyebrowse causes some issues with EXWM windows (locks
+  keyboard in firefox, for instance), so it might not be suitable.
+  Furthermore, now that the GitHub repo is archived, I don't know
+  where to go to raise issues.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package eyebrowse
+      :init (setq-default eyebrowse-keymap-prefix (kbd "C-c w"))
+      :demand t
+      :config
+      (eyebrowse-mode 1)
+      (setq eyebrowse-new-workspace t
+            eyebrowse-wrap-around t))
+  #+END_SRC
+
 
 * Projectile
   :PROPERTIES:
