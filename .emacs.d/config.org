@@ -1687,7 +1687,7 @@
    :REPO:     [[https://github.com/coldnew/eshell-autojump][GitHub]]
    :END:
    #+BEGIN_SRC emacs-lisp
-     (use-package elisp-autojump
+     (use-package eshell-autojump
        :demand t)
    #+END_SRC
 
