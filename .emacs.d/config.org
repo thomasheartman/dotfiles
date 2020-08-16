@@ -1783,7 +1783,7 @@
     (use-package aggressive-indent
       :demand t
       :hook
-      emacs-lisp)
+      (emacs-lisp-mode . aggressive-indent-mode))
   #+END_SRC
 
 * Norwegian symbols for linux                                         :linux:
