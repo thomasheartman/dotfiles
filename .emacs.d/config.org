@@ -329,7 +329,7 @@
       #+END_SRC
 
 
-*** TODO Window functions
+*** Window functions
     :LOGBOOK:
     - State "TODO"       from              [2020-08-13 Thu 20:16]
     :END:
@@ -585,9 +585,11 @@
   #+END_SRC
 
 * TODO Company                                                   :keybinding:
-  Completion is important! [[https://github.com/company-mode/company-mode][Company-mode repo]]
+  :PROPERTIES:
+  :REPO:     [[https://github.com/company-mode/company-mode][GitHub]]
+  :END:
 
-  We need to set this up properly. In addition to wanting to use
+  TODO: We need to set this up properly. In addition to wanting to use
   tab-n-go, I also want to be able to use TAB to expand completions
   with function arguments (like Rust Analyzer).
 
@@ -848,7 +850,7 @@
       :config
       (setq markdown-asymmetric-header t))
   #+end_src
-* TODO link-hint
+* link-hint
   :PROPERTIES:
   :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
   :END:
@@ -856,16 +858,14 @@
   - State "TODO"       from              [2020-08-13 Thu 18:06]
   :END:
 
-  TODO: remove ~C-c l~ binding. It conflicts with Org mode's binding
-  of the same combo.
-
   Link-hint allows you to open any links in the current frame by
   typing a sequence of letters indicated by an overlay.
   #+BEGIN_SRC emacs-lisp
     (use-package link-hint
-      :bind
-      ("C-c l o" . link-hint-open-link)
-      ("C-c l c" . link-hint-copy-link))
+      :general
+      (:prefix "C-x l"
+        "o" 'link-hint-open-link
+        "c" 'link-hint-copy-link))
   #+END_SRC
 * Vim-like isearch motions
 
@@ -1655,7 +1655,10 @@
   #+BEGIN_SRC emacs-lisp
     (use-package multi-term
       :bind
-      ("<f9>" . multi-term-dedicated-toggle))
+      ("<f9>" . multi-term-dedicated-toggle)
+      :config
+      (setq multi-term-dedicated-select-after-open-p t
+            multi-term-dedicated-close-back-to-open-buffer-p t))
   #+END_SRC
 
 
