@@ -1659,8 +1659,14 @@
   Aweshell was created by the same person that created multi-term.
   It's extends eshell with a number of features.
 
-  It looks cool, but it's not on Melpa and I'm not ready to start
-  looking at local code hosting just yet.
+  #+BEGIN_SRC emacs-lisp
+    (require 'aweshell)
+    (general-def
+      "<f9>" 'aweshell-toggle)
+  #+END_SRC
+
+
+
 
 * TODO [#C] Bibtex
   :LOGBOOK:
