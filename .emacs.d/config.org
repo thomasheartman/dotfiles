@@ -571,6 +571,7 @@
       (setq ivy-use-virtual-buffers t
             ivy-count-format "(%d/%d)"
             ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
+                                    (ivy-switch-buffer . ivy--regex-plus)
                                     (t . ivy--regex-fuzzy))
             ivy-wrap t)
       :bind (("C-S-s" . swiper-isearch)
