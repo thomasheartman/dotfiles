@@ -1872,9 +1872,6 @@
         "s-e" "æ"))
   #+end_src
 
-* desktop.el
-  See https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Emacs-Sessions.html#Saving-Emacs-Sessions
-
 * Timestamps
   Having a simple way to insert the current timestamp in an
   ISO-friendly manner can be quite useful.
