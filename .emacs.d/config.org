@@ -1919,7 +1919,7 @@
   restore them when you start back up. Let's try it out and see what
   happens.
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (desktop-save-mode 1)
     (setq desktop-restore-eager 10)
   #+END_SRC
