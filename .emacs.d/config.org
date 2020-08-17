@@ -1885,3 +1885,82 @@
     (desktop-save-mode 1)
     (setq desktop-restore-eager 10)
   #+END_SRC
+
+* Web-mode
+  :PROPERTIES:
+  :WEBSITE:  [[http://web-mode.org/][web-mode.org]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package web-mode
+      :mode "\\.html\\'"
+      :after (prettier-js smartparens hydra)
+      :hook
+      (web-mode . prettier-js-mode)
+      (web-mode . my-web-mode-hook)
+      :init
+      (defun my-web-mode-hook ()
+        (setq web-mode-enable-auto-pairing nil))
+      :config
+      (setq web-mode-enable-css-colorization t
+            web-mode-enable-current-element-highlight t
+            web-mode-enable-current-column-highlight t)
+      (defun sp-web-mode-is-code-context (id action context)
+        (and (eq action 'insert)
+             (not (or (get-text-property (point) 'part-side)
+                      (get-text-property (point) 'block-side)))))
+      (sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+      (defhydra hydra-web-mode-base (:color blue)
+        ("A" hydra-web-mode-attributes/body :color blue)
+        ("E" hydra-web-mode-element/body)
+        ("T" hydra-web-mode-tag/body :color blue)
+        ("C-g" keyboard-quit)
+        ("q" nil))
+      (defhydra hydra-web-mode-element (web-mode-map "C-c C-c" :inherit (hydra-web-mode-base/heads))
+        "Element mode"
+        ("/" web-mode-element-close)
+        ("a" web-mode-element-content-select)
+        ("b" web-mode-element-beginning)
+        ("c" web-mode-element-clone)
+        ("d" web-mode-element-child)
+        ("e" web-mode-element-end)
+        ("f" web-mode-element-children-fold-or-unfold)
+        ("i" web-mode-element-insert)
+        ("k" web-mode-element-kill)
+        ("m" web-mode-element-mute-blanks)
+        ("n" web-mode-element-next)
+        ("p" web-mode-element-previous)
+        ("r" web-mode-element-rename)
+        ("s" web-mode-element-select)
+        ("t" web-mode-element-transpose)
+        ("u" web-mode-element-parent)
+        ("v" web-mode-element-vanish)
+        ("w" web-mode-element-wrap)
+        )
+      (hydra-set-property 'hydra-web-mode-element :verbosity 1)
+
+      (defhydra hydra-web-mode-tag (web-mode-map "C-c C-t" :inherit (hydra-web-mode-base/heads))
+        "Tag mode"
+        ("a" web-mode-tag-attributes-sort)
+        ("b" web-mode-tag-beginning)
+        ("e" web-mode-tag-end)
+        ("m" web-mode-tag-match)
+        ("n" web-mode-tag-next)
+        ("p" web-mode-tag-previous)
+        ("s" web-mode-tag-select)
+        )
+      (hydra-set-property 'hydra-web-mode-tag :verbosity 1)
+
+      (defhydra hydra-web-mode-attributes (web-mode-map "C-c C-a" :inherit (hydra-web-mode-base/heads))
+        "Attribute mode"
+        ("b" web-mode-attribute-beginning)
+        ("e" web-mode-attribute-end)
+        ("i" web-mode-attribute-insert)
+        ("k" web-mode-attribute-kill)
+        ("n" web-mode-attribute-next)
+        ("p" web-mode-attribute-previous)
+        ("s" web-mode-attribute-select)
+        ("t" web-mode-attribute-transpose)
+        )
+      (hydra-set-property 'hydra-web-mode-attributes :verbosity 1))
+  #+END_SRC
