@@ -1765,6 +1765,28 @@
      (customize-save-variable window-divider-default-places t)
    #+END_SRC
 
+* Mode line
+  We can configure the mode line to only show what we want. I find
+  that the default displ/ays far more information than I know what to
+  do with, so let's trim it down a bit and show only what's necessary.
+
+  #+BEGIN_SRC emacs-lisp
+    (display-time-mode)
+  #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package doom-modeline
+      :ensure t
+      :after markdown-mode
+      :init (doom-modeline-mode 1)
+      :config
+      (setq doom-modeline-unicode-fallback t
+            doom-modeline-enable-word-count t
+            doom-modeline-continuous-word-count-modes nil
+            doom-modeline-checker-simple-format nil))
+  #+END_SRC
+
+
 * C#
 
 ** csharp-mode
