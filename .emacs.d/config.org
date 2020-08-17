@@ -1345,6 +1345,12 @@
       (smartparens-global-mode)
       :hook (eval-expression-minibuffer-setup . smartparens-mode)
       (eshell-mode . smartparens-mode)
+      :general
+      (:keymaps 'smartparens-mode-map
+                "C-S-e" 'sp-end-of-sexp
+                "C-S-a" 'sp-beginning-of-sexp
+                "C-S-f" 'sp-forward-symbol
+                "C-S-b" 'sp-backward-symbol)
       :config
       (require 'smartparens-config)
       (custom-set-variables
