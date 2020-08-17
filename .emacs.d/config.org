@@ -1708,10 +1708,15 @@
   - State "TODO"       from              [2020-08-13 Thu 18:50]
   :END:
 
+  TODO: figure out why this messes with my frame setup. For whatever
+  reason, this causes frames to be slightly misaligned with EXWM on
+  NixOS. Unsure why. I'll leave it out for now as I also had several
+  other issues with getting it to work.
+
   Aweshell was created by the same person that created multi-term.
   It's extends eshell with a number of features.
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (require 'aweshell)
     (general-def
       "<f9>" 'aweshell-toggle)
