@@ -300,6 +300,23 @@
          (setq minibuffer-message-clear-timeout 5))
      #+END_SRC
 
+**** Change frame font size
+     I've got a multi-monitor setup that has a number of different
+     resolutions and screen sizes. A comfortable font size on one
+     screen can be too small or too large on another one. As such, I
+     want a quick and simple way to adjust these on the fly.
+
+     #+BEGIN_SRC emacs-lisp
+       (defun my-change-frame-font-size ()
+         (interactive)
+         (set-face-attribute 'default (selected-frame)
+                             :height (string-to-number
+                                      (read-string "Font height:"))))
+
+       (general-def
+         "C-x C-z" 'my-change-frame-font-size)
+     #+END_SRC
+
 *** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
