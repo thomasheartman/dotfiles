@@ -281,6 +281,25 @@
              create-lockfiles nil)
      #+END_SRC
 
+**** TODO Auto-clearing the echo area
+     :LOGBOOK:
+     - State "TODO"       from              [2020-08-17 Mon 19:50]
+     :END:
+     Text displayed in the echo area is often helpful, but it stays
+     around until you do something again. If the output is large
+     (several lines), then it can often be more of a nuisance.
+
+     The variable ~minibuffer-message-clear-timeout~ was introduced in
+     Emacs 27 ([[https://www.reddit.com/r/emacs/comments/ibi8rj/clear_the_echo_area_after_timeout/g1vtvyq?utm_source=share&utm_medium=web2x][according to this Reddit comment thread]]) and might work
+     for this, so we'll use that if we can.
+
+     TODO: confirm that this works in emacs 27+.
+     #+BEGIN_SRC emacs-lisp
+       (if (version< emacs-version "27")
+           (run-with-idle-timer 5 t (lambda () (message nil)))
+         (setq minibuffer-message-clear-timeout 5))
+     #+END_SRC
+
 *** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
