@@ -2033,7 +2033,14 @@
 
   For indenting JS, CSS, HTML (maybe markdown?), let's use prettier!
   #+BEGIN_SRC emacs-lisp
-    (use-package prettier-js)
+    (use-package prettier-js
+      :hook
+      (prettier-js . my-prettier-hook)
+      :config
+      (defun my-prettier-hook ()
+        (general-def
+          :keymaps 'local
+          "C-c C-f" 'prettier-js)))
   #+END_SRC
 
 * desktop (saving emacs sessions)
