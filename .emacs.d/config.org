@@ -1998,7 +1998,12 @@
         ("T" hydra-web-mode-tag/body :color blue)
         ("C-g" keyboard-quit)
         ("q" nil))
-      (defhydra hydra-web-mode-element (web-mode-map "C-c C-c" :inherit (hydra-web-mode-base/heads))
+      (defhydra hydra-web-mode-launcher  (web-mode-map "C-c C-c" :inherit (hydra-web-mode-base/heads))
+        ("a" hydra-web-mode-attributes/body :color blue)
+        ("e" hydra-web-mode-element/body)
+        ("t" hydra-web-mode-tag/body :color blue))
+
+      (defhydra hydra-web-mode-element (:inherit (hydra-web-mode-base/heads))
         "Element mode"
         ("/" web-mode-element-close)
         ("a" web-mode-element-content-select)
@@ -2021,7 +2026,7 @@
         )
       (hydra-set-property 'hydra-web-mode-element :verbosity 1)
 
-      (defhydra hydra-web-mode-tag (web-mode-map "C-c C-t" :inherit (hydra-web-mode-base/heads))
+      (defhydra hydra-web-mode-tag (:inherit (hydra-web-mode-base/heads))
         "Tag mode"
         ("a" web-mode-tag-attributes-sort)
         ("b" web-mode-tag-beginning)
@@ -2033,7 +2038,7 @@
         )
       (hydra-set-property 'hydra-web-mode-tag :verbosity 1)
 
-      (defhydra hydra-web-mode-attributes (web-mode-map "C-c C-a" :inherit (hydra-web-mode-base/heads))
+      (defhydra hydra-web-mode-attributes (:inherit (hydra-web-mode-base/heads))
         "Attribute mode"
         ("b" web-mode-attribute-beginning)
         ("e" web-mode-attribute-end)
