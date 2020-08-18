@@ -403,6 +403,7 @@
        (when (eq system-type 'darwin)
          <<resize>>
          <<macos-exec-path>>
+         <<macos-env-path>>
          <<macos-key-config>>)
      #+end_src
 ***** Resizing
@@ -419,10 +420,22 @@
       #+name: macos-exec-path
       #+BEGIN_SRC emacs-lisp
         (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands"
+                                            "/usr/local/bin"
                                             "/usr/local/share/dotnet"
                                             "~/.dotnet/tools"
                                             "/run/current-system/sw/bin")))
       #+END_SRC
+
+      Additionally, to avoid having to set this manually for programs
+      that use the "PATH" variable (and because it seems to not get
+      set correctly), we'll manually add a couple directories to
+      ~$PATH~:
+
+      #+name: macos-env-path
+      #+BEGIN_SRC emacs-lisp
+        (setenv "PATH" (concat "/run/current-system/sw/bin:/usr/local/bin:" (getenv "PATH")))
+      #+END_SRC
+
 ***** Key switching
       On macOS, I want the CMD key to act as Meta, and the Alt key as
       super, because this works better with their location on the
