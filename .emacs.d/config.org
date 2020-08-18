@@ -317,6 +317,22 @@
          "C-x C-z" 'my-change-frame-font-size)
      #+END_SRC
 
+*** Join lines
+    In Vim, you can easily join the next line onto the current by
+    pressing ~J~. I often want something like this in Emacs, so let's
+    create a similar version:
+    #+BEGIN_SRC emacs-lisp
+      (defun my-join-next-line ()
+        "Join the next line onto the current line."
+        (interactive)
+        (next-logical-line)
+        (join-line))
+
+      (general-def
+        "C-S-j" 'my-join-next-line)
+    #+END_SRC
+
+
 *** browser / opening urls                                               :os:
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
