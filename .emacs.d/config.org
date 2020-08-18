@@ -1577,13 +1577,20 @@
     (use-package ripgrep)
   #+END_SRC
 
-* pdf-tools
+* TODO pdf-tools
   :PROPERTIES:
   :REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-18 Tue 11:09]
+  :END:
+
+  I've got some issues with building this on macOS, so I'll disable it
+  for now.
 
   #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
+      :unless (eq system-type 'darwin)
       :ensure t
       :config
       (pdf-tools-install)
