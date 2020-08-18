@@ -1751,7 +1751,7 @@
    :PROPERTIES:
    :REPO:     [[https://github.com/coldnew/eshell-autojump][GitHub]]
    :END:
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package eshell-autojump
        :demand t)
    #+END_SRC
