@@ -1255,6 +1255,15 @@
      (add-hook 'org-mode-hook 'my-org-mode-hook)
    #+end_src
 
+** Additional keybindings                                        :keybinding:
+   There some org functionality that's not bound to anything by
+   default, so let's see what we can do about that.
+
+   #+BEGIN_SRC emacs-lisp
+     (general-def
+       :keymaps 'org-mode-map
+       "C-c l" 'org-store-link)
+   #+END_SRC
 
 ** templates (org-tempo)
    :LOGBOOK:
