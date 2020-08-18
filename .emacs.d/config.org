@@ -1247,7 +1247,7 @@
    closing ~>~ is an issue for templates. This code is based on [[https://www.topbug.net/blog/2016/09/29/emacs-disable-certain-pairs-for-electric-pair-mode/][this
    blog post]].
 
-   #+begin_src emacs-lisp
+   #+begin_src emacs-lisp :tangle no
      (defun my-org-mode-hook ()
        (setq-local electric-pair-inhibit-predicate
 		   `(lambda (c)
