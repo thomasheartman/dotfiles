@@ -2184,3 +2184,23 @@
         )
       (hydra-set-property 'hydra-web-mode-attributes :verbosity 1))
   #+END_SRC
+
+* Bufler
+  :PROPERTIES:
+  :REPO:     [[https://github.com/alphapapa/bufler.el][GitHub]]
+  :END:
+  Bufler is a buffer management tool that groups your buffers into
+  projects or other groups for easier navigation.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package bufler
+      :demand t
+      :after ivy
+      :general
+      ([remap switch-to-buffer] 'bufler-switch-buffer
+       [remap list-buffers] 'bufler)
+      (:keymaps 'ivy-mode-map
+                [remap switch-to-buffer] 'bufler-switch-buffer)
+      :config
+      (bufler-mode))
+  #+END_SRC
