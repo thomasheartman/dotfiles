@@ -65,6 +65,22 @@
                go from error to error (or just suggestions), correct
                them, or view all in a separate window
 
+
+   Let's create a couple prefixes:
+   #+BEGIN_SRC emacs-lisp
+     (defconst my-link-prefix "C-x l")
+     (defconst my-flycheck-prefix "C-c e")
+     (defconst my-lsp-prefix "C-c l")
+
+     (general-create-definer my-link-def
+       :prefix my-link-prefix)
+     (general-create-definer my-flycheck-def
+       :prefix my-flycheck-prefix)
+     (general-create-definer my-lsp-def
+       :prefix my-lsp-prefix)
+   #+END_SRC
+
+
 * Emacs
 
 ** Visual
@@ -724,7 +740,7 @@
       :ensure t
       :config (global-flycheck-mode)
       (define-key flycheck-mode-map flycheck-keymap-prefix nil)
-      (setq flycheck-keymap-prefix (kbd "C-c e"))
+      (setq flycheck-keymap-prefix (kbd my-flycheck-prefix))
       (define-key flycheck-mode-map flycheck-keymap-prefix
         flycheck-command-map)
       )
@@ -857,7 +873,7 @@
   [[https://emacs-lsp.github.io/lsp-mode/page/installation/][installation instructions]], with some minor tweaks.
 
   #+BEGIN_SRC emacs-lisp
-    (setq lsp-keymap-prefix "<f6>")
+    (setq lsp-keymap-prefix my-lsp-prefix)
 
     (use-package lsp-mode
       :demand t
@@ -876,8 +892,10 @@
       )
 
     (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
-      :bind (:map lsp-mode-map
-                  ("<f6> w s" . lsp-ivy-workspace-symbol)))
+      :general
+      (my-lsp-def
+        :keymaps 'lsp-mode-map
+        "w s" 'lsp-ivy-workspace-symbol))
 
     (use-package lsp-treemacs :commands lsp-treemacs-error-list)
 
@@ -1286,8 +1304,10 @@
    #+BEGIN_SRC emacs-lisp
      (general-def
        :keymaps 'org-mode-map
-       "C-c l" 'org-store-link
        "C-c _" 'org-toggle-timestamp-type)
+
+     (my-link-def
+       "s" 'org-store-link)
    #+END_SRC
 
 ** templates (org-tempo)
