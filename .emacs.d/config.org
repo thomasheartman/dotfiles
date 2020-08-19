@@ -1326,7 +1326,9 @@
    Additionally, we can also have ~C-a~, ~C-e~, and ~C-k~ adapt to
    whether they're being invoked in a headline or not.
    #+BEGIN_SRC emacs-lisp
-     (setq org-src-window-setup 'current-window
+     (setq org-src-window-setup (if (version< org-version "9.3")
+                                    'current-window
+                                  'split-window-right)
            org-special-ctrl-a/e t
            org-special-ctrl-k t)
    #+END_SRC
