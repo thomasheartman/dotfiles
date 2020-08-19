@@ -1285,6 +1285,26 @@
        (add-to-list 'org-modules 'org-tempo))
    #+END_SRC
 
+** TODO Configuration:
+   :LOGBOOK:
+   - State "TODO"       from              [2020-08-18 Tue 19:16]
+   :END:
+   Look at Org special c-a c-e and c-k
+   and org src window setup!
+
+   The default value of ~org-src-window-setup~ reshuffles the whole
+   frame when you edit a source block. I find this to be both annoying
+   and disturbing, so let's instead have org mode simply create a new
+   window for it.
+
+   Additionally, we can also have ~C-a~, ~C-e~, and ~C-k~ adapt to
+   whether they're being invoked in a headline or not.
+   #+BEGIN_SRC emacs-lisp
+     (setq org-src-window-setup 'current-window
+           org-special-ctrl-a/e t
+           org-special-ctrl-k t)
+   #+END_SRC
+
 * Yasnippet
   :PROPERTIES:
   :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
