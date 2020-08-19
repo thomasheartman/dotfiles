@@ -2192,12 +2192,9 @@
   #+BEGIN_SRC emacs-lisp
     (use-package bufler
       :demand t
-      :after ivy
       :general
-      ([remap switch-to-buffer] 'bufler-switch-buffer
+      ("C-x B" 'bufler-switch-buffer
        [remap list-buffers] 'bufler)
-      (:keymaps 'ivy-mode-map
-                [remap switch-to-buffer] 'bufler-switch-buffer)
       :config
       (bufler-mode))
   #+END_SRC
