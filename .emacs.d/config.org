@@ -376,11 +376,19 @@
       (defun my-join-next-line ()
         "Join the next line onto the current line."
         (interactive)
-        (next-logical-line)
-        (join-line))
+        (save-excursion
+          (next-logical-line)
+          (join-line)))
+
+      (defun my-join-line ()
+        "Join the previous line, but keep point's position."
+        (interactive)
+        (save-excursion
+          (join-line)))
 
       (general-def
-        "C-S-j" 'my-join-next-line)
+        "C-S-j" 'my-join-next-line
+        "C-S-k" 'my-join-line)
     #+END_SRC
 
 
