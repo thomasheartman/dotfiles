@@ -693,8 +693,7 @@
 
 * Ivy                                                            :keybinding:
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
-  Swiper) using counsel. We'll also replace normal isearch with Ivy's
-  ~swiper-isearch~ and the regular ~yank-pop~ functionality with
+  Swiper) using counsel. We'll also add Ivy's ~swiper-isearch~ and
   ~counsel-yank-pop~.
 
   For searches, I also prefer using a fuzzier regex pattern than the
