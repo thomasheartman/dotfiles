@@ -1597,9 +1597,7 @@
             ("C-c p" . projectile-command-map))
       :config
       (projectile-mode t)
-      (setq projectile-project-search-path '("~/projects"
-                                             "~/projects/work"
-                                             "~/projects/personal")
+      (setq projectile-project-search-path '("~/projects")
             projectile-sort-order 'recently-active
             projectile-completion-system 'ivy))
   #+END_SRC
