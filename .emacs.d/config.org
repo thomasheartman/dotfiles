@@ -317,6 +317,17 @@
          "C-x C-z" 'my-change-frame-font-size)
      #+END_SRC
 
+**** Repeat jump to mark
+     When you want to jump to the previous position in the mark ring,
+     you can use ~C-u SPC~ . If you want to jump multiple positions,
+     you must repeat the ~C-u~ press. However, we can make this
+     unnecessary:
+
+     #+BEGIN_SRC emacs-lisp
+       (setq set-mark-command-repeat-pop t)
+     #+END_SRC
+
+
 *** Copy current file path
 
     #+BEGIN_SRC emacs-lisp
