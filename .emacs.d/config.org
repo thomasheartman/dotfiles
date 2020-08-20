@@ -2113,9 +2113,14 @@
   restore them when you start back up. Let's try it out and see what
   happens.
 
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (desktop-save-mode 1)
-    (setq desktop-restore-eager 10)
+  #+BEGIN_SRC emacs-lisp
+    (use-package desktop
+      :when (eq system-type 'darwin)
+      :demand t
+      :init
+      (desktop-save-mode 1)
+      (setq desktop-restore-eager 10))
+
   #+END_SRC
 
 * Web-mode
