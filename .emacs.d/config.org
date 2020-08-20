@@ -818,14 +818,14 @@
   errors when I've already got spacemacs set up in
   ~user-emacs-directory~. Comment this back in when I switch over.
   #+BEGIN_SRC emacs-lisp
-    ;; (use-package forge
-    ;;   :after magit
-    ;;   :demand t
-    ;;   :config
-    ;;   (add-to-list 'forge-alist
-    ;; 	       '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
-    ;;   :bind (:map magit-mode-map
-    ;; 	      ("C-c M-w" . forge-copy-url-at-point-as-kill)))
+    (use-package forge
+      :after magit
+      :demand t
+      :config
+      (add-to-list 'forge-alist
+                   '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
+      :bind (:map magit-mode-map
+                  ("C-c M-w" . forge-copy-url-at-point-as-kill)))
   #+END_SRC
 * Rainbow delimiters
   Rainbow delimiters make it much easier to read a lot of code, so
