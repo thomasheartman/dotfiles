@@ -756,7 +756,7 @@
   with function arguments (like Rust Analyzer).
 
   In addition to the basic company-mode configuration, I also use
-  [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior.  This requires a little extra
+  [[https://github.com/company-mode/company-mode/blob/master/company-tng.el][company-tng]] to get YCMD-like behavior. This requires a little extra
   bit of configuration to get set up.
 
   #+BEGIN_SRC emacs-lisp
@@ -842,7 +842,7 @@
 
   which-key shows you a pop-up when you're in the middle of typing key
   combinations. If you forget what the exact combination is, this can
-  be a very useful guide.
+  be a useful guide.
 
   Because I generally don't want which-key to pop up and disturb the
   current frame, I'd like it only to trigger manually. The recommended
@@ -1923,7 +1923,7 @@
 
 * Minimodelines
 
-  There are a number of different minimodeline packages out there,
+  There are a number of minimodeline packages out there,
   including [[https://github.com/tautologyclub/feebleline][feebleline]] and [[https://github.com/kiennq/emacs-mini-modeline][mini-modeline]]. I've had some issues with
   feebleline on macOS, but it seems to work fine on Linux and I quite
   like it. So let's activate it unless I'm on a mac.
