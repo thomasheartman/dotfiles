@@ -870,7 +870,8 @@
   :END:
 
   TODO: run ~lsp-doctor~ and find out what you can fix. See [[https://emacs-lsp.github.io/lsp-mode/page/performance/][the
-  performance page for more details]].
+  performance page for more details]]. Much of this depends on having
+  Emacs 27+, so make sure you can get hold of this first.
 
   This setup is nearly identical to the recommended approach in their
   [[https://emacs-lsp.github.io/lsp-mode/page/installation/][installation instructions]], with some minor tweaks.
