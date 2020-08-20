@@ -1337,12 +1337,11 @@
        (add-to-list 'org-modules 'org-tempo))
    #+END_SRC
 
-** TODO Configuration:
+** Configuration:
    :LOGBOOK:
+   - State "DONE"       from "TODO"       [2020-08-20 Thu 21:11]
    - State "TODO"       from              [2020-08-18 Tue 19:16]
    :END:
-   Look at Org special c-a c-e and c-k
-   and org src window setup!
 
    The default value of ~org-src-window-setup~ reshuffles the whole
    frame when you edit a source block. I find this to be both annoying
@@ -1381,9 +1380,6 @@
   :LOGBOOK:
   - State "TODO"       from              [2020-08-12 Wed 14:46]
   :END:
-
-  Add yasnippet. For the time being, add my new emacs dir as a primary
-  source of snippets.
 
   For some reason, snippets didn't seem to be loading properly, so I
   added reload directive to force reload.
@@ -1500,7 +1496,7 @@
       :config
       (setq aw-dispatch-always t))
   #+END_SRC
-* TODO [#B] Smartparens
+* Smartparens
   :PROPERTIES:
   :REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
   :END:
@@ -1512,8 +1508,6 @@
   from [[https://www.reddit.com/r/emacs/comments/6j2s95/i_still_cant_find_an_efficient_and_simple/][this Reddit thread]] about smartparens configs. Further, [[https://ebzzry.io/en/emacs-pairs/][this
   blog post]] contains a number of well-illustrated examples of how the
   movement works.
-
-  TODO: this might still need quite a bit of tweaking.
 
   #+BEGIN_SRC emacs-lisp
     (use-package smartparens
@@ -1562,9 +1556,14 @@
 	    notmuch-fcc-dirs "sent +sent -unread -inbox"))
   #+END_SRC
 
-* Elfeed
+* TODO Elfeed
   :PROPERTIES:
   :REPO:     [[https://github.com/skeeto/elfeed][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-20 Thu 21:15] \\
+    Find out how to change the layout of the feeds view. Spacemacs does it
+    somehow. The current layout causes a lot of double lines etc.
   :END:
 
 
@@ -1872,10 +1871,16 @@
 
    Can we make volume controls etc work from emacs? [[https://melpa.org/#/desktop-environment][This Melpa package]]
    says that we can.
-* multiterm
+* TODO multiterm
   :PROPERTIES:
   :REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
   :WIKI:     [[https://www.emacswiki.org/emacs/MultiTerm][EmacsWiki]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-20 Thu 21:26] \\
+    Make Fish prompt work properly. At the moment, it eats whatever you
+    type into the window, which isn't ideal. However, this isn't only for
+    multiterm, but also applies to ansi-term.
   :END:
 
   #+BEGIN_SRC emacs-lisp
@@ -2032,7 +2037,7 @@
        (add-to-list 'company-backends 'company-omnisharp))
    #+END_SRC
 
-* TODO [#C] Replace all checks of system type with noweb reference
+* TODO [#C] Replace all checks of system type with noweb reference or variable
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 21:39]
   :END:
@@ -2041,6 +2046,8 @@
   in the code. If I ever want to change how I check that, that's a
   pain. Instead, see if we can't create a ~<<is-macos>>~ code block
   and reference it with noweb refs.
+
+  That said, it might be easier to just set a variable up top.
 
 * Transpose-frame
   https://www.emacswiki.org/emacs/TransposeFrame
@@ -2115,9 +2122,13 @@
       (setq js2-strict-missing-semi-warning nil))
   #+END_SRC
 
-* Prettier
+* TODO Prettier
   :PROPERTIES:
   :REPO:     [[https://github.com/prettier/prettier-emacs][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-20 Thu 21:29] \\
+    Make sure this is set up in the modes where it's expected to work.
   :END:
 
   For indenting JS, CSS, HTML (maybe markdown?), let's use prettier!
@@ -2132,7 +2143,11 @@
           my-format-buffer 'prettier-js)))
   #+END_SRC
 
-* desktop (saving emacs sessions)
+* TODO desktop (saving emacs sessions)
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-20 Thu 21:29] \\
+    Find out why this messes with EXWM and frame alignment.
+  :END:
   Apparently, the built-in desktop library can save your sessions and
   restore them when you start back up. Let's try it out and see what
   happens.
