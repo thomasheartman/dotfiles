@@ -1352,6 +1352,21 @@
            org-special-ctrl-k t)
    #+END_SRC
 
+
+** Overrides
+   Based on [[https://stackoverflow.com/a/54251825][this Stack Overflow answer]], we can make org-capture not
+   delete other windows by redefining some functionality before
+   calling it:
+   #+BEGIN_SRC emacs-lisp
+     (defun my-org-capture-place-template (oldfun args)
+       (cl-letf (((symbol-function 'delete-other-windows) 'ignore))
+         (apply oldfun args)))
+
+     (with-eval-after-load "org-capture"
+       (advice-add 'org-capture-place-template :around 'my-org-capture-place-template))
+   #+END_SRC
+
+
 * Yasnippet
   :PROPERTIES:
   :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
