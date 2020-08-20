@@ -2238,3 +2238,29 @@
       :config
       (bufler-mode))
   #+END_SRC
+
+* TODO Ranger
+  :PROPERTIES:
+  :REPO:     [[https://github.com/ralesi/ranger.el][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-20 Thu 14:40]
+  :END:
+
+  TODO: change the trigger key to use a prefix.
+
+  Ranger is a file browser that builds on dired, offering some more
+  functionality.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package ranger
+      :general
+      (general-def
+        "<f10>" 'ranger)
+      :config
+      (setq ranger-show-hidden t
+            ranger-parent-depth 1
+            ranger-modify-header nil
+            ranger-preview-file t
+            ranger-show-literal nil))
+  #+END_SRC
