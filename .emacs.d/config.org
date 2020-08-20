@@ -944,9 +944,11 @@
       :demand t
       :config
       (direnv-mode)
-      :bind
-      (("<f5> d a" . direnv-allow)
-       ("<f5> d u" . direnv-update-environment)))
+      :general
+      (my-app-def
+        :infix "d"
+        "a" 'direnv-allow
+        "u" 'direnv-update-environment))
   #+END_SRC
 * Nix mode                                                       :keybinding:
   :PROPERTIES:
@@ -963,7 +965,7 @@
       :after json-mode
       :mode "\\.nix\\'"
       :bind (:map nix-mode-map
-		  ("C-c C-f" . nix-format-buffer)))
+                  (my-format-buffer . nix-format-buffer)))
   #+end_src
 * JSON mode
   :PROPERTIES:
@@ -1198,8 +1200,9 @@
     particular, let's make it easy to create capture templates and to
     view the agenda.
     #+BEGIN_SRC emacs-lisp
-      (global-set-key (kbd "<f5> c") 'org-capture)
-      (global-set-key (kbd "<f5> a") 'org-agenda)
+      (my-app-def
+        "c" 'org-capture
+        "a" 'org-agenda)
     #+END_SRC
 ** Agenda
 
@@ -1574,11 +1577,12 @@
      (use-package elfeed-org
        :init
        (elfeed-org)
-       :bind
-       ("<f5> f" . elfeed)
+       :general
+       (my-app-def
+         "f" 'elfeed)
        :config
        (setq rmh-elfeed-org-files '("~/feeds.org")
-	     elfeed-search-filter "@2-weeks-ago +unread"))
+             elfeed-search-filter "@2-weeks-ago +unread"))
    #+END_SRC
 
 
@@ -2085,8 +2089,9 @@
     (defun insert-iso-timestamp ()
       (interactive)
       (insert (format-time-string "%FT%T%:z")))
-    (general-def
-      "<f5> i t" 'insert-iso-timestamp)
+
+    (my-app-def
+      "i t" 'insert-iso-timestamp)
   #+END_SRC
 
 * TODO JavaScript (rjsx-mode)
@@ -2124,7 +2129,7 @@
       (defun my-prettier-hook ()
         (general-def
           :keymaps 'local
-          "C-c C-f" 'prettier-js)))
+          my-format-buffer 'prettier-js)))
   #+END_SRC
 
 * desktop (saving emacs sessions)
