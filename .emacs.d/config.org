@@ -1417,7 +1417,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package hydra
       :demand t
-      :after (ivy ace-window eyebrowse projectile)
+      :after (ivy ace-window eyebrowse projectile transpose-frame)
       :config
       (defhydra hydra-window-movement (global-map "C-x w")
         "
@@ -1426,7 +1426,7 @@
     _←_: ←    _|_: right    _m_: maximize       _b_: switch buffer
     _↓_: ↓    ___: below    _D_: ace-delete     _f_: find file
     _↑_: ↑    _u_: undo     _d_: del window   ^^SPC: app launcher
-    _→_: →    _r_: redo     _B_: balance
+    _→_: →    _U_: redo     _B_: balance
                       ^^_h_/_H_: grow left
                       ^^_l_/_L_: grow right
                       ^^_k_/_K_: grow up
@@ -1444,7 +1444,7 @@
         ("|" split-window-right-and-focus)
         ("_" split-window-below-and-focus)
         ("u" winner-undo)
-        ("r" winner-redo)
+        ("U" winner-redo)
 
         ("m" my-maximize-or-undo-window)
         ("D" ace-delete-window)
@@ -1477,6 +1477,11 @@
         ;; projectile
         ("p" projectile-switch-project)
         ("F" projectile-find-file)
+
+        ;; transpose-frame
+        ("t" rotate-frame-clockwise)
+        ("T" rotate-frame-anticlockwise)
+        ("r" rotate-frame)
 
         ("a" ace-window)
         ("q" nil))
@@ -2050,7 +2055,14 @@
   That said, it might be easier to just set a variable up top.
 
 * Transpose-frame
-  https://www.emacswiki.org/emacs/TransposeFrame
+  :PROPERTIES:
+  :WIKI:     [[https://www.emacswiki.org/emacs/TransposeFrame][EmacsWiki]]
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    (use-package transpose-frame
+      :demand t)
+  #+END_SRC
+
 
 * Aggressive indent
   :PROPERTIES:
