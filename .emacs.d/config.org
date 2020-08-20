@@ -72,6 +72,7 @@
      (defconst my-link-prefix "C-x l")
      (defconst my-flycheck-prefix "C-c e")
      (defconst my-lsp-prefix "C-c l")
+     (defconst my-app-prefix "<f5>")
 
      (general-create-definer my-link-def
        :prefix my-link-prefix)
@@ -79,6 +80,10 @@
        :prefix my-flycheck-prefix)
      (general-create-definer my-lsp-def
        :prefix my-lsp-prefix)
+     (general-create-definer my-app-def
+       :prefix my-app-prefix)
+
+     (defconst my-format-buffer "C-c C-f")
    #+END_SRC
 
 
