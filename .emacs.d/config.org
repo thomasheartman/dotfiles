@@ -2300,3 +2300,12 @@
             ranger-preview-file t
             ranger-show-literal nil))
   #+END_SRC
+
+* Fish shell
+  :PROPERTIES:
+  :REPO:     [[https://github.com/wwwjfy/emacs-fish][GitHub]]
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    (use-package fish-mode
+      :mode "\\.fish\\'")
+  #+END_SRC
