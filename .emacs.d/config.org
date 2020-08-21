@@ -762,9 +762,10 @@
                                     (ivy-switch-buffer . ivy--regex-plus)
                                     (t . ivy--regex-fuzzy))
             ivy-wrap t)
-      :bind (("C-S-s" . swiper-isearch)
-             ("C-M-y" . counsel-yank-pop)
-             ("C-x C-f" . counsel-find-file)))
+      :general
+      ("C-S-s" 'swiper-isearch
+       "C-M-y" 'counsel-yank-pop
+       "C-x C-f" 'counsel-find-file))
   #+END_SRC
 * Flycheck
 
