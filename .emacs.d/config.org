@@ -977,8 +977,10 @@
     (use-package nix-mode
       :after json-mode
       :mode "\\.nix\\'"
-      :bind (:map nix-mode-map
-                  (my-format-buffer . nix-format-buffer)))
+      :general
+      (general-def
+        :keymaps 'nix-mode-map
+        my-format-buffer 'nix-format-buffer))
   #+end_src
 * JSON mode
   :PROPERTIES:
