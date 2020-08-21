@@ -14,7 +14,11 @@
    Additionally, I'll sometimes want to use local packages. I'll put
    them in a directory local to my emacs config:
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp"))
+     (add-to-list 'load-path
+                  (expand-file-name
+                   "elisp"
+                   'user-emacs-directory))
+
    #+END_SRC
 
 ** use-package
@@ -711,6 +715,15 @@
          (global-set-key (kbd "C-x -") 'split-window-below-and-focus)
          (global-set-key (kbd "C-x _") 'split-window-below-and-focus)
        #+END_SRC
+
+** Custom file
+   To avoid getting customizations stuck into my init.el, I want to
+   use a separate customization file.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (load custom-file)
+   #+END_SRC
 
 
 * Ivy                                                            :keybinding:
