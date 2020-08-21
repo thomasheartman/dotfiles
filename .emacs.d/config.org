@@ -2306,10 +2306,13 @@
   :REPO:     [[https://github.com/ralesi/ranger.el][GitHub]]
   :END:
   :LOGBOOK:
+  - State "TODO"       from              [2020-08-21 Fri 09:35] \\
+    I have some issues with ranger disabling the cursor. This can be
+    reverted by setting ~cursor-type~ to ~t~, but it is annoying.
+
+    I'm not the only one, though. [[https://github.com/ralesi/ranger.el/issues/213][This GitHub issue]] describes the same thing.
   - State "TODO"       from              [2020-08-20 Thu 14:40]
   :END:
-
-  TODO: change the trigger key to use a prefix.
 
   Ranger is a file browser that builds on dired, offering some more
   functionality.
@@ -2317,14 +2320,15 @@
   #+BEGIN_SRC emacs-lisp
     (use-package ranger
       :general
-      (general-def
-        "<f10>" 'ranger)
+      (my-app-def
+        "R" 'ranger)
       :config
       (setq ranger-show-hidden t
             ranger-parent-depth 1
             ranger-modify-header nil
             ranger-preview-file t
-            ranger-show-literal nil))
+            ranger-show-literal nil
+            ranger-hide-cursor nil))
   #+END_SRC
 
 * Fish shell
