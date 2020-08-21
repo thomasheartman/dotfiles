@@ -351,6 +351,23 @@
 
      #+BEGIN_SRC emacs-lisp
        (setq set-mark-command-repeat-pop t)
+
+       (defun my-unpop-mark ()
+         "Unpop off mark ring. Does nothing if mark ring is empty."
+         (interactive)
+         (when mark-ring
+           (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+           (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+           (when (null (mark t)) (ding))
+           (setq mark-ring (nbutlast mark-ring))
+           (goto-char (marker-position (car (last mark-ring))))))
+
+
+       (general-def
+         :predicate '(or
+                      (eq last-command 'my-unpop-mark)
+                      (eq last-command 'pop-to-mark-command))
+         "C-M-SPC" 'my-unpop-mark)
      #+END_SRC
 
 
