@@ -1682,7 +1682,11 @@
       ("C-c p" . projectile-command-map)
       :config
       (projectile-mode t)
-      (setq projectile-project-search-path '("~/projects")
+      (defconst my-project-paths
+        (seq-filter 'file-directory-p '("~/projects"
+                                        "~/projects/work"
+                                        "~/projects/personal")))
+      (setq projectile-project-search-path my-project-paths
             projectile-sort-order 'recently-active
             projectile-completion-system 'ivy))
   #+END_SRC
