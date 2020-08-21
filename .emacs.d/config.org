@@ -1539,13 +1539,12 @@
                 "C-S-a" 'sp-beginning-of-sexp
                 "C-S-f" 'sp-forward-symbol
                 "C-S-b" 'sp-backward-symbol)
+      :custom
+      (sp-base-key-bindings 'sp)
       :config
       (require 'smartparens-config)
-      (custom-set-variables
-       '(sp-base-key-bindings 'sp))
 
-      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
-      )
+      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil))
   #+END_SRC
 
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
