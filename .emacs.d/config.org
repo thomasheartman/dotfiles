@@ -147,9 +147,7 @@
     Emacs, let's enable ido mode everywhere and also enable
     flex-matching.
     #+begin_src emacs-lisp
-      (setq ido-enable-flex-matching t
-            ido-everywhere t)
-      (ido-mode 1)
+      (setq ido-enable-flex-matching t)
     #+end_src
 
     We can also use ido-mode for find file at point.
@@ -762,8 +760,7 @@
             ivy-wrap t)
       :general
       ("C-S-s" 'swiper-isearch
-       "C-M-y" 'counsel-yank-pop
-       "C-x C-f" 'counsel-find-file))
+       "C-M-y" 'counsel-yank-pop))
   #+END_SRC
 * Flycheck
 
