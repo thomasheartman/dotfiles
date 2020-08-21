@@ -1387,6 +1387,18 @@
        (advice-add 'org-capture-place-template :around 'my-org-capture-place-template))
    #+END_SRC
 
+** Org-rifle
+   :PROPERTIES:
+   :REPO:     [[https://github.com/alphapapa/org-rifle][GitHub]]
+   :END:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-org-rifle
+       :general
+       (my-app-def
+         "r" 'helm-org-rifle-agenda-files))
+   #+END_SRC
+
 
 * Yasnippet
   :PROPERTIES:
