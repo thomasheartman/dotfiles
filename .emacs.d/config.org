@@ -47,7 +47,6 @@
   General simplifies key binding.
   #+BEGIN_SRC emacs-lisp
     (use-package general
-      :demand t
       :config
       (general-auto-unbind-keys))
   #+END_SRC
@@ -753,7 +752,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package counsel
-      :demand t
       :config
       (ivy-mode 1)
       (setq ivy-use-virtual-buffers t
@@ -884,7 +882,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package which-key
-      :demand t
       :config
       (which-key-mode)
       (setq which-key-show-early-on-C-h t)
@@ -911,16 +908,15 @@
     (setq lsp-keymap-prefix my-lsp-prefix)
 
     (use-package lsp-mode
-      :demand t
       :hook
       ((lsp-mode . lsp-enable-which-key-integration))
       :commands lsp)
     (use-package lsp-ui :commands lsp-ui-mode
+      :general
+      (:keymaps 'lsp-ui-mode-map
+                [remap xref-find-definitions]#'lsp-ui-peek-find-definitions
+                [remap xref-find-references]#'lsp-ui-peek-find-references)
       :config
-      (general-def
-        :keymaps 'lsp-ui-mode-map
-        [remap xref-find-definitions] #'lsp-ui-peek-find-definitions
-        [remap xref-find-references] #'lsp-ui-peek-find-references)
       (when (eq system-type 'darwin)
         (setq lsp-ui-doc-use-childframe nil))
       (setq lsp-ui-doc-position 'bottom)
@@ -1431,7 +1427,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package yasnippet
-      :demand t
       :config
       (yas-global-mode 1)
       (yas-reload-all))
@@ -1682,10 +1677,8 @@
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :after (ivy ripgrep)
-      :demand t
-      :bind
-      (:map projectile-mode-map
-            ("C-c p" . projectile-command-map))
+      :bind-keymap
+      ("C-c p" . projectile-command-map)
       :config
       (projectile-mode t)
       (setq projectile-project-search-path '("~/projects")
@@ -2103,8 +2096,7 @@
   :WIKI:     [[https://www.emacswiki.org/emacs/TransposeFrame][EmacsWiki]]
   :END:
   #+BEGIN_SRC emacs-lisp
-    (use-package transpose-frame
-      :demand t)
+    (use-package transpose-frame)
   #+END_SRC
 
 
@@ -2120,7 +2112,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package aggressive-indent
-      :demand t
       :hook
       (emacs-lisp-mode . aggressive-indent-mode))
   #+END_SRC
@@ -2211,7 +2202,6 @@
   #+BEGIN_SRC emacs-lisp
     (use-package desktop
       :when (eq system-type 'darwin)
-      :demand t
       :init
       (desktop-save-mode 1)
       (setq desktop-restore-eager 10))
@@ -2311,7 +2301,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package bufler
-      :demand t
       :general
       ("C-x B" 'bufler-switch-buffer
        [remap list-buffers] 'bufler)
