@@ -223,10 +223,9 @@
       ;; (electric-pair-mode)
     #+END_SRC
 
-    Further, let's enable line numbers everywhere and make them relative.
+    Further, let's enable line numbers everywhere.
     #+BEGIN_SRC emacs-lisp
       (global-display-line-numbers-mode)
-      (setq-default display-line-numbers 'relative)
     #+END_SRC
 
     Make lines wrap visually if they're longer than what can fit in
