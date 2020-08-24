@@ -795,6 +795,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package counsel
+      :demand t
       :config
       (ivy-mode 1)
       (setq ivy-use-virtual-buffers t
