@@ -1469,9 +1469,11 @@
    #+END_SRC
 ** Formatting
    #+BEGIN_SRC emacs-lisp
-     (defun my-org-fix-blank-lines ()
-       "Ensure that blank lines exist between headings and between headings and their contents."
-       (interactive)
+     (defun unpackaged/org-fix-blank-lines (prefix)
+       "Ensure that blank lines exist between headings and between headings and their contents.
+     With prefix, operate on whole buffer. Ensures that blank lines
+     exist after each headings's drawers."
+       (interactive "P")
        (org-map-entries (lambda ()
                           (org-with-wide-buffer
                            ;; `org-map-entries' narrows the buffer, which prevents us from seeing
@@ -1496,10 +1498,12 @@
                                         (org-at-heading-p)
                                         (looking-at-p "\n"))
                               (insert "\n"))))
-                        t 'tree))
+                        t (if prefix
+                              nil
+                            'tree)))
      (general-def
        :keymaps 'org-mode-map
-       my-format-buffer 'my-org-fix-blank-lines)
+       my-format-buffer 'unpackaged/org-fix-blank-lines)
    #+END_SRC
 
 * Yasnippet
