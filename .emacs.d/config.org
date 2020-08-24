@@ -1684,10 +1684,12 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package notmuch
-      :bind ("<f7>" . notmuch)
+      :general
+      (my-app-def
+        "m" 'notmuch)
       :config
       (setq message-send-mail-function 'message-send-mail-with-sendmail
-	    notmuch-fcc-dirs "sent +sent -unread -inbox"))
+            notmuch-fcc-dirs "sent +sent -unread -inbox"))
   #+END_SRC
 
 * TODO Elfeed
