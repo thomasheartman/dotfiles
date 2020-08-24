@@ -1721,6 +1721,22 @@
    #+END_SRC
 
 
+** Elfeed-goodies
+   :PROPERTIES:
+   :REPO:     [[https://github.com/algernon/elfeed-goodies][GitHub]]
+   :END:
+
+   elfeed-goodies offers certain nice features, but most important is
+   how it reorders the columns in the elfeed buffer.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed-goodies
+       :after elfeed
+       :config
+       (elfeed-goodies/setup))
+   #+END_SRC
+
+
 * Origami
   :PROPERTIES:
   :REPO:     [[https://github.com/gregsexton/origami.el][GitHub]]
