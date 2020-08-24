@@ -1469,10 +1469,8 @@
    #+END_SRC
 ** Formatting
    #+BEGIN_SRC emacs-lisp
-     (defun my-org-fix-blank-lines (prefix)
-       "Ensure that blank lines exist between headings and between headings and their contents.
-     With prefix, operate on whole buffer. Ensures that blank lines
-     exist after each headings's drawers."
+     (defun my-org-fix-blank-lines ()
+       "Ensure that blank lines exist between headings and between headings and their contents."
        (interactive)
        (org-map-entries (lambda ()
                           (org-with-wide-buffer
