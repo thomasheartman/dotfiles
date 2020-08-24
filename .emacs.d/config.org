@@ -1500,7 +1500,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package hydra
       :demand t
-      :after (ivy ace-window eyebrowse projectile transpose-frame)
+      :after (counsel eyebrowse)
       :config
       (defhydra hydra-window-movement (global-map "C-x w")
         "
