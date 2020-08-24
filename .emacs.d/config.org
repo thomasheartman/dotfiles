@@ -1954,9 +1954,49 @@
       (exwm-init))
   #+END_SRC
 ** desktop-environment
+   :PROPERTIES:
+   :REPO:     [[https://github.com/DamienCassou/desktop-environment][GitHub]]
+   :END:
 
-   Can we make volume controls etc work from emacs? [[https://melpa.org/#/desktop-environment][This Melpa package]]
-   says that we can.
+   Desktop-environment offers mappings of special keys to
+   OS-functions.
+
+   The package depends on the following system packages being
+   available:
+   - volume :: [[https://www.alsa-project.org/wiki/Main_Page][amixer]]
+   - brightness :: [[https://github.com/Hummer12007/brightnessctl][brightnessctl]]
+   - screenshot :: [[https://tracker.debian.org/pkg/scrot][scrot]]
+   - screen lock :: [[https://tools.suckless.org/slock/][slock]]
+   - keyboard backlight :: [[https://upower.freedesktop.org/][upower]]
+   - wifi and bluetooth :: [[https://linrunner.de/en/tlp/tlp.html][TLP]]
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package desktop-environment
+       :after (exwm)
+       :when use-exwm
+       :general
+       (general-def global-map
+         "<XF86MonBrightnessUp>" 'desktop-environment-brightness-increment
+         "<XF86MonBrightnessDown>" 'desktop-environment-brightness-decrement
+         "S-<XF86MonBrightnessUp>" 'desktop-environment-brightness-increment-slowly
+         "S-<XF86MonBrightnessDown>" 'desktop-environment-brightness-decrement-slowly
+         ;; Volume
+         "<XF86AudioRaiseVolume>" 'desktop-environment-volume-increment
+         "<XF86AudioLowerVolume>" 'desktop-environment-volume-decrement
+         "S-<XF86AudioRaiseVolume>" 'desktop-environment-volume-increment-slowly
+         "S-<XF86AudioLowerVolume>" 'desktop-environment-volume-decrement-slowly
+         "<XF86AudioMute>" 'desktop-environment-toggle-mute
+         "<XF86AudioMicMute>" 'desktop-environment-toggle-microphone-mute
+         ;; Print
+         "S-<print>" 'desktop-environment-screenshot-part
+         "<print>" 'desktop-environment-screenshot
+         ;; Screen locking
+         ;; "s-l" 'desktop-environment-lock-screen
+         ;; Wifi controls
+         "<XF86WLAN>" 'desktop-environment-toggle-wifi
+         ;; Bluetooth controls
+         "<XF86Bluetooth>" 'desktop-environment-toggle-bluetooth))
+   #+END_SRC
 * TODO multiterm
   :PROPERTIES:
   :REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
