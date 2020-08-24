@@ -7,6 +7,7 @@
   :PROPERTIES:
   :header-args: :tangle no
   :END:
+
   When having issues, set this to ~:tangle yes~
   #+BEGIN_SRC emacs-lisp
     (setq debug-on-error t)
@@ -20,7 +21,9 @@
 
 
 * Package setup
+
 ** Package archives
+
    Set up archives for packages:
    #+BEGIN_SRC emacs-lisp
      (setq package-archives '(("gnu" . "https://elpa.gnu.org./packages/")
@@ -38,6 +41,7 @@
    #+END_SRC
 
 ** use-package
+
    Before we do anything else, let's make sure we've got [[https://github.com/jwiegley/use-package][use-package]]
    ready to go! This bit of setup is a modified version of what Greg
    Stein's example from Caches to Caches post [[http://cachestocaches.com/2015/8/getting-started-use-package/][Getting started with
@@ -60,6 +64,7 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/noctuid/general.el][GitHub]]
   :END:
+
   General simplifies key binding.
   #+BEGIN_SRC emacs-lisp
     (use-package general
@@ -106,6 +111,7 @@
    #+END_SRC
 
 * OS/system variables
+
   #+BEGIN_SRC emacs-lisp
     (defconst on-macos (eq system-type 'darwin) "t if the current system is a darwin system (running macOS)")
     (defconst on-linux (eq system-type 'gnu/linux) "t if the current system is a linux system")
@@ -115,19 +121,25 @@
 * Emacs
 
 ** Visual
+
   These changes relate to how Emacs itself looks, including frames,
   windows, and the like.
+
 *** Frames
+
     Get rid of tool bars and menu bars:
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode -1)
       (tool-bar-mode -1)
     #+END_SRC
+
 *** Windows
+
     Let's get rid of scroll bars:
     #+BEGIN_SRC emacs-lisp
       (set-scroll-bar-mode nil)
     #+END_SRC
+
 *** Theme
     :PROPERTIES:
     :REPO:     [[https://github.com/balajisivaraman/emacs-one-themes][GitHub]]
@@ -156,15 +168,19 @@
 	(load-theme 'one-dark t))
 
     #+END_SRC
+
 *** Font
+
     The default font size is a bit small on my monitors, so we'll
     increase it sufficiently.
     #+BEGIN_SRC emacs-lisp
       (set-face-attribute 'default nil :height 200)
     #+END_SRC
+
 ** Misc
 
 *** ido mode
+
     Inspired by the [[https://www.masteringemacs.org/article/introduction-to-ido-mode][Introduction to ido mode article]] from Mastering
     Emacs, let's enable ido mode everywhere and also enable
     flex-matching.
@@ -184,6 +200,7 @@
     #+END_SRC
 
 *** Prompts
+
     Taking another cue from Mastering Emacs ([[https://www.masteringemacs.org/article/disabling-prompts-emacs][Disabling Prompts in
     Emacs]]), let's reduce the amount of prompts we come across in
     Emacs:
@@ -201,6 +218,7 @@
     #+END_SRC
 
 *** Startup
+
     Let's get rid of splash screens and startup messages that we don't
     need (also from [[https://www.masteringemacs.org/article/disabling-prompts-emacs][Disabling Prompts in Emacs]]):
     #+BEGIN_SRC emacs-lisp
@@ -210,6 +228,7 @@
 
 
 *** recent files (recentf)                                       :keybinding:
+
     Mickey Petersen suggests using the recent files package in his
     [[https://www.masteringemacs.org/article/find-files-faster-recent-files-package][Find Files Faster with the Recent Files Package]], so we'll copy his
     suggested configuration here.
@@ -232,6 +251,7 @@
     #+END_SRC
 
 *** Quality of life things
+
     Additionally, let's enable a few things that just makes life
     better in general:
 
@@ -280,6 +300,7 @@
     #+end_src
 
 **** Removing suspend-frame                                      :keybinding:
+
      To disable suspend-frame (I don't think I've ever meant to
      activate it), we'll instead replace it by a message saying it has
      been unmapped.
@@ -291,6 +312,7 @@
      #+END_SRC
 
 **** Don't pause redisplay on input events
+
      According to [[https://www.masteringemacs.org/article/improving-performance-emacs-display-engine][Improving the performance of Emacs's Display Engine?]]
      by Mickey Petersen, Emacs defaults to pausing all display
      redrawing on any input. This may have been useful previously, but
@@ -300,6 +322,7 @@
      #+END_SRC
 
 **** Silence 'function got redefined' warnings
+
      It seems some packages redefine certain functions defined
      elsewhere. This creates noise in the startup messages. Because I
      don't mind this at the moment, I'll silence it:
@@ -308,11 +331,13 @@
      #+END_SRC
 
 **** Activate winner-mode
+
      #+BEGIN_SRC emacs-lisp
        (winner-mode)
      #+END_SRC
 
 **** Backups
+
      Emacs makes backups by default. I don't want this.
 
      I'll also turn off auto-save and similar files.
@@ -331,6 +356,7 @@
        Consider whether I actually want this or not.
      - State "TODO"       from              [2020-08-17 Mon 19:50]
      :END:
+
      Text displayed in the echo area is often helpful, but it stays
      around until you do something again. If the output is large
      (several lines), then it can often be more of a nuisance.
@@ -346,6 +372,7 @@
      #+END_SRC
 
 **** Change frame font size
+
      I've got a multi-monitor setup that has a number of different
      resolutions and screen sizes. A comfortable font size on one
      screen can be too small or too large on another one. As such, I
@@ -363,6 +390,7 @@
      #+END_SRC
 
 **** Repeat jump to mark
+
      When you want to jump to the previous position in the mark ring,
      you can use ~C-u SPC~ . If you want to jump multiple positions,
      you must repeat the ~C-u~ press. However, we can make this
@@ -431,6 +459,7 @@
 
 
 *** Join lines
+
     In Vim, you can easily join the next line onto the current by
     pressing ~J~. I often want something like this in Emacs, so let's
     create a similar version:
@@ -455,6 +484,7 @@
 
 
 *** browser / opening urls                                               :os:
+
     Without setting a browser, it seems that links don't open (at
     least not on Linux). Let's set it to Firefox:
     #+BEGIN_SRC emacs-lisp
@@ -463,13 +493,16 @@
                 'browse-url-default-macosx-browser
               'browse-url-firefox))
     #+END_SRC
+
 *** Garbage collection
+
     Inspired by the [[https://github.com/lewang/flx][flx's readme]], we can increase the GC threshold
     significantly from the default. In addition to when using flx,
     this might also come in handy in other situations.
     #+BEGIN_SRC emacs-lisp
       (setq gc-cons-threshold 20000000)
     #+END_SRC
+
 *** subprocess throughput
 
     This section increases the throughput available to subprocesses.
@@ -482,7 +515,9 @@
     #+END_SRC
 
 *** OS-specifics                                                         :os:
+
     Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
+
 **** macOS                                                            :macos:
      :PROPERTIES:
      :header-args: :tangle no
@@ -498,7 +533,9 @@
          <<macos-env-path>>
          <<macos-key-config>>)
      #+end_src
+
 ***** Resizing
+
       Using Amethyst as a window manager on macOS, the Emacs frame will
       often not expand to take up the whole allotted space, leaving a
       gap between itself and the edge of the screen or other
@@ -507,7 +544,9 @@
       #+begin_src emacs-lisp
         (setq frame-resize-pixelwise t)
       #+end_src
+
 ***** $PATH and ~exec-path~
+
       Dealing with path variables can be tricky. Because I use
       #+name: macos-exec-path
       #+BEGIN_SRC emacs-lisp
@@ -529,6 +568,7 @@
       #+END_SRC
 
 ***** Key switching
+
       On macOS, I want the CMD key to act as Meta, and the Alt key as
       super, because this works better with their location on the
       keyboard and their corresponding keys on Linux.
@@ -543,6 +583,7 @@
     :LOGBOOK:
     - State "TODO"       from              [2020-08-13 Thu 20:16]
     :END:
+
     One of the things I really like about Spacemacs is that the key
     for maximizing a window if there are other windows in the frame is
     also the key for bringing the other windows back if the current
@@ -744,6 +785,7 @@
 
 
 **** Splitting
+
      When splitting a window, I generally always want to focus in the
      new window, so let's define some functions for this and bind
      them.
@@ -762,7 +804,9 @@
          (global-set-key (kbd "C-x -") 'split-window-below-and-focus)
          (global-set-key (kbd "C-x _") 'split-window-below-and-focus)
        #+END_SRC
+
 *** Rename current file
+
     Based on [[https://stackoverflow.com/a/25212377][this Stack Overflow answer]].
     #+BEGIN_SRC emacs-lisp
       (defun rename-current-buffer-file ()
@@ -789,6 +833,7 @@
 
 
 ** Custom file
+
    To avoid getting customizations stuck into my init.el, I want to
    use a separate customization file.
 
@@ -799,6 +844,7 @@
 
 
 * Ivy                                                            :keybinding:
+
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
   Swiper) using counsel. We'll also add Ivy's ~swiper-isearch~ and
   ~counsel-yank-pop~.
@@ -821,6 +867,7 @@
       ("C-S-s" 'swiper-isearch
        "C-M-y" 'counsel-yank-pop))
   #+END_SRC
+
 * Flycheck
 
   Let's activate flycheck mode pretty much everywhere. Also, let's
@@ -894,7 +941,9 @@
       (company-flx-mode 1)
       (add-to-list 'completion-styles 'fuzzy))
   #+END_SRC
+
 * Magit                                                          :keybinding:
+
   Because it's simply one of the best git experiences out there, of
   course I want to enable and use Magit:
   #+BEGIN_SRC emacs-lisp
@@ -917,7 +966,9 @@
       :bind (:map magit-mode-map
                   ("C-c M-w" . forge-copy-url-at-point-as-kill)))
   #+END_SRC
+
 * Rainbow delimiters
+
   Rainbow delimiters make it much easier to read a lot of code, so
   let's set them up.
   #+BEGIN_SRC emacs-lisp
@@ -1032,6 +1083,7 @@
         "a" 'direnv-allow
         "u" 'direnv-update-environment))
   #+END_SRC
+
 * Nix mode                                                       :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
@@ -1051,10 +1103,12 @@
         :keymaps 'nix-mode-map
         my-format-buffer 'nix-format-buffer))
   #+end_src
+
 * JSON mode
   :PROPERTIES:
   :REPO:      [[https://github.com/joshwnj/json-mode][GitHub]]
   :END:
+
   For JSON support and, more specifically, for Nix mode, which seems
   to require this.
 
@@ -1078,13 +1132,16 @@
       ("C-S-p" . 'mc/mark-previous-like-this)
       ("C-S-a" . 'mc/mark-all-like-this))
   #+END_SRC
+
 * Spell checker
+
   Enable regular spell checking in all text modes and prog type spell
   checking in prog modes:
   #+begin_src emacs-lisp
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     (add-hook 'text-mode-hook 'flyspell-mode)
   #+end_src
+
 * Edit-indirect
   :PROPERTIES:
   :REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
@@ -1097,6 +1154,7 @@
   #+begin_src emacs-lisp
     (use-package edit-indirect)
   #+end_src
+
 * Markdown mode
   :PROPERTIES:
   :REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
@@ -1110,6 +1168,7 @@
       :config
       (setq markdown-asymmetric-header t))
   #+end_src
+
 * link-hint
   :PROPERTIES:
   :REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
@@ -1127,6 +1186,7 @@
         "o" 'link-hint-open-link
         "c" 'link-hint-copy-link))
   #+END_SRC
+
 * Vim-like isearch motions
 
   As outlined in [[https://blog.thomasheartman.com/posts/my-first-emacs-lisp][this blog post]], I don't really like how isearch jumps
@@ -1173,10 +1233,12 @@
     (define-key isearch-mode-map (kbd "C-k") 'isearch-vim-style-kill)
     (define-key isearch-mode-map (kbd "<C-M-return>") 'isearch-vim-style-copy)
   #+end_src
+
 * expand-region
   :PROPERTIES:
   :REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
   :END:
+
   Expand-region increases the selected region by semantic units.
   #+begin_src emacs-lisp
     (use-package expand-region
@@ -1184,12 +1246,15 @@
       ("C-=" . 'er/expand-region)
       ("C-M-=" . 'er/contract-region))
   #+end_src
+
 * Org mode
 
 ** Getting Things Done (GTD)                                            :GTD:
+
    Because I am working on implementing the GTD methodology, I want to configure org mode to work with this as easily as possible. This section is based heavily on [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][this blog post]] by Nicolas Petton over at [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Emacs Café]].
 
 *** Capture templates
+
     Configure capture templates to use for adding new entries to the inbox.
     #+begin_src emacs-lisp
       (setq org-capture-templates
@@ -1200,6 +1265,7 @@
     #+end_src
 
 *** Refile targets
+
     Configure refile targets for when moving items from the inbox to their correct positions. The ~(nil :maxlevel . N)~ entry means that the current file will also be searched for refile targets, and the ~(org-buffer-list :maxlevel . N)~ entry means that any org buffer is also used for targets.
     #+begin_src emacs-lisp
       (setq org-refile-targets '((nil :maxlevel . 5)
@@ -1210,6 +1276,7 @@
     #+end_src
 
 *** Tags
+
     I want to set up set of common tags. We'll define a group of mutually exclusive tags (prefixed with an '@') for /context/, and another set of tags for categories.
     #+begin_src emacs-lisp
       (setq org-tag-alist '((:startgroup)
@@ -1272,7 +1339,9 @@
       (setq org-use-fast-tag-selection t)
       (setq org-fast-tag-selection-single-key t)
     #+end_src
+
 *** todo keywords
+
     Here's the set of keywords I use for tracking states for my list items:
     #+begin_src emacs-lisp
       (setq org-todo-keywords
@@ -1280,6 +1349,7 @@
     #+end_src
 
 *** key bindings                                                 :keybinding:
+
     Since let's also define some sensible bindings for org mode! In
     particular, let's make it easy to create capture templates and to
     view the agenda.
@@ -1288,9 +1358,11 @@
         "c" 'org-capture
         "a" 'org-agenda)
     #+END_SRC
+
 ** Agenda
 
 *** Agenda files                                                        :GTD:
+
     We only want to show agenda items from the GTD files where actual items lie, so there's no some day / maybe list included.
     #+begin_src emacs-lisp
       (setq org-agenda-files '("~/gtd/inbox.org"
@@ -1301,6 +1373,7 @@
 
 
 *** Custom commands
+
     Let's create some custom commands to use with the agenda view:
     #+begin_src emacs-lisp
       (setq org-agenda-custom-commands
@@ -1312,6 +1385,7 @@
     #+end_src
 
 *** Weekly view
+
     For the weekly view, instead of seeing the current week (Monday through Sunday), I prefer seeing the next ~n~ and the previous ~m~ days.
     #+begin_src emacs-lisp
       (setq org-agenda-start-on-weekday nil
@@ -1320,6 +1394,7 @@
     #+end_src
 
 ** Org-ref
+
    I use [[https://github.com/jkitchin/org-ref][org-ref]] for managing bibliographies and citations.
 
    #+begin_src emacs-lisp
@@ -1335,6 +1410,7 @@
    #+end_src
 
 ** Babel
+
    In addition to the basic org-babel setup, we can add some more
    languages and a couple extra packages to make it even smoother to
    work with.
@@ -1360,6 +1436,7 @@
    #+end_src
 
 ** Other settings
+
    I like seeing symbols in my buffer, rather than LaTeX commands. This makes '\alpha + \pi' look like 'α + π' and also displays sub- and superscripts properly.
    #+begin_src emacs-lisp
      (setq org-pretty-entities t)
@@ -1389,6 +1466,7 @@
    #+end_src
 
 ** Additional keybindings                                        :keybinding:
+
    There some org functionality that's not bound to anything by
    default, so let's see what we can do about that.
 
@@ -1444,6 +1522,7 @@
 
 
 ** Overrides
+
    Based on [[https://stackoverflow.com/a/54251825][this Stack Overflow answer]], we can make org-capture not
    delete other windows by redefining some functionality before
    calling it:
@@ -1467,7 +1546,9 @@
        (my-app-def
          "r" 'helm-org-rifle-agenda-files))
    #+END_SRC
+
 ** Formatting
+
    #+BEGIN_SRC emacs-lisp
      (defun unpackaged/org-fix-blank-lines (prefix)
        "Ensure that blank lines exist between headings and between headings and their contents.
@@ -1525,11 +1606,14 @@
   #+END_SRC
 
 * TODO [#C] Surround
+
   I want to find some way to have the equivalent of vim/evil-surround
   but in pure Emacs-mode. Not sure how to do it just yet, but it
   should be possible. The easiest may be to use evil-surround, just
   mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
+
 * TODO [#C] Change inner                                         :keybinding:
+
   Note: this could do with some improvements to also accept closing parens,
   braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
   ~parens~. Should actually be fairly doable. This has been reported previously
@@ -1542,10 +1626,12 @@
       :bind (("M-i" . change-inner)
 	     ("M-o" . change-outer)))
   #+end_src
+
 * Hydra
   :PROPERTIES:
   :REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
   :END:
+
   #+BEGIN_SRC emacs-lisp
     (use-package hydra
       :demand t
@@ -1633,6 +1719,7 @@
       :config
       (setq aw-dispatch-always t))
   #+END_SRC
+
 * Smartparens
   :PROPERTIES:
   :REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
@@ -1667,6 +1754,7 @@
   #+END_SRC
 
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
+
 * Editorconfig
   :PROPERTIES:
   :REPO:     [[https://github.com/editorconfig/editorconfig-emacs][GitHub]]
@@ -1762,6 +1850,7 @@
   :properties:
   :repo:     [[https://depp.brause.cc/eyebrowse/][depp.brause.cc]]
   :end:
+
   i'm trying out eyebrowse for a while. I've had some issues with it
   not working properly with X windows, but I'll try it out and see how
   I get on.
@@ -1784,6 +1873,7 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/bbatsov/projectile][GitHub]]
   :END:
+
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :after (ivy ripgrep)
@@ -1806,6 +1896,7 @@
    :LOGBOOK:
    - State "TODO"       from              [2020-08-15 Sat 12:42]
    :END:
+
    [[https://github.com/ericdanan/counsel-projectile][Counsel-projectile]] offers deeper Ivy integration than just pure
    projectile. Revisit this package after you've spent some time with
    regular old projectile and see what's up.
@@ -1844,8 +1935,10 @@
   :LOGBOOK:
   - State "TODO"       from              [2020-08-16 Sun 13:27]
   :END:
+
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
+
 * TODO [#C] exwm
   :PROPERTIES:
   :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
@@ -2018,6 +2111,7 @@
 
       (exwm-init))
   #+END_SRC
+
 ** desktop-environment
    :PROPERTIES:
    :REPO:     [[https://github.com/DamienCassou/desktop-environment][GitHub]]
@@ -2062,6 +2156,7 @@
          ;; Bluetooth controls
          "<XF86Bluetooth>" 'desktop-environment-toggle-bluetooth))
    #+END_SRC
+
 * TODO multiterm
   :PROPERTIES:
   :REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
@@ -2113,6 +2208,7 @@
    :PROPERTIES:
    :REPO:     [[https://github.com/coldnew/eshell-autojump][GitHub]]
    :END:
+
    #+BEGIN_SRC emacs-lisp :tangle no
      (use-package eshell-autojump
        :demand t)
@@ -2122,6 +2218,7 @@
   :LOGBOOK:
   - State "TODO"       from              [2020-08-14 Fri 08:38]
   :END:
+
   Get BibTex to work properly. [[http://www.jonathanleroux.org/bibtex-mode.html][Here's the manual]]. See what you can
   find.
 
@@ -2172,6 +2269,7 @@
    #+END_SRC
 
 * Mode line
+
   We can configure the mode line to only show what we want. I find
   that the default displ/ays far more information than I know what to
   do with, so let's trim it down a bit and show only what's necessary.
@@ -2270,6 +2368,7 @@
   :PROPERTIES:
   :WIKI:     [[https://www.emacswiki.org/emacs/TransposeFrame][EmacsWiki]]
   :END:
+
   #+BEGIN_SRC emacs-lisp
     (use-package transpose-frame)
   #+END_SRC
@@ -2292,6 +2391,7 @@
   #+END_SRC
 
 * Norwegian symbols for linux                                         :linux:
+
   Compared to the English alphabet, Norwegian has three extra vowels:
   æ, ø, and å. These are not normally accessible from a US keyboard,
   but emacs lets us create our own mappings. These mappings map to how
@@ -2312,6 +2412,7 @@
   #+end_src
 
 * Timestamps
+
   Having a simple way to insert the current timestamp in an
   ISO-friendly manner can be quite useful.
   #+BEGIN_SRC emacs-lisp
@@ -2330,6 +2431,7 @@
   :LOGBOOK:
   - State "TODO"       from              [2020-08-16 Sun 19:53]
   :END:
+
   Consider using [[https://github.com/magnars/js2-refactor.el][js2-refactor]] if rjsx (and lsp) isn't enough.
 
   rjsx-mode extends js2-mode to add support for JSX.
@@ -2370,6 +2472,7 @@
   - State "TODO"       from              [2020-08-20 Thu 21:29] \\
     Find out why this messes with EXWM and frame alignment.
   :END:
+
   Apparently, the built-in desktop library can save your sessions and
   restore them when you start back up. Let's try it out and see what
   happens.
@@ -2471,6 +2574,7 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/alphapapa/bufler.el][GitHub]]
   :END:
+
   Bufler is a buffer management tool that groups your buffers into
   projects or other groups for easier navigation.
 
@@ -2517,6 +2621,7 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/wwwjfy/emacs-fish][GitHub]]
   :END:
+
   #+BEGIN_SRC emacs-lisp
     (use-package fish-mode
       :mode "\\.fish\\'")
