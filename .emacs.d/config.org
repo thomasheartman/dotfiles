@@ -3,6 +3,22 @@
 #+TAGS: keybinding | { os : macos | linux } | GTD
 #+todo: TODO(t@) | DONE(d!)
 
+* Toggle debug
+  :PROPERTIES:
+  :header-args: :tangle no
+  :END:
+  When having issues, set this to ~:tangle yes~
+  #+BEGIN_SRC emacs-lisp
+    (setq debug-on-error t)
+  #+END_SRC
+
+  If you need to figure out when a variable is modified, try using the
+  following snippet:
+  #+BEGIN_SRC emacs-lisp
+    (debug-on-variable-change 'ido-mode)
+  #+END_SRC
+
+
 * Package setup
 ** Package archives
    Set up archives for packages:
