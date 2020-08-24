@@ -1795,19 +1795,15 @@
   This is based on a mix between my own setup and [[https://github.com/daedreth/UncleDavesEmacs][UncleDavesEmacs]]
   setup.
 
-
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
       :after ivy
       :unless on-macos
+      :custom
+      (exwm-replace nil)
       :config
-      (require 'exwm-config)
-
       (server-start)
-
-      (exwm-config-ido)
-
       (setq exwm-workspace-number 3
             exwm-workspace-show-all-buffers t
             exwm-layout-show-all-buffers t)
@@ -1952,8 +1948,7 @@
                    print))
         (cl-pushnew k exwm-input-prefix-keys))
 
-      (exwm-init)
-      )
+      (exwm-init))
   #+END_SRC
 ** desktop-environment
 
