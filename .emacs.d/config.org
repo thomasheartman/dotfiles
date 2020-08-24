@@ -2364,3 +2364,39 @@
     (use-package fish-mode
       :mode "\\.fish\\'")
   #+END_SRC
+
+* yaml mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/yaml/yaml-mode][GitHub]]
+  :END:
+
+  We'll install yaml-mode and also follow the [[https://www.emacswiki.org/emacs/YamlMode][EmacsWiki's suggestion]]
+  to make return indent the cursor on the next line.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package yaml-mode
+      :general
+      (:keymaps yaml-mode-map
+                "C-m" 'newline-and-indent))
+  #+END_SRC
+
+* TODO indent-tools
+  :PROPERTIES:
+  :REPO:     [[https://gitlab.com/emacs-stuff/indent-tools/][GitLab]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-08-24 Mon 11:58] \\
+    Fix some of the bindings. For undo, for instance, it relies on
+    undo-tree, which I don't use. Instead, make undo (the regular emacs
+    one) available from the hydra. Also, parent-child-movement seems a bit
+    wonky in yaml.
+  :END:
+
+  indent-tools provides a hydra that offers a number of ways to
+  interact with indentation-based languages such as YAML and Python.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package indent-tools
+      :general
+      ("C-c i" 'indent-tools-hydra/body))
+  #+END_SRC
