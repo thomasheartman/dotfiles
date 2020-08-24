@@ -2382,14 +2382,8 @@
   :REPO:     [[https://github.com/yaml/yaml-mode][GitHub]]
   :END:
 
-  We'll install yaml-mode and also follow the [[https://www.emacswiki.org/emacs/YamlMode][EmacsWiki's suggestion]]
-  to make return indent the cursor on the next line.
-
   #+BEGIN_SRC emacs-lisp
-    (use-package yaml-mode
-      :general
-      (:keymaps yaml-mode-map
-                "C-m" 'newline-and-indent))
+    (use-package yaml-mode)
   #+END_SRC
 
 * TODO indent-tools
