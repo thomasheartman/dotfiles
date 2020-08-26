@@ -470,6 +470,17 @@
     #+BEGIN_SRC emacs-lisp
       (setq gc-cons-threshold 20000000)
     #+END_SRC
+*** subprocess throughput
+
+    This section increases the throughput available to subprocesses.
+    This value was hardcoded before Emacs 27, so we first want to
+    check whether the variable is bound or not. If it is, increase it.
+
+    #+BEGIN_SRC emacs-lisp
+      (when (boundp 'read-process-output-max)
+        (setq read-process-output-max (* 1024 1024 3)))
+    #+END_SRC
+
 *** OS-specifics                                                         :os:
     Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
 **** macOS                                                            :macos:
