@@ -2177,6 +2177,40 @@
        (add-to-list 'company-backends 'company-omnisharp))
    #+END_SRC
 
+
+   Omnisharp-mode decides which server version to use based on what a
+   certain variable is set to. Because this can get outdated, here's a
+   function you can use to set the variable to the most recent
+   version:
+
+   #+BEGIN_SRC emacs-lisp
+     (defun latest-version-from-github-json-api-response (input)
+       "Extract the tag name from a GitHub API response to the releases endpoint."
+       (require 'json)
+       (require 'subr-x)
+       (let* ((json-object-type 'hash-table)
+              (json-array-type 'list)
+              (json-key-type 'string))
+         (string-remove-prefix "v"
+                               (gethash "tag_name"
+                                        (json-read-from-string input)))))
+
+
+     (defun get-latest-omnisharp-release ()
+       (shell-command-to-string "curl https://api.github.com/repos/omnisharp/omnisharp-roslyn/releases/latest 2>/dev/null"))
+
+     (defun set-latest-omnisharp-version ()
+       "Fetch release data from GitHub and set the expected server
+     version to the most recent release."
+       (interactive)
+       (message "Fetching data about the latest release ...")
+       (let* ((output (get-latest-omnisharp-release))
+              (version (latest-version-from-github-json-api-response output)))
+         (message "The most recent version is v%s." version)
+         (setq omnisharp-expected-server-version version)))
+   #+END_SRC
+
+
 * Transpose-frame
   :PROPERTIES:
   :WIKI:     [[https://www.emacswiki.org/emacs/TransposeFrame][EmacsWiki]]
