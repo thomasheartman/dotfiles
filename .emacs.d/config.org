@@ -102,7 +102,7 @@
      (general-create-definer my-app-def
        :prefix my-app-prefix)
 
-     (defconst my-format-buffer "C-c C-f")
+     (defconst my-format-buffer "<f1>")
    #+END_SRC
 
 * OS/system variables
