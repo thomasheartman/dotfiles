@@ -947,7 +947,7 @@
       (setq which-key-idle-secondary-delay 0.05))
   #+END_SRC
 
-* TODO LSP mode                                                  :keybinding:
+* LSP mode                                                       :keybinding:
   :PROPERTIES:
   :REPO:     [[https://github.com/emacs-lsp/lsp-mode][GitHub]]
   :END:
@@ -955,9 +955,7 @@
   - State "TODO"       from              [2020-08-11 Tue 20:06]
   :END:
 
-  TODO: run ~lsp-doctor~ and find out what you can fix. See [[https://emacs-lsp.github.io/lsp-mode/page/performance/][the
-  performance page for more details]]. Much of this depends on having
-  Emacs 27+, so make sure you can get hold of this first.
+  For performance tips see [[https://emacs-lsp.github.io/lsp-mode/page/performance/][the performance page for more details]].
 
   This setup is nearly identical to the recommended approach in their
   [[https://emacs-lsp.github.io/lsp-mode/page/installation/][installation instructions]], with some minor tweaks.
@@ -1001,11 +999,10 @@
       :mode "\\.rs\\'"
       :after lsp-mode
       :hook
-      (rust-mode . lsp-mode)
+      (rust-mode . lsp)
       :config
-      (message "configuring rust-mode")
       (setq rust-format-on-save t
-	    lsp-rust-server 'rust-analyzer))
+            lsp-rust-server 'rust-analyzer))
   #+END_SRC
 
   We can also use [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] to improve flycheck cargo handling.
@@ -2151,8 +2148,12 @@
    #+BEGIN_SRC emacs-lisp
      (use-package csharp-mode
        :mode "\\.cs\\'"
+       :after lsp-mode
+       :general
+       (csharp-mode-map
+        my-format-buffer 'lsp-format-buffer)
        :hook
-       (csharp-mode . lsp-mode))
+       (csharp-mode . lsp))
    #+END_SRC
 
 
