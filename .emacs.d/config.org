@@ -90,7 +90,7 @@
    #+BEGIN_SRC emacs-lisp
      (defconst my-link-prefix "C-x l")
      (defconst my-flycheck-prefix "C-c e")
-     (defconst my-lsp-prefix "C-c l")
+     (defconst my-lsp-prefix "<f6>")
      (defconst my-app-prefix "<f5>")
 
      (general-create-definer my-link-def
