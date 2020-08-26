@@ -853,22 +853,24 @@
   #+BEGIN_SRC emacs-lisp
     (defun my-company-tng-setup ()
       (setq company-require-match nil
-	    company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
-				company-echo-metadata-frontend
-				company-tng-frontend
-				company-preview-if-just-one-frontend))
-      (let ((keymap company-active-map))
-	(define-key keymap [return] nil)
-	(define-key keymap (kbd "TAB") 'company-complete-selection)
-	(define-key keymap (kbd "<C-right>") 'company-complete-common)
-	(define-key keymap (kbd "RET") nil)))
+            company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
+                                company-echo-metadata-frontend
+                                company-tng-frontend
+                                company-preview-if-just-one-frontend)))
     (use-package company
+      :general
+      (company-active-map
+       "TAB" 'company-complete)
+      (general-unbind
+        company-active-map
+        [return]
+        "RET")
+      ("C-<f5>" 'company-complete)
       :config
       (global-company-mode)
-      (global-set-key (kbd "C-<f5>") 'company-complete)
       (my-company-tng-setup)
       (setq company-idle-delay 0.2
-	    company-selection-wrap-around t))
+            company-selection-wrap-around t))
   #+END_SRC
 
   When using varying font sizes within a buffer, this can make the
