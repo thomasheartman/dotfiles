@@ -156,16 +156,17 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package one-themes
-	:init
-	(setq emacs-one-use-variable-pitch nil
-	      emacs-one-scale-org-headlines nil
-	      emacs-one-height-minus-1 1.0
-	      emacs-one-height-plus-1 1.0
-	      emacs-one-height-plus-2 1.0
-	      emacs-one-height-plus-3 1.0
-	      emacs-one-height-plus-4 1.0)
-	:config
-	(load-theme 'one-dark t))
+        :after org
+        :init
+        (setq emacs-one-use-variable-pitch nil
+              emacs-one-scale-org-headlines nil
+              emacs-one-height-minus-1 1.0
+              emacs-one-height-plus-1 1.0
+              emacs-one-height-plus-2 1.0
+              emacs-one-height-plus-3 1.0
+              emacs-one-height-plus-4 1.0)
+        :config
+        (load-theme 'one-dark t))
 
     #+END_SRC
 
