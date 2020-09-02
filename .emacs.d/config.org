@@ -918,7 +918,8 @@
       (global-company-mode)
       (my-company-tng-setup)
       (setq company-idle-delay 0.2
-            company-selection-wrap-around t))
+            company-selection-wrap-around t
+            company-show-numbers t))
   #+END_SRC
 
   When using varying font sizes within a buffer, this can make the
