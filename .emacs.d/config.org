@@ -1019,6 +1019,9 @@
     (use-package lsp-mode
       :hook
       ((lsp-mode . lsp-enable-which-key-integration))
+      :general
+      (lsp-mode-map
+       my-format-buffer 'lsp-format-buffer)
       :commands lsp)
     (use-package lsp-ui :commands lsp-ui-mode
       :general
