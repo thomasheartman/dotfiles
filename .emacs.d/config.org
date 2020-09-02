@@ -2661,3 +2661,10 @@
       :general
       ("C-c i" 'indent-tools-hydra/body))
   #+END_SRC
+
+* term-mode
+  To make fish work properly in ansi-term, this little configuration
+  is necessary:
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'term-mode-hook 'toggle-truncate-lines)
+  #+END_SRC
