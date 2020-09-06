@@ -1592,6 +1592,32 @@
        my-format-buffer 'unpackaged/org-fix-blank-lines)
    #+END_SRC
 
+** TODO org-plus-contrib
+   :LOGBOOK:
+   - State "TODO"       from "TODO"       [2020-08-30 Sun 14:26] \\
+     Make this work somehow.
+
+     I tested in on NixOS just now, but with no luck. Trying to require
+     'org-contrib threw an error saying the file couldn't be found. I'm not
+     ready to spend a lot of time on this just now, so look at it again
+     some other time.
+   - State "TODO"       from              [2020-08-30 Sun 14:19] \\
+     Figure out how this works with macos.
+   :END:
+   To be able to store links to notmuch emails, we can require
+   org-notmuch. However, this requires that we add the contrib
+   directory to load path. [[https://notmuchmail.org/emacstips/][According to the notmuch manual]], this can
+   be done like this on NixOS:
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (loop for p in load-path
+           do (if (file-accessible-directory-p p)
+                  (let ((m (directory-files-recursively p "^org-notmuch.el$")))
+                    (if m (add-to-list 'load-path (file-name-directory (car m)))))))
+
+
+     ;; (require 'org-notmuch)
+   #+END_SRC
+
 * Yasnippet
   :PROPERTIES:
   :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
