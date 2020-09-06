@@ -1590,7 +1590,7 @@
                             'tree)))
      (general-def
        :keymaps 'org-mode-map
-       my-format/-buffer 'unpackaged/org-fix-blank-lines)
+       my-format-buffer 'unpackaged/org-fix-blank-lines)
    #+END_SRC
 
 ** TODO org-plus-contrib
