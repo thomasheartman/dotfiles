@@ -1021,6 +1021,7 @@
       ((lsp-mode . lsp-enable-which-key-integration))
       :general
       (lsp-mode-map
+       :start-maps t
        my-format-buffer 'lsp-format-buffer)
       :commands lsp)
     (use-package lsp-ui :commands lsp-ui-mode
@@ -1589,7 +1590,7 @@
                             'tree)))
      (general-def
        :keymaps 'org-mode-map
-       my-format-buffer 'unpackaged/org-fix-blank-lines)
+       my-format/-buffer 'unpackaged/org-fix-blank-lines)
    #+END_SRC
 
 ** TODO org-plus-contrib
@@ -2345,6 +2346,7 @@
        :after lsp-mode
        :general
        (csharp-mode-map
+        :start-maps t
         my-format-buffer 'lsp-format-buffer)
        :hook
        (csharp-mode . lsp))
@@ -2732,4 +2734,35 @@
       :global t
       :keymap (make-sparse-keymap))
     (heart-mode)
+  #+END_SRC
+
+* Geiser / Scheme
+  :PROPERTIES:
+  :WEBSITE:  [[https://www.nongnu.org/geiser/][nongnu.org/geiser]]
+  :END:
+  Based on [[https://ebzzry.io/en/emacs-scheme/][this blog post]], I'm experimenting with using [[https://www.nongnu.org/geiser/][Geiser]] for
+  Scheme mode.
+  #+BEGIN_SRC emacs-lisp
+    (use-package geiser
+      :config
+      (setq geiser-active-implementations '(mit))
+      (defun geiser-save ()
+        "Invoke in the REPL buffer to force saving of the history to
+    the disk file, which is found in ~/.geiser_history.mit, by
+    default. It is useful if you want to save your REPL session,
+    immediately."
+        (interactive)
+        (geiser-repl--write-input-ring)))
+  #+END_SRC
+
+* Dot mode
+  :PROPERTIES:
+  :WEBSITE:  [[http://wyrick.org/source/elisp/dot-mode/][wyrick.org/source/elisp/dot-mode]]
+  :REPO:     [[https://github.com/wyrickre/dot-mode][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package dot-mode
+      :config
+      (global-dot-mode))
   #+END_SRC
