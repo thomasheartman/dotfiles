@@ -1759,6 +1759,16 @@
   #+END_SRC
 
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
+  :PROPERTIES:
+  :REPO:     [[https://github.com/smihica/emmet-mode][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package emmet-mode
+      :config
+      (setq emmet-expand-jsx-className? t))
+  #+END_SRC
+
 
 * Editorconfig
   :PROPERTIES:
@@ -2471,6 +2481,23 @@
           :keymaps 'local
           my-format-buffer 'prettier-js)))
   #+END_SRC
+
+* Typescript
+
+** Tide
+   #+BEGIN_SRC emacs-lisp
+     (use-package tide
+       :mode ("\\.tsx?\\'" . typescript-mode)
+       :after (typescript-mode company flycheck prettier-js)
+       :hook ((typescript-mode . tide-setup)
+              (typescript-mode . tide-hl-identifier-mode)
+              (typescript-mode . lsp)
+              (typescript-mode . prettier-js-mode)
+              (typescript-mode . emmet-mode)
+              (before-save . 'prettier-js)))
+   #+END_SRC
+
+
 
 * TODO desktop (saving emacs sessions)
   :LOGBOOK:
