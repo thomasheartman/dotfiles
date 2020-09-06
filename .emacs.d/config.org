@@ -2695,3 +2695,15 @@
   #+BEGIN_SRC emacs-lisp
     (add-hook 'term-mode-hook 'toggle-truncate-lines)
   #+END_SRC
+
+* heart-mode
+  We can define a personalized minor mode to store keymaps in. This
+  may be an efficient way to make sure that keymaps are always
+  relevant. This is based on [[https://nullprogram.com/blog/2013/02/06/][this blog post (by Skeeto)]].
+  #+Begin_src emacs-lisp
+    (define-minor-mode heart-mode
+      "A minor mode for extra key mappings"
+      :global t
+      :keymap (make-sparse-keymap))
+    (heart-mode)
+  #+END_SRC
