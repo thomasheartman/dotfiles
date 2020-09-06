@@ -844,6 +844,16 @@
    #+END_SRC
 
 
+** Calendar
+
+   The emacs calendar uses Sunday as the first day of the week by
+   default, but I prefer weeks starting on Mondays.
+   #+BEGIN_SRC emacs-lisp
+     (setq calendar-week-start-day 1)
+   #+END_SRC
+
+
+
 * Ivy                                                            :keybinding:
 
   Following the [[https://oremacs.com/swiper/][Ivy Documentation]], let's install Ivy (and Counsel and
