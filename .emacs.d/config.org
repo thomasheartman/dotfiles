@@ -806,6 +806,15 @@
          (global-set-key (kbd "C-x _") 'split-window-below-and-focus)
        #+END_SRC
 
+*** Buffer functions
+    #+BEGIN_SRC emacs-lisp
+      (defun my-kill-current-buffer ()
+        "Kill the currently active buffer."
+        (interactive)
+        (kill-buffer))
+    #+END_SRC
+
+
 *** Rename current file
 
     Based on [[https://stackoverflow.com/a/25212377][this Stack Overflow answer]].
@@ -2207,6 +2216,24 @@
          "<XF86WLAN>" 'desktop-environment-toggle-wifi
          ;; Bluetooth controls
          "<XF86Bluetooth>" 'desktop-environment-toggle-bluetooth))
+   #+END_SRC
+
+** matching macOS bindings                                            :macos:
+   Because the bindings for EXWM using the super key are very
+   accessible, we can bind the equivalent key presses for macOS.
+   Because Alt+characters tend to give other characters on macOS, the
+   list will look a bit different.
+   #+BEGIN_SRC emacs-lisp
+     (when on-macos
+       (general-def
+         "π" 'previous-buffer
+         "∫" 'switch-to-buffer
+         "œ" 'my-kill-current-buffer
+         "ƒ" 'find-file
+         "µ" 'my-maximize-or-undo-window
+         "∑" 'hydra-window-movement/body
+         "»" 'split-window-right-and-focus
+         "—" 'split-window-below-and-focus))
    #+END_SRC
 
 * TODO multiterm
