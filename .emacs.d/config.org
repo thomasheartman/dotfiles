@@ -2020,7 +2020,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
-      :after (ivy hydra)
+      :after hydra
       :when use-exwm
       :custom
       (exwm-replace nil)
@@ -2069,8 +2069,9 @@
               ;; buffer management
               ([?\s-n] . next-buffer)
               ([?\s-p] . previous-buffer)
-              ([?\s-b] . ivy-switch-buffer)
+              ([?\s-b] . switch-to-buffer)
               ([?\s-f] . find-file)
+              ([?\s-q] . my-kill-current-buffer)
 
               ;; window navigation and management
               ([?\s-w] . hydra-window-movement/body)
