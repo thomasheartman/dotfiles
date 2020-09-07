@@ -2020,7 +2020,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
-      :after ivy
+      :after (ivy hydra)
       :when use-exwm
       :custom
       (exwm-replace nil)
@@ -2064,15 +2064,16 @@
               ([?\s- ] . my-exwm-launcher)
 
               ;; workspaces
-              ([?\s-w] . exwm-workspace-switch)
               ([?\s-s] . exwm-workspace-move-window)
 
               ;; buffer management
               ([?\s-n] . next-buffer)
               ([?\s-p] . previous-buffer)
               ([?\s-b] . ivy-switch-buffer)
+              ([?\s-f] . find-file)
 
               ;; window navigation and management
+              ([?\s-w] . hydra-window-movement/body)
               ([?\s-k] . windmove-up)
               ([?\s-j] . windmove-down)
               ([?\s-l] . windmove-right)
