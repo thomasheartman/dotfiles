@@ -1589,7 +1589,11 @@
          "r" 'helm-org-rifle-agenda-files))
    #+END_SRC
 
-** Formatting
+** TODO Formatting
+   :LOGBOOK:
+   - State "TODO"       from              [2020-09-09 Wed 14:26] \\
+     Find out how to make before-save-hook actually work.
+   :END:
 
    #+BEGIN_SRC emacs-lisp
      (defun unpackaged/org-fix-blank-lines (prefix)
@@ -1627,6 +1631,16 @@
      (general-def
        :keymaps 'org-mode-map
        my-format-buffer 'unpackaged/org-fix-blank-lines)
+   #+END_SRC
+
+   I don't like to have to remember to format my document, so I'd
+   rather it be done automatically before saving:
+
+   #+BEGIN_SRC emacs-lisp
+     (defun my-org-mode-hook ()
+       (add-hook 'before-save-hook #'unpackaged/org-fix-blank-lines nil 'local))
+
+     (add-hook 'org-mode-hook #'my-org-mode-hook)
    #+END_SRC
 
 ** TODO org-plus-contrib
