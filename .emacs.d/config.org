@@ -1146,9 +1146,15 @@
         my-format-buffer 'nix-format-buffer))
   #+end_src
 
-* JSON mode
+* TODO JSON mode
   :PROPERTIES:
   :REPO:      [[https://github.com/joshwnj/json-mode][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-09-10 Thu 15:30] \\
+    Todo: set up auto-formatting before save and bound to my-format-buffer
+    key. Should first try to use prettier, and if prettier isn't
+    available, should use the built-in json-format-buffer.
   :END:
 
   For JSON support and, more specifically, for Nix mode, which seems
