@@ -988,6 +988,23 @@
                   ("C-c M-w" . forge-copy-url-at-point-as-kill)))
   #+END_SRC
 
+* Git-modes
+  :PROPERTIES:
+  :REPO:     [[https://github.com/magit/git-modes][GitHub]]
+  :END:
+  In addition to just Magit, Magit also has modes for git config,
+  ignore, and attributes files.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package gitattributes-mode)
+
+    (use-package gitconfig-mode)
+
+    (use-package gitignore-mode
+      :mode "\\.dockerignore\\'")
+  #+END_SRC
+
+
 * Rainbow delimiters
 
   Rainbow delimiters make it much easier to read a lot of code, so
