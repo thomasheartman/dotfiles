@@ -2270,6 +2270,7 @@
          "œ" 'my-kill-current-buffer
          "ƒ" 'find-file
          "ß" (general-key "C-x C-s")
+         "©" 'magit-status
          "µ" 'my-maximize-or-undo-window
          "∑" 'hydra-window-movement/body
          "»" 'split-window-right-and-focus
