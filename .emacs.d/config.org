@@ -2844,3 +2844,29 @@
       :config
       (global-dot-mode))
   #+END_SRC
+
+* Docker
+
+** Dockerfile-mode
+   :PROPERTIES:
+   :REPO:     [[https://github.com/spotify/dockerfile-mode][GitHub]]
+   :END:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package dockerfile-mode
+       :config
+       (put 'dockerfile-image-name 'safe-local-variable #'stringp))
+   #+END_SRC
+
+
+** TODO docker.el
+   :PROPERTIES:
+   :REPO:     [[https://github.com/Silex/docker.el][GitHub]]
+   :END:
+   :LOGBOOK:
+   - State "TODO"       from              [2020-09-11 Fri 14:03] \\
+     Test this out.
+   :END:
+
+   This package looks very interesting for when you work a lot with
+   Docker containers.
