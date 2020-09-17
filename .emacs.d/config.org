@@ -2057,7 +2057,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
-      :after (hydra general)
+      :after hydra
       :when use-exwm
       :custom
       (exwm-replace nil)
@@ -2096,12 +2096,11 @@
         (interactive)
         (my-exwm-switch-workspace '-))
 
+      (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
+
       (setq exwm-input-global-keys
             `(([?\s-r] . exwm-reset)
               ([?\s- ] . my-exwm-launcher)
-
-              ;; save buffer(s)
-              ([?\s-s] . (general-key "C-x C-s"))
 
               ;; buffer management
               ([?\s-n] . next-buffer)
