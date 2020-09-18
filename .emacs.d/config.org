@@ -933,9 +933,10 @@
         [return]
         "RET")
       ("C-<f5>" 'company-complete)
+      :hook
+      (company-mode . company-tng-mode)
       :config
       (global-company-mode)
-      (my-company-tng-setup)
       (setq company-idle-delay 0.2
             company-selection-wrap-around t
             company-show-numbers t))
