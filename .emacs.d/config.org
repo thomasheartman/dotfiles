@@ -2871,3 +2871,16 @@
 
    This package looks very interesting for when you work a lot with
    Docker containers.
+
+* Whole line or region
+  :PROPERTIES:
+  :REPO:     [[https://github.com/purcell/whole-line-or-region][GitHub]]
+  :END:
+
+  To make certain actions (cut, copy, paste) work on whole lines of
+  there is no region, I'll rely on purcell's package:
+  #+BEGIN_SRC emacs-lisp
+    (use-package whole-line-or-region
+      :config
+      (whole-line-or-region-global-mode))
+  #+END_SRC
