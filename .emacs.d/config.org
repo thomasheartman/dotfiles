@@ -2258,6 +2258,7 @@
    #+END_SRC
 
 ** matching macOS bindings                                            :macos:
+
    Because the bindings for EXWM using the super key are very
    accessible, we can bind the equivalent key presses for macOS.
    Because Alt+characters tend to give other characters on macOS, the
