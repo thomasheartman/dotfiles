@@ -2073,7 +2073,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
-      :after hydra
+      :after (hydra magit)
       :when use-exwm
       :custom
       (exwm-replace nil)
@@ -2124,6 +2124,8 @@
               ([?\s-b] . switch-to-buffer)
               ([?\s-f] . find-file)
               ([?\s-q] . my-kill-current-buffer)
+
+              ([?\s-g] . magit-status)
 
               ;; window navigation and management
               ([?\s-w] . hydra-window-movement/body)
