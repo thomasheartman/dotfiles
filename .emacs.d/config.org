@@ -419,6 +419,21 @@
      #+END_SRC
 
 
+**** delete-selection-mode
+
+     More often than not, when I start typing while I've got an active
+     region, I want to overwrite what's in the region. The same goes
+     for when I'm pasting content. By default, Emacs doesn't do this,
+     but it can easily be enabled:
+
+     #+BEGIN_SRC emacs-lisp
+       (delete-selection-mode)
+     #+END_SRC
+
+     In case you're using smartparens or other packages that
+     auto-surround a selection if you input certain delimiters: don't
+     worry. They'll still work as intended.
+
 *** Copy current file path
 
     #+BEGIN_SRC emacs-lisp
