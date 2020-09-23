@@ -2124,6 +2124,7 @@
               ([?\s-b] . switch-to-buffer)
               ([?\s-f] . find-file)
               ([?\s-q] . my-kill-current-buffer)
+              ([?\s-d] . delete-window)
 
               ([?\s-g] . magit-status)
 
@@ -2286,6 +2287,7 @@
          "π" 'previous-buffer
          "∫" 'switch-to-buffer
          "œ" 'my-kill-current-buffer
+         "∂" 'delete-window
          "ƒ" 'find-file
          "ß" (general-key "C-x C-s")
          "©" 'magit-status
