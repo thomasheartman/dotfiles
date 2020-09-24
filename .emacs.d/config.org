@@ -434,6 +434,27 @@
      auto-surround a selection if you input certain delimiters: don't
      worry. They'll still work as intended.
 
+**** Switch to previously used window
+
+     Emacs doesn't come with an obvious way to cycle between most
+     recently used windows, but we can create a simple version that
+     switches to the most previously used window, at least. This is
+     based on code by github user luciferasm and [[https://github.com/abo-abo/ace-window/issues/125#issuecomment-377354995][was posted in an
+     issue on ace-window]].
+
+     #+BEGIN_SRC emacs-lisp
+       (defun my-previous-window ()
+         "Switch to the previously active window."
+         (interactive)
+         (let ((win (get-mru-window t t t)))
+           (unless win (error "There is no last window to switch to"))
+           (let ((frame (window-frame win)))
+             (raise-frame frame)
+             (select-frame frame)
+             (select-window win))))
+     #+END_SRC
+
+
 *** Copy current file path
 
     #+BEGIN_SRC emacs-lisp
@@ -2141,7 +2162,7 @@
               ([?\s-m] . my-maximize-or-undo-window)
 
               ;; workspace navigation and management
-              ([\s-tab] . my-exwm-previous-workspace)
+              ([\s-tab] . my-previous-window)
               ([?\s-l] . my-exwm-next-workspace-by-index)
               ([?\s-h] . my-exwm-previous-workspace-by-index)
 
