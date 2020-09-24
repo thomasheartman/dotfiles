@@ -843,6 +843,7 @@
        #+END_SRC
 
 *** Buffer functions
+
     #+BEGIN_SRC emacs-lisp
       (defun my-kill-current-buffer ()
         "Kill the currently active buffer."
@@ -1029,6 +1030,7 @@
   :PROPERTIES:
   :REPO:     [[https://github.com/magit/git-modes][GitHub]]
   :END:
+
   In addition to just Magit, Magit also has modes for git config,
   ignore, and attributes files.
 
@@ -1695,6 +1697,7 @@
    - State "TODO"       from              [2020-08-30 Sun 14:19] \\
      Figure out how this works with macos.
    :END:
+
    To be able to store links to notmuch emails, we can require
    org-notmuch. However, this requires that we add the contrib
    directory to load path. [[https://notmuchmail.org/emacstips/][According to the notmuch manual]], this can
@@ -2629,6 +2632,7 @@
 * Typescript
 
 ** Tide
+
    #+BEGIN_SRC emacs-lisp
      (use-package tide
        :mode ("\\.tsx?\\'" . typescript-mode)
@@ -2834,6 +2838,7 @@
   #+END_SRC
 
 * term-mode
+
   To make fish work properly in ansi-term, this little configuration
   is necessary:
   #+BEGIN_SRC emacs-lisp
@@ -2841,6 +2846,7 @@
   #+END_SRC
 
 * heart-mode
+
   We can define a personalized minor mode to store keymaps in. This
   may be an efficient way to make sure that keymaps are always
   relevant. This is based on [[https://nullprogram.com/blog/2013/02/06/][this blog post (by Skeeto)]].
@@ -2856,6 +2862,7 @@
   :PROPERTIES:
   :WEBSITE:  [[https://www.nongnu.org/geiser/][nongnu.org/geiser]]
   :END:
+
   Based on [[https://ebzzry.io/en/emacs-scheme/][this blog post]], I'm experimenting with using [[https://www.nongnu.org/geiser/][Geiser]] for
   Scheme mode.
   #+BEGIN_SRC emacs-lisp
