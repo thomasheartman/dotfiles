@@ -2928,3 +2928,98 @@
       :config
       (whole-line-or-region-global-mode))
   #+END_SRC
+
+* TODO ctrlxo
+  SCHEDULED: <2020-10-02 Fri>
+  :PROPERTIES:
+  :REPO:     [[https://github.com/muffinmad/emacs-ctrlxo][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-09-25 Fri 13:04] \\
+    Check whether the [[https://github.com/melpa/melpa/pull/7150][pull request to MELPA]] has been merged yet.
+  :END:
+
+  Based on a [[https://www.reddit.com/r/emacs/comments/ixnes0/how_to_select_last_active_window_and_cycle/][question I posted on Reddit about cycling windows in
+  order of most recently used]], user [[https://www.reddit.com/user/fzmad/][fzmad]] created a package to do just
+  this. As of [2020-09-23 Wed 15:36], the package is only available on
+  GitHub and not in any of the package archives, so I've taken the
+  liberty of simply copying and pasting the code below.
+
+  #+BEGIN_SRC emacs-lisp
+    (require 'seq)
+
+    (defgroup ctrlxo nil
+      "Select most recently used window."
+      :group 'windows)
+
+    (defcustom ctrlxo-inhibit-usage-message nil
+      "Inhibit usage message on transient keymap activation."
+      :type 'boolean)
+
+    (defvar ctrlxo--window-list nil)
+    (defvar ctrlxo--selected-window nil)
+
+    (defun ctrlxo--make-window-list ()
+      "Build window list sorted by recent usage."
+      (setq ctrlxo--window-list (sort (window-list-1 nil nil 'visible)
+                                      (lambda (w1 w2)
+                                        (> (window-use-time w1)
+                                           (window-use-time w2))))))
+
+    (defvar ctrlxo-map
+      (let ((map (make-sparse-keymap)))
+        (define-key map "o" #'ctrlxo-forward)
+        (define-key map "O" #'ctrlxo-backward)
+        (define-key map "\C-g" #'ctrlxo-cancel)
+        map)
+      "Transient keymap for switching to the next recent window.")
+
+    (defun ctrlxo--switch (num)
+      "Select next NUM most recent window."
+      (unless ctrlxo--window-list
+        (ctrlxo--make-window-list))
+      (let* ((idx (seq-position ctrlxo--window-list (selected-window)))
+             (idx (if idx
+                      (mod (+ idx num) (length ctrlxo--window-list))
+                    0)))
+        (select-window (elt ctrlxo--window-list idx) 'mark-for-redisplay)
+        (select-frame-set-input-focus (selected-frame) t)))
+
+    (defun ctrlxo--map-exit ()
+      "Record selected window."
+      (select-window (selected-window)))
+
+    (defun ctrlxo-forward ()
+      "Select next recent window."
+      (interactive)
+      (ctrlxo--switch 1))
+
+    (defun ctrlxo-backward ()
+      "Select previous recent window."
+      (interactive)
+      (ctrlxo--switch -1))
+
+    (defun ctrlxo-cancel ()
+      "Cancel window switching.
+    Select window that was active before invocation of `ctrlxo'."
+      (interactive)
+      (when ctrlxo--selected-window
+        (select-window ctrlxo--selected-window)
+        (select-frame-set-input-focus (selected-frame))))
+
+    (defun ctrlxo ()
+      "Build window list and switch to the most recently used window.
+    Activate transient keymap to switch to the next recently used window."
+      (interactive)
+      (setq ctrlxo--selected-window (selected-window))
+      (ctrlxo--make-window-list)
+      (ctrlxo-forward)
+      (unless ctrlxo-inhibit-usage-message
+        (message
+         (substitute-command-keys
+          "Next window: \\<ctrlxo-map>\\[ctrlxo-forward], previous window: \\<ctrlxo-map>\\[ctrlxo-backward], cancel switch: \\<ctrlxo-map>\\[ctrlxo-cancel].")))
+      (set-transient-map ctrlxo-map t #'ctrlxo--map-exit))
+
+
+
+  #+END_SRC
