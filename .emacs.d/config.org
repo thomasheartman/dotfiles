@@ -454,6 +454,14 @@
              (select-window win))))
      #+END_SRC
 
+*** column-number-mode
+
+    To see what the current column number is, activate
+    column-number-mode:
+    #+BEGIN_SRC emacs-lisp
+      (column-number-mode)
+    #+END_SRC
+
 
 *** Copy current file path
 
