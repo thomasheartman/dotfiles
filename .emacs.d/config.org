@@ -1051,6 +1051,17 @@
       :mode "\\.dockerignore\\'")
   #+END_SRC
 
+* Git-timemachine
+  :PROPERTIES:
+  :REPO:     [[https://github.com/emacsmirror/git-timemachine][GitHub]]
+  :END:
+
+  Git-timemachine offers a way to browse all revisions of a file.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package git-timemachine)
+  #+END_SRC
+
 
 * Rainbow delimiters
 
