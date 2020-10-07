@@ -3050,10 +3050,7 @@
          (substitute-command-keys
           "Next window: \\<ctrlxo-map>\\[ctrlxo-forward], previous window: \\<ctrlxo-map>\\[ctrlxo-backward], cancel switch: \\<ctrlxo-map>\\[ctrlxo-cancel].")))
       (set-transient-map ctrlxo-map t #'ctrlxo--map-exit))
-    (general-def
-      ctrlxo-map
-      "<tab>" 'ctrlxo-forward
-      "<backtab>" 'ctrlxo-backward)
+
     (general-def
       "C-x o" 'ctrlxo
       "s-<tab>" 'ctrlxo)
