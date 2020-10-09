@@ -2480,7 +2480,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package csharp-mode
-       :mode "\\.cs\\'"
+       :mode ("\\.csproj\\'" . xml-mode)
        :after lsp-mode
        :general
        (csharp-mode-map
