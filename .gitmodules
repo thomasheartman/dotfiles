@@ -1,6 +1,3 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/t-hart/.emacs.d
-[submodule ".tmux"]
-	path = .tmux
-	url = https://github.com/t-hart/.tmux
