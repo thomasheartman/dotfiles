@@ -576,7 +576,8 @@
          <<resize>>
          <<macos-exec-path>>
          <<macos-env-path>>
-         <<macos-key-config>>)
+         <<macos-key-config>>
+         <<macos-server-start>>)
      #+end_src
 
 ***** Resizing
@@ -623,6 +624,15 @@
               mac-command-modifier 'meta)
       #+END_SRC
 
+***** Starting the server
+
+      On macOS, let's have Emacs start a server for emacsclient
+      windows.
+
+      #+name: macos-server-start
+      #+BEGIN_SRC emacs-lisp
+        (server-start)
+      #+END_SRC
 
 *** Window functions
     :LOGBOOK:
