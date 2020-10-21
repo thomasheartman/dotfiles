@@ -2966,6 +2966,10 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package dot-mode
+      :general
+      (dot-mode-map
+       "C-." nil
+       "M-C-." 'dot-mode-execute)
       :config
       (global-dot-mode))
   #+END_SRC
