@@ -3118,3 +3118,16 @@
       "C-x o" 'ctrlxo
       "s-<tab>" 'ctrlxo)
   #+END_SRC
+
+* Python
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Microsoft/python-language-server][GitHub]]
+  :WEBSITE:  [[https://emacs-lsp.github.io/lsp-python-ms/][website]]
+  :END:
+
+  We'll set up Python to use the MS language server:
+  #+BEGIN_SRC emacs-lisp
+    (use-package lsp-python-ms
+      :init (setq lsp-python-ms-auto-install-server t)
+      :hook (python-mode . lsp))
+  #+END_SRC
