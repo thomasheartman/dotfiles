@@ -1740,6 +1740,26 @@
      ;; (require 'org-notmuch)
    #+END_SRC
 
+** Org export
+
+*** TODO GFM (ox-gfm)
+    :PROPERTIES:
+    :REPO:     [[https://github.com/larstvei/ox-gfm][GitHub]]
+    :END:
+    :LOGBOOK:
+    - State "TODO"       from              [2020-10-27 Tue 23:33] \\
+      Make sure that this is auto-loaded with org-mode.
+    :END:
+
+    ox-gfm exports org mode documents to GitHub flavored markdown.
+    This has several improvements over the default Emacs markdown
+    export, including source code language and triple back ticks.
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-gfm)
+    #+END_SRC
+
+
 * Yasnippet
   :PROPERTIES:
   :REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
