@@ -886,6 +886,15 @@
         "C-x C-j" 'rename-current-buffer-file)
     #+END_SRC
 
+*** Clear default scratch buffer message
+
+    To have the scratch buffer be empty by default, we can set the
+    ~initial-scratch-message~ variable:
+
+    #+BEGIN_SRC emacs-lisp
+      (setq initial-scratch-message nil)
+    #+END_SRC
+
 
 ** Custom file
 
