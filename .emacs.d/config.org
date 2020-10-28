@@ -1544,6 +1544,13 @@
        :init (add-to-list 'org-babel-load-languages '(http . t)))
    #+end_src
 
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ob-rust
+       :init (add-to-list 'org-babel-load-languages '(rust . t)))
+   #+END_SRC
+
+
    Because I trust myself (somewhat foolishly perhaps) to only execute org code
    blocks that I know to be safe, I don't want to be prompted when executing a code block:
    #+begin_src emacs-lisp
