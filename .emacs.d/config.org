@@ -97,6 +97,7 @@
      (defconst my-flycheck-prefix "C-c e")
      (defconst my-lsp-prefix "<f6>")
      (defconst my-app-prefix "<f5>")
+     (defconst my-package-prefix "C-x P")
 
      (general-create-definer my-link-def
        :prefix my-link-prefix)
@@ -106,6 +107,8 @@
        :prefix my-lsp-prefix)
      (general-create-definer my-app-def
        :prefix my-app-prefix)
+     (general-create-definer my-package-def
+       :prefix my-package-prefix)
 
      (defconst my-format-buffer "<f1>")
    #+END_SRC
@@ -453,6 +456,16 @@
              (select-frame frame)
              (select-window win))))
      #+END_SRC
+
+*** Package management
+
+    #+BEGIN_SRC emacs-lisp
+      (my-package-def
+        "u" 'package-refresh-contents
+        "r" 'package-refresh-contents
+        "i" 'package-install)
+    #+END_SRC
+
 
 *** column-number-mode
 
