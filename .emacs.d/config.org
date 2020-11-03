@@ -2137,8 +2137,10 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
-      :unless on-macos
       :ensure t
+      :general
+      (pdf-view-mode-map
+       "M-w" 'pdf-view-kill-ring-save)
       :config
       (pdf-tools-install)
       (setq-default pdf-view-display-size 'fit-page))
