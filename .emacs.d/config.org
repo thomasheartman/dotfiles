@@ -2991,8 +2991,8 @@
     (use-package dot-mode
       :general
       (dot-mode-map
-       "C-." nil
        "M-C-." 'dot-mode-execute)
+      (general-unbind 'dot-mode-map "C-." "C-c .")
       :config
       (global-dot-mode))
   #+END_SRC
