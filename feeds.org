@@ -108,9 +108,9 @@
 
 **** [[https://www.reddit.com/r/emacs/.rss?format=xml][r/Emacs]]                                                          :emacs:
 
-**** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]                                                 :haskell:
+**** [[https://www.reddit.com/r/haskell/.rss?format=xml][r/Haskell]]                                                 :haskell:
 
-**** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                       :rust:
+**** [[https://www.reddit.com/r/rust/.rss?format=xml][r/Rust]]                                                       :rust:
 
 ** Other feeds
 
