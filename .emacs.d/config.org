@@ -1231,7 +1231,12 @@
       (rust-mode . lsp)
       :config
       (setq rust-format-on-save t
-            lsp-rust-server 'rust-analyzer))
+            lsp-rust-server 'rust-analyzer)
+      :general
+      (rust-mode-map
+       "C-c C-c" 'rust-compile
+       "C-c C-t" 'rust-test
+       "C-c C-r" 'rust-run))
   #+END_SRC
 
   We can also use [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] to improve flycheck cargo handling.
