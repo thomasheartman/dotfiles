@@ -3034,8 +3034,13 @@
      Test this out.
    :END:
 
-   This package looks very interesting for when you work a lot with
-   Docker containers.
+   #+BEGIN_SRC emacs-lisp
+     (use-package docker
+       :general
+       (my-app-def
+         "d" 'docker))
+   #+END_SRC
+
 
 * Whole line or region
   :PROPERTIES:
