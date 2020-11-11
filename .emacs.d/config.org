@@ -2397,6 +2397,9 @@
          "π" 'previous-buffer
          "∫" 'switch-to-buffer
          "œ" 'my-kill-current-buffer
+         "Œ" (lambda () (interactive)
+               (save-buffer)
+               (my-kill-current-buffer))
          "∂" 'delete-window
          "ƒ" 'find-file
          "ß" (general-key "C-x C-s")
