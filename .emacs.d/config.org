@@ -3163,3 +3163,22 @@
       :init (setq lsp-python-ms-auto-install-server t)
       :hook (python-mode . lsp))
   #+END_SRC
+
+* Evil-exchange
+  :PROPERTIES:
+  :REPO:     [[https://github.com/Dewdrops/evil-exchange][GitHub]]
+  :END:
+
+  Evil-exchange lets us exchange to regions. It also works without
+  evil mode.
+
+  #+BEGIN_SRC emacs-lisp
+    (general-create-definer evil-exchange-def
+      :prefix "C-c x")
+
+    (use-package evil-exchange
+      :general
+      (evil-exchange-def
+        "x" 'evil-exchange
+        "c" 'evil-exchange-cancel))
+  #+END_SRC
