@@ -1,61 +1,127 @@
+
+
 * Feed                                                               :elfeed:
+
   The top level of the tree must be tagget with ~elfeed~ to be recognised by elfeed.
+
 ** Comics                                                            :comics:
+
 *** [[https://xkcd.com/rss.xml][XKCD]]
+
 *** [[https://www.smbc-comics.com/comic/rss][SMBC]]
+
 *** [[http://www.commitstrip.com/en/feed/][Commit Strip]]
+
 *** [[https://www.monkeyuser.com/feed.xml][Monkey User]]
+
 *** [[http://feeds.feedburner.com/satwcomic][Scandinavia and the World]]
+
 *** [[http://feeds.feedburner.com/oatmealfeed][The oatmeal]]
+
 *** [[http://www.awkwardzombie.com/awkward.php][Awkward Zombie]]
+
 *** [[http://www.giantitp.com/comics/oots.rss][Order of the Stick]]
+
 ** Blogs                                                                :dev:
+
 *** https://hydraz.semi.works/feed.xml
+
 *** http://www.julian.digital/feed
+
 *** [[https://buttondown.email/cassidoo/rss][Cassidoo]]
+
 *** http://yannesposito.com/Scratch/en/blog/feed/feed.xml
+
 *** https://dpwright.com/atom.xml
+
 *** https://bodil.lol/rss.xml                                          :rust:
+
 *** https://hacks.mozilla.org/feed/
+
 *** https://www.sam.today/atom.xml/                                     :nix:
+
 *** https://chrispenner.ca/atom.xml                                 :haskell:
+
 *** https://sakshamsharma.com/rss.xml                               :haskell:
+
 *** http://degoes.net/feed.xml                                   :functional:
+
 *** https://ngortheone.com/index.xml                                   :rust:
+
 *** https://v4.chriskrycho.com/feeds/blog.xml
+
 *** https://josephg.com/blog/rss/                                       :dev:
+
 *** https://amos.me/index.xml                                          :rust:
+
 *** [[https://bartoszmilewski.com/feed/][Bartosz Milewski]]
+
 *** https://blog.ploeh.dk/rss                         :haskell:functional:f#:
+
 *** http://cachestocaches.com/feed                                    :emacs:
+
 *** [[https://deterministic.space/feed.xml][Pascal Hertleif]]
+
 *** [[https://peppe.rs/index.xml][nerdypepper]]
+
 *** Web / design                                                        :web:
+
 **** https://css-tricks.com/feed/
+
 **** https://accssible.com/atom.xml
+
 **** https://www.scottohara.me/feed.xml
+
 **** https://daverupert.com/atom.xml
+
 *** Rust                                                           :dev:rust:
+
 **** https://blog.rust-lang.org/feed.xml
+
 **** [[https://thesquareplanet.com/feed.xml][Jon Gjengset (the square planet)]]                                  :rust:
-**** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                     :reddit:
+
 **** https://this-week-in-rust.org/rss.xml
+
 **** http://feeds.feedburner.com/steveklabnik/words
+
 **** https://readrust.net/all/feed.rss                                 :rust:
+
 *** Haskell                                          :dev:haskell:functional:
+
 **** https://planet.haskell.org/rss20.xml
-**** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]                                                  :reddit:
+
 **** https://www.fpcomplete.com/blog/rss.xml
+
 **** https://haskellweekly.news/haskell-weekly.atom?format=xml
+
 **** http://haskellnews.org/feed
+
 **** https://mmhaskell.com/blog?format=RSS
+
 **** http://neilmitchell.blogspot.com/feeds/posts/default
+
 **** https://lexi-lambda.github.io/feeds/all.rss.xml
+
 **** https://williamyaoh.com/feed.atom
+
+*** Reddit                                                           :reddit:
+
+**** [[https://www.reddit.com/r/emacs/.rss?format=xml][r/Emacs]]                                                          :emacs:
+
+**** [[https://old.reddit.com/r/haskell/.rss?format=xml][Haskell reddit]]                                                 :haskell:
+
+**** [[https://www.reddit.com/r/rust/.rss?format=xml][Rust Reddit]]                                                       :rust:
+
 ** Other feeds
+
 *** https://weekly.nixos.org/feeds/all.rss.xml                    :nixos:nix:
+
 *** [[https://css-tricks.com/feed/][CSS-tricks]]                                                      :web:css:
+
 *** https://www.nngroup.com/feed/rss/                                    :ux:
+
 ** Self                                                                :self:
+
 *** [[https://thomashartmann.dev/rss.xml][thomashartmann.dev]]
+
 *** [[https://blog.thomasheartman.com/rss.xml][blog.thomasheartman.com]]
