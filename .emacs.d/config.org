@@ -2155,13 +2155,14 @@
       (setq-default pdf-view-display-size 'fit-page)
       :hook
       (pdf-view-mode . (lambda ()
-                         (pdf-misc-minor-mode)
-                         (pdf-sync-minor-mode)
-                         (pdf-annot-minor-mode)
-                         (pdf-links-minor-mode)
-                         (pdf-history-minor-mode)
-                         (pdf-isearch-minor-mode)
-                         (pdf-outline-minor-mode))))
+                         (when on-macos
+                           (pdf-misc-minor-mode)
+                           (pdf-sync-minor-mode)
+                           (pdf-annot-minor-mode)
+                           (pdf-links-minor-mode)
+                           (pdf-history-minor-mode)
+                           (pdf-isearch-minor-mode)
+                           (pdf-outline-minor-mode)))))
   #+END_SRC
 
 * TODO shift-line-up and down
