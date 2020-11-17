@@ -464,6 +464,45 @@
              (select-window win))))
      #+END_SRC
 
+**** Smarter ~C-a~
+
+     When using ~C-a~, I usually want to move to the first
+     non-whitespace character on the line, even if that is indented.
+     However, sometimes I want to distinguish between the first
+     non-whitespace character and column 0. As such, let's write a
+     function that takes you to indentation first, and to column 0 if
+     you press it again.
+
+     Adapted from [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][this Emacs Redux blog post]], the option to provide an
+     argument is mostly for compatibility with the original function
+     it's made to override.
+
+     #+BEGIN_SRC emacs-lisp
+       (defun my-move-beginning-of-line (arg)
+         "Move point back to indentation or beginning of line.
+
+       Move point to the first non-whitespace character on this line. If
+       point is already at this character, move to the beginning of the
+       line. Lets you toggle between first non-whitespace character and
+       the beginning of the line.
+
+       If ARG is not nil or 1, move forward ARG - 1 lines first. If
+       point reaches the beginning or end of the buffer, stop there."
+         (interactive "^p")
+
+         (when (/= arg 1)
+           (let ((line-move-visual nil))
+             (forward-line (1- arg))))
+
+         (let ((origin (point)))
+           (back-to-indentation)
+           (when (= origin (point))
+             (move-beginning-of-line 1))))
+
+       (general-def
+         [remap move-beginning-of-line] 'my-move-beginning-of-line)
+     #+END_SRC
+
 *** Package management
 
     #+BEGIN_SRC emacs-lisp
