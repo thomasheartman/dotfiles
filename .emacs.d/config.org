@@ -3246,16 +3246,16 @@
   does just that.
 
   #+BEGIN_SRC emacs-lisp
-    (defun my-async-shell-command ()
-      "Call `async-shell-command' using the region as COMMAND if it
-    is active; otherwise prompt for command as per usual.
+    (defun my-async-shell-command (prefix)
+      "Like `async-shell-command', but use region as COMMAND if it is active.
 
-    When `prefix-arg' is non-nil and there is no region, insert the
-    command output at POINT. If there is a region, the `prefix-arg' has
-    no effect."
-      (interactive)
-      (if (use-region-p)
-          (async-shell-command (buffer-substring (region-beginning) (region-end)))
+    If the region is active and `PREFIX' is nil, evaluate the region
+    as COMMAND. Otherwise, relegate to `async-shell-command' as per
+    usual."
+      (interactive "P")
+      (if (and (not prefix) (use-region-p))
+          (async-shell-command
+           (buffer-substring (region-beginning) (region-end)))
         (call-interactively 'async-shell-command)))
 
     (general-def
