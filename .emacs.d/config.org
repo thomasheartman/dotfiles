@@ -3237,3 +3237,27 @@
         "x" 'evil-exchange
         "c" 'evil-exchange-cancel))
   #+END_SRC
+
+* region-to-async-shell-command
+
+  Sometimes it's handy to be able to send the selection to a shell and
+  evaluate this. Emacs doesn't have an inbuilt easy way to do this
+  (outside of org mode src blocks), so let's write a function that
+  does just that.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun my-async-shell-command ()
+      "Call `async-shell-command' using the region as COMMAND if it
+    is active; otherwise prompt for command as per usual.
+
+    When `prefix-arg' is non-nil and there is no region, insert the
+    command output at POINT. If there is a region, the `prefix-arg' has
+    no effect."
+      (interactive)
+      (if (use-region-p)
+          (async-shell-command (buffer-substring (region-beginning) (region-end)))
+        (call-interactively 'async-shell-command)))
+
+    (general-def
+      [remap async-shell-command] 'my-async-shell-command)
+  #+END_SRC
