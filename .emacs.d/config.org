@@ -1670,6 +1670,45 @@
        "s" 'org-store-link)
    #+END_SRC
 
+** Focus next heading
+
+   When working through large org files, I find it useful to focus on
+   only a single subtree at a time. Often, I want to close all other
+   subtrees and only see this one. We can write a function for that.
+
+   #+BEGIN_SRC emacs-lisp
+     (defun my-org-open-heading-base (arg motion)
+       (let ((show-contents
+              (if arg
+                  'outline-show-children
+                'outline-show-subtree)))
+         (outline-hide-sublevels (org-outline-level))
+         (funcall motion 1)
+         (funcall show-contents)))
+
+     (defun my-org-open-next-heading (arg)
+       "Close the current heading and open the next one.
+
+     If ARG is non-nil, only show subheadings of the next heading
+     instead of the entire subtree."
+       (interactive "P")
+       (my-org-open-heading-base arg 'org-forward-heading-same-level))
+
+     (defun my-org-open-previous-heading (arg)
+       "Close the current heading and open the previous one.
+
+     If ARG is non-nil, only show subheadings of the previous heading
+     instead of the entire subtree."
+       (interactive "P")
+       (my-org-open-heading-base arg 'org-backward-heading-same-level))
+
+     (general-def
+       org-mode-map
+       "C-c <up>" 'my-org-open-previous-heading
+       "C-c <down>" 'my-org-open-next-heading)
+   #+END_SRC
+
+
 ** templates (org-tempo)
    :LOGBOOK:
    - State "DONE"       from "TODO"       [2020-08-13 Thu 09:29]
