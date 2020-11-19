@@ -1683,9 +1683,16 @@
    subtrees and only see this one. We can write a function for that.
 
    #+BEGIN_SRC emacs-lisp
+     (defvar my-org-heading-navigation-show-headings-only nil
+       "t if movement should show just subheadings and not content.")
+
      (defun my-org-open-heading-base (arg motion)
+       (when arg
+         (setq
+          my-org-heading-navigation-show-headings-only
+          (not my-org-heading-navigation-show-headings-only)))
        (let ((show-contents
-              (if arg
+              (if my-org-heading-navigation-show-headings-only
                   'outline-show-children
                 'outline-show-subtree)))
          (outline-hide-sublevels (org-outline-level))
@@ -1710,8 +1717,8 @@
 
      (general-def
        org-mode-map
-       "C-c <up>" 'my-org-open-previous-heading
-       "C-c <down>" 'my-org-open-next-heading)
+       "<up>" 'my-org-open-previous-heading
+       "<down>" 'my-org-open-next-heading)
    #+END_SRC
 
 
