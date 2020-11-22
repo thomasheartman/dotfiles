@@ -509,7 +509,8 @@
       (my-package-def
         "u" 'package-refresh-contents
         "r" 'package-refresh-contents
-        "i" 'package-install)
+        "i" 'package-install
+        "l" 'package-list-packages)
     #+END_SRC
 
 
