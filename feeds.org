@@ -116,6 +116,8 @@
 
 *** https://weekly.nixos.org/feeds/all.rss.xml                    :nixos:nix:
 
+*** [[https://emacsredux.com/feed.xml][Emacs Redux]]                                                       :emacs:
+
 *** [[https://css-tricks.com/feed/][CSS-tricks]]                                                      :web:css:
 
 *** https://www.nngroup.com/feed/rss/                                    :ux:
