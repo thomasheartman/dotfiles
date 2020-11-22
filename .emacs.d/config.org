@@ -2887,7 +2887,7 @@
   :WEBSITE:  [[http://web-mode.org/][web-mode.org]]
   :END:
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package web-mode
       :mode "\\.html\\'"
       :after (prettier smartparens hydra)
