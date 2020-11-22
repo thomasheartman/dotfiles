@@ -3137,7 +3137,7 @@
      (use-package docker
        :general
        (my-app-def
-         "d" 'docker))
+         "D" 'docker))
    #+END_SRC
 
 
