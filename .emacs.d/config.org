@@ -2029,7 +2029,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package smartparens
-      :after evil-exchange
       :init
       (smartparens-global-mode)
       :hook (eval-expression-minibuffer-setup . smartparens-mode)
@@ -2283,7 +2282,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
       :ensure t
-      :after (hydra magit)
+      :after (hydra)
       :when use-exwm
       :custom
       (exwm-replace nil)
