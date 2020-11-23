@@ -976,6 +976,21 @@
      (load custom-file)
    #+END_SRC
 
+** Native compilation
+
+   Using the ~feature/native-comp~ branch of Emacs gives some real
+   nice speedups and makes Emacs more snappy in general. But it also
+   causes some issues with certain packages. To avoid this, let's
+   disable native compilation of the packages that cause issues:
+
+   #+BEGIN_SRC emacs-lisp
+     (if (require 'comp nil t)
+         (dolist (blacklist '("smartparens"))
+           (add-to-list 'comp-bootstrap-black-list blacklist)
+           (add-to-list 'comp-deferred-compilation-black-list blacklist))
+       (message "Library 'comp not found."))
+   #+END_SRC
+
 
 ** Calendar
 
