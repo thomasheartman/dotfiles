@@ -2907,9 +2907,13 @@
 
   #+END_SRC
 
-* Web-mode
+* TODO Web-mode
   :PROPERTIES:
   :WEBSITE:  [[http://web-mode.org/][web-mode.org]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2020-11-20 Fri 13:31] \\
+    Reconsider whether you want to reactivate this.
   :END:
 
   #+BEGIN_SRC emacs-lisp :tangle no
