@@ -1685,11 +1685,14 @@
    #+BEGIN_SRC emacs-lisp
      (general-def
        :keymaps 'org-mode-map
-       "C-c _" 'org-toggle-timestamp-type)
+       "C-c _" 'org-toggle-timestamp-type
+       "C-a" 'my-move-beginning-of-line)
 
      (my-link-def
        "s" 'org-store-link)
    #+END_SRC
+
+
 
 ** Focus next heading
 
