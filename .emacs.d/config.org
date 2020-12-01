@@ -3058,7 +3058,8 @@
   :END:
 
   #+BEGIN_SRC emacs-lisp
-    (use-package yaml-mode)
+    (use-package yaml-mode
+      :hook (yaml-mode . lsp))
   #+END_SRC
 
 * TODO indent-tools
