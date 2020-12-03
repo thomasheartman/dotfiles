@@ -221,6 +221,34 @@
 		  kill-buffer-query-functions))
     #+END_SRC
 
+*** subword mode
+
+    Subword mode lets you navigate and act on parts of words when they
+    consist of multiple words put together, separated by capital
+    letters (as is common in programming), such as "GtkWindow" ("Gtk"
+    and "Window").
+
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'prog-mode-hook
+                (lambda () (subword-mode 1)))
+
+      (add-hook 'text-mode-hook
+                (lambda () (subword-mode 1)))
+    #+END_SRC
+
+*** Hungry-backspace
+
+    Let's set up global hungry backspace keybindings too.
+
+    #+BEGIN_SRC emacs-lisp
+      (general-def
+        "C-c <DEL>" 'c-hungry-delete-backwards
+        "C-c C-<DEL>" 'c-hungry-delete-backwards
+        "C-c <C-delete>" 'c-hungry-delete-forward
+        "C-c <deletechar>" 'c-hungry-delete-forward)
+    #+END_SRC
+
+
 *** Startup
 
     Let's get rid of splash screens and startup messages that we don't
