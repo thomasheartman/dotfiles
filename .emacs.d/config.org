@@ -2112,7 +2112,12 @@
                             (sp-select-next-thing-exchange)
                             (evil-exchange (region-beginning) (region-end))
                             (when (region-active-p)
-                              (keyboard-quit)))))
+                              (keyboard-quit))))
+                "C-M-;" (lambda ()
+                          (interactive)
+                          (save-excursion
+                            (sp-select-next-thing-exchange)
+                            (comment-region (region-beginning) (region-end)))))
       :custom
       (sp-base-key-bindings 'sp)
       :config
