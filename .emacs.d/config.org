@@ -1082,23 +1082,36 @@
   bit of configuration to get set up.
 
   #+BEGIN_SRC emacs-lisp
-    (defun my-company-tng-setup ()
-      (setq company-require-match nil
-            company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
-                                company-echo-metadata-frontend
-                                company-tng-frontend
-                                company-preview-if-just-one-frontend)))
+    (defun my-configure-tng ()
+      "Taken and adapted from company-tng.el."
+      (setq company-require-match nil)
+      (setq company-frontends '(company-tng-frontend
+                                company-pseudo-tooltip-frontend
+                                company-echo-metadata-frontend))
+      ;; (setq company-clang-insert-arguments nil
+      ;;       company-semantic-insert-arguments nil
+      ;;       company-rtags-insert-arguments nil
+      ;;       lsp-enable-snippet nil)
+      ;; (advice-add #'eglot--snippet-expansion-fn :override #'ignore)
+      (let ((keymap company-active-map))
+        (define-key keymap [return] nil)
+        (define-key keymap (kbd "RET") nil)))
+
     (use-package company
       :general
       (company-active-map
-       "TAB" 'company-complete)
+       "<S-return>" 'company-complete-selection)
       (general-unbind
         company-active-map
-        [return]
-        "RET")
-      ("C-<f5>" 'company-complete)
+        [tab]
+        "TAB")
+      (company-mode-map
+       "C-<f5>" 'company-complete)
       :hook
       (company-mode . company-tng-mode)
+      (company-mode . my-configure-tng)
+      :init
+      (setq company-tng-auto-configure nil)
       :config
       (global-company-mode)
       (setq company-idle-delay 0.2
