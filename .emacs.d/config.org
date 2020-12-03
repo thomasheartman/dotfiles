@@ -229,11 +229,8 @@
     and "Window").
 
     #+BEGIN_SRC emacs-lisp
-      (add-hook 'prog-mode-hook
-                (lambda () (subword-mode 1)))
-
-      (add-hook 'text-mode-hook
-                (lambda () (subword-mode 1)))
+      (dolist (mode '(prog-mode-hook text-mode-hook))
+        (add-hook mode (lambda () (subword-mode 1))))
     #+END_SRC
 
 *** Hungry-backspace
