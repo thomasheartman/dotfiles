@@ -17,12 +17,14 @@ in buildEnv {
     bat
     bitwarden-cli
     cacert
+    cascadia-code
     chromium
     direnv
     docker
     ffmpeg
     firefox
     ispell
+    jetbrains-mono
     jq
     libusb
     moreutils
@@ -40,6 +42,7 @@ in buildEnv {
     spotify
     teensy-loader-cli
     tmux
+    victor-mono
     vlc
     wally-cli
     watchexec
