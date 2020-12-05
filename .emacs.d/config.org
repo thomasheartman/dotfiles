@@ -1123,7 +1123,7 @@
   company completion dropdown misaligned (with itself, even). Using
   the [[https://github.com/tumashu/company-posframe][company-posframe package]] appears to fix this by putting
   completions in a separate frame.
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package company-posframe
       :after company
       :unless on-macos
