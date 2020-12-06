@@ -2477,7 +2477,7 @@
 
       ;; configure RandR support
       (require 'exwm-randr)
-      (setq exwm-randr-workspace-monitor-plist '(0 "DP2" 1 "eDP1" 2 "DP1"))
+      (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
 
       (defun my-exwm-randr-screen-change-hook ()
         (interactive)
