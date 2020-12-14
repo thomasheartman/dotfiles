@@ -153,3 +153,5 @@
 	conflictStyle = diff3
 [github]
 	user = thomasheartman
+[gitlab "gitlab.intility.com/api/v4"]
+	user = thomas.heartman
