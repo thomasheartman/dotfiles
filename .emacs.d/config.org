@@ -2826,7 +2826,7 @@
    function you can use to set the variable to the most recent
    version:
 
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
      (defun latest-version-from-github-json-api-response (input)
        "Extract the tag name from a GitHub API response to the releases endpoint."
        (require 'json)
