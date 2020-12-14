@@ -1227,7 +1227,7 @@
       :demand t
       :config
       (add-to-list 'forge-alist
-                   '("gitlab.intility.no" "gitlab.intility.no/api/v4" "gitlab.intility.no" forge-gitlab-repository))
+                   '("gitlab.intility.com" "gitlab.intility.com/api/v4" "gitlab.intility.com" forge-gitlab-repository))
       :bind (:map magit-mode-map
                   ("C-c M-w" . forge-copy-url-at-point-as-kill)))
   #+END_SRC
