@@ -22,13 +22,33 @@
 
 * Package setup
 
-** Package archives
+** straight.el
+   :PROPERTIES:
+   :REPO:     [[https://github.com/raxod502/straight.el][GitHub]]
+   :END:
 
-   Set up archives for packages:
+   Let's try out straight.el as an alternative package manager.
+
    #+BEGIN_SRC emacs-lisp
-     (setq package-archives '(("gnu" . "https://elpa.gnu.org./packages/")
-			      ("melpa" . "https://melpa.org/packages/")))
+     (setq straight-use-package-by-default t
+           straight-fix-flycheck t)
+
+     (defvar bootstrap-version)
+     (let ((bootstrap-file
+            (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+           (bootstrap-version 5))
+       (unless (file-exists-p bootstrap-file)
+         (with-current-buffer
+             (url-retrieve-synchronously
+              "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+              'silent 'inhibit-cookies)
+           (goto-char (point-max))
+           (eval-print-last-sexp)))
+       (load bootstrap-file nil 'nomessage))
    #+END_SRC
+
+
+** Package archives
 
    Additionally, I'll sometimes want to use local packages. I'll put
    them in a directory local to my emacs config:
@@ -37,7 +57,6 @@
                   (expand-file-name
                    "elisp"
                    'user-emacs-directory))
-
    #+END_SRC
 
 ** use-package
@@ -47,17 +66,7 @@
    Stein's example from Caches to Caches post [[http://cachestocaches.com/2015/8/getting-started-use-package/][Getting started with
    use-package]].
    #+BEGIN_SRC emacs-lisp
-     (require 'package)
-     (setq package-enable-at-startup nil)
-     (package-initialize)
-
-     (unless (package-installed-p 'use-package)
-       (package-refresh-contents)
-       (package-install 'use-package))
-
-     (eval-when-compile
-       (require 'use-package)
-       (setq use-package-always-ensure t))
+     (straight-use-package 'use-package)
    #+END_SRC
 
 * General
@@ -1125,7 +1134,6 @@
   ~C-c !~.
   #+BEGIN_SRC emacs-lisp
     (use-package flycheck
-      :ensure t
       :config (global-flycheck-mode)
       (define-key flycheck-mode-map flycheck-keymap-prefix nil)
       (setq flycheck-keymap-prefix (kbd my-flycheck-prefix))
@@ -2211,7 +2219,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package editorconfig
-      :ensure t
       :config
       (editorconfig-mode 1))
   #+END_SRC
@@ -2372,7 +2379,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
-      :ensure t
       :general
       (pdf-view-mode-map
        "M-w" 'pdf-view-kill-ring-save)
@@ -2418,7 +2424,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
-      :ensure t
       :after (hydra)
       :when use-exwm
       :custom
@@ -2769,7 +2774,6 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package doom-modeline
-      :ensure t
       :after markdown-mode
       :init (doom-modeline-mode 1)
       :config
