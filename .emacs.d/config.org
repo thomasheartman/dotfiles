@@ -1049,7 +1049,10 @@
             ivy-wrap t)
       :general
       ("C-S-s" 'swiper-isearch
-       "C-M-y" 'counsel-yank-pop))
+       "C-M-y" 'counsel-yank-pop
+       [remap execute-extended-command] 'counsel-M-x
+       [remap describe-variable] 'counsel-describe-variable
+       [remap describe-function] 'counsel-describe-function))
   #+END_SRC
 
 * Flycheck
