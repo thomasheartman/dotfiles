@@ -537,6 +537,51 @@
          [remap move-beginning-of-line] 'my-move-beginning-of-line)
      #+END_SRC
 
+*** Scroll distance
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2020-12-15 Tue 10:19]
+    - State "TODO"       from              [2020-12-14 Mon 16:24] \\
+      Update this to instead advise the scroll functions by setting the
+      number of lines that they should leave to be half the selected
+      window's height.
+
+      Advice isn't always recommended, but I think (hope) it should be fine in this
+      case, and it would also give me a chance to try and understand how
+      advice works.
+    :END:
+
+    By default, emacs scrolls a whole screen at a time. I'd rather it
+    scrolled half a screen as that makes it easier to keep your
+    context. As such, let's write a function for that and overwrite
+    the emacs scroll bindings.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun half-height (window)
+        "Return half the height of WINDOW."
+        (max 1 (/  (1- (window-height window)) 2)))
+
+      (defun half-screen (window f &optional lines?)
+        "Apply LINES? or half the height of WINDOW to F."
+        (let ((lines (or lines? (half-height window))))
+          (apply f (list lines))))
+
+
+      (defun half-screen-other-window (f &optional lines)
+        "Apply LINES or half the height of the scrolled window to F."
+        (half-screen (other-window-for-scrolling) f lines))
+
+      (defun half-screen-current-window (f &optional lines)
+        "Apply LINES or half the height of the scrolled window to F."
+        (half-screen (selected-window) f lines))
+
+      (dolist (f '(scroll-down-command scroll-up-command))
+        (advice-add f :around #'half-screen-current-window))
+
+      (dolist (f '(scroll-other-window scroll-other-window-down))
+        (advice-add f :around #'half-screen-other-window))
+    #+END_SRC
+
+
 *** Package management
 
     #+BEGIN_SRC emacs-lisp
