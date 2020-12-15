@@ -27,7 +27,7 @@
    :REPO:     [[https://github.com/raxod502/straight.el][GitHub]]
    :END:
 
-   Let's try out straight.el as an alternative package manager.
+   staight.el replaces ~package.el~ as a package manager backend.
 
    #+BEGIN_SRC emacs-lisp
      (setq straight-use-package-by-default t
