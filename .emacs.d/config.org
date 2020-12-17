@@ -83,6 +83,8 @@
 
 ** TODO Prefixes
    :LOGBOOK:
+   - State "TODO"       from "TODO"       [2020-12-15 Tue 15:02] \\
+     Rewrite this using macros to avoid repetitions.
    - State "TODO"       from              [2020-08-14 Fri 21:25]
    :END:
 
