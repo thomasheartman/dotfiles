@@ -81,7 +81,7 @@
       (general-auto-unbind-keys))
   #+END_SRC
 
-** TODO Prefixes
+** Prefixes
    :LOGBOOK:
    - State "TODO"       from "TODO"       [2020-12-15 Tue 15:02] \\
      Rewrite this using macros to avoid repetitions.
@@ -104,24 +104,35 @@
 
    Let's create a couple prefixes:
    #+BEGIN_SRC emacs-lisp
-     (defconst my-link-prefix "C-x l")
-     (defconst my-flycheck-prefix "C-c e")
-     (defconst my-lsp-prefix "<f6>")
-     (defconst my-app-prefix "<f5>")
-     (defconst my-package-prefix "C-x P")
-
-     (general-create-definer my-link-def
-       :prefix my-link-prefix)
-     (general-create-definer my-flycheck-def
-       :prefix my-flycheck-prefix)
-     (general-create-definer my-lsp-def
-       :prefix my-lsp-prefix)
-     (general-create-definer my-app-def
-       :prefix my-app-prefix)
-     (general-create-definer my-package-def
-       :prefix my-package-prefix)
-
      (defconst my-format-buffer "<f1>")
+
+     (defmacro create-definer (name key)
+       "Create a constant and an associated definer.
+
+     Use NAME to generate the name of the constant and definer, and
+     use KEY for the definer prefix."
+       (let ((constant-name (intern (format "my-%s-prefix" name)))
+             (def-name (intern (format "my-%s-def" name))))
+         `(progn
+            (defconst ,constant-name ,key)
+            (general-create-definer ,def-name :prefix ,constant-name))))
+
+
+     (defmacro create-definers (&rest args)
+       "Create definers for the given list of arguments.
+
+     ARGS is a list of name and keys."
+       (let ((indices (number-sequence 0 (- (length args) 1) 2)))
+         `(progn
+            ,@(mapcar (lambda (i) `(create-definer ,(nth i args) ,(nth (+ 1 i) args))) indices))))
+
+     (create-definers
+      "link" "C-x l"
+      "flycheck" "C-c e"
+      "lsp" "<f6>"
+      "app" "<f5>"
+      "package" "C-x p"
+      "file" "C-x f")
    #+END_SRC
 
 * OS/system variables
