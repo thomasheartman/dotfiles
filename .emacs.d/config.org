@@ -117,14 +117,18 @@
             (defconst ,constant-name ,key)
             (general-create-definer ,def-name :prefix ,constant-name))))
 
-
-     (defmacro create-definers (&rest args)
+     (defmacro create-definers (&rest bindings)
        "Create definers for the given list of arguments.
 
-     ARGS is a list of name and keys."
-       (let ((indices (number-sequence 0 (- (length args) 1) 2)))
-         `(progn
-            ,@(mapcar (lambda (i) `(create-definer ,(nth i args) ,(nth (+ 1 i) args))) indices))))
+     BINDINGS is a list of name and keys."
+       (let (forms)
+         (while bindings
+           (let ((key (pop bindings)))
+             (when (not bindings)
+               (error "Couldn't create definers. The provided bindings are unbalanced"))
+             (let ((value (pop bindings)))
+               (push `(create-definer ,key ,value) forms))))
+         `(progn ,@(nreverse forms))))
 
      (create-definers
       "link" "C-x l"
