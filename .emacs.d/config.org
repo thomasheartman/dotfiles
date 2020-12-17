@@ -597,12 +597,36 @@
 
 *** Package management
 
+    The below recipe repo update function is copied from [[https://github.com/raxod502/straight.el/pull/576][this PR to
+    straight.el]]. It should make it into master eventually.
+
     #+BEGIN_SRC emacs-lisp
+
+      (defun my-straight-pull-recipe-repositories (&optional sources)
+	"Update recipe repository SOURCES.
+      When called with `\\[universal-argument]', prompt for SOURCES.
+      If SOURCES is nil, update sources in `straight-recipe-repositories'."
+	(interactive (list (if (equal current-prefix-arg '(4))
+			       (completing-read-multiple
+				"Recipe Repositories (empty to select all): "
+				straight-recipe-repositories nil 'require-match)
+			     straight-recipe-repositories)))
+	(dolist (source (delete-dups
+			 (mapcar (lambda (src) (if (stringp src) (intern src) src))
+				 (or sources straight-recipe-repositories))))
+	  (unless (member source straight-recipe-repositories)
+	    (user-error
+	     (concat "Unregistered recipe repository: \"%S\". "
+		     "Register recipe source with straight-use-recipes")
+	     source))
+	  (straight-pull-package-and-deps (symbol-name source) 'upstream)))
+
+
       (my-package-def
-        "u" 'package-refresh-contents
-        "r" 'package-refresh-contents
-        "i" 'package-install
-        "l" 'package-list-packages)
+	"U" 'straight-pull-all
+	"u" 'my-straight-pull-recipe-repositories
+	"r" 'my-straight-pull-recipe-repositories
+	"i" 'straight-use-package)
     #+END_SRC
 
 
