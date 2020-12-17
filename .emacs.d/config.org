@@ -676,6 +676,8 @@
                (message "File path copied: 「%s」" $fpath)
                $fpath )))))
 
+      (my-file-def
+        "c" 'xah-copy-file-path)
     #+END_SRC
 
 
