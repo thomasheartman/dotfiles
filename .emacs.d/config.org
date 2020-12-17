@@ -3575,3 +3575,23 @@
       ;; per mode with `ligature-mode'.
       (global-ligature-mode t))
   #+END_SRC
+
+* macrostep
+  :PROPERTIES:
+  :REPO:     [[https://github.com/joddie/macrostep][GitHub]]
+  :END:
+
+  Macrostep is helpful for expanding (and thus working on) macros in
+  elisp.
+
+  #+BEGIN_SRC emacs-lisp
+    (let ((expand "C-c C-e"))
+      (use-package macrostep
+        :general
+        (emacs-lisp-mode-map
+         :start-maps t
+         expand 'macrostep-expand)
+        (lisp-interaction-mode-map
+         :start-maps t
+         expand 'macrostep-expand)))
+  #+END_SRC
