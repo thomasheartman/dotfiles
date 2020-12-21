@@ -207,6 +207,25 @@
       (set-face-attribute 'default nil :height 200)
     #+END_SRC
 
+    Next, let's set a list of my preferred fonts (in descending order
+    of preference), and check whether they exist on the system. If
+    they do, we'll set the first font we find as the default frame
+    font.
+
+    #+BEGIN_SRC emacs-lisp
+      (setq preferred-fonts '("JetBrains Mono"
+                              "Cascadia Code"
+                              "Victor Mono"))
+
+      (require 'cl)
+
+      (let ((font (find-if
+                   (lambda (font) (member font (font-family-list))) preferred-fonts)))
+        (when font
+          (set-frame-font font t t)))
+    #+END_SRC
+
+
 ** Misc
 
 *** ido mode
