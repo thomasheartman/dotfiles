@@ -1192,7 +1192,7 @@
    Ivy-posframe is a package that allows you to change where ivy
    dialogs show up. This setup is based on [[https://www.reddit.com/r/emacs/comments/ehjcu2/screenshot_polishing_my_emacs_who_said_an_old/fcmbozm?utm_source=share&utm_medium=web2x&context=3][this Reddit thread config]].
 
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package ivy-posframe
        :when (not on-macos)
        :after ivy-rich
