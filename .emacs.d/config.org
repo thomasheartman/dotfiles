@@ -1192,7 +1192,7 @@
    Ivy-posframe is a package that allows you to change where ivy
    dialogs show up. This setup is based on [[https://www.reddit.com/r/emacs/comments/ehjcu2/screenshot_polishing_my_emacs_who_said_an_old/fcmbozm?utm_source=share&utm_medium=web2x&context=3][this Reddit thread config]].
 
-   #+BEGIN_SRC emacs-lisp :tangle no
+   #+BEGIN_SRC emacs-lisp
      (use-package ivy-posframe
        :when (not on-macos)
        :after ivy-rich
@@ -1229,8 +1229,20 @@
                  (ivy-rich-package-version (:width 12 :face font-lock-comment-face))
                  (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
                  (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))))
+
        :config
        (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+
+       (defun my-ivy-posframe-get-size ()
+         "Set the ivy-posframe size according to the current frame."
+         (let ((height (or ivy-posframe-height (or ivy-height 10)))
+               (width (min (or ivy-posframe-width 200) (round (* .75 (frame-width))))))
+           (message "Height and width are %s and %s" height width)
+           (list :height height :width width :min-height height :min-width width)))
+
+       (setq ivy-posframe-size-function 'my-ivy-posframe-get-size)
+
+
        (ivy-posframe-mode 1))
    #+END_SRC
 
@@ -2529,9 +2541,12 @@
   This is based on a mix between my own setup and [[https://github.com/daedreth/UncleDavesEmacs][UncleDavesEmacs]]
   setup.
 
+  The ivy-posframe workaround is taken from [[https://github.com/ch11ng/exwm/issues/550#issuecomment-590875069][this comment on a GitHub
+  issue]].
+
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
-      :after (hydra)
+      :after (hydra ivy-posframe)
       :when use-exwm
       :custom
       (exwm-replace nil)
@@ -2684,6 +2699,34 @@
                    Scroll_Lock
                    print))
         (cl-pushnew k exwm-input-prefix-keys))
+
+      ;; ivy-posframe workaround
+      (defun +ivy-posframe-display-exwm (str)
+        (ivy-posframe--display str
+                               (lambda (info)
+                                 (let* ((workarea (elt exwm-workspace--workareas exwm-workspace-current-index))
+                                        (x (aref workarea 0))
+                                        (y (aref workarea 1))
+
+                                        (fw (aref workarea 2))
+                                        (fh (aref workarea 3))
+
+                                        (pw (plist-get info :posframe-width))
+                                        (ph (plist-get info :posframe-height)))
+
+                                   (cons (+ x (/ (- fw pw) 2)) (+ y (/ (- fh ph) 2)))))))
+
+      (setq ivy-posframe-display-functions-alist
+            '((t . +ivy-posframe-display-exwm))
+
+            ivy-posframe-parameters '((parent-frame nil)
+                                      (z-group . above)))
+
+      ;; force set frame-position on every posframe display
+      (advice-add 'posframe--set-frame-position :before
+                  (lambda (&rest args)
+                    (setq-local posframe--last-posframe-pixel-position nil)))
+
 
       (exwm-init))
   #+END_SRC
