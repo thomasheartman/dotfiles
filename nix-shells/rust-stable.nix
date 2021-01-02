@@ -7,10 +7,16 @@
 with pkgs;
 let
 
-  rust = pkgs.latest.rustChannels.stable.rust.override {
-    extensions = [ "rust-src" ];
-  };
+  rust = pkgs.latest.rustChannels.stable.rust;
 
 in pkgs.mkShell {
-  buildInputs = with pkgs; [ cargo-watch rust rust-analyzer cargo-edit ];
+  buildInputs = with pkgs; [
+    cargo-watch
+    rust-analyzer # rust-analyzer must come before `rust` so it gets
+                  # put first in the path, thereby overriding the
+                  # version that is packaged with `rust`. We do this
+                  # because the version that comes with `rust` is old.
+    rust
+    cargo-edit
+  ];
 }
