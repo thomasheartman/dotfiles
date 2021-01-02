@@ -1519,6 +1519,7 @@
     (use-package direnv
       :demand t
       :config
+      (setq direnv-always-show-summary nil)
       (direnv-mode)
       :general
       (my-app-def
