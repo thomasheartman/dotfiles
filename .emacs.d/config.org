@@ -3622,7 +3622,7 @@
   :REPO:     [[https://github.com/mickeynp/ligature.el][GitHub]]
   :END:
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package ligature
       :straight `(ligature :type git
                            :host github
