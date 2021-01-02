@@ -1244,8 +1244,7 @@
          "Set the ivy-posframe size according to the current frame."
          (let ((height (or ivy-posframe-height (or ivy-height 10)))
                (width (min (or ivy-posframe-width 200) (round (* .75 (frame-width))))))
-           (message "Height and width are %s and %s" height width)
-           (list :height height :width width :min-height height :min-width width)))
+           (list :height height :width width :min-height 1 :min-width width)))
 
        (setq ivy-posframe-size-function 'my-ivy-posframe-get-size)
 
@@ -2726,7 +2725,7 @@
                                         (fh (aref workarea 3))
 
                                         (pw (plist-get info :posframe-width))
-                                        (ph (plist-get info :posframe-height)))
+                                        (ph 200))
 
                                    (cons (+ x (/ (- fw pw) 2)) (+ y (/ (- fh ph) 2)))))))
 
