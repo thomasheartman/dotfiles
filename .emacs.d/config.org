@@ -2560,12 +2560,13 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package exwm
-      :after (hydra ivy-posframe)
+      :after (hydra)
       :when use-exwm
       :custom
       (exwm-replace nil)
       :config
-      (server-start)
+      (when (not (server-running-p))
+        (server-start))
       (setq exwm-workspace-number 3
             exwm-workspace-show-all-buffers t
             exwm-layout-show-all-buffers t)
