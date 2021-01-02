@@ -144,7 +144,7 @@
   #+BEGIN_SRC emacs-lisp
     (defconst on-macos (eq system-type 'darwin) "t if the current system is a darwin system (running macOS)")
     (defconst on-linux (eq system-type 'gnu/linux) "t if the current system is a linux system")
-    (defconst use-exwm on-linux "t if exwm should be activated")
+    (defconst use-exwm (and (display-graphic-p) on-linux) "t if exwm should be activated")
   #+END_SRC
 
 * Emacs
