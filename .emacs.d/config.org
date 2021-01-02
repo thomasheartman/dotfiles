@@ -573,6 +573,13 @@
          [remap move-beginning-of-line] 'my-move-beginning-of-line)
      #+END_SRC
 
+**** Always follow symlinks
+
+     #+BEGIN_SRC emacs-lisp
+       (setq vc-follow-symlinks t)
+     #+END_SRC
+
+
 *** Scroll distance
     :LOGBOOK:
     - State "DONE"       from "TODO"       [2020-12-15 Tue 10:19]
