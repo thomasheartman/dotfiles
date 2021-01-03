@@ -22,36 +22,10 @@
 
 * Package setup
 
-** straight.el
-   :PROPERTIES:
-   :REPO:     [[https://github.com/raxod502/straight.el][GitHub]]
-   :END:
-
-   staight.el replaces ~package.el~ as a package manager backend.
-
-   #+BEGIN_SRC emacs-lisp
-     (setq straight-use-package-by-default t
-           straight-fix-flycheck t)
-
-     (defvar bootstrap-version)
-     (let ((bootstrap-file
-            (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-           (bootstrap-version 5))
-       (unless (file-exists-p bootstrap-file)
-         (with-current-buffer
-             (url-retrieve-synchronously
-              "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-              'silent 'inhibit-cookies)
-           (goto-char (point-max))
-           (eval-print-last-sexp)))
-       (load bootstrap-file nil 'nomessage))
-   #+END_SRC
-
-
 ** Package archives
 
-   Additionally, I'll sometimes want to use local packages. I'll put
-   them in a directory local to my emacs config:
+   I'll sometimes want to use local packages. I'll put them in a
+   directory local to my emacs config:
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'load-path
                   (expand-file-name
