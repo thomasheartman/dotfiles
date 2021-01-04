@@ -26,6 +26,8 @@
 
 *** https://hydraz.semi.works/feed.xml
 
+*** [[https://www.murilopereira.com/index.xml][Murilo Pereira]]
+
 *** http://www.julian.digital/feed
 
 *** [[https://buttondown.email/cassidoo/rss][Cassidoo]]
