@@ -2595,6 +2595,7 @@
               ([?\s-f] . find-file)
               ([?\s-q] . my-kill-current-buffer)
               ([?\s-d] . delete-window)
+              ([?\s-\C-b] . balance-windows)
 
               ([?\s-g] . magit-status)
 
