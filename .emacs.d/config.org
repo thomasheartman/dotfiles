@@ -1108,25 +1108,6 @@
      (load custom-file)
    #+END_SRC
 
-** Native compilation
-
-   Using the ~feature/native-comp~ branch of Emacs gives some real
-   nice speedups and makes Emacs more snappy in general. But it also
-   causes some issues with certain packages. To avoid this, let's
-   disable native compilation of the packages that cause issues:
-
-   #+BEGIN_SRC emacs-lisp
-     (if native-comp
-         (progn
-           (when (not (boundp 'comp-bootstrap-black-list))
-             (setq comp-bootstrap-black-list ()))
-           (dolist (blacklist '("smartparens"))
-             (add-to-list 'comp-bootstrap-black-list blacklist)
-             (add-to-list 'comp-deferred-compilation-black-list blacklist)))
-       (message "Not using native-comp features."))
-   #+END_SRC
-
-
 ** Calendar
 
    The emacs calendar uses Sunday as the first day of the week by
@@ -1134,8 +1115,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq calendar-week-start-day 1)
    #+END_SRC
-
-
 
 * Ivy                                                            :keybinding:
 
