@@ -554,6 +554,15 @@
        (setq vc-follow-symlinks t)
      #+END_SRC
 
+**** Enable all commands
+
+     By default, Emacs disables a number of commands to stop new users
+     from accidentally triggering them and doing something they don't
+     expect. To enable all these commands, we do the following:
+
+     #+BEGIN_SRC emacs-lisp
+       (setq disabled-command-function nil)
+     #+END_SRC
 
 *** Scroll distance
     :LOGBOOK:
