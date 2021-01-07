@@ -3555,8 +3555,9 @@
   :REPO:     [[https://github.com/mickeynp/ligature.el][GitHub]]
   :END:
 
-  #+BEGIN_SRC emacs-lisp :tangle no
+  #+BEGIN_SRC emacs-lisp
     (use-package ligature
+      :when native-comp
       :straight `(ligature :type git
                            :host github
                            :repo "mickeynp/ligature.el")
