@@ -2334,13 +2334,16 @@
       (my-app-def
         "m" 'notmuch)
       (notmuch-hello-mode-map
-       "f" (lambda ()
-             "Pull new mail from the server and update the current buffer."
-             (interactive)
-             (set-process-sentinel
-              (start-process "fetch mail" "*OFFLINEIMAP-OUTPUT*" "offlineimap" "-o")
-              (lambda (p e) (when (= 0 (process-exit-status p))
-                              (notmuch-poll-and-refresh-this-buffer))))))
+       "f" 'fetch-mail-poll-and-refresh)
+      :init
+      (defun fetch-mail-poll-and-refresh ()
+        "Pull new mail from the server and update the current buffer."
+        (interactive)
+        (set-process-sentinel
+         (start-process "fetch mail" "*OFFLINEIMAP-OUTPUT*" "offlineimap" "-o")
+         (lambda (p e) (when (= 0 (process-exit-status p))
+                         (notmuch-poll-and-refresh-this-buffer)
+                         (message "Fetched new mail from the server.")))))
       :config
       (setq message-send-mail-function 'message-send-mail-with-sendmail
             notmuch-fcc-dirs "sent +sent -unread -inbox"))
