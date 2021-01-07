@@ -3574,3 +3574,78 @@
          :start-maps t
          expand 'macrostep-expand)))
   #+END_SRC
+
+* Evil mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/emacs-evil/evil][GitHub]]
+  :WEBSITE:  [[https://evil.readthedocs.io/en/latest/overview.html][Read the docs]]
+  :END:
+
+
+  So I finally caved. I might want to try out Evil mode for a bit, but
+  not for all buffers!
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package evil
+      :init (evil-mode 1)
+      :config
+      (defmacro define-and-bind-text-object (key start-regex end-regex)
+        (let ((inner-name (make-symbol "inner-line"))
+              (outer-name (make-symbol "outer-line")))
+          `(progn
+             (evil-define-text-object ,inner-name
+               (count &optional beg end type)
+               (evil-select-paren ,start-regex ,end-regex
+                                  beg end type count nil))
+             (evil-define-text-object ,outer-name
+               (count &optional beg end type)
+               (evil-select-paren ,start-regex ,end-regex
+                                  beg end type count t))
+             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+      (define-and-bind-text-object "l" "^\\s-*"
+        "\\s-*$")
+      (setq evil-default-state 'normal
+            evil-want-Y-yank-to-eol t
+            evil-disable-insert-state-bindings t
+            evil-respect-visual-line-mode t)
+
+      (setq evil-buffer-regexps
+            '(("^ \\*load\\*" . nil)
+              ("COMMIT_EDITMSG" . insert)))
+
+
+      (use-package evil-surround
+        :config
+        (global-evil-surround-mode))
+      :general
+      (general-unbind
+        :states 'insert
+        "C-p"
+        "C-r"
+        "C-k"
+        "C-e"
+        "C-a"
+        "C-y"
+        "C-o")
+      (general-unbind
+        :states 'motion
+        "C-v"
+        "C-e"
+        "C-y"
+        "RET"
+        "TAB")
+      (general-unbind
+        :states 'normal
+        "C-n"
+        "C-p"
+        "C-r"
+        "M-."
+        "M-y"
+        "DEL")
+      (general-def
+        :states 'normal
+        "K" 'my-join-line
+        [remap evil-paste-after] 'yank
+        [remap evil-paste-pop] 'yank-pop))
+  #+END_SRC
