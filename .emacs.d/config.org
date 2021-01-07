@@ -2146,21 +2146,6 @@
   should be possible. The easiest may be to use evil-surround, just
   mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
 
-* TODO [#C] Change inner                                         :keybinding:
-
-  Note: this could do with some improvements to also accept closing parens,
-  braces, brackets, etc., and to allow certain shortcuts, such as ~b~ for
-  ~parens~. Should actually be fairly doable. This has been reported previously
-  ([[https://github.com/magnars/change-inner.el/issues/8][issue]]) and been deemed not worth doing. Another option is [[https://gist.github.com/alphapapa/fd7edf8104215028f3da][this gist]] by
-  Alphapapa, which could work well.
-
-  To emulate some of Vim's behavior, we'll use [[https://github.com/magnars/change-inner.el][change-inner.el]]:
-  #+begin_src emacs-lisp
-    (use-package change-inner
-      :bind (("M-i" . change-inner)
-	     ("M-o" . change-outer)))
-  #+end_src
-
 * Hydra
   :PROPERTIES:
   :REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
