@@ -3521,7 +3521,12 @@
         "c" 'evil-exchange-cancel))
   #+END_SRC
 
-* region-to-async-shell-command
+* TODO region-to-async-shell-command
+  :LOGBOOK:
+  - State "TODO"       from              [2021-01-05 Tue 14:24] \\
+    This doesn't work with a prefix-argument. Gives the error:
+    ~shell-command--shell-command-with-editor-mode: Wrong type argument: stringp, (4)~
+  :END:
 
   Sometimes it's handy to be able to send the selection to a shell and
   evaluate this. Emacs doesn't have an inbuilt easy way to do this
