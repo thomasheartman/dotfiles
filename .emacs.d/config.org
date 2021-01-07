@@ -2198,7 +2198,7 @@
     _←_: ←    _|_: right    _m_: maximize       _b_: switch buffer
     _↓_: ↓    ___: below    _D_: ace-delete     _f_: find file
     _↑_: ↑    _u_: undo     _d_: del window   ^^SPC: app launcher
-    _→_: →    _U_: redo     _B_: balance
+    _→_: →    _U_: redo     _w_: balance
                       ^^_h_/_H_: grow left
                       ^^_l_/_L_: grow right
                       ^^_k_/_K_: grow up
@@ -2221,7 +2221,7 @@
         ("m" my-maximize-or-undo-window)
         ("D" ace-delete-window)
         ("d" delete-window)
-        ("B" balance-windows)
+        ("w" balance-windows)
         ("h" delete-window-left)
         ("H" delete-windows-to-the-left)
         ("l" delete-window-right)
@@ -2798,6 +2798,7 @@
        (general-def
          "π" 'previous-buffer
          "∫" 'switch-to-buffer
+         "ç" 'balance-windows
          "œ" 'my-kill-current-buffer
          "Œ" (lambda () (interactive)
                (save-buffer)
