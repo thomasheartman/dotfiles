@@ -119,6 +119,7 @@
     (defconst on-macos (eq system-type 'darwin) "t if the current system is a darwin system (running macOS)")
     (defconst on-linux (eq system-type 'gnu/linux) "t if the current system is a linux system")
     (defconst use-exwm (and (display-graphic-p) on-linux) "t if exwm should be activated")
+    (defconst native-comp (require 'comp nil t) "non-nil if Emacs uses native compilation")
   #+END_SRC
 
 * Emacs
@@ -1106,7 +1107,9 @@
    disable native compilation of the packages that cause issues:
 
    #+BEGIN_SRC emacs-lisp
-     (if (require 'comp nil t)
+     (if native-comp
+         (when (not (boundp 'comp-bootstrap-black-list))
+           (setq comp-bootstrap-black-list ()))
          (dolist (blacklist '("smartparens"))
            (add-to-list 'comp-bootstrap-black-list blacklist)
            (add-to-list 'comp-deferred-compilation-black-list blacklist))
