@@ -3636,6 +3636,11 @@
         "C-y"
         "RET"
         "TAB")
+      (general-def
+        :states 'motion
+        "$" '(lambda ()
+               (interactive)
+               (evil-end-of-line)))
       (general-unbind
         :states 'normal
         "C-n"
