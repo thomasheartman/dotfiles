@@ -3652,6 +3652,10 @@
       (general-def
         :states 'normal
         "K" 'my-join-line
-        [remap evil-paste-after] 'yank
-        [remap evil-paste-pop] 'yank-pop))
+        ;; [remap evil-paste-after] 'yank
+        ;; [remap evil-paste-pop] 'yank-pop
+        )
+      (general-def
+        :states 'visual
+        "s" 'evil-surround-region))
   #+END_SRC
