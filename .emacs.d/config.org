@@ -3640,7 +3640,9 @@
         :states 'motion
         "$" '(lambda ()
                (interactive)
-               (evil-end-of-line)))
+               (evil-end-of-line))
+        "<home>" 'evil-jump-backward
+        "<end>" 'evil-jump-forward)
       (general-unbind
         :states 'normal
         "C-n"
