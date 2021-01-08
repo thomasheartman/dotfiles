@@ -3608,7 +3608,8 @@
       (setq evil-default-state 'normal
             evil-want-Y-yank-to-eol t
             evil-disable-insert-state-bindings t
-            evil-respect-visual-line-mode t)
+            evil-respect-visual-line-mode t
+            evil-move-beyond-eol t)
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
