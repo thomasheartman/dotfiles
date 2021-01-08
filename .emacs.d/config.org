@@ -3620,6 +3620,14 @@
       (use-package evil-surround
         :config
         (global-evil-surround-mode))
+
+      (use-package evil-args
+        :general
+        (evil-inner-text-objects-map
+         "a" 'evil-inner-arg)
+        (evil-outer-text-objects-map
+         "a" 'evil-outer-arg))
+
       :general
       (general-unbind
         :states 'insert
