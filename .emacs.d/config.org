@@ -3628,14 +3628,16 @@
         "C-e"
         "C-a"
         "C-y"
-        "C-o")
+        "C-o"
+        "C-v")
       (general-unbind
         :states 'motion
         "C-v"
         "C-e"
         "C-y"
         "RET"
-        "TAB")
+        "TAB"
+        "C-o")
       (general-def
         :states 'motion
         "$" '(lambda ()
@@ -3654,10 +3656,14 @@
       (general-def
         :states 'normal
         "K" 'my-join-line
+        "U" 'evil-redo
         ;; [remap evil-paste-after] 'yank
         ;; [remap evil-paste-pop] 'yank-pop
         )
       (general-def
         :states 'visual
-        "s" 'evil-surround-region))
+        "s" 'evil-surround-region)
+      (general-def
+        [remap scroll-up-command] 'evil-scroll-down
+        [remap scroll-down-command] 'evil-scroll-up))
   #+END_SRC
