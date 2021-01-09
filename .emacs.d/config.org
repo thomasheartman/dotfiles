@@ -3617,7 +3617,8 @@
             evil-want-Y-yank-to-eol t
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
-            evil-move-beyond-eol t)
+            evil-move-beyond-eol t
+            evil-cross-lines t)
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
