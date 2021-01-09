@@ -3692,6 +3692,7 @@
         "C-r"
         "M-."
         "M-y"
+        "C-."
         "DEL")
       (general-def
         :states 'normal
