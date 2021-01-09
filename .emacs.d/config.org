@@ -2363,10 +2363,13 @@
         "m" 'notmuch)
       (notmuch-hello-mode-map
        "f" 'fetch-mail-poll-and-refresh)
+      (notmuch-search-mode-map
+       "f" 'fetch-mail-poll-and-refresh)
       :init
       (defun fetch-mail-poll-and-refresh ()
         "Pull new mail from the server and update the current buffer."
         (interactive)
+        (message "Fetching new mail from the server.")
         (set-process-sentinel
          (start-process "fetch mail" "*OFFLINEIMAP-OUTPUT*" "offlineimap" "-o")
          (lambda (p e) (when (= 0 (process-exit-status p))
