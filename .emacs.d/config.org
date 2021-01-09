@@ -564,6 +564,24 @@
        (setq disabled-command-function nil)
      #+END_SRC
 
+**** Open line
+
+     By default, the ~open-line~ function doesn't indent the part of
+     the line that gets put onto the next line. I've always found this
+     to be unintuitive, so let's fix it with this little function.
+
+     #+BEGIN_SRC emacs-lisp
+       (defun my-open-line ()
+         (interactive)
+         (save-excursion
+           (newline)
+           (indent-for-tab-command)))
+
+       (general-def
+         [remap open-line] 'my-open-line)
+     #+END_SRC
+
+
 *** Scroll distance
     :LOGBOOK:
     - State "DONE"       from "TODO"       [2020-12-15 Tue 10:19]
