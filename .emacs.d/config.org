@@ -581,6 +581,20 @@
          [remap open-line] 'my-open-line)
      #+END_SRC
 
+**** Revert buffer
+
+     Let's create a function that'll revert a buffer from file:
+
+     #+BEGIN_SRC emacs-lisp
+       (defun my-revert-buffer ()
+         "Revert the current buffer with no confirmation."
+         (interactive)
+         (revert-buffer :ignore-auto :noconfirm))
+
+       (general-def
+         "C-c b r" 'my-revert-buffer)
+     #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
