@@ -595,6 +595,17 @@
          "C-c b r" 'my-revert-buffer)
      #+END_SRC
 
+**** RE-builder
+
+     As [[https://masteringemacs.org/article/re-builder-interactive-regexp-builder][recommended by Mickey]], let's set the default RE-builder
+     syntax to be ~string~. Remember that it'll be converted to elisp
+     if you copy it with ~C-c C-w~.
+
+     #+BEGIN_SRC emacs-lisp
+       (require 're-builder)
+       (setq reb-re-syntax 'string)
+     #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
