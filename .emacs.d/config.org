@@ -3488,25 +3488,6 @@
       :hook (python-mode . lsp))
   #+END_SRC
 
-* Evil-exchange
-  :PROPERTIES:
-  :REPO:     [[https://github.com/Dewdrops/evil-exchange][GitHub]]
-  :END:
-
-  Evil-exchange lets us exchange to regions. It also works without
-  evil mode.
-
-  #+BEGIN_SRC emacs-lisp
-    (general-create-definer evil-exchange-def
-      :prefix "C-c x")
-
-    (use-package evil-exchange
-      :general
-      (evil-exchange-def
-        "x" 'evil-exchange
-        "c" 'evil-exchange-cancel))
-  #+END_SRC
-
 * TODO region-to-async-shell-command
   :LOGBOOK:
   - State "TODO"       from              [2021-01-05 Tue 14:24] \\
@@ -3646,17 +3627,33 @@
         (evil-outer-text-objects-map
          "a" 'evil-outer-arg))
 
+      (use-package evil-commentary
+        :init (evil-commentary-mode))
+
+      (general-create-definer evil-exchange-def
+        :prefix "C-c x")
+
+      (use-package evil-exchange
+        :general
+        (evil-exchange-def
+          "x" 'evil-exchange
+          "c" 'evil-exchange-cancel)
+        :init
+        (evil-exchange-install))
+
       :general
       (general-unbind
         :states 'insert
         "C-p"
+        "C-n"
         "C-r"
         "C-k"
         "C-e"
         "C-a"
         "C-y"
         "C-o"
-        "C-v")
+        "C-v"
+        "C-w")
       (general-unbind
         :states 'motion
         "C-v"
@@ -3664,7 +3661,9 @@
         "C-y"
         "RET"
         "TAB"
-        "C-o")
+        "C-o"
+        "C-b"
+        "C-f")
       (general-def
         :states 'motion
         "$" '(lambda ()
@@ -3684,9 +3683,7 @@
         :states 'normal
         "K" 'my-join-line
         "U" 'evil-redo
-        ;; [remap evil-paste-after] 'yank
-        ;; [remap evil-paste-pop] 'yank-pop
-        )
+        "C-w" 'whole-line-or-region-kill-region)
       (general-def
         :states 'visual
         "s" 'evil-surround-region)
