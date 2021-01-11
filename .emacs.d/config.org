@@ -1371,7 +1371,7 @@
   Additionally, to smooth out the workflow with GitHub and GitLab,
   let's also use Forge.
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package forge
       :after magit
       :demand t
