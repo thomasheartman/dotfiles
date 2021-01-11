@@ -7,7 +7,13 @@ let
     package = pkgs.emacsGcc;
     alwaysTangle = true;
     # alwaysEnsure = true;
-    extraEmacsPackages = epkgs: [ epkgs.exwm ];
+    extraEmacsPackages = epkgs: [
+      epkgs.exwm
+      epkgs.emacsql-sqlite
+      epkgs.vterm
+      # epkgs.magit
+      epkgs.pdf-tools
+    ];
   };
 
   exwm-load-script = ''
