@@ -3708,7 +3708,8 @@
         "TAB"
         "C-o"
         "C-b"
-        "C-f")
+        "C-f"
+        "C-]")
       (general-def
         :states 'motion
         "$" '(lambda ()
