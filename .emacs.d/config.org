@@ -1465,6 +1465,9 @@
       (lsp-mode-map
        :start-maps t
        my-format-buffer 'lsp-format-buffer)
+      (my-lsp-def
+        :start-maps t
+        my-lsp-prefix 'lsp)
       :commands lsp)
     (use-package lsp-ui :commands lsp-ui-mode
       :general
