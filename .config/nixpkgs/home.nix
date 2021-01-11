@@ -23,14 +23,18 @@ let
 
 in {
 
-  # xsession = {
-  #   enable = false;
-  #   windowManager.command = ''
-  #     ${my-emacs}/bin/emacs -l ${exwm-load-script}
-  #   '';
-  # };
+  xsession = {
+    enable = true;
+    windowManager.command = ''
+          ${my-emacs}/bin/emacs --debug-init # --eval ${exwm-load-script}
+         '';
+    initExtra = ''
+      xset r rate 200 100
+    '';
+  };
 
   home.packages = with pkgs; [
+    my-emacs
     alacritty
     autojump
     bat
