@@ -12,6 +12,9 @@
 
 (message "Using config dir: %s" my-config-dir)
 
+(when (not (version<= emacs-version "28"))
+  (load-file (expand-file-name "my-obsolete-fns.el" my-config-dir)))
+
 (setq straight-use-package-by-default t
       straight-fix-flycheck t)
 
