@@ -1374,7 +1374,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package forge
       :after magit
-      :demand t
+      :when (require 'emacsql nil t)
       :config
       (add-to-list 'forge-alist
                    '("gitlab.intility.com" "gitlab.intility.com/api/v4" "gitlab.intility.com" forge-gitlab-repository))
