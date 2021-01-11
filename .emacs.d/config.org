@@ -2201,13 +2201,6 @@
       (yas-reload-all))
   #+END_SRC
 
-* TODO [#C] Surround
-
-  I want to find some way to have the equivalent of vim/evil-surround
-  but in pure Emacs-mode. Not sure how to do it just yet, but it
-  should be possible. The easiest may be to use evil-surround, just
-  mapped to an emacs-friendly binding. Something like ~M-o s ...~, for instance?
-
 * Hydra
   :PROPERTIES:
   :REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
