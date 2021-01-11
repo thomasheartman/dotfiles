@@ -33,7 +33,9 @@
 
 ;; fix errors regarding org mode versions
 ;; see https://github.com/raxod502/straight.el#the-wrong-version-of-my-package-was-loaded
-(straight-use-package 'org-plus-contrib)
+;; (straight-use-package 'org-plus-contrib)
+
+(straight-use-package '(org :type built-in))
 
 (message "Configured straight.el")
 
