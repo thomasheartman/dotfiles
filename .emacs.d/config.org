@@ -2008,6 +2008,12 @@
        org-mode-map
        "<up>" 'my-org-open-previous-heading
        "<down>" 'my-org-open-next-heading)
+
+     (general-def
+       org-mode-map
+       :states 'motion
+       "<up>"'my-org-open-previous-heading
+       "<down>"'my-org-open-next-heading)
    #+END_SRC
 
 
