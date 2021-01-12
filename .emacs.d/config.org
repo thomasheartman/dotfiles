@@ -3671,7 +3671,7 @@
             (setq evil-this-type 'exclusive))))
 
 
-      (evil-set-initial-state 'exwm-mode 'emacs )
+      (evil-set-initial-state 'exwm-mode 'emacs)
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
