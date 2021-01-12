@@ -3723,6 +3723,7 @@
       :general
       (general-unbind
         :states 'insert
+        "C-t"
         "C-p"
         "C-n"
         "C-r"
