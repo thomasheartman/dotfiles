@@ -33,16 +33,6 @@
                    'user-emacs-directory))
    #+END_SRC
 
-** use-package
-
-   Before we do anything else, let's make sure we've got [[https://github.com/jwiegley/use-package][use-package]]
-   ready to go! This bit of setup is a modified version of what Greg
-   Stein's example from Caches to Caches post [[http://cachestocaches.com/2015/8/getting-started-use-package/][Getting started with
-   use-package]].
-   #+BEGIN_SRC emacs-lisp
-     (straight-use-package 'use-package)
-   #+END_SRC
-
 * General
   :PROPERTIES:
   :REPO:     [[https://github.com/noctuid/general.el][GitHub]]
