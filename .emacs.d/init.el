@@ -30,53 +30,9 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+(message "Configured straight.el")
 
 (straight-use-package 'use-package)
-
-(use-package git)
-(use-package org
-  :init
-
-  ;; The following is a temporary hack until straight.el supports
-  ;; building Org, see:
-  ;;
-  ;; * https://github.com/raxod502/straight.el/issues/211
-  ;; * https://github.com/raxod502/radian/issues/410
-  ;;
-  ;; There are three things missing from our version of Org: the
-  ;; functions `org-git-version' and `org-release', and the feature
-  ;; `org-version'. We provide all three of those ourself, therefore.
-
-  (defun org-git-version ()
-    "The Git version of org-mode.
-  Inserted by installing org-mode or when a release is made."
-    (require 'git)
-    (let ((git-repo (expand-file-name
-                     "straight/repos/org/" user-emacs-directory)))
-      (string-trim
-       (git-run "describe"
-                "--match=release\*"
-                "--abbrev=6"
-                "HEAD"))))
-
-  (defun org-release ()
-    "The release version of org-mode.
-  Inserted by installing org-mode or when a release is made."
-    (require 'git)
-    (let ((git-repo (expand-file-name
-                     "straight/repos/org/" user-emacs-directory)))
-      (string-trim
-       (string-remove-prefix
-        "release_"
-        (git-run "describe"
-                 "--match=release\*"
-                 "--abbrev=0"
-                 "HEAD")))))
-
-  (provide 'org-version))
-
-
-(message "Configured straight.el")
 
 (org-babel-load-file (expand-file-name "config.org" my-config-dir))
 
