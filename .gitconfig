@@ -13,6 +13,7 @@
 
 [fetch]
   prune = true
+        fetch = +refs/heads/*:refs/remotes/origin/*
 
 [rerere]
 	enabled = true
