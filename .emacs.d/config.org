@@ -3624,6 +3624,8 @@
     Based on spacemacs/evil-insert-line-below (https://github.com/syl20bnr/spacemacs/blob/61ff12cbfc1daf39a63d6597982c6f7b6c4db7a4/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L43)"
         (interactive "p")
         (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
+      :custom
+      (evil-want-Y-yank-to-eol t)
       :config
       (defmacro define-and-bind-text-object (key start-regex end-regex)
         (let ((inner-name (make-symbol "inner-line"))
@@ -3641,17 +3643,48 @@
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
       (define-and-bind-text-object "l" "^\\s-*"
         "\\s-*$")
+
+      (evil-define-text-object evil-inner-buffer (count &optional beg end type)
+        (list (point-min) (point-max)))
+      (general-def
+        'evil-inner-text-objects-map
+        "e" 'evil-inner-buffer)
+      (general-def
+        'evil-outer-text-objects-map
+        "e" 'evil-inner-buffer)
+
       (setq evil-default-state 'normal
-            evil-want-Y-yank-to-eol t
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
             evil-move-beyond-eol t
             evil-cross-lines t)
 
+      (setq evil-v$-gets-eol t)
+      ;; stop `v$' from selecting newlines
+      (evil-define-motion evil-end-of-line
+        (count)
+        "Move the cursor to the end of the current line.
+    If COUNT is given, move COUNT - 1 lines downward first."
+        :type inclusive
+        (move-end-of-line count)
+        (when evil-track-eol
+          (setq temporary-goal-column most-positive-fixnum
+                this-command 'next-line))
+        (unless (and (evil-visual-state-p)
+                     evil-v$-gets-eol)
+          (evil-adjust-cursor)
+          (when (eolp)
+            ;; prevent "c$" and "d$" from deleting blank lines
+            (setq evil-this-type 'exclusive))))
+
+
+
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
               ("^\\*elfeed.*\\*$" . nil)
               ("^\\*.*[Hh]elp.*\\*$". nil)
+              ("^*Flycheck" . nil)
+              ("^\\*Messages\\*$". nil)
               ("COMMIT_EDITMSG" . insert)))
 
 
@@ -3683,6 +3716,7 @@
       :general
       (general-unbind
         :states 'insert
+        "C-t"
         "C-p"
         "C-n"
         "C-r"

@@ -1,157 +1,156 @@
 [core]
-	excludesfile = /Users/Thomas/.gitignore_global
-	autocrlf = input
-  preloadindex = true
-	filemode = false
-	ignorecase = false
+        excludesfile = /Users/Thomas/.gitignore_global
+        autocrlf = input
+        preloadindex = true
+        filemode = false
+        ignorecase = false
 
 [push]
-  default = upstream
+        default = upstream
 
 [pull]
-  rebase = merges
+        rebase = merges
 
 [fetch]
-  prune = true
+        prune = true
+        fetch = +refs/heads/*:refs/remotes/origin/*
 
 [rerere]
-	enabled = true
-	autoupdate = true
+        enabled = true
+        autoupdate = true
 
 [difftool]
-  prompt = false
+        prompt = false
 
 [user]
-  name = Thomas Heartman
-	email = thomas.heartman+git@gmail.com
+        name = Thomas Heartman
+        email = thomas.heartman+git@gmail.com
 
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
-  required = true
+        clean = git-lfs clean %f
+        smudge = git-lfs smudge %f
+        required = true
 
 [alias]
 
-  # common shortcuts
-  co = checkout
-  s = switch
-  ci = commit
-  br = branch -a
-  sh = stash
-  cp = cherry-pick
+        # common shortcuts
+        co = checkout
+        s = switch
+        ci = commit
+        br = branch -a
+        sh = stash
+        cp = cherry-pick
 
-  # less common shortcuts
-  st = status -sb
-  ren = branch -m
-  p = pull --ff-only
+        # less common shortcuts
+        st = status -sb
+        ren = branch -m
+        p = pull --ff-only
 
-  # rebase
-  pfwl = push --force-with-lease
-  preb = pull --rebase
-  rc = rebase --continue
-  ri = rebase --interactive
-  amend = commit --amend --no-edit
-  rerereoff = !git config rerere.enabled false
-  rerereon = !git config rerere.enabled true
-  rererest = !git config --get rerere.enabled
-  rmrerere = !git config --remove-section rerere
+        # rebase
+        pfwl = push --force-with-lease
+        preb = pull --rebase
+        rc = rebase --continue
+        ri = rebase --interactive
+        amend = commit --amend --no-edit
+        rerereoff = !git config rerere.enabled false
+        rerereon = !git config rerere.enabled true
+        rererest = !git config --get rerere.enabled
+        rmrerere = !git config --remove-section rerere
 
-  # list modified files in last commit
-  dl = "!git ll -1"
-  prev = "git diff-tree --no-commit-id --name-only -r"
-  # diff last commit
-  dlc = diff --cached HEAD^
-  dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-  diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+        # list modified files in last commit
+        dl = "!git ll -1"
+        prev = "git diff-tree --no-commit-id --name-only -r"
+        # diff last commit
+        dlc = diff --cached HEAD^
+        dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
+        diffr  = "!f() { git diff "$1"^.."$1"; }; f"
 
-  # cleaning
-  brclean = "!f() { git branch --merged origin/master | grep -v master | xargs -r git branch -d; }; f"
+        # cleaning
+        brclean = "!f() { git branch --merged origin/master | grep -v master | xargs -r git branch -d; }; f"
 
-  # recent history
-  standup = !sh -c \"git log --pretty=format:'%C(auto)%h %B' --decorate --date=short --since=yesterday --author='$(git config --get user.email)'\"
+        # recent history
+        standup = !sh -c \"git log --pretty=format:'%C(auto)%h %B' --decorate --date=short --since=yesterday --author='$(git config --get user.email)'\"
 
-  # log
-  le = log --oneline --decorate
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --numstat
-  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=short
-  ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative
+        # log
+        le = log --oneline --decorate
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate
+        ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --numstat
+        lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=short
+        ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative
 
-  # list modified files in last commit
-  dl = "!git ll -1"
-  # diff last commit
-  dlc = diff --cached HEAD^
-  dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-  diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+        # list modified files in last commit
+        dl = "!git ll -1"
+        # diff last commit
+        dlc = diff --cached HEAD^
+        dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
+        diffr  = "!f() { git diff "$1"^.."$1"; }; f"
 
-  # merge/diff
-  mergetest = "!f(){ git fetch; git merge --no-commit --no-ff \"${1-origin/master}\" | grep CONFLICT; if [ $? == 0 ]; then echo -e \"\\033[1;31m --- Merge will conflict :( --- \\033[0m\"; else echo -e \"\\033[1;32m --- No conflict in merge :) --- \\033[0m\"; fi; git merge --abort; }; f " # "Dry-run" merge towards origin/master by default. Can pass another branch as 1st param.
-  conflicts = diff --name-only --diff-filter=U
-  dt = difftool
-  mt = mergetool
-  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
+        # merge/diff
+        mergetest = "!f(){ git fetch; git merge --no-commit --no-ff \"${1-origin/master}\" | grep CONFLICT; if [ $? == 0 ]; then echo -e \"\\033[1;31m --- Merge will conflict :( --- \\033[0m\"; else echo -e \"\\033[1;32m --- No conflict in merge :) --- \\033[0m\"; fi; git merge --abort; }; f " # "Dry-run" merge towards origin/master by default. Can pass another branch as 1st param.
+        conflicts = diff --name-only --diff-filter=U
+        dt = difftool
+        mt = mergetool
+        hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+        type = cat-file -t
+        dump = cat-file -p
 
-  # reset commands
-  r = reset
-  r1 = reset HEAD^
-  r2 = reset HEAD^^
-  rh = "!f() { git reset --hard ${1-\"@{u}\"}; }; f" # rh master -> reset hard to master. rh -> reset hard to upstream branch
-  rh1 = reset HEAD^ --hard
-  rh2 = reset HEAD^^ --hard
+        # reset commands
+        r = reset
+        r1 = reset HEAD^
+        r2 = reset HEAD^^
+        rh = "!f() { git reset --hard ${1-\"@{u}\"}; }; f" # rh master -> reset hard to master. rh -> reset hard to upstream branch
+        rh1 = reset HEAD^ --hard
+        rh2 = reset HEAD^^ --hard
 
-  # list aliases
-  la = "!git config -l | grep alias | cut -c 7-"
+        # list aliases
+        la = "!git config -l | grep alias | cut -c 7-"
 
-  # stash
-  sl = stash list
-  sa = stash apply
-  ss = stash save
+        # stash
+        sl = stash list
+        sa = stash apply
+        ss = stash save
 
-  # config
-  whoami = !git config --get user.name
-  iam = !git config user.name
-  amnesia = !git config --unset user.name
-  # misc
-  ignored = ls-files --others --i --exclude-standard
-  todo = grep -i -n -e TODO -e FIXME -e NOTE
+        # config
+        whoami = !git config --get user.name
+        iam = !git config user.name
+        amnesia = !git config --unset user.name
+        # misc
+        ignored = ls-files --others --i --exclude-standard
+        todo = grep -i -n -e TODO -e FIXME -e NOTE
 
-  # TH shortcuts
-  #utility
-  fs = "!f(){ git fetch --prune; git st;}; f"
-  pushup = "push -u origin HEAD" #push branch to origin
-  del = "!f(){ git push origin --delete "$1"; git branch -D "$1"; }; f"
-  rekt = "!f() { git reset --hard ${1-\"@{0}\"}; }; f" # CHANGE: revert to the last commit rather than to upstream
+        # TH shortcuts
+        #utility
+        fs = "!f(){ git fetch --prune; git st;}; f"
+        pushup = "push -u origin HEAD" #push branch to origin
+        del = "!f(){ git push origin --delete "$1"; git branch -D "$1"; }; f"
+        rekt = "!f() { git reset --hard ${1-\"@{0}\"}; }; f" # CHANGE: revert to the last commit rather than to upstream
 
-  #housekeeping
-  #merges and then deletes the merged branch. HANDLE WITH CARE
-  mdel ="!f(){ git merge \"$1\"; git del \"$1\"; }; f"
+        #housekeeping
+        #merges and then deletes the merged branch. HANDLE WITH CARE
+        mdel ="!f(){ git merge \"$1\"; git del \"$1\"; }; f"
 
-  #optimising workflow. Use this instead of pull
-  # params
-  # $1: the branch to update to
-  # $2: the remote to update from (optional, defaults to origin)
-  # update  "!f() { git fetch "${2-origin}" --prune; git merge --ff-only "${2-origin}"/$1 || git rebase --preserve-merges "${2-origin}"/$1; }; f"
-  update = "!f() { git fetch "@{u}" --prune; git merge --ff-only "@{u}" || git rebase --preserve-merges "@{u}"; }; f"
-  tidy = "!f() { if [ $# -eq 0 ]; then REBASE_TARGET="@{u}"; elif [ ${#1} -ge 4 ]; then REBASE_TARGET=$1; else REBASE_TARGET="head~$1"; fi; git rebase -i $REBASE_TARGET; }; f"
-  rename = git branch -m
+        #optimising workflow. Use this instead of pull
+        # params
+        # $1: the branch to update to
+        # $2: the remote to update from (optional, defaults to origin)
+        # update  "!f() { git fetch "${2-origin}" --prune; git merge --ff-only "${2-origin}"/$1 || git rebase --preserve-merges "${2-origin}"/$1; }; f"
+        update = "!f() { git fetch "@{u}" --prune; git merge --ff-only "@{u}" || git rebase --preserve-merges "@{u}"; }; f"
+        tidy = "!f() { if [ $# -eq 0 ]; then REBASE_TARGET="@{u}"; elif [ ${#1} -ge 4 ]; then REBASE_TARGET=$1; else REBASE_TARGET="head~$1"; fi; git rebase -i $REBASE_TARGET; }; f"
+        rename = git branch -m
 
-  diffc = "diff --cached"
+        diffc = "diff --cached"
 
 [status]
-	submoduleSummary = true
+        submoduleSummary = true
 [credential]
-	helper = cache --timeout=144000
+        helper = cache --timeout=144000
 
 [includeIf "gitdir:~/projects/work/"]
-  path = ~/projects/work/.gitconfig
-[gitlab "gitlab.intility.no/api/v4"]
-	user = thomas.heartman
+        path = ~/projects/work/.gitconfig
 [merge]
-	conflictStyle = diff3
+        conflictStyle = diff3
 [github]
-	user = thomasheartman
+        user = thomasheartman
 [gitlab "gitlab.intility.com/api/v4"]
-	user = thomas.heartman
+        user = thomas.heartman
