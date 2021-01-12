@@ -3631,6 +3631,8 @@
     Based on spacemacs/evil-insert-line-below (https://github.com/syl20bnr/spacemacs/blob/61ff12cbfc1daf39a63d6597982c6f7b6c4db7a4/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L43)"
         (interactive "p")
         (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
+      :custom
+      (evil-want-Y-yank-to-eol t)
       :config
       (defmacro define-and-bind-text-object (key start-regex end-regex)
         (let ((inner-name (make-symbol "inner-line"))
@@ -3649,7 +3651,6 @@
       (define-and-bind-text-object "l" "^\\s-*"
         "\\s-*$")
       (setq evil-default-state 'normal
-            evil-want-Y-yank-to-eol t
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
             evil-move-beyond-eol t
