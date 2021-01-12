@@ -17,8 +17,10 @@ let
   };
 
   exwm-load-script = ''
-    (require 'exwm)
-    (exwm-init)
+    (progn
+      (require 'exwm)
+      (configure-ivy-posframe-for-exwm)
+      (exwm-init))
   '';
 
 in {
@@ -26,7 +28,7 @@ in {
   xsession = {
     enable = true;
     windowManager.command = ''
-          ${my-emacs}/bin/emacs --debug-init # --eval ${exwm-load-script}
+          ${my-emacs}/bin/emacs --eval "${exwm-load-script}"
          '';
     initExtra = ''
       xset r rate 200 100
