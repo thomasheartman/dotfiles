@@ -2320,13 +2320,6 @@
                 "C-S-f" 'sp-forward-symbol
                 "C-S-b" 'sp-backward-symbol
                 "C-M-," 'sp-rewrap-sexp
-                "C-M-x" (lambda ()
-                          (interactive)
-                          (save-excursion
-                            (sp-select-next-thing-exchange)
-                            (evil-exchange (region-beginning) (region-end))
-                            (when (region-active-p)
-                              (keyboard-quit))))
                 "C-M-;" (lambda ()
                           (interactive)
                           (save-excursion
