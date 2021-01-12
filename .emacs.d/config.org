@@ -3650,6 +3650,16 @@
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
       (define-and-bind-text-object "l" "^\\s-*"
         "\\s-*$")
+
+      (evil-define-text-object evil-inner-buffer (count &optional beg end type)
+        (list (point-min) (point-max)))
+      (general-def
+        'evil-inner-text-objects-map
+        "e" 'evil-inner-buffer)
+      (general-def
+        'evil-outer-text-objects-map
+        "e" 'evil-inner-buffer)
+
       (setq evil-default-state 'normal
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
