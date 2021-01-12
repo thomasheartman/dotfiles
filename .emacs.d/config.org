@@ -3649,7 +3649,8 @@
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
             evil-move-beyond-eol t
-            evil-cross-lines t)
+            evil-cross-lines t
+            evil-symbol-word-search t)
 
       (setq evil-v$-gets-eol t)
       ;; stop `v$' from selecting newlines
