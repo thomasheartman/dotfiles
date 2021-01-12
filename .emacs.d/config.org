@@ -3657,6 +3657,7 @@
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
+              ("^\\*elfeed.*\\*$" . nil)
               ("^\\*.*[Hh]elp.*\\*$". nil)
               ("COMMIT_EDITMSG" . insert)))
 
