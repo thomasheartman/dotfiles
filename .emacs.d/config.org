@@ -3718,7 +3718,7 @@
               ("^\\*elfeed.*\\*$" . nil)
               ("^\\*.*[Hh]elp.*\\*$". nil)
               ("^*Flycheck" . nil)
-              ("^\\*Messages\\*$". nil)
+              ("^\\*Messages\\*$" . nil)
               ("COMMIT_EDITMSG" . insert)))
 
 
