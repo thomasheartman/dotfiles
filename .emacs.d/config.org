@@ -136,6 +136,24 @@
 
 *** Theme
 
+    To load a theme in Emacs, the default way is to use `M-x
+    load-theme`. This works well except for the fact that you need to
+    confirm that you really want to load it unless it's been added to
+    the 'safe themes' custom list. Let's make it a bit easier to load
+    with `M-x`.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun load-theme-no-confirm (theme)
+        "Load custom theme named THEME from its file and enable it.
+
+      Calls out to Emacs' own `load-theme' under the hood."
+        (interactive
+         (list
+          (intern (completing-read "Load custom theme: " (mapcar #'symbol-name (custom-available-themes))))))
+        (load-theme theme t))
+    #+END_SRC
+
+
 **** one-themes
      :PROPERTIES:
      :REPO:     [[https://github.com/balajisivaraman/emacs-one-themes][GitHub]]
