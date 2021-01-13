@@ -15,10 +15,9 @@ let
   };
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
-    (progn
-      (require 'exwm)
-      (configure-ivy-posframe-for-exwm)
-      (exwm-init))
+    (require 'exwm)
+    (configure-ivy-posframe-for-exwm)
+    (exwm-init)
   '';
 
 in {
