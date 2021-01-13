@@ -3663,6 +3663,7 @@
         (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
       :custom
       (evil-want-Y-yank-to-eol t)
+      (evil-symbol-word-search t)
       :config
       (defmacro define-and-bind-text-object (key start-regex end-regex)
         (let ((inner-name (make-symbol "inner-line"))
@@ -3694,8 +3695,7 @@
             evil-disable-insert-state-bindings t
             evil-respect-visual-line-mode t
             evil-move-beyond-eol t
-            evil-cross-lines t
-            evil-symbol-word-search t)
+            evil-cross-lines t)
 
       (setq evil-v$-gets-eol t)
       ;; stop `v$' from selecting newlines
