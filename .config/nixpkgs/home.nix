@@ -16,7 +16,7 @@ let
     ];
   };
 
-  exwm-load-script = ''
+  exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (progn
       (require 'exwm)
       (configure-ivy-posframe-for-exwm)
@@ -25,10 +25,12 @@ let
 
 in {
 
+
+
   xsession = {
     enable = true;
     windowManager.command = ''
-          ${my-emacs}/bin/emacs --eval "${exwm-load-script}"
+          ${my-emacs}/bin/emacs -l "${exwm-load-script}"
          '';
     initExtra = ''
       xset r rate 200 100
