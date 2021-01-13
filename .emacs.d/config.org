@@ -1208,6 +1208,10 @@
   For searches, I also prefer using a fuzzier regex pattern than the
   default, so this is set up by assigning ~ivy--regex-fuzzy~.
 
+  By default, ~ivy-initial-inputs-alist~ instructs most ivy-functions
+  to put a ~^~ at the start of the search. While this can be useful
+  sometimes, I prefer to insert one myself when I need it.
+
   #+BEGIN_SRC emacs-lisp
     (use-package counsel
       :demand t
@@ -1218,7 +1222,8 @@
             ivy-re-builders-alist '((swiper-isearch . ivy--regex-plus)
                                     (ivy-switch-buffer . ivy--regex-plus)
                                     (t . ivy--regex-fuzzy))
-            ivy-wrap t)
+            ivy-wrap t
+            ivy-initial-inputs-alist nil)
       :general
       ("C-S-s" 'swiper-isearch
        "C-M-y" 'counsel-yank-pop
