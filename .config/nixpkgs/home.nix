@@ -3,15 +3,13 @@
 let
 
   my-emacs = pkgs.emacsWithPackagesFromUsePackage {
-    config = /home/thomas/.emacs.d/init.el;
+    config = ~/.emacs.d/init.el;
     package = pkgs.emacsGcc;
     alwaysTangle = true;
-    # alwaysEnsure = true;
     extraEmacsPackages = epkgs: [
       epkgs.exwm
       epkgs.emacsql-sqlite
       epkgs.vterm
-      # epkgs.magit
       epkgs.pdf-tools
     ];
   };
