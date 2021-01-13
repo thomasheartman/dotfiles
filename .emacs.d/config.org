@@ -139,18 +139,30 @@
     To load a theme in Emacs, the default way is to use `M-x
     load-theme`. This works well except for the fact that you need to
     confirm that you really want to load it unless it's been added to
-    the 'safe themes' custom list. Let's make it a bit easier to load
-    with `M-x`.
+    the 'safe themes' custom list. Also, Emacs doesn't disable the
+    modifications from a previous theme when you load a new one, so if
+    the previous theme defines more faces than the new one, some of
+    these will remain. To get around that we'll disable the old theme
+    if it is not the same as the new one.
 
     #+BEGIN_SRC emacs-lisp
-      (defun load-theme-no-confirm (theme)
+      (defun heartman/load-theme (theme)
         "Load custom theme named THEME from its file and enable it.
 
       Calls out to Emacs' own `load-theme' under the hood."
         (interactive
          (list
-          (intern (completing-read "Load custom theme: " (mapcar #'symbol-name (custom-available-themes))))))
-        (load-theme theme t))
+          (intern
+           (completing-read "Load custom theme: "
+                            (mapcar #'symbol-name
+                                    (custom-available-themes))))))
+
+        (let ((old-theme (car custom-enabled-themes)))
+          (when (not (eq theme old-theme))
+            (message "Disabling theme %s" old-theme theme)
+            (disable-theme old-theme))
+          (load-theme theme t)
+          (message "Loaded theme %s" theme)))
     #+END_SRC
 
 
