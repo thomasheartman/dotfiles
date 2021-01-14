@@ -47,6 +47,7 @@ in {
     docker
     ffmpeg
     firefox
+    gcc # <-this is here to make magit forge work
     ispell
     jetbrains-mono
     jq
