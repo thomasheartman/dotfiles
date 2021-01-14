@@ -3802,7 +3802,8 @@
         "<S-return>" 'my-evil-insert-line-above)
       (general-def
         :states 'visual
-        "s" 'evil-surround-region)
+        "s" 'evil-surround-region
+        "C-w" 'whole-line-or-region-kill-region)
       (general-def
         [remap scroll-up-command] 'evil-scroll-down
         [remap scroll-down-command] 'evil-scroll-up))
