@@ -3693,7 +3693,7 @@
 
       (setq evil-default-state 'normal
             evil-disable-insert-state-bindings t
-            evil-respect-visual-line-mode t
+            evil-respect-visual-line-mode nil
             evil-move-beyond-eol t
             evil-cross-lines t)
 
