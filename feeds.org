@@ -124,6 +124,8 @@
 
 *** https://www.nngroup.com/feed/rss/                                    :ux:
 
+*** [[https://www.uio.no/studier/emner/matnat/math/MAT2250/v21/forelesningsvideoer/?vrtx=feed][MAT2250 (UiO)]]                                                       :uio:
+
 ** Self                                                                :self:
 
 *** [[https://thomashartmann.dev/rss.xml][thomashartmann.dev]]
