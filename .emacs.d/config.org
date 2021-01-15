@@ -3812,3 +3812,18 @@
         [remap scroll-up-command] 'evil-scroll-down
         [remap scroll-down-command] 'evil-scroll-up))
   #+END_SRC
+
+* balanced windows
+  :PROPERTIES:
+  :REPO:     [[https://github.com/wbolster/emacs-balanced-windows][GitHub]]
+  :END:
+
+
+  balanced-windows.el keeps your windows balanced whenever the
+  configuration changes.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package balanced-windows
+      :config
+      (balanced-windows-mode))
+  #+END_SRC
