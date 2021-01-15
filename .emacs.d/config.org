@@ -3783,8 +3783,8 @@
         "$" '(lambda ()
                (interactive)
                (evil-end-of-line))
-        "<home>" 'evil-jump-backward
-        "<end>" 'evil-jump-forward)
+        "M-o" 'evil-jump-backward
+        "M-i" 'evil-jump-forward)
       (general-unbind
         :states 'normal
         "C-n"
