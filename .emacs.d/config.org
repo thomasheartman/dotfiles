@@ -3815,7 +3815,8 @@
         "C-k")
       (general-def
         [remap scroll-up-command] 'evil-scroll-down
-        [remap scroll-down-command] 'evil-scroll-up))
+        [remap scroll-down-command] 'evil-scroll-up
+        [remap xref-find-definitions] 'evil-goto-definition))
   #+END_SRC
 
 * balanced windows
