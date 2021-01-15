@@ -3831,9 +3831,14 @@
 
 
 
-* selectrum +++
+* TODO selectrum +++
   :PROPERTIES:
   :REPO:     [[https://github.com/raxod502/selectrum][GitHub]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2021-01-15 Fri 14:11] \\
+    For some reason, I can't seem to make this work properly. Try it out
+    on NixOS and see what's up?
   :END:
 
 
