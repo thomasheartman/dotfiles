@@ -3799,11 +3799,15 @@
         "U" 'evil-redo
         "C-w" 'whole-line-or-region-kill-region
         "<return>" 'my-evil-insert-line-below
-        "<S-return>" 'my-evil-insert-line-above)
+        "<S-return>" 'my-evil-insert-line-above
+        [remap evil-next-line] 'evil-next-visual-line
+        [remap evil-previous-line] 'evil-previous-visual-line)
       (general-def
         :states 'visual
         "s" 'evil-surround-region
-        "C-w" 'whole-line-or-region-kill-region)
+        "C-w" 'whole-line-or-region-kill-region
+        [remap evil-next-line]'evil-next-visual-line
+        [remap evil-previous-line] 'evil-previous-visual-line)
       (general-def
         [remap scroll-up-command] 'evil-scroll-down
         [remap scroll-down-command] 'evil-scroll-up))
