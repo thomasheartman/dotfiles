@@ -3793,7 +3793,8 @@
         "M-."
         "M-y"
         "C-."
-        "DEL")
+        "DEL"
+        "C-t")
       (general-def
         :states 'normal
         "K" 'my-join-line
@@ -3809,6 +3810,9 @@
         "C-w" 'whole-line-or-region-kill-region
         [remap evil-next-line]'evil-next-visual-line
         [remap evil-previous-line] 'evil-previous-visual-line)
+      (general-unbind evil-ex-completion-map
+        "C-a"
+        "C-k")
       (general-def
         [remap scroll-up-command] 'evil-scroll-down
         [remap scroll-down-command] 'evil-scroll-up))
