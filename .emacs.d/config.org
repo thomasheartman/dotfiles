@@ -4011,3 +4011,16 @@
     :PROPERTIES:
     :REPO:     [[https://github.com/muffinmad/emacs-mini-frame][GitHub]]
     :END:
+
+* CTRLF
+  :PROPERTIES:
+  :REPO:     [[https://github.com/raxod502/ctrlf][GitHub]]
+  :END:
+
+  CTRLF is a replacement/improvement over standard isearch.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package ctrlf
+      :config
+      (ctrlf-mode +1))
+  #+END_SRC
