@@ -3828,3 +3828,176 @@
       :config
       (balanced-windows-mode))
   #+END_SRC
+
+
+
+* selectrum +++
+  :PROPERTIES:
+  :REPO:     [[https://github.com/raxod502/selectrum][GitHub]]
+  :END:
+
+
+  selectrum is a replacement for ivy/helm.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package selectrum
+      :config
+      :disabled
+      (setq selectrum-show-indices t)
+      (selectrum-mode +1))
+
+    <<prescient-config>>
+    <<consult-config>>
+    <<embark-config>>
+    <<marginalia-config>>
+  #+END_SRC
+
+
+** Additional packages
+   :PROPERTIES:
+   :header-args: :noweb-ref selectrum-additional-packages :tangle no :results silent :comments both
+   :END:
+
+
+   In addition to the base selectrum package, there are a number of
+   other recommended packages that'll make improve it.
+
+
+*** Prescient
+    :PROPERTIES:
+    :REPO:     [[https://github.com/raxod502/prescient.el][GitHub]]
+    :END:
+
+    #+name: prescient-config
+    #+BEGIN_SRC emacs-lisp
+      (use-package selectrum-prescient
+        :config
+        (selectrum-prescient-mode +1)
+        (prescient-persist-mode +1))
+    #+END_SRC
+
+
+*** Consult
+    :PROPERTIES:
+    :REPO:     [[https://github.com/minad/consult][GitHub]]
+    :END:
+
+
+    #+name: consult-config
+    #+BEGIN_SRC emacs-lisp
+      (use-package consult
+        :straight (:branch "main")
+        :after projectile
+        :general
+        ([remap repeat-complex-command] 'consult-complex-command
+         [remap switch-to-buffer] 'consult-buffer
+         [remap switch-to-buffer-other-window] 'consult-buffer-other-window
+         [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame
+         [remap copy-to-register] 'consult-register
+         [remap bookmark-jump] 'consult-bookmark
+         [remap goto-line] 'consult-goto-line
+         "M-g o" 'consult-outline
+         "M-g l" 'consult-line
+         "M-g m" 'consult-mark
+         "M-g k" 'consult-global-mark
+         "M-g r" 'consult-ripgrep
+         "M-g f" 'consult-find
+         "M-g e" 'consult-error
+         "M-s m" 'consult-multi-occur
+         "C-M-y" 'consult-yank-pop)
+
+        :init
+        (fset 'multi-occur #'consult-multi-occur)
+
+        (setq register-preview-delay 0
+              register-preview-function #'consult-register-preview)
+
+
+        :config
+        (setq consult-narrow-key "<"
+              consult-project-root-function #'projectile-project-root))
+
+      (use-package consult-flycheck
+        :after flycheck
+        :general
+        (flycheck-command-map
+         "!" 'consult-flycheck))
+    #+END_SRC
+
+
+*** Marginalia
+    :PROPERTIES:
+    :REPO:     [[https://github.com/minad/marginalia][GitHub]]
+    :END:
+
+    #+name: marginalia-config
+    #+BEGIN_SRC emacs-lisp
+      (use-package marginalia
+        :straight (:branch "main")
+        :after (consult embark)
+        :init
+        (marginalia-mode)
+        (advice-add #'marginalia-cycle :after
+                    (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))
+        (setq marginalia-annotators '(marginalia-annotators-heavy
+                                      marginalia-annotators-light
+                                      nil))
+        :general
+        (minibuffer-local-map
+         "C-M-a" 'marginalia-cycle)
+        (embark-general-map
+         "A" 'marginalia-cycle)
+        )
+    #+END_SRC
+
+
+
+*** Embark
+    :PROPERTIES:
+    :REPO:     [[https://github.com/oantolin/embark/][GitHub]]
+    :END:
+
+
+    #+name: embark-config
+    #+BEGIN_SRC emacs-lisp
+      (use-package embark
+        :straight (:type git :host github :repo "oantolin/embark")
+        :general
+        ("C-c ?" 'embark-act)
+        (minibuffer-local-map
+         "C-c ?" 'embark-no-exit)
+        :config
+        (defun current-candidate+category ()
+          (when selectrum-active-p
+            (cons (selectrum--get-meta 'category)
+                  (selectrum-get-current-candidate))))
+
+        (add-hook 'embark-target-finders #'current-candidate+category)
+
+        (defun current-candidates+category ()
+          (when selectrum-active-p
+            (cons (selectrum--get-meta 'category)
+                  (selectrum-get-current-candidates minibuffer-completing-file-name))))
+
+        (add-hook 'embark-candidate-collectors #'current-candidates+category)
+
+        (add-hook 'embark-setup-hook 'selectrum-set-selected-candidate)
+
+        ;; which-key integration
+        (setq embark-action-indicator
+              (lambda (map)
+                     (which-key--show-keymap "Embark" map nil nil 'no-paging)
+                     #'which-key--hide-popup-ignore-command)
+              embark-become-indicator embark-action-indicator)
+
+        (use-package embark-consult
+          :after consult
+          :hook
+          (embark-collect-mode . embark-consult-preview-minor-mode)))
+    #+END_SRC
+
+
+*** emacs-mini-frame
+    :PROPERTIES:
+    :REPO:     [[https://github.com/muffinmad/emacs-mini-frame][GitHub]]
+    :END:
