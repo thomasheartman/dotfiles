@@ -3816,6 +3816,8 @@
       (general-def
         [remap scroll-up-command] 'evil-scroll-down
         [remap scroll-down-command] 'evil-scroll-up
+        [remap isearch-forward] 'evil-search-forward
+        [remap isearch-backward] 'evil-search-backward
         [remap xref-find-definitions] 'evil-goto-definition))
   #+END_SRC
 
