@@ -4023,6 +4023,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package ctrlf
+      :disabled
       :config
       (ctrlf-mode +1))
   #+END_SRC
