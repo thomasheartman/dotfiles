@@ -646,6 +646,17 @@
        (setq reb-re-syntax 'string)
      #+END_SRC
 
+**** Undo-redo
+
+     With Emacs 28.1 comes redo-functionality. Let's bind that to
+     something useful if it's available.
+
+     #+BEGIN_SRC emacs-lisp
+       (when (functionp 'undo-redo)
+         (general-def
+           "M-/" 'undo-redo))
+     #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
