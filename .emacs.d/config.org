@@ -3664,6 +3664,7 @@
       :custom
       (evil-want-Y-yank-to-eol t)
       (evil-symbol-word-search t)
+      (evil-undo-system 'undo-redo)
       :config
       (defmacro define-and-bind-text-object (key start-regex end-regex)
         (let ((inner-name (make-symbol "inner-line"))
