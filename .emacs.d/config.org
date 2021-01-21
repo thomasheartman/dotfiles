@@ -3780,6 +3780,10 @@
         "C-o"
         "C-v"
         "C-w")
+      (general-def
+        :states 'insert
+        "M-o" 'evil-jump-backward
+        "M-i" 'evil-jump-forward)
       (general-unbind
         :states 'motion
         "C-v"
