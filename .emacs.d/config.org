@@ -2805,10 +2805,11 @@
       (defun configure-ivy-posframe-for-exwm ()
         "Configure ivy-posframe for exwm."
         (setq ivy-posframe-display-functions-alist
-              '((t . +ivy-posframe-display-exwm))
+              '((t . +ivy-posframe-display-exwm)))
 
-              ivy-posframe-parameters '((parent-frame nil)
-                                        (z-group . above))))
+        ;; As suggested by https://github.com/ch11ng/exwm/issues/550#issuecomment-763949321
+        (define-advice posframe-show (:filter-return (frame) exwm-deparent)
+          (set-frame-parameter frame 'parent-frame nil) frame))
 
       ;; force set frame-position on every posframe display
       (advice-add 'posframe--set-frame-position :before
