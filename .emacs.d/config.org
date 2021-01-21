@@ -2699,6 +2699,10 @@
               ([\s-left] . windmove-left)
               ([?\s-m] . my-maximize-or-undo-window)
 
+              ;; shell commands
+              ([?\s-!] . shell-command)
+              ([?\s-&] . async-shell-command)
+
               ;; workspace navigation and management
               ([\s-tab] . my-previous-window)
               ([?\s-l] . my-exwm-next-workspace-by-index)
