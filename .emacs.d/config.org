@@ -4026,6 +4026,15 @@
     :REPO:     [[https://github.com/muffinmad/emacs-mini-frame][GitHub]]
     :END:
 
+    #+BEGIN_SRC emacs-lisp
+      (use-package mini-frame
+        :custom
+        (miniframe-show-parameters '((top . 10)
+                                     (width . 0.7)
+                                     (left . 0.5))))
+    #+END_SRC
+
+
 * CTRLF
   :PROPERTIES:
   :REPO:     [[https://github.com/raxod502/ctrlf][GitHub]]
