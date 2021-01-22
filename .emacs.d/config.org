@@ -3747,6 +3747,7 @@
               ("^\\*Messages\\*$" . nil)
               ("COMMIT_EDITMSG" . insert)))
 
+      <<evil-org-config>>
 
       (use-package evil-surround
         :config
@@ -3844,6 +3845,19 @@
         [remap isearch-backward] 'evil-search-backward
         [remap xref-find-definitions] 'evil-goto-definition))
   #+END_SRC
+
+** Org mode modifications
+
+   Using Evil mode in Org mode has highlighted a few things that need
+   to fixed. For instance, when inserting a new headline or item, I
+   /always/ want to start in insert mode.
+
+   #+name: evil-org-config
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (dolist (f '(org-insert-heading org-insert-item))
+       (advice-add f :after (lambda (&rest _)
+                              (evil-insert-state))))
+   #+END_SRC
 
 * balanced windows
   :PROPERTIES:
