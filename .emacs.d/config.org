@@ -3871,14 +3871,9 @@
   #+BEGIN_SRC emacs-lisp
     (use-package selectrum
       :config
-      :disabled
       (setq selectrum-show-indices t)
+      <<selectrum-additional-packages>>
       (selectrum-mode +1))
-
-    <<prescient-config>>
-    <<consult-config>>
-    <<embark-config>>
-    <<marginalia-config>>
   #+END_SRC
 
 
