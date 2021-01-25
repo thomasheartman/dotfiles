@@ -2542,8 +2542,9 @@
       :after ripgrep
       :bind-keymap
       ("C-c p" . projectile-command-map)
-      :config
+      :init
       (projectile-mode t)
+      :config
       (defconst my-project-paths
         (seq-filter 'file-directory-p '("~/projects"
                                         "~/projects/work"
