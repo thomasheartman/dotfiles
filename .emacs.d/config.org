@@ -3032,6 +3032,20 @@
    :REPO:     [[https://github.com/josteink/csharp-mode][GitHub]]
    :END:
 
+
+   csharp mode has a dependency on tree-sitter-indent. However, the
+   latter's repo uses "main" as the main branch name, and the
+   csharp-mode recipe isn't updated to reflect this. As such, this
+   works around it.
+   #+BEGIN_SRC emacs-lisp
+     (use-package tree-sitter-indent
+       :straight `(:type git
+                        :repo "https://codeberg.org/FelipeLema/tree-sitter-indent.el.git"
+                        :branch "main"
+                  ))
+   #+END_SRC
+
+
    #+BEGIN_SRC emacs-lisp
      (use-package csharp-mode
        :mode ("\\.csproj\\'" . xml-mode)
