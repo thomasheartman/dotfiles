@@ -2928,52 +2928,6 @@
   Get BibTex to work properly. [[http://www.jonathanleroux.org/bibtex-mode.html][Here's the manual]]. See what you can
   find.
 
-* Minimodelines
-
-  There are a number of minimodeline packages out there,
-  including [[https://github.com/tautologyclub/feebleline][feebleline]] and [[https://github.com/kiennq/emacs-mini-modeline][mini-modeline]]. I've had some issues with
-  feebleline on macOS, but it seems to work fine on Linux and I quite
-  like it. So let's activate it unless I'm on a mac.
-
-  UPDATE: It seems to have caused some perf issues on Linux too, so I
-  think it's best to avoid this for now.
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package feebleline
-      :demand t
-      :unless on-macos
-      :config
-      (feebleline-mode t))
-  #+END_SRC
-
-
-
-
-** TODO Window dividers
-   :LOGBOOK:
-   - State "TODO"       from              [2020-08-14 Fri 10:24]
-   :END:
-
-   Todo: make this work. I wasn't able to set customizable variables
-   outside of the customize buffer. If I want to be able to set it
-   conditionally, then that's a bit of a bummer.
-
-
-   If we're removing the mode line, it might be prudent to also use
-   window dividers so we can tell where a window ends and another one
-   begins.
-
-   See [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Window-Dividers.html#Window-Dividers][the Window Dividers]] section of the emacs manual for more
-   information. There's also some more info in [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Window-Dividers.html][this section]].
-
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (window-divider-mode)
-     (customize-save-variable window-divider red)
-     (customize-save-variable window-divider-default-right-width 1)
-     (customize-save-variable window-divider-default-bottom-width 1)
-     (customize-save-variable window-divider-default-places t)
-   #+END_SRC
-
 * Mode line
 
   We can configure the mode line to only show what we want. I find
