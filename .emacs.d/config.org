@@ -3865,7 +3865,6 @@
     #+name: consult-config
     #+BEGIN_SRC emacs-lisp
       (use-package consult
-        :straight (:branch "main")
         :after projectile
         :general
         ([remap repeat-complex-command] 'consult-complex-command
@@ -3912,8 +3911,6 @@
     #+name: marginalia-config
     #+BEGIN_SRC emacs-lisp
       (use-package marginalia
-        :straight (:branch "main")
-        :after (consult embark)
         :init
         (marginalia-mode)
         (advice-add #'marginalia-cycle :after
@@ -3940,7 +3937,6 @@
     #+name: embark-config
     #+BEGIN_SRC emacs-lisp
       (use-package embark
-        :straight (:type git :host github :repo "oantolin/embark")
         :general
         ("C-c ?" 'embark-act)
         (minibuffer-local-map
@@ -3970,7 +3966,6 @@
               embark-become-indicator embark-action-indicator)
 
         (use-package embark-consult
-          :after consult
           :hook
           (embark-collect-mode . embark-consult-preview-minor-mode)))
     #+END_SRC
@@ -3990,9 +3985,12 @@
     #+BEGIN_SRC emacs-lisp
       (use-package mini-frame
         :custom
-        (miniframe-show-parameters '((top . 10)
+        (mini-frame-show-parameters '((top . 0.3)
                                      (width . 0.7)
-                                     (left . 0.5))))
+                                     (left . 0.5)
+                                     (height . 1)))
+        :init
+        (mini-frame-mode))
     #+END_SRC
 
 
