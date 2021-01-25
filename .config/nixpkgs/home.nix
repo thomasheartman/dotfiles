@@ -16,7 +16,6 @@ let
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (require 'exwm)
-    (configure-ivy-posframe-for-exwm)
     (exwm-init)
   '';
 
