@@ -3847,9 +3847,18 @@
     #+END_SRC
 
 
-*** Consult
+*** TODO Consult
     :PROPERTIES:
     :REPO:     [[https://github.com/minad/consult][GitHub]]
+    :END:
+    :LOGBOOK:
+    - State "TODO"       from              [2021-01-25 Mon 20:46] \\
+      Make this work as expected with EXWM.
+
+      Currently, when previewing buffers, if they are X-windows, then they
+      are removed from their original position and not restored. This is
+      bothersome. There is an [[https://github.com/muffinmad/emacs-mini-frame/pull/29][open PR]] that at least fixes something related
+      to this, but I'm not sure how it affects everything as a whole.
     :END:
 
 
@@ -3967,9 +3976,15 @@
     #+END_SRC
 
 
-*** emacs-mini-frame
+*** TODO emacs-mini-frame
     :PROPERTIES:
     :REPO:     [[https://github.com/muffinmad/emacs-mini-frame][GitHub]]
+    :END:
+    :LOGBOOK:
+    - State "TODO"       from              [2021-01-25 Mon 20:48] \\
+      Make this work properly with EXWM. In particular, make the mini frame
+      show on top of X windows and make it not lose focus when an X-window
+      is previewed.
     :END:
 
     #+BEGIN_SRC emacs-lisp
