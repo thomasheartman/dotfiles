@@ -2808,6 +2808,8 @@
    - screen lock :: [[https://tools.suckless.org/slock/][slock]]
    - keyboard backlight :: [[https://upower.freedesktop.org/][upower]]
    - wifi and bluetooth :: [[https://linrunner.de/en/tlp/tlp.html][TLP]]
+   - music :: [[https://github.com/altdesktop/playerctl][playerctl]]
+
 
    #+BEGIN_SRC emacs-lisp
      (use-package desktop-environment
@@ -2824,6 +2826,7 @@
          "<XF86AudioLowerVolume>" 'desktop-environment-volume-decrement
          "S-<XF86AudioRaiseVolume>" 'desktop-environment-volume-increment-slowly
          "S-<XF86AudioLowerVolume>" 'desktop-environment-volume-decrement-slowly
+         "<XF86AudioPlay>" 'desktop-environment-toggle-music
          "<XF86AudioMute>" 'desktop-environment-toggle-mute
          "<XF86AudioMicMute>" 'desktop-environment-toggle-microphone-mute
          ;; Print

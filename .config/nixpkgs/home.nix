@@ -59,6 +59,7 @@ in {
     pavucontrol
     pandoc
     pijul
+    playerctl
     powertop
     ripgrep
     skim
