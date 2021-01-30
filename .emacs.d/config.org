@@ -3896,7 +3896,8 @@
 
         :config
         (setq consult-narrow-key "<"
-              consult-project-root-function #'projectile-project-root))
+              consult-project-root-function #'projectile-project-root
+              consult-config `((consult-buffer :preview-key nil))))
 
       (use-package consult-flycheck
         :after flycheck
