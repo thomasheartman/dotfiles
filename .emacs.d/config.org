@@ -1434,9 +1434,6 @@
     (use-package forge
       :after magit
       :when (require 'emacsql nil t)
-      :config
-      (add-to-list 'forge-alist
-                   '("gitlab.intility.com" "gitlab.intility.com/api/v4" "gitlab.intility.com" forge-gitlab-repository))
       :bind (:map magit-mode-map
                   ("C-c M-w" . forge-copy-url-at-point-as-kill)))
   #+END_SRC
