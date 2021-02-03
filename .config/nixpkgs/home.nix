@@ -51,6 +51,7 @@ in {
     jetbrains-mono
     jq
     libusb
+    mattermost-desktop
     moreutils
     mpv
     msmtp
