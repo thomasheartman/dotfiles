@@ -72,6 +72,7 @@ in {
     vlc
     wally-cli
     watchexec
+    zoom-us
 
     (writeScriptBin "hms" ''
       #!${stdenv.shell}
