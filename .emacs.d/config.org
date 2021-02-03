@@ -2431,12 +2431,12 @@
       (defun fetch-mail-poll-and-refresh ()
         "Pull new mail from the server and update the current buffer."
         (interactive)
+        (notmuch-refresh-this-buffer)
         (message "Fetching new mail from the server.")
-        (set-process-sentinel
-         (start-process "fetch mail" "*OFFLINEIMAP-OUTPUT*" "offlineimap" "-o")
-         (lambda (p e) (when (= 0 (process-exit-status p))
-                         (notmuch-poll-and-refresh-this-buffer)
-                         (message "Fetched new mail from the server.")))))
+        (let ((accounts
+               <<notmuch-get-account-names>>))
+          (dolist (account accounts)
+            <<notmuch-fetch-mail>>)))
       :config
       (setq message-send-mail-function 'message-send-mail-with-sendmail
             notmuch-fcc-dirs "sent +sent -unread -inbox")
@@ -2473,6 +2473,39 @@
 
       (add-hook 'message-send-hook 'notmuch-message-check-for-attachments))
   #+END_SRC
+
+** offlineimap functions
+   :PROPERTIES:
+   :header-args: :tangle no
+   :END:
+
+   To improve the mail fetching and polling operation, let's
+   parallelize the requests if there are multiple accounts.
+
+   First, we'll need to find out what accounts there are:
+
+   #+name: notmuch-get-account-names
+   #+BEGIN_SRC emacs-lisp
+     (with-temp-buffer
+       (insert-file-contents "~/.offlineimaprc")
+       (let* ((lines (split-string (buffer-string) "\n" t))
+              (key "accounts = ")
+              (matches (seq-filter (lambda (l) (string-match-p key l)) lines))
+              (trimmed (mapcar (lambda (l) (string-remove-prefix key l)) matches)))
+         (mapcan (lambda (l) (split-string l "," nil " +")) trimmed)))
+   #+END_SRC
+
+   Next, we'll want to create a sentinel for fetching each of the
+   accounts. Also, to speed it up, we'll only run quick syncs.
+
+   #+name: notmuch-fetch-mail
+   #+BEGIN_SRC emacs-lisp :var account="notmuch-account"
+     (set-process-sentinel
+      (start-process (format "offlineimap-quick-%s" account) (format "*OFFLINEIMAP-QUICK-SYNC-%s" account) "offlineimap" "-o" "-q" "-a" account)
+      (lambda (p e) (when (= 0 (process-exit-status p))
+                      (notmuch-poll-and-refresh-this-buffer))))
+   #+END_SRC
+
 
 * TODO Elfeed
   :PROPERTIES:
