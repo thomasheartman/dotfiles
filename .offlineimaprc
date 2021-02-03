@@ -31,6 +31,6 @@ localfolders = ~/mail/enonic
 type = Gmail
 maxconnections = 2
 remoteuser = the@enonic.com
-remotepasseval = mailpasswd("Google::enonic")
+remotepasseval = mailpasswd("enonic-mail")
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 #### Finish me!
