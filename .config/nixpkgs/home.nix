@@ -63,6 +63,7 @@ in {
     playerctl
     powertop
     ripgrep
+    scrot
     skim
     slack
     spotify
