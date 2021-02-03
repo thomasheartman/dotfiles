@@ -2860,6 +2860,8 @@
          "S-<XF86AudioLowerVolume>" 'desktop-environment-volume-decrement-slowly
          "<XF86AudioPlay>" 'desktop-environment-toggle-music
          "<XF86AudioMute>" 'desktop-environment-toggle-mute
+         "<XF86AudioNext>" 'desktop-environment-music-next
+         "<XF86AudioPrev>" 'desktop-environment-music-previous
          "<XF86AudioMicMute>" 'desktop-environment-toggle-microphone-mute
          ;; Print
          "S-<print>" 'desktop-environment-screenshot-part
