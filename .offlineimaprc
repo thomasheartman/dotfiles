@@ -1,0 +1,36 @@
+[general]
+accounts = gheart, enonic
+pythonfile = ~/.offlineimap.py
+
+[Account gheart]
+localrepository = gheart-local
+remoterepository = gheart-remote
+autorefresh = 5
+
+[Repository gheart-local]
+type = Maildir
+localfolders = ~/mail/gheart
+
+[Repository gheart-remote]
+type = Gmail
+maxconnections = 2
+remoteuser = thomasheartman@gmail.com
+remotepasseval = mailpasswd("gheart")
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Account enonic]
+localrepository = enonic-local
+remoterepository = enonic-remote
+autorefresh = 5
+
+[Repository enonic-local]
+type = Maildir
+localfolders = ~/mail/enonic
+
+[Repository enonic-remote]
+type = Gmail
+maxconnections = 2
+remoteuser = the@enonic.com
+remotepasseval = mailpasswd("Google::enonic")
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+#### Finish me!
