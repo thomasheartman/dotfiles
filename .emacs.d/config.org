@@ -2442,7 +2442,39 @@
                          (message "Fetched new mail from the server.")))))
       :config
       (setq message-send-mail-function 'message-send-mail-with-sendmail
-            notmuch-fcc-dirs "sent +sent -unread -inbox"))
+            notmuch-fcc-dirs "sent +sent -unread -inbox")
+
+      ;; based on https://notmuchmail.org/pipermail/notmuch/2018/026414.html
+      (defcustom notmuch-message-attachment-regex
+        "\\b\\(\\(attach\\(ment\\|ed\\)?\\|ved\\(legg\\(et\\)?\\|lagt\\)\\)\\|\\(\\(lagt\\|legg\\(e\\(r\\)?\\)?\\) ?+ved\\)\\)\\b"
+        "Regex to check against for attachments.
+
+    This is used by `notmuch-message-check-for-attachments' to check email
+    bodies for words that might indicate the email should have an
+    attachment. If the pattern matches and there is no attachment (a
+    <#part ...> magic block), notmuch will show a confirmation prompt
+    before sending the email.
+
+    The above regex is liberal on purpose. We'd rather trigger once
+    too often than not often enough. This version checks for English
+    and Norwegian."
+        :type '(regexp)
+        :group 'notmuch-send)
+
+      (defun notmuch-message-check-for-attachments ()
+        "Check for missing attachments.
+
+    This executes on `message-send-hook' and is configured via `notmuch-message-attachment-regex'"
+        (save-mark-and-excursion
+          (goto-char (point-min))
+          (when (re-search-forward notmuch-message-attachment-regex nil t)
+            (progn
+              (goto-char (point-min))
+              (unless (re-search-forward "<#part [^>]*filename=[^>]*>" nil t)
+                (or (y-or-n-p "It seems this email is referring to attachment, but there's nothing attached. Send anyways? ")
+                    (error "No attachment found. Aborting")))))))
+
+      (add-hook 'message-send-hook 'notmuch-message-check-for-attachments))
   #+END_SRC
 
 * TODO Elfeed
