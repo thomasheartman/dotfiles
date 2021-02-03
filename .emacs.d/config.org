@@ -3896,6 +3896,8 @@
       are removed from their original position and not restored. This is
       bothersome. There is an [[https://github.com/muffinmad/emacs-mini-frame/pull/29][open PR]] that at least fixes something related
       to this, but I'm not sure how it affects everything as a whole.
+
+      Further: it might be nice if X windows aren't moved at all?
     :END:
 
 
