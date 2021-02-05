@@ -4099,3 +4099,32 @@
       :config
       (ctrlf-mode +1))
   #+END_SRC
+
+* flyspell additions
+
+** TODO flyspell-correct
+   :PROPERTIES:
+   :REPO:     [[https://github.com/d12frosted/flyspell-correct][GitHub]]
+   :END:
+   :LOGBOOK:
+   - State "TODO"       from              [2021-02-05 Fri 10:46] \\
+     Look into this. I can't seem to accept any suggestions from the popup
+     and I'm not sure why.
+   :END:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package flyspell-correct
+       :after flyspell
+       :general
+       (flyspell-mode-map
+        "C-;" 'flyspell-correct-wrapper))
+   #+END_SRC
+
+
+*** flyspell-correct-popup
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package flyspell-correct-popup
+        :after flyspell-correct)
+    #+END_SRC
