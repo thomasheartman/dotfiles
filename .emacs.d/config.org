@@ -4077,9 +4077,10 @@
       (use-package mini-frame
         :custom
         (mini-frame-show-parameters '((top . 0.3)
-                                     (width . 0.7)
-                                     (left . 0.5)
-                                     (height . 1)))
+                                      (width . 0.7)
+                                      (left . 0.5)
+                                      (height . 1)
+                                      (parent-frame . nil)))
         :init
         (mini-frame-mode))
     #+END_SRC
