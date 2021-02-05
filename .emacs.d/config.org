@@ -3974,7 +3974,17 @@
         :config
         (setq consult-narrow-key "<"
               consult-project-root-function #'projectile-project-root
-              consult-config `((consult-buffer :preview-key nil))))
+              consult-config `((consult-buffer :preview-key nil)))
+
+        (autoload 'org-buffer-list "org")
+        (defvar org-buffer-source
+          `(:name     "Org"
+                      :narrow   ?o
+                      :category buffer
+                      :items    ,(lambda () (mapcar #'buffer-name (org-buffer-list)))))
+        (add-to-list 'consult-buffer-sources 'org-buffer-source)
+
+        )
 
       (use-package consult-flycheck
         :after flycheck
