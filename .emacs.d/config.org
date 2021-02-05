@@ -2413,9 +2413,22 @@
       (editorconfig-mode 1))
   #+END_SRC
 
-* Notmuch
+* TODO Notmuch
   :PROPERTIES:
   :WEBSITE:  [[https://notmuchmail.org/][Notmuch]] [[https://notmuchmail.org/notmuch-emacs/][Notmuch-emacs]]
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2021-02-04 Thu 21:16] \\
+    The email attachment scanning doesn't account for whether the found
+    text is in the response body or in the quoted text. So even if someone
+    else has mentioned attachments it'll get triggered. To improve this,
+    we should only scan the text from
+
+    --text follows this line--
+
+    and to
+
+    name <email> writes:
   :END:
 
   #+BEGIN_SRC emacs-lisp
