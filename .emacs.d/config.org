@@ -3685,7 +3685,7 @@
       :custom
       (evil-want-Y-yank-to-eol t)
       (evil-symbol-word-search t)
-      (evil-undo-system (fboundp 'undo-redo) 'undo-redo nil)
+      (evil-undo-system (if (fboundp 'undo-redo) 'undo-redo nil))
 
       :config
       (defmacro define-and-bind-text-object (key start-regex end-regex)
