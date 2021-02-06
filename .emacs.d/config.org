@@ -3999,18 +3999,7 @@
                           ,(lambda ()
                              (let ((filter (consult--regexp-filter consult-buffer-filter)))
                                (seq-remove (lambda (x) (string-match-p filter x))
-                                           (consult--cached-buffer-names))))))
-
-
-        (autoload 'org-buffer-list "org")
-        (defvar org-buffer-source
-          `(:name     "Org"
-                      :narrow   ?o
-                      :category buffer
-                      :items    ,(lambda () (mapcar #'buffer-name (org-buffer-list)))))
-        (add-to-list 'consult-buffer-sources 'org-buffer-source)
-
-        )
+                                           (consult--cached-buffer-names)))))))
 
       (use-package consult-flycheck
         :after flycheck
