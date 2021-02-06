@@ -3693,20 +3693,20 @@
               (outer-name (make-symbol "outer-line")))
           `(progn
              (evil-define-text-object ,inner-name
-               (count &optional beg end type)
-               (evil-select-paren ,start-regex ,end-regex
-                                  beg end type count nil))
+                                      (count &optional beg end type)
+                                      (evil-select-paren ,start-regex ,end-regex
+                                                         beg end type count nil))
              (evil-define-text-object ,outer-name
-               (count &optional beg end type)
-               (evil-select-paren ,start-regex ,end-regex
-                                  beg end type count t))
+                                      (count &optional beg end type)
+                                      (evil-select-paren ,start-regex ,end-regex
+                                                         beg end type count t))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
       (define-and-bind-text-object "l" "^\\s-*"
         "\\s-*$")
 
       (evil-define-text-object evil-inner-buffer (count &optional beg end type)
-        (list (point-min) (point-max)))
+                               (list (point-min) (point-max)))
       (general-def
         'evil-inner-text-objects-map
         "e" 'evil-inner-buffer)
@@ -3723,20 +3723,20 @@
       (setq evil-v$-gets-eol t)
       ;; stop `v$' from selecting newlines
       (evil-define-motion evil-end-of-line
-        (count)
-        "Move the cursor to the end of the current line.
+                          (count)
+                          "Move the cursor to the end of the current line.
         If COUNT is given, move COUNT - 1 lines downward first."
-        :type inclusive
-        (move-end-of-line count)
-        (when evil-track-eol
-          (setq temporary-goal-column most-positive-fixnum
-                this-command 'next-line))
-        (unless (and (evil-visual-state-p)
-                     evil-v$-gets-eol)
-          (evil-adjust-cursor)
-          (when (eolp)
-            ;; prevent "c$" and "d$" from deleting blank lines
-            (setq evil-this-type 'exclusive))))
+                          :type inclusive
+                          (move-end-of-line count)
+                          (when evil-track-eol
+                            (setq temporary-goal-column most-positive-fixnum
+                                  this-command 'next-line))
+                          (unless (and (evil-visual-state-p)
+                                       evil-v$-gets-eol)
+                            (evil-adjust-cursor)
+                            (when (eolp)
+                              ;; prevent "c$" and "d$" from deleting blank lines
+                              (setq evil-this-type 'exclusive))))
 
 
       (evil-set-initial-state 'exwm-mode 'emacs)
@@ -3772,8 +3772,8 @@
       (use-package evil-exchange
         :general
         (evil-exchange-def
-          "x" 'evil-exchange
-          "c" 'evil-exchange-cancel)
+         "x" 'evil-exchange
+         "c" 'evil-exchange-cancel)
         :init
         (evil-exchange-install))
 
