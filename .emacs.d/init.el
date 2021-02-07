@@ -1,4 +1,4 @@
-;;; heartmacs --- Summary
+;;; heartmacs --- Summary  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;; This file outsources the Emacs configuration to a file called

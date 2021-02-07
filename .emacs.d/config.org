@@ -1,7 +1,13 @@
+#+BEGIN_SRC emacs-lisp :comments no :tangle yes
+  ;; -*- lexical-binding: t; -*-
+#+END_SRC
+
 #+TITLE: Heartmacs
 #+PROPERTY: header-args :results silent :tangle yes :comments both :noweb yes
+#+PROPERTY: header-args:emacs-lisp+ :lexical t
 #+TAGS: keybinding | { os : macos | linux } | GTD
 #+todo: TODO(t@) | DONE(d!)
+
 
 * Toggle debug
   :PROPERTIES:
@@ -3978,16 +3984,16 @@
 
         (defun consult-buffer-state-no-x ()
           "Buffer state function that doesn't preview X buffers."
-          (lambda (cand restore)
-            (funcall (consult--buffer-state)
-                     (if (or restore
-                             (let ((buffer (get-buffer cand)))
-                               (and buffer
-                                    (not (eq 'exwm-mode
-                                             (buffer-local-value 'major-mode buffer))))))
-                         cand
-                       nil)
-                     restore)))
+          (let ((orig-state (consult--buffer-state))
+                (filter (lambda (cand restore)
+                          (if (or restore
+                                  (let ((buffer (get-buffer cand)))
+                                    (and buffer
+                                         (not (eq 'exwm-mode (buffer-local-value 'major-mode buffer))))))
+                              cand
+                            nil))))
+            (lambda (cand restore)
+              (funcall orig-state (funcall filter cand restore) restore))))
 
         (setq consult--source-buffer
               (plist-put consult--source-buffer :state #'consult-buffer-state-no-x)))
