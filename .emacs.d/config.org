@@ -3976,30 +3976,21 @@
               consult-project-root-function #'projectile-project-root
               consult-config `((consult-buffer :preview-key any)))
 
-        (defun my-consult--buffer-state ()
-          "Buffer state function that treats X buffers differently."
+        (defun consult-buffer-state-no-x ()
+          "Buffer state function that doesn't preview X buffers."
           (lambda (cand restore)
-            (when cand
-              (cond
-               (restore (funcall consult--buffer-display cand))
-               ((and (or (eq consult--buffer-display #'switch-to-buffer)
-                         (eq consult--buffer-display #'switch-to-buffer-other-window))
-                     (let ((buffer (get-buffer cand)))
-                       (and buffer (not (eq 'exwm-mode (buffer-local-value 'major-mode buffer))))))
-                (funcall consult--buffer-display cand 'norecord))))))
+            (funcall (consult--buffer-state)
+                     (if (or restore
+                             (let ((buffer (get-buffer cand)))
+                               (and buffer
+                                    (not (eq 'exwm-mode
+                                             (buffer-local-value 'major-mode buffer))))))
+                         cand
+                       nil)
+                     restore)))
 
         (setq consult--source-buffer
-              `(:name     "Buffer"
-                          :narrow   ?b
-                          :category buffer
-                          :face     consult-buffer
-                          :history  buffer-name-history
-                          :state    ,#'my-consult--buffer-state
-                          :items
-                          ,(lambda ()
-                             (let ((filter (consult--regexp-filter consult-buffer-filter)))
-                               (seq-remove (lambda (x) (string-match-p filter x))
-                                           (consult--cached-buffer-names)))))))
+              (plist-put consult--source-buffer :state #'consult-buffer-state-no-x)))
 
       (use-package consult-flycheck
         :after flycheck
