@@ -33,6 +33,12 @@ in {
     '';
   };
 
+  home.keyboard = {
+    layout = "us,us";
+    variant = ",dvp";
+    options = [ "grp:shift_caps_toggle" ];
+  };
+
   home.packages = with pkgs; [
     my-emacs
     alacritty
