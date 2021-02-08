@@ -3800,9 +3800,7 @@
         :states 'insert
         "M-o" 'evil-jump-backward
         "M-i" 'evil-jump-forward
-        "C-v" 'rectangle-mark-mode
-        "M-d" 'evil-scroll-down
-        "M-u" 'evil-scroll-up)
+        "C-v" 'rectangle-mark-mode)
       (general-unbind
         :states 'motion
         "C-e"
@@ -3819,9 +3817,7 @@
                (interactive)
                (evil-end-of-line))
         "M-o" 'evil-jump-backward
-        "M-i" 'evil-jump-forward
-        "M-d" 'evil-scroll-down
-        "M-u" 'evil-scroll-up)
+        "M-i" 'evil-jump-forward)
       (general-unbind
         :states 'normal
         "C-n"
@@ -3851,6 +3847,8 @@
         "C-a"
         "C-k")
       (general-def
+        "M-d" 'evil-scroll-down
+        "M-u" 'evil-scroll-up
         [remap isearch-forward] 'evil-search-forward
         [remap isearch-backward] 'evil-search-backward
         [remap xref-find-definitions] 'evil-goto-definition))
