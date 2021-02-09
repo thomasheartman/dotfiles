@@ -663,6 +663,34 @@
            "M-/" 'undo-redo))
      #+END_SRC
 
+**** Unfill region
+
+     I like using auto-fill mode when in Emacs. However, if I want to
+     copy the content of a buffer into a different application, I'll
+     often want to get rid of the added newlines. As such, here's a
+     function to unfill the current region or the whole buffer if
+     there is no region.
+
+     The current key mapping matches that of a shifted
+     `fill-paragraph`, but the function doesn't operate on paragraphs.
+     If this is becomes an issue, it would be an idea to also add a
+     version of the function that operates on paragraphs explicitly.
+
+     #+BEGIN_SRC emacs-lisp
+       (defun unfill-region-or-buffer ()
+         "Unfill the current region or the entire buffer if there is no region."
+         (interactive)
+         (require 'cl-macs)
+         (cl-destructuring-bind (start end) (if (use-region-p)
+                                                `(,(region-beginning) ,(region-end))
+                                              `(,(buffer-end -1) ,(buffer-end 1)))
+           (let ((fill-column (point-max)))
+             (fill-region start end))))
+
+       (general-def
+         "M-Q" 'unfill-region-or-buffer)
+     #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
