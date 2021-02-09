@@ -3986,9 +3986,8 @@
                  (orig-buffer (buffer-name))
                  (filter (lambda (cand restore)
                            (if (or restore
-                                   (let ((buffer (get-buffer cand)))
-                                     (and buffer
-                                          (not (eq 'exwm-mode (buffer-local-value 'major-mode buffer))))))
+                                   (when-let (buffer (and cand (get-buffer cand)))
+                                     (not (eq 'exwm-mode (buffer-local-value 'major-mode buffer)))))
                                cand
                              orig-buffer))))
             (lambda (cand restore)
