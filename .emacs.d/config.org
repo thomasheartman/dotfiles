@@ -2776,6 +2776,11 @@
 
       (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
 
+      (defun lock-screen ()
+        "Lock the current screen using xscreensaver-command."
+        (interactive)
+        (start-process "lock-screen" nil "xscreensaver-command" "-lock"))
+
       (setq exwm-input-global-keys
             `(([?\s-r] . exwm-reset)
               ([?\s- ] . my-exwm-launcher)
