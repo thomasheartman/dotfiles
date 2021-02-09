@@ -1421,8 +1421,8 @@
       (company-mode . my-configure-tng)
       :init
       (setq company-tng-auto-configure nil)
-      :config
       (global-company-mode)
+      :config
       (setq company-idle-delay 0.2
             company-selection-wrap-around t
             company-show-numbers t))
