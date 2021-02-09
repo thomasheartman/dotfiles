@@ -2776,11 +2776,6 @@
 
       (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
 
-      (defun lock-screen ()
-        "Lock the current screen using xscreensaver-command."
-        (interactive)
-        (start-process "lock-screen" nil "xscreensaver-command" "-lock"))
-
       (setq exwm-input-global-keys
             `(([?\s-r] . exwm-reset)
               ([?\s- ] . my-exwm-launcher)
@@ -2929,6 +2924,8 @@
      (use-package desktop-environment
        :after (exwm)
        :when use-exwm
+       :custom
+       (desktop-environment-screenlock-command "xscreensaver-command -lock")
        :general
        (general-def global-map
          "<XF86MonBrightnessUp>" 'desktop-environment-brightness-increment
@@ -2949,6 +2946,7 @@
          "S-<print>" 'desktop-environment-screenshot-part
          "<print>" 'desktop-environment-screenshot
          ;; Screen locking
+         "s-<f1>" 'desktop-environment-lock-screen
          ;; "s-l" 'desktop-environment-lock-screen
          ;; Wifi controls
          "<XF86WLAN>" 'desktop-environment-toggle-wifi
