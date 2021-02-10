@@ -2,13 +2,10 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     <nixos-hardware/dell/xps/15-7590>
     ./hardware-configuration.nix
     ./../../base.nix
   ];
-
-  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
