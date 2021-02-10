@@ -2,6 +2,7 @@
 
 pkgs.mkShell {
   buildInputs = [
+    pkgs.nixfmt
     pkgs.rnix-lsp
   ];
 }
