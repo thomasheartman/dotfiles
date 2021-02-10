@@ -594,12 +594,6 @@
          [remap move-beginning-of-line] 'my-move-beginning-of-line)
      #+END_SRC
 
-**** Always follow symlinks
-
-     #+BEGIN_SRC emacs-lisp
-       (setq vc-follow-symlinks t)
-     #+END_SRC
-
 **** Enable all commands
 
      By default, Emacs disables a number of commands to stop new users
