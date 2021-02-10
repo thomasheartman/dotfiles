@@ -89,13 +89,4 @@ in {
 
   services.dropbox.enable = true;
 
-  services.xscreensaver = {
-    enable = true;
-    settings = {
-      lock = true;
-      lockTimeout = 5;
-      mode = "blank";
-    };
-  };
-
 }
