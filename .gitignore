@@ -1,0 +1,7 @@
+.emacs.d/config.el
+.emacs.d/projectile-*
+.emacs.d/recentf
+.emacs.d/straight/*
+.emacs.d/transient
+.emacs.d/var
+.emacs.d/.lsp-session*
