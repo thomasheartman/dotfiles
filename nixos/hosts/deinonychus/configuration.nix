@@ -24,7 +24,7 @@
       wlp59s0.useDHCP = true;
       ens1.useDHCP = true;
     };
-    hostname = "deinonychus";
+    hostName = "deinonychus";
   };
 
   programs.xss-lock = {
