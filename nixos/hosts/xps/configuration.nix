@@ -1,10 +1,19 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./../../base.nix
+  imports = [ ./hardware-configuration.nix ./../../base.nix ];
+
+  boot.kernelParams = [ "acpi_rev_override" ];
+
+  environment.systemPackages = with pkgs; [
+    dropbox-cli
   ];
+
+  services.xserver = {
+    useGlamor = true;
+
+    displayManager.autoLogin.user = "thomas";
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
@@ -34,9 +43,9 @@
     wantedBy = [ "graphical-session.target" ];
     environment = {
       QT_PLUGIN_PATH = "/run/current-system/sw/"
-        + pkgs.qt5.qtbase.qtPluginPrefix;
+      + pkgs.qt5.qtbase.qtPluginPrefix;
       QML2_IMPORT_PATH = "/run/current-system/sw/"
-        + pkgs.qt5.qtbase.qtQmlPrefix;
+      + pkgs.qt5.qtbase.qtQmlPrefix;
     };
     serviceConfig = {
       ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
@@ -46,24 +55,6 @@
       PrivateTmp = true;
       ProtectSystem = "full";
       Nice = 10;
-    };
-  };
-  security.sudo.extraConfig = ''
-    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/poweroff
-    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/reboot
-    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/systemctl suspend
-    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/systemctl hibernate
-  '';
-
-  systemd.user.services.autorandrize = {
-    enable = true;
-    description = "Automatically adjust screens when waking up";
-    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      TimeOutSec = "0";
-      ExecStart = "${pkgs.autorandr}/bin/autorandr -c";
     };
   };
 }
