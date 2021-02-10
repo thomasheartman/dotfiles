@@ -2124,8 +2124,7 @@
    it if it /is/ available.
 
    #+BEGIN_SRC emacs-lisp
-     (when (not (version< (org-version) "9.2"))
-       (add-to-list 'org-modules 'org-tempo))
+     (add-to-list 'org-modules 'org-tempo)
    #+END_SRC
 
 ** Configuration:
@@ -2142,11 +2141,9 @@
    Additionally, we can also have ~C-a~, ~C-e~, and ~C-k~ adapt to
    whether they're being invoked in a headline or not.
    #+BEGIN_SRC emacs-lisp
-     (setq org-src-window-setup (if (version< org-version "9.3")
-                                    'current-window
-                                  'split-window-right)
-           org-special-ctrl-a/e t
-           org-special-ctrl-k t)
+     (setq org-src-window-setup 'split-window-right
+	   org-special-ctrl-a/e t
+	   org-special-ctrl-k t)
    #+END_SRC
 
 
@@ -2572,6 +2569,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-org
+       :disabled
        :init
        (elfeed-org)
        :general
@@ -2593,6 +2591,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-goodies
+       :disabled
        :after elfeed
        :config
        (elfeed-goodies/setup))
@@ -2864,7 +2863,7 @@
 
       ;; configure RandR support
       (require 'exwm-randr)
-      (setq exwm-randr-workspace-monitor-plist '(0 "DP-2" 1 "eDP-1" 2 "DP-1"))
+      (setq exwm-randr-workspace-monitor-plist '(0 "DP2" 1 "eDP1" 2 "DP1"))
 
       (defun my-exwm-randr-screen-change-hook ()
         (interactive)
