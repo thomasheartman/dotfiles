@@ -2,7 +2,7 @@
 
 let
   # keyboard
-  compiledLayout = pkgs.runCommand "keyboard-layout" { } ''
+  compiledLayout = pkgs.runCommand "keyboard-layout" {} ''
     ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${/etc/nixos/layout.xkb} $out
   '';
 
@@ -18,13 +18,13 @@ let
     "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
 
 
-in {
+in
+{
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelParams = [
-      "acpi_rev_override"
       "mem_sleep_default=deep"
     ];
 
@@ -46,7 +46,7 @@ in {
   };
 
   # Select internationalisation properties.
-  i18n ={  defaultLocale = "en_US.UTF-8"; };
+  i18n = { defaultLocale = "en_US.UTF-8"; };
 
   console = {
     useXkbConfig = true;
@@ -101,7 +101,6 @@ in {
       cacert
       cachix
       curl
-      dropbox-cli
       exfat
       exfat-utils
       fd
@@ -209,9 +208,6 @@ in {
       ];
     };
 
-    useGlamor = true;
-
-    displayManager.autoLogin.user = "thomas";
     displayManager.defaultSession = "none+exwm";
   };
 
@@ -237,7 +233,6 @@ in {
   };
 
   nix.trustedUsers = [ "root" "thomas" ];
-  # services.emacs.enable = true;
   services.emacs.defaultEditor = true;
 
   services.offlineimap = {
@@ -253,4 +248,24 @@ in {
       flags = [ "--all" ];
     };
   };
+
+  security.sudo.extraConfig = ''
+    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/poweroff
+    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/reboot
+    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/systemctl suspend
+    %wheel ALL=(ALL:ALL) ${pkgs.systemd}/bin/systemctl hibernate
+  '';
+
+  systemd.user.services.autorandrize = {
+    enable = true;
+    description = "Automatically adjust screens when waking up";
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      TimeOutSec = "0";
+      ExecStart = "${pkgs.autorandr}/bin/autorandr -c";
+    };
+  };
+
 }
