@@ -28,7 +28,7 @@
  ("emacs-fish" . "db257db81058b0b12f788c324c264cc59b9a5bf4")
  ("emacs-fsharp-mode" . "78898a1535878394d83643c383f4320e7b5fcefd")
  ("emacs-htmlize" . "49205105898ba8993b5253beec55d8bddd820a70")
- ("emacs-mini-frame" . "9e4e31fdfbfcffcdf19dcc0a76c5f6ef30d5dddd")
+ ("emacs-mini-frame" . "28387b10b21ddb8a7b45641dff908fb15c929fd2")
  ("emacs-tree-sitter" . "d569763c143fdf4ba8480befbb4b8ce1e49df5e2")
  ("emacs-which-key" . "c0608e812a8d1bc7aefeacdfaeb56a7272eabf44")
  ("emacsmirror-mirror" . "77ca06a6d6d668f6c09faee7179d75c4a8111c6b")

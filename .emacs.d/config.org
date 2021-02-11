@@ -4096,8 +4096,9 @@
         (mini-frame-show-parameters '((top . 0.3)
                                       (width . 0.7)
                                       (left . 0.5)
-                                      (height . 1)
-                                      (parent-frame . nil)))
+                                      (height . 1)))
+        :config
+        (setq mini-frame-standalone t)
         :init
         (mini-frame-mode))
     #+END_SRC
