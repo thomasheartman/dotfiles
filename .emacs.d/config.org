@@ -594,12 +594,6 @@
          [remap move-beginning-of-line] 'my-move-beginning-of-line)
      #+END_SRC
 
-**** Always follow symlinks
-
-     #+BEGIN_SRC emacs-lisp
-       (setq vc-follow-symlinks t)
-     #+END_SRC
-
 **** Enable all commands
 
      By default, Emacs disables a number of commands to stop new users
@@ -663,18 +657,17 @@
            "M-/" 'undo-redo))
      #+END_SRC
 
-**** Unfill region
+**** TODO Unfill region
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-15 Mon 16:03] \\
+       Update this to use a prefix argument for acting on the entire buffer?
+     :END:
 
      I like using auto-fill mode when in Emacs. However, if I want to
      copy the content of a buffer into a different application, I'll
      often want to get rid of the added newlines. As such, here's a
      function to unfill the current region or the whole buffer if
      there is no region.
-
-     The current key mapping matches that of a shifted
-     `fill-paragraph`, but the function doesn't operate on paragraphs.
-     If this is becomes an issue, it would be an idea to also add a
-     version of the function that operates on paragraphs explicitly.
 
      #+BEGIN_SRC emacs-lisp
        (defun unfill-region-or-buffer ()
@@ -687,8 +680,16 @@
            (let ((fill-column (point-max)))
              (fill-region start end))))
 
+       (defun unfill-paragraph (&optional region)
+         "Unfill the current paragraph or the region if it is active."
+         (interactive (progn (barf-if-buffer-read-only) '(t)))
+         (let ((fill-column (point-max))
+               (emacs-lisp-docstring-fill-column t))
+           (fill-paragraph nil region)))
+
        (general-def
-         "M-Q" 'unfill-region-or-buffer)
+         "M-Q" 'unfill-paragraph
+         "C-M-q" 'unfill-region-or-buffer)
      #+END_SRC
 
 
@@ -2124,8 +2125,7 @@
    it if it /is/ available.
 
    #+BEGIN_SRC emacs-lisp
-     (when (not (version< (org-version) "9.2"))
-       (add-to-list 'org-modules 'org-tempo))
+     (add-to-list 'org-modules 'org-tempo)
    #+END_SRC
 
 ** Configuration:
@@ -2142,11 +2142,9 @@
    Additionally, we can also have ~C-a~, ~C-e~, and ~C-k~ adapt to
    whether they're being invoked in a headline or not.
    #+BEGIN_SRC emacs-lisp
-     (setq org-src-window-setup (if (version< org-version "9.3")
-                                    'current-window
-                                  'split-window-right)
-           org-special-ctrl-a/e t
-           org-special-ctrl-k t)
+     (setq org-src-window-setup 'split-window-right
+	   org-special-ctrl-a/e t
+	   org-special-ctrl-k t)
    #+END_SRC
 
 
@@ -2572,6 +2570,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-org
+       :disabled
        :init
        (elfeed-org)
        :general
@@ -2593,6 +2592,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-goodies
+       :disabled
        :after elfeed
        :config
        (elfeed-goodies/setup))
@@ -2930,6 +2930,9 @@
        :config
        (setf (alist-get (elt (kbd "s-l") 0) desktop-environment-mode-map nil t) nil)
        (desktop-environment-mode)
+       (defun desktop-environment-lock-screen ()
+         (interactive)
+         (shell-command desktop-environment-screenlock-command))
        :general
        (general-def
          desktop-environment-mode-map
@@ -4103,8 +4106,9 @@
         (mini-frame-show-parameters '((top . 0.3)
                                       (width . 0.7)
                                       (left . 0.5)
-                                      (height . 1)
-                                      (parent-frame . nil)))
+                                      (height . 1)))
+        :config
+        (setq mini-frame-standalone t)
         :init
         (mini-frame-mode))
     #+END_SRC

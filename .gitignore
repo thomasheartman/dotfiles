@@ -1,0 +1,15 @@
+.emacs.d/config.el
+.emacs.d/projectile-*
+.emacs.d/recentf
+.emacs.d/straight/*
+.emacs.d/transient
+.emacs.d/var
+.emacs.d/.lsp-session*
+.emacs.d/*cache
+.emacs.d/.org-id-locations
+.emacs.d/auto-save-list
+
+.config/*
+!.config/fish
+.config/fish/fish_variables
+!.config/nixpkgs

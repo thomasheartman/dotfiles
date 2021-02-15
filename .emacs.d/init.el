@@ -5,12 +5,19 @@
 ;; `config.org' in the same directory.
 
 ;;; Code:
+
+;; always follow symlinks
+;; this is particularly relevant if you symlink your repo.
+(setq vc-follow-symlinks t)
+
 (eval-when-compile (defvar my-config-dir))
-(unless (boundp 'my-config-dir)
-  (setq my-config-dir (file-name-directory (or load-file-name buffer-file-name))))
+(let ((config-dir (file-name-directory (file-truename (or load-file-name (buffer-file-name))))))
+  (setq user-emacs-directory config-dir)
+  (unless (boundp 'my-config-dir)
+    (setq my-config-dir config-dir)))
 
 
-(message "Using config dir: %s" my-config-dir)
+(message "Using config dir %s and user-emacs-directory %s" my-config-dir user-emacs-directory)
 
 (when (not (version<= emacs-version "28"))
   (load-file (expand-file-name "my-obsolete-fns.el" my-config-dir)))

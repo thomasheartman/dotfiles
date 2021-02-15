@@ -50,10 +50,12 @@ in {
     chromium
     direnv
     docker
+    dropbox-cli
     ffmpeg
     firefox
     gcc # <-this is here to make magit forge work
     ispell
+    i3lock
     jetbrains-mono
     jq
     libusb
