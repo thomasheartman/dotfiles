@@ -657,18 +657,17 @@
            "M-/" 'undo-redo))
      #+END_SRC
 
-**** Unfill region
+**** TODO Unfill region
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-15 Mon 16:03] \\
+       Update this to use a prefix argument for acting on the entire buffer?
+     :END:
 
      I like using auto-fill mode when in Emacs. However, if I want to
      copy the content of a buffer into a different application, I'll
      often want to get rid of the added newlines. As such, here's a
      function to unfill the current region or the whole buffer if
      there is no region.
-
-     The current key mapping matches that of a shifted
-     `fill-paragraph`, but the function doesn't operate on paragraphs.
-     If this is becomes an issue, it would be an idea to also add a
-     version of the function that operates on paragraphs explicitly.
 
      #+BEGIN_SRC emacs-lisp
        (defun unfill-region-or-buffer ()
@@ -681,8 +680,16 @@
            (let ((fill-column (point-max)))
              (fill-region start end))))
 
+       (defun unfill-paragraph (&optional region)
+         "Unfill the current paragraph or the region if it is active."
+         (interactive (progn (barf-if-buffer-read-only) '(t)))
+         (let ((fill-column (point-max))
+               (emacs-lisp-docstring-fill-column t))
+           (fill-paragraph nil region)))
+
        (general-def
-         "M-Q" 'unfill-region-or-buffer)
+         "M-Q" 'unfill-paragraph
+         "C-M-q" 'unfill-region-or-buffer)
      #+END_SRC
 
 
