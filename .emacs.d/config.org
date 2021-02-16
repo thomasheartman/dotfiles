@@ -1458,6 +1458,11 @@
   #+BEGIN_SRC emacs-lisp
     (use-package magit
       :demand t
+      :config
+      (defun magit-status-dotfiles ()
+        "Switch to status buffer for dotfiles."
+        (interactive)
+        (magit-status "~/dotfiles"))
       :bind (("C-x g" . magit-status)
              ("C-x M-g" . magit-dispatch)))
   #+END_SRC
@@ -2790,6 +2795,7 @@
               ([?\s-\C-b] . balance-windows)
 
               ([?\s-g] . magit-status)
+              ([?\s-G] . magit-status-dotfiles)
 
               ;; window navigation and management
               ([?\s-w] . hydra-window-movement/body)
