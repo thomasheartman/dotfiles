@@ -657,7 +657,7 @@
            "M-/" 'undo-redo))
      #+END_SRC
 
-**** TODO Unfill region
+**** Unfill region
      :LOGBOOK:
      - State "TODO"       from              [2021-02-15 Mon 16:03] \\
        Update this to use a prefix argument for acting on the entire buffer?
@@ -666,30 +666,23 @@
      I like using auto-fill mode when in Emacs. However, if I want to
      copy the content of a buffer into a different application, I'll
      often want to get rid of the added newlines. As such, here's a
-     function to unfill the current region or the whole buffer if
-     there is no region.
+     function to unfill the current region or the current paragraph if
+     there is no region. With a prefix arg, unfill the whole buffer.
 
      #+BEGIN_SRC emacs-lisp
-       (defun unfill-region-or-buffer ()
-         "Unfill the current region or the entire buffer if there is no region."
-         (interactive)
-         (require 'cl-macs)
-         (cl-destructuring-bind (start end) (if (use-region-p)
-                                                `(,(region-beginning) ,(region-end))
-                                              `(,(buffer-end -1) ,(buffer-end 1)))
-           (let ((fill-column (point-max)))
-             (fill-region start end))))
+       (defun unfill-paragraph (&optional region operate-on-whole-buffer)
+         "Unfill the current paragraph or the region if it is active.
 
-       (defun unfill-paragraph (&optional region)
-         "Unfill the current paragraph or the region if it is active."
-         (interactive (progn (barf-if-buffer-read-only) '(t)))
+       With a prefix argument, unfill the whole buffer."
+         (interactive (progn (barf-if-buffer-read-only) (list t current-prefix-arg)))
          (let ((fill-column (point-max))
                (emacs-lisp-docstring-fill-column t))
-           (fill-paragraph nil region)))
+           (if operate-on-whole-buffer
+               (fill-region (buffer-end -1) (buffer-end 1))
+             (fill-paragraph nil region))))
 
        (general-def
-         "M-Q" 'unfill-paragraph
-         "C-M-q" 'unfill-region-or-buffer)
+         "M-Q" 'unfill-paragraph)
      #+END_SRC
 
 
