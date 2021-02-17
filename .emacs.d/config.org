@@ -2568,7 +2568,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-org
-       :disabled
        :init
        (elfeed-org)
        :general
@@ -2590,7 +2589,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed-goodies
-       :disabled
        :after elfeed
        :config
        (elfeed-goodies/setup))
