@@ -4005,7 +4005,7 @@
         :config
         (setq consult-narrow-key "<"
               consult-project-root-function #'projectile-project-root
-              consult-config `((consult-buffer :preview-key any)))
+              consult-config `((consult-buffer :preview-key nil)))
         (defun consult-buffer-state-no-x ()
           "Buffer state function that doesn't preview X buffers."
           (let* ((orig-state (consult--buffer-state))
@@ -4020,7 +4020,7 @@
               (funcall orig-state (funcall filter cand restore) restore))))
 
         (setq consult--source-buffer
-              (plist-put consult--source-buffer :state #'consult-buffer-state-no-x)))
+              (plist-put consult--source-buffer :state #'consult--buffer-state)))
 
       (use-package consult-flycheck
         :after flycheck
