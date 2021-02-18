@@ -8,6 +8,8 @@
 .emacs.d/*cache
 .emacs.d/.org-id-locations
 .emacs.d/auto-save-list
+.emacs.d/tramp
+.emacs.d/bookmarks
 
 .config/*
 !.config/fish
