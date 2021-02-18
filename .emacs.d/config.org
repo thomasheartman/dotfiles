@@ -685,6 +685,15 @@
          "M-Q" 'unfill-paragraph)
      #+END_SRC
 
+**** Dired config
+
+     We can configure dired to behave a little more intuitively than
+     it does by default.
+
+     #+BEGIN_SRC emacs-lisp
+       (setq dired-isearch-filenames t)
+     #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
@@ -3759,6 +3768,9 @@
 
 
       (evil-set-initial-state 'exwm-mode 'emacs)
+      (evil-set-initial-state 'dired-mode 'emacs)
+      (evil-set-initial-state 'info-mode 'emacs)
+
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
