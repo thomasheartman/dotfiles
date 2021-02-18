@@ -16,6 +16,11 @@
   };
 
   networking.hostName = "archaeopteryx";
+  networking.firewall = {
+    allowedTCPPorts = [ 17500 ];
+    allowedUDPPorts = [ 17500 ];
+  };
+
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

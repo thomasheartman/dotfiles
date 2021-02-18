@@ -40,10 +40,6 @@ in
   system.autoUpgrade.enable = true;
 
   networking.networkmanager.enable = true;
-  networking.firewall = {
-    allowedTCPPorts = [ 17500 ];
-    allowedUDPPorts = [ 17500 ];
-  };
 
   # Select internationalisation properties.
   i18n = { defaultLocale = "en_US.UTF-8"; };
