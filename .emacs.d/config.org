@@ -4151,7 +4151,9 @@
        :after flyspell
        :general
        (flyspell-mode-map
-        "C-;" 'flyspell-correct-wrapper))
+        "C-;" 'flyspell-correct-wrapper
+        "C-." 'flyspell-correct-at-point
+        "C-," 'flyspell-correct-next))
    #+END_SRC
 
 
