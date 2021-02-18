@@ -4176,3 +4176,25 @@
       (markdown-mode . writegood-mode)
       (org-mode . writegood-mode))
   #+END_SRC
+
+
+
+* flycheck-aspell
+  :PROPERTIES:
+  :REPO:     [[https://github.com/leotaku/flycheck-aspell][GitHub]]
+  :END:
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck-aspell
+      :init
+      (setq ispell-dictionary "english"
+            ispell-program-name "aspell"
+            ispell-silently-savep t)
+      (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+      :config
+      (defun flycheck-maybe-recheck (_)
+        (when (bound-and-true-p flycheck-mode)
+          (flycheck-buffer)))
+      (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck))
+  #+END_SRC
