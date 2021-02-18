@@ -52,6 +52,7 @@
  ("f.el" . "c4dbf8c8e83df834f5d6f72cd5649b9d8a8812ec")
  ("flx" . "647cb2f92f9936c62e277d7a74ad54a80502d255")
  ("flycheck" . "01396a5eff9fa494285e0d3139838231c05e3948")
+ ("flycheck-aspell" . "8cd2e747c3f3c1a0879f66b42db090b2878af508")
  ("flycheck-rust" . "a139cd53c5062697e9ed94ad80b803c37d999600")
  ("flyspell-correct" . "d19a090b978a249fc8f6d8b14309a5705a6bb483")
  ("forge" . "15d006d1aa7df254d8cd4521aaf209ec56de8465")
