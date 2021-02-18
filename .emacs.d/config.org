@@ -4165,3 +4165,18 @@
       (use-package flyspell-correct-popup
         :after flyspell-correct)
     #+END_SRC
+
+* Writegood mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/bnbeckwith/writegood-mode][GitHub]]
+  :END:
+
+
+  Writegood mode helps me keep my writing clearer and more concise.
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package writegood-mode
+      :hook
+      (markdown-mode . writegood-mode)
+      (org-mode . writegood-mode))
+  #+END_SRC
