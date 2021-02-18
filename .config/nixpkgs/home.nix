@@ -21,13 +21,11 @@ let
 
 in {
 
-
-
   xsession = {
     enable = true;
     windowManager.command = ''
-          ${my-emacs}/bin/emacs -l "${exwm-load-script}"
-         '';
+      ${my-emacs}/bin/emacs -l "${exwm-load-script}"
+    '';
     initExtra = ''
       xset r rate 200 100
     '';
@@ -42,6 +40,8 @@ in {
   home.packages = with pkgs; [
     my-emacs
     alacritty
+    (pkgs.aspellWithDicts
+      (dicts: with dicts; [ en en-computers en-science nb ]))
     autojump
     bat
     bitwarden-cli
