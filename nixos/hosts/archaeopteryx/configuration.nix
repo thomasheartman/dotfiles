@@ -16,10 +16,6 @@
   };
 
   networking.hostName = "archaeopteryx";
-  networking.firewall = {
-    allowedTCPPorts = [ 17500 ];
-    allowedUDPPorts = [ 17500 ];
-  };
 
 
   # This value determines the NixOS release with which your system is to be
@@ -43,25 +39,4 @@
     # Runtime PM for PCI Device NVIDIA Corporation GP107M [GeForce GTX 1050 Ti Mobile]
     ACTION=="add", SUBSYSTEMS=="pci", ATTRS{device}=="0x1901", ATTRS{vendor}=="0x8086", TEST=="power/control", ATTR{power/control}="auto"
   '';
-
-  # based on https://nixos.wiki/wiki/Dropbox and https://discourse.nixos.org/t/using-dropbox-on-nixos/387/5
-  systemd.user.services.dropbox = {
-    description = "Dropbox";
-    wantedBy = [ "graphical-session.target" ];
-    environment = {
-      QT_PLUGIN_PATH = "/run/current-system/sw/"
-      + pkgs.qt5.qtbase.qtPluginPrefix;
-      QML2_IMPORT_PATH = "/run/current-system/sw/"
-      + pkgs.qt5.qtbase.qtQmlPrefix;
-    };
-    serviceConfig = {
-      ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
-      ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
-      KillMode = "control-group"; # upstream recommends process
-      Restart = "on-failure";
-      PrivateTmp = true;
-      ProtectSystem = "full";
-      Nice = 10;
-    };
-  };
 }
