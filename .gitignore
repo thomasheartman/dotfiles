@@ -1,15 +1,16 @@
-.emacs.d/config.el
-.emacs.d/projectile-*
-.emacs.d/recentf
-.emacs.d/straight/*
-.emacs.d/transient
-.emacs.d/var
-.emacs.d/.lsp-session*
 .emacs.d/*cache
+.emacs.d/.lsp-session*
 .emacs.d/.org-id-locations
 .emacs.d/auto-save-list
-.emacs.d/tramp
 .emacs.d/bookmarks
+.emacs.d/config.el
+.emacs.d/projectile-*
+.emacs.d/projects
+.emacs.d/recentf
+.emacs.d/straight/*
+.emacs.d/tramp
+.emacs.d/transient
+.emacs.d/var
 
 .config/*
 !.config/fish
