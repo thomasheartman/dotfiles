@@ -71,6 +71,7 @@ in {
     playerctl
     powertop
     ripgrep
+    sdcv
     scrot
     skim
     slack

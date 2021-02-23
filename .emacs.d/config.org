@@ -4200,3 +4200,16 @@
           (flycheck-buffer)))
       (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck))
   #+END_SRC
+
+
+
+* lexic
+  :PROPERTIES:
+  :REPO:     [[https://github.com/tecosaur/lexic][GitHub]]
+  :END:
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package lexic
+      :disabled)
+  #+END_SRC
