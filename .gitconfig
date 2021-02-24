@@ -4,6 +4,7 @@
         preloadindex = true
         filemode = false
         ignorecase = false
+	commentChar = ";"
 
 [push]
         default = upstream
