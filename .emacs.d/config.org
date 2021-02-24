@@ -1897,7 +1897,7 @@
                             (:startgroup)
                             ("work" . ?w)
                             (:grouptags)
-                            ("intility" . ?i)
+                            ("enonic" . ?E)
                             (:endgroup)
                             (:startgroup)
                             ("home" . ?H)
