@@ -4212,13 +4212,17 @@
 
 
 
-* lexic
+* TODO lexic
   :PROPERTIES:
   :REPO:     [[https://github.com/tecosaur/lexic][GitHub]]
   :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2021-02-24 Wed 08:51] \\
+    Make this work. For now, Straight fails when trying to clone it. I
+    don't know why.
+  :END:
 
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package lexic
-      :disabled)
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package lexic)
   #+END_SRC
