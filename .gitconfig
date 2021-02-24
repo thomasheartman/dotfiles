@@ -58,14 +58,6 @@
         rererest = !git config --get rerere.enabled
         rmrerere = !git config --remove-section rerere
 
-        # list modified files in last commit
-        dl = "!git ll -1"
-        prev = "git diff-tree --no-commit-id --name-only -r"
-        # diff last commit
-        dlc = diff --cached HEAD^
-        dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-        diffr  = "!f() { git diff "$1"^.."$1"; }; f"
-
         # cleaning
         brclean = "!f() { git branch --merged origin/master | grep -v master | xargs -r git branch -d; }; f"
 
