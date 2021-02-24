@@ -3767,6 +3767,7 @@
       (evil-set-initial-state 'dired-mode 'emacs)
       (evil-set-initial-state 'info-mode 'emacs)
 
+      (add-to-list 'evil-overriding-maps '(popup-menu-keymap . nil))
 
       (setq evil-buffer-regexps
             '(("^ \\*load\\*" . nil)
@@ -4159,8 +4160,16 @@
 
 *** flyspell-correct-popup
 
+    This package offers a popup menu for the flyspell-correct
+    suggestions. Because Evil (and my binding of ~<return>~) causes
+    some issues with selection in normal mode, we also add an explicit
+    mapping of ~popup-select~.
+
     #+BEGIN_SRC emacs-lisp
       (use-package flyspell-correct-popup
+        :general
+        (popup-menu-keymap
+         "<return>" 'popup-select)
         :after flyspell-correct)
     #+END_SRC
 
