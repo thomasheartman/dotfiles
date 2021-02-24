@@ -126,6 +126,8 @@
 
 *** [[https://www.uio.no/studier/emner/matnat/math/MAT2250/v21/forelesningsvideoer/?vrtx=feed][MAT2250 (UiO)]]                                                       :uio:
 
+*** [[https://d12frosted.io/atom.xml][d12frosted/Boris Buliga]]                                                  :emacs:
+
 ** Self                                                                :self:
 
 *** [[https://thomashartmann.dev/rss.xml][thomashartmann.dev]]
