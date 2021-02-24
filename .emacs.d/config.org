@@ -1713,6 +1713,8 @@
     (use-package multiple-cursors
       :config
       (define-key mc/keymap (kbd "<return>") nil)
+      (setq mc/always-run-for-all t
+            mc/always-repeat-command t)
       :bind
       ("C->" . 'mc/mark-next-like-this-symbol)
       ("C-<" . 'mc/mark-previous-like-this-symbol)
