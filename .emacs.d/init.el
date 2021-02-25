@@ -36,7 +36,15 @@
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+  ;; catch emacs updates that have native compiled leftovers
+  (unless (catch 'emacs-version-changed
+            (load bootstrap-file nil 'nomessage))
+    (when (boundp 'comp-eln-load-path)
+      ;; remove leftovers
+      (when (y-or-n-p (format "Delete '%s'? " (car comp-eln-load-path)))
+        (delete-directory (file-truename (expand-file-name (car comp-eln-load-path))) t))
+      ;; try loading again
+      (load bootstrap-file nil 'nomessage))))
 (message "Configured straight.el")
 
 (straight-use-package 'use-package)
