@@ -2479,6 +2479,8 @@
        "f" 'fetch-mail-poll-and-refresh)
       (notmuch-search-mode-map
        "f" 'fetch-mail-poll-and-refresh)
+      :custom
+      (notmuch-search-oldest-first nil)
       :init
       (defun fetch-mail-poll-and-refresh ()
         "Pull new mail from the server and update the current buffer."
