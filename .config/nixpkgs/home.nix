@@ -104,6 +104,7 @@ in
     playerctl
     powertop
     ripgrep
+    rnix-lsp
     sdcv
     scrot
     skim
