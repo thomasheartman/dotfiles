@@ -63,10 +63,9 @@ let
               remotepasseval = ''mailpasswd("${passwordName}")'';
             };
           };
-
         };
-
       };
+
   gheart = "gheart";
   enonicMail = "enonic";
 
@@ -82,7 +81,6 @@ in
     extraConfig.general = {
       accounts = "gheart, enonic";
       autorefresh = "5";
-      sslcacertfile = "/etc/ssl/certs/ca-certificates.crt";
     };
     pythonFile = ''
       # implicitly requires fish shell and the bitwarden-cli, and for the bitwarden
