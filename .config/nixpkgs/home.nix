@@ -26,9 +26,8 @@ let
     (exwm-init)
   '';
 
-  mailConfig = { mailBoxName, user, domain, signature, passwordName ? mailBoxName, primary ? false }:
+  mailConfig = { mailBoxName, address, signature, passwordName ? mailBoxName, primary ? false }:
     let
-      address = "${user}@${domain}";
     in
       {
         realName = "Thomas Heartman";
@@ -52,7 +51,7 @@ let
             host = "smtp.gmail.com";
             port = "587";
             from = address;
-            user = user;
+            user = address;
             passwordeval = ''fish -c "bw get password ${passwordName}"'';
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
@@ -107,9 +106,8 @@ in
   accounts.email.maildirBasePath = "mail";
   accounts.email.accounts.${gheart} = mailConfig {
     primary = true;
-    domain = "gmail.com";
     mailBoxName = gheart;
-    user = "thomasheartman";
+    address = "thomasheartman@gmail.com";
     signature = ''
       --
       :: Thomas Heartman
@@ -120,8 +118,7 @@ in
 
   accounts.email.accounts.${enonicMail} = mailConfig {
     mailBoxName = enonicMail;
-    domain = "enonic.com";
-    user = "the";
+    address = "the@enonic.com";
     passwordName = "enonic-mail";
     signature = ''
       --
