@@ -33,6 +33,7 @@ let
       {
         realName = "Thomas Heartman";
         smtp.tls.useStartTls = true;
+        imap.tls.useStartTls = true;
         flavor = "gmail.com";
         notmuch.enable = true;
         offlineimap.enable = true;
