@@ -77,7 +77,7 @@ font:
 colors:
   # Default colors
   primary:
-    background: '0x282C34'
+    background: '0x080808'
     foreground: '0xabb2bf'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
