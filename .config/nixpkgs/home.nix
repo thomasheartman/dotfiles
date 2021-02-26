@@ -26,31 +26,124 @@ let
     (exwm-init)
   '';
 
-  msmtpDefaults = ''
-    auth           on
-    tls            on
-    tls_trust_file /etc/ssl/certs/ca-certificates.crt
-    logfile        ~/.msmtp.log
-  '';
+  msmtpGmailCommon = {
+    host = "smtp.gmail.com";
+    port = "587";
+  };
 
 in
 {
 
-  # accounts.email.accounts.gheart = {
-  #   address = "thomasheartman@gmail.com";
-  #   flavor = "gmail.com";
-  #   msmtp = {
-  #     enable = true;
-  #     extraConfig = msmtpDefaults ++ ''
-  #       account        gmail
-  #       host           smtp.gmail.com
-  #       port           587
-  #       from           thomasheartman@gmail.com
-  #       user           thomasheartman
-  #       passwordeval   fish -c "bw get password gheart"
-  #             '';
-  #   };
-  # };
+  programs.msmtp = {
+    enable = true;
+  };
+
+  programs.notmuch = {
+    enable = true;
+  };
+
+  programs.offlineimap = {
+    enable = true;
+    extraConfig.general = {
+      accounts = "gheart, enonic";
+      autorefresh = "5";
+      sslcacertfile = "/etc/ssl/certs/ca-certificates.crt";
+    };
+    pythonFile = ''
+      # implicitly requires fish shell and the bitwarden-cli, and for the bitwarden
+      # session env variable ($BW_SESSION) to have been set
+      import subprocess
+
+      def mailpasswd(account):
+        print "Starting password fetching for account %s" % account
+        try:
+          return subprocess.check_output('fish -c "bw get password %s" '% account, shell=True)
+        except subprocess.CalledProcessError:
+          return ""
+    '';
+  };
+
+  accounts.email.maildirBasePath = "mail";
+  accounts.email.accounts.gheart = {
+    primary = true;
+    realName = "Thomas Heartman";
+    signature = {
+      showSignature = "append";
+      text = ''
+        --
+        :: Thomas Heartman
+        :: he/him
+      '';
+    };
+
+    address = "thomasheartman@gmail.com";
+    flavor = "gmail.com";
+    msmtp = {
+      enable = true;
+      extraConfig = msmtpGmailCommon // {
+        from = "thomasheartman@gmail.com";
+        user = "thomasheartman";
+        passwordeval = ''fish -c "bw get password gheart"'';
+        logfile = "~/.msmtp.gheart.log";
+      };
+    };
+    notmuch.enable = true;
+    offlineimap = {
+      enable = true;
+      extraConfig = {
+        local = {
+          type = "Maildir";
+          localfolders = "~/mail/gheart";
+        };
+        remote = {
+          type = "Gmail";
+          remoteuser = "thomasheartman@gmail.com";
+          remotepasseval = ''mailpasswd("gheart")'';
+        };
+      };
+
+    };
+  };
+
+  accounts.email.accounts.enonic = {
+    realName = "Thomas Heartman";
+    signature = {
+      showSignature = "append";
+      text = ''
+        --
+        :: Thomas Heartman
+        :: Developer advocate
+      '';
+    };
+
+    address = "the@enonic.com";
+    flavor = "gmail.com";
+    msmtp = {
+      enable = true;
+      extraConfig = msmtpGmailCommon // {
+        from = "the@enonic.com";
+        user = "the";
+        passwordeval = ''fish -c "bw get password enonic-mail"'';
+        logfile = "~/.msmtp.gheart.log";
+      };
+    };
+    notmuch.enable = true;
+    offlineimap = {
+      enable = true;
+      extraConfig = {
+        local = {
+          type = "Maildir";
+          localfolders = "~/mail/enonic";
+        };
+        remote = {
+          type = "Gmail";
+          remoteuser = "the@enonic.com";
+          remotepasseval = ''mailpasswd("enonic-mail")'';
+        };
+      };
+
+    };
+  };
 
   xsession = {
     enable = true;

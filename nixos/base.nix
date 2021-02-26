@@ -231,12 +231,6 @@ in
   nix.trustedUsers = [ "root" "thomas" ];
   services.emacs.defaultEditor = true;
 
-  services.offlineimap = {
-    enable = true;
-    install = true;
-    path = [ pkgs.notmuch pkgs.bitwarden-cli pkgs.fish ];
-  };
-
   virtualisation.docker = {
     enable = true;
     autoPrune = {
