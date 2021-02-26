@@ -2541,7 +2541,7 @@
    #+name: notmuch-get-account-names
    #+BEGIN_SRC emacs-lisp
      (with-temp-buffer
-       (insert-file-contents "~/.offlineimaprc")
+       (insert-file-contents "~/.config/offlineimap/config")
        (let* ((lines (split-string (buffer-string) "\n" t))
               (key "accounts = ")
               (matches (seq-filter (lambda (l) (string-match-p key l)) lines))
