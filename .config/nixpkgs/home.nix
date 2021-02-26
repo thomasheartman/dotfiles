@@ -26,22 +26,28 @@ let
     (exwm-init)
   '';
 
-  mailConfig = { mailBoxName, user, passwordName ? mailBoxName }:
+  mailConfig = { mailBoxName, user, signature, passwordName ? mailBoxName, primary ? false }:
     let
       address = "${user}@gmail.com";
     in
       {
         realName = "Thomas Heartman";
+        primary = primary;
+        address = address;
+        flavor = "gmail.com";
+
         smtp.tls.useStartTls = true;
         imap.tls.useStartTls = true;
-        flavor = "gmail.com";
+
         notmuch.enable = true;
-        offlineimap.enable = true;
-        msmtp.enable = true;
-        signature.showSignature = "append";
-        address = address;
+
+        signature = {
+          showSignature = "append";
+          text = signature;
+        };
 
         msmtp = {
+          enable = true;
           extraConfig = {
             host = "smtp.gmail.com";
             port = "587";
@@ -53,6 +59,7 @@ let
         };
 
         offlineimap = {
+          enable = true;
           extraConfig = {
             local = {
               type = "Maildir";
@@ -99,23 +106,22 @@ in
 
   accounts.email.maildirBasePath = "mail";
   accounts.email.accounts.${gheart} = mailConfig {
+    primary = true;
     mailBoxName = gheart;
     user = "thomasheartman";
-  } // {
-    primary = true;
-    signature.text = ''
+    signature = ''
       --
       :: Thomas Heartman
       :: he/him
     '';
+
   };
 
   accounts.email.accounts.${enonicMail} = mailConfig {
     mailBoxName = enonicMail;
     user = "the";
     passwordName = "enonic-mail";
-  } // {
-    signature.text = ''
+    signature = ''
       --
       :: Thomas Heartman
       :: Developer advocate
