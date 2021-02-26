@@ -26,21 +26,52 @@ let
     (exwm-init)
   '';
 
-  msmtpGmailCommon = {
-    host = "smtp.gmail.com";
-    port = "587";
+  mailConfig = address: mailName: user: {
+    realName = "Thomas Heartman";
+    smtp.tls.useStartTls = true;
+    flavor = "gmail.com";
+    notmuch.enable = true;
+    offlineimap.enable = true;
+    msmtp.enable = true;
+    signature.showSignature = "append";
+    address = address;
+
+    msmtp = {
+      extraConfig = {
+        host = "smtp.gmail.com";
+        port = "587";
+        from = address;
+        user = user;
+        passwordeval = ''fish -c "bw get password ${mailName}"'';
+        logfile = "~/.msmtp.${mailName}.log";
+      };
+    };
+
+    offlineimap = {
+      extraConfig = {
+        local = {
+          type = "Maildir";
+          localfolders = "~/mail/${mailName} ";
+        };
+        remote = {
+          type = "Gmail";
+          remoteuser = address;
+          remotepasseval = ''mailpasswd("${mailName}")'';
+        };
+      };
+
+    };
+
   };
+  gheart = "gheart";
+  enonicMail = "enonic";
 
 in
 {
 
-  programs.msmtp = {
-    enable = true;
-  };
+  programs.msmtp = { enable = true; };
 
-  programs.notmuch = {
-    enable = true;
-  };
+  programs.notmuch = { enable = true; };
 
   programs.offlineimap = {
     enable = true;
@@ -64,85 +95,20 @@ in
   };
 
   accounts.email.maildirBasePath = "mail";
-  accounts.email.accounts.gheart = {
+  accounts.email.accounts.${gheart} = mailConfig "thomasheartman@gmail.com" gheart "thomasheartman" // {
     primary = true;
-    realName = "Thomas Heartman";
-    signature = {
-      showSignature = "append";
-      text = ''
-        --
-        :: Thomas Heartman
-        :: he/him
-      '';
-    };
-
-    address = "thomasheartman@gmail.com";
-    flavor = "gmail.com";
-    msmtp = {
-      enable = true;
-      extraConfig = msmtpGmailCommon // {
-        from = "thomasheartman@gmail.com";
-        user = "thomasheartman";
-        passwordeval = ''fish -c "bw get password gheart"'';
-        logfile = "~/.msmtp.gheart.log";
-      };
-    };
-    notmuch.enable = true;
-    offlineimap = {
-      enable = true;
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/gheart";
-        };
-        remote = {
-          type = "Gmail";
-          remoteuser = "thomasheartman@gmail.com";
-          remotepasseval = ''mailpasswd("gheart")'';
-        };
-      };
-
-    };
+    signature.text = ''
+      --
+      :: Thomas Heartman
+      :: he/him
+    '';
   };
-
-  accounts.email.accounts.enonic = {
-    realName = "Thomas Heartman";
-    signature = {
-      showSignature = "append";
-      text = ''
-        --
-        :: Thomas Heartman
-        :: Developer advocate
-      '';
-    };
-
-    address = "the@enonic.com";
-    flavor = "gmail.com";
-    msmtp = {
-      enable = true;
-      extraConfig = msmtpGmailCommon // {
-        from = "the@enonic.com";
-        user = "the";
-        passwordeval = ''fish -c "bw get password enonic-mail"'';
-        logfile = "~/.msmtp.gheart.log";
-      };
-    };
-    notmuch.enable = true;
-    offlineimap = {
-      enable = true;
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/enonic";
-        };
-        remote = {
-          type = "Gmail";
-          remoteuser = "the@enonic.com";
-          remotepasseval = ''mailpasswd("enonic-mail")'';
-        };
-      };
-
-    };
+  accounts.email.accounts.${enonicMail} = mailConfig "the@enonic.com" enonicMail "the" // {
+    signature.text = ''
+      --
+      :: Thomas Heartman
+      :: Developer advocate
+    '';
   };
 
   xsession = {
