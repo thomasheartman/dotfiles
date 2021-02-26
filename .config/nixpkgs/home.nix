@@ -26,43 +26,47 @@ let
     (exwm-init)
   '';
 
-  mailConfig = address: mailName: user: {
-    realName = "Thomas Heartman";
-    smtp.tls.useStartTls = true;
-    flavor = "gmail.com";
-    notmuch.enable = true;
-    offlineimap.enable = true;
-    msmtp.enable = true;
-    signature.showSignature = "append";
-    address = address;
+  mailConfig = { mailBoxName, user, passwordName ? mailBoxName }:
+    let
+      address = "${user}@gmail.com";
+    in
+      {
+        realName = "Thomas Heartman";
+        smtp.tls.useStartTls = true;
+        flavor = "gmail.com";
+        notmuch.enable = true;
+        offlineimap.enable = true;
+        msmtp.enable = true;
+        signature.showSignature = "append";
+        address = address;
 
-    msmtp = {
-      extraConfig = {
-        host = "smtp.gmail.com";
-        port = "587";
-        from = address;
-        user = user;
-        passwordeval = ''fish -c "bw get password ${mailName}"'';
-        logfile = "~/.msmtp.${mailName}.log";
-      };
-    };
-
-    offlineimap = {
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/${mailName} ";
+        msmtp = {
+          extraConfig = {
+            host = "smtp.gmail.com";
+            port = "587";
+            from = address;
+            user = user;
+            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            logfile = "~/.msmtp.${mailBoxName}.log";
+          };
         };
-        remote = {
-          type = "Gmail";
-          remoteuser = address;
-          remotepasseval = ''mailpasswd("${mailName}")'';
+
+        offlineimap = {
+          extraConfig = {
+            local = {
+              type = "Maildir";
+              localfolders = "~/mail/${mailBoxName} ";
+            };
+            remote = {
+              type = "Gmail";
+              remoteuser = address;
+              remotepasseval = ''mailpasswd("${passwordName}")'';
+            };
+          };
+
         };
+
       };
-
-    };
-
-  };
   gheart = "gheart";
   enonicMail = "enonic";
 
@@ -95,7 +99,10 @@ in
   };
 
   accounts.email.maildirBasePath = "mail";
-  accounts.email.accounts.${gheart} = mailConfig "thomasheartman@gmail.com" gheart "thomasheartman" // {
+  accounts.email.accounts.${gheart} = mailConfig {
+    mailBoxName = gheart;
+    user = "thomasheartman";
+  } // {
     primary = true;
     signature.text = ''
       --
@@ -103,7 +110,12 @@ in
       :: he/him
     '';
   };
-  accounts.email.accounts.${enonicMail} = mailConfig "the@enonic.com" enonicMail "the" // {
+
+  accounts.email.accounts.${enonicMail} = mailConfig {
+    mailBoxName = enonicMail;
+    user = "the";
+    passwordName = "enonic-mail";
+  } // {
     signature.text = ''
       --
       :: Thomas Heartman
