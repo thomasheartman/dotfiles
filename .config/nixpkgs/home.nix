@@ -2,15 +2,21 @@
 
 let
 
-  unstable = import (fetchTarball
-    "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {
-      overlays = [
-        (import (builtins.fetchTarball {
-          url =
-            "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-        }))
-      ];
-    };
+  unstable = import (
+    fetchTarball
+      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
+  ) {
+    overlays = [
+      (
+        import (
+          builtins.fetchTarball {
+            url =
+              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+          }
+        )
+      )
+    ];
+  };
 
   my-emacs = (pkgs.emacsPackagesGen unstable.emacsGcc).emacsWithPackages
     (epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ]);
@@ -20,7 +26,31 @@ let
     (exwm-init)
   '';
 
-in {
+  msmtpDefaults = ''
+    auth           on
+    tls            on
+    tls_trust_file /etc/ssl/certs/ca-certificates.crt
+    logfile        ~/.msmtp.log
+  '';
+
+in
+{
+
+  # accounts.email.accounts.gheart = {
+  #   address = "thomasheartman@gmail.com";
+  #   flavor = "gmail.com";
+  #   msmtp = {
+  #     enable = true;
+  #     extraConfig = msmtpDefaults ++ ''
+  #       account        gmail
+  #       host           smtp.gmail.com
+  #       port           587
+  #       from           thomasheartman@gmail.com
+  #       user           thomasheartman
+  #       passwordeval   fish -c "bw get password gheart"
+  #             '';
+  #   };
+  # };
 
   xsession = {
     enable = true;
@@ -41,8 +71,10 @@ in {
   home.packages = with pkgs; [
     my-emacs
     alacritty
-    (pkgs.aspellWithDicts
-      (dicts: with dicts; [ en en-computers en-science nb ]))
+    (
+      pkgs.aspellWithDicts
+        (dicts: with dicts; [ en en-computers en-science nb ])
+    )
     autojump
     bat
     bitwarden-cli
@@ -85,10 +117,12 @@ in {
     watchexec
     zoom-us
 
-    (writeScriptBin "hms" ''
-      #!${stdenv.shell}
-      ${home-manager}/bin/home-manager switch
-    '')
+    (
+      writeScriptBin "hms" ''
+        #!${stdenv.shell}
+        ${home-manager}/bin/home-manager switch
+      ''
+    )
   ];
 
   services.dropbox.enable = true;
