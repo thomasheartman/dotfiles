@@ -13,7 +13,7 @@ let
     };
 
   my-emacs = (pkgs.emacsPackagesGen unstable.emacsGcc).emacsWithPackages
-    (epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm epkgs.pdf-tools ]);
+    (epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ]);
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (require 'exwm)

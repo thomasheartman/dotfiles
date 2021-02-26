@@ -2701,7 +2701,7 @@
       (pdf-view-mode-map
        "M-w" 'pdf-view-kill-ring-save)
       :init
-      (pdf-loader-install)
+      ;; (pdf-loader-install)
       (setq-default pdf-view-display-size 'fit-page))
   #+END_SRC
 
