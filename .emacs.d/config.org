@@ -694,6 +694,32 @@
        (setq dired-isearch-filenames t)
      #+END_SRC
 
+*** Switch to window
+
+    When switching windows, it's sometimes easier to switch by name
+    than by navigating one window/frame at a time. This function
+    displays the list of the buffers displayed in the current windows
+    and allows you to switch to a window based on the buffer it
+    contains.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun heartman/select-window (name)
+        "Switch to a window containing a buffer by the name of NAME.
+
+      If multiple windows contain buffers with the same name, which one
+      is chosen is not guaranteed."
+        (interactive
+         (list
+          (intern
+           (completing-read "Switch to window: "
+                            (mapcar (lambda (w) (buffer-name (window-buffer w)))
+                                    (window-list-1 nil nil 'visible))))))
+        (select-window (car (seq-filter
+                             (lambda (window)
+                               (string= name (buffer-name (window-buffer window))))
+                             (window-list-1 nil 0 t)))))
+    #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
@@ -2793,6 +2819,7 @@
               ([?\s-f] . find-file)
               ([?\s-q] . my-kill-current-buffer)
               ([?\s-d] . delete-window)
+              ([?\s-x] . heartman/select-window)
 
               ([?\s-g] . magit-status)
               ([?\s-G] . magit-status-dotfiles)
