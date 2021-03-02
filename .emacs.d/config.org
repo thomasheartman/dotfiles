@@ -2591,6 +2591,36 @@
                       (notmuch-poll-and-refresh-this-buffer))))
    #+END_SRC
 
+** gnus-alias
+
+   To make handling of multiple identities (really: signatures)
+   easier, we can use gnus-alias.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package gnus-alias
+       :config
+       (setq gnus-alias-identity-alist
+             '(("gheart"
+                nil
+                "Thomas Heartman <thomasheartman@gmail.com>"
+                nil
+                nil
+                nil
+                "~/.signatures/signature.gheart")
+               ("enonic"
+                nil
+                "Thomas Heartman <the@enonic.com>"
+                nil
+                nil
+                nil
+                "~/.signatures/signature.enonic"))
+             gnus-alias-default-identity "gheart"
+             gnus-alias-identity-rules '(("enonic" ("From" "the@enonic.com" both) "enonic")))
+
+       :hook
+       (message-setup . gnus-alias-determine-identity))
+   #+END_SRC
+
 
 * TODO Elfeed
   :PROPERTIES:
@@ -2734,7 +2764,7 @@
       (pdf-view-mode-map
        "M-w" 'pdf-view-kill-ring-save)
       :init
-      ;; (pdf-loader-install)
+      (pdf-loader-install t)
       (setq-default pdf-view-display-size 'fit-page))
   #+END_SRC
 
