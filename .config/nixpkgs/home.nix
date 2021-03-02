@@ -26,7 +26,7 @@ let
     (exwm-init)
   '';
 
-  mailConfig = { mailBoxName, address, signature, passwordName ? mailBoxName, primary ? false }:
+  mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }:
     let
     in
       {
@@ -39,11 +39,6 @@ let
         imap.tls.useStartTls = true;
 
         notmuch.enable = true;
-
-        signature = {
-          showSignature = "append";
-          text = signature;
-        };
 
         msmtp = {
           enable = true;
@@ -108,24 +103,21 @@ in
     primary = true;
     mailBoxName = gheart;
     address = "thomasheartman@gmail.com";
-    signature = ''
-      --
-      :: Thomas Heartman
-      :: he/him
-    '';
-
   };
+  home.file.".signatures/signature.${gheart}".text = ''
+    Thomas Heartman (he/him)
+  '';
 
   accounts.email.accounts.${enonicMail} = mailConfig {
     mailBoxName = enonicMail;
     address = "the@enonic.com";
     passwordName = "enonic-mail";
-    signature = ''
-      --
-      :: Thomas Heartman
-      :: Developer advocate
-    '';
   };
+  home.file.".signatures/signature.${enonicMail}".text = ''
+    Thomas "Tosh" Heartman (he/him)
+    Developer advocate
+    Enonic (https://enonic.com)
+  '';
 
   xsession = {
     enable = true;
