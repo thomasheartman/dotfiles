@@ -170,6 +170,7 @@ in
     pijul
     playerctl
     powertop
+    proselint
     ripgrep
     rnix-lsp
     sdcv
@@ -194,5 +195,15 @@ in
   ];
 
   services.dropbox.enable = true;
+
+  home.file.".config/proselint/config".text = ''
+    {
+      "checks": {
+        "cursing.filth": false,
+        "cursing.nfl": false,
+        "misc.but": false
+      }
+    }
+  '';
 
 }
