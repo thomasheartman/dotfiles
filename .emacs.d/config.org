@@ -4271,7 +4271,14 @@
       (setq ispell-dictionary "english"
             ispell-program-name "aspell"
             ispell-silently-savep t)
-      (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+      (dolist (checker '(mail-aspell-dynamic
+                         tex-aspell-dynamic
+                         html-aspell-dynamic
+                         markdown-aspell-dynamic
+                         nroff-aspell-dynamic
+                         texinfo-aspell-dynamic
+                         xml-aspell-dynamic))
+        (add-to-list 'flycheck-checkers checker))
       :config
       (defun flycheck-maybe-recheck (_)
         (when (bound-and-true-p flycheck-mode)
