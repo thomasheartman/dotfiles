@@ -1254,6 +1254,16 @@
       (setq initial-scratch-message nil)
     #+END_SRC
 
+*** Project management
+
+    #+BEGIN_SRC emacs-lisp
+      (defun my-project-paths ()
+        "Get the currently existing top-level project paths"
+        (seq-filter 'file-directory-p '("~/projects"
+                                        "~/projects/work"
+                                        "~/projects/personal")))
+    #+END_SRC
+
 
 ** Custom file
 
@@ -2725,11 +2735,7 @@
       :init
       (projectile-mode t)
       :config
-      (defconst my-project-paths
-        (seq-filter 'file-directory-p '("~/projects"
-                                        "~/projects/work"
-                                        "~/projects/personal")))
-      (setq projectile-project-search-path my-project-paths
+      (setq projectile-project-search-path (my-project-paths)
             projectile-sort-order 'recently-active))
   #+END_SRC
 
