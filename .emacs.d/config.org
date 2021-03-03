@@ -4295,3 +4295,51 @@
   #+BEGIN_SRC emacs-lisp :tangle no
     (use-package lexic)
   #+END_SRC
+
+* Git clone url
+
+  Based on [[http://xenodium.com/emacs-clone-git-repo-from-clipboard/][this post]] about automating repo cloning from clipboard,
+  let's create a workflow better suited to our usage.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun heartman/git-clone-clipboard-url (project-parent-dir)
+      "Clone the git URL in the clipboard and open in dired."
+      (interactive
+       (progn
+         (cl-assert (string-match-p "^\\(\\(https?\\|ssh\\)://\\|git@\\)" (current-kill 0)) nil "No URL in clipboard")
+         (list
+          (completing-read "Which directory to use: "
+                           (my-project-paths)))))
+      (let* ((url (current-kill 0))
+             (parent-dir (file-name-as-directory (expand-file-name project-parent-dir)))
+             (repo-name (file-name-base url))
+             (project-dir (concat parent-dir repo-name))
+             (command (format "git clone %s %s" url project-dir))
+             (buffer (generate-new-buffer (format "*%s*" command)))
+             (proc))
+        (when (file-exists-p project-dir)
+          (if (y-or-n-p (format "Directory %s already exists. Do you want to delete it?" project-dir))
+              (delete-directory project-dir t)
+            (user-error "Aborting. The target directory exists and you have decided not to overwrite it")))
+        (setq proc (start-process-shell-command (car (split-string command))
+                                                buffer
+                                                command))
+        (with-current-buffer buffer
+          (shell-command-save-pos-or-erase)
+          (require 'shell)
+          (shell-mode)
+          (view-mode +1))
+        (set-process-sentinel
+         proc
+         (lambda (process state)
+           (let ((output (with-current-buffer (process-buffer process)
+                           (buffer-string))))
+             (kill-buffer (process-buffer process))
+             (if (= (process-exit-status process) 0)
+                 (progn
+                   (message "Finished: %s " command)
+                   (dired project-dir))
+               (user-error (format "%s\n%s" command output))))))
+
+        (set-process-filter proc #'comint-output-filter)))
+  #+END_SRC
