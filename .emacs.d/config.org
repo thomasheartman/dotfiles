@@ -2918,18 +2918,7 @@
               ([?\M-w] . [C-c])
               ([?\C-y] . [C-v])
               ;; search
-              ([?\C-s] . [C-f])
-              ;; Norwegian input
-              ([?\s-o] . [ø])
-              ([?\s-O] . [Ø])
-              ([?\s-a] . [å])
-              ([?\s-A] . [Å])
-              ([?\s-\"] . [æ])
-              ([?\s-'] . [Æ])
-              ([?\s-e] . [æ])
-              ([?\s-E] . [Æ])
-
-              ))
+              ([?\C-s] . [C-f])))
 
       (add-hook 'exwm-update-title-hook (lambda () (exwm-workspace-rename-buffer exwm-title)))
 
@@ -3235,27 +3224,6 @@
       :hook
       (emacs-lisp-mode . aggressive-indent-mode))
   #+END_SRC
-
-* Norwegian symbols for linux                                         :linux:
-
-  Compared to the English alphabet, Norwegian has three extra vowels:
-  æ, ø, and å. These are not normally accessible from a US keyboard,
-  but emacs lets us create our own mappings. These mappings map to how
-  macOS does it (for better unification of my keyboard layouts.
-  However, we also define an extra mapping for æ, because using ~s-e~
-  makes more sense than ~s-'~.
-  #+begin_src emacs-lisp
-    (when (string= system-type "gnu/linux")
-      (general-def key-translation-map
-        "s-O" "Ø"
-        "s-o" "ø"
-        "s-A" "Å"
-        "s-a" "å"
-        "s-\"" "Æ"
-        "s-'" "æ"
-        "s-E" "Æ"
-        "s-e" "æ"))
-  #+end_src
 
 * Timestamps
 
@@ -4350,3 +4318,30 @@
 
         (set-process-filter proc #'comint-output-filter)))
   #+END_SRC
+
+* adoc-mode
+  :PROPERTIES:
+  :REPO:     [[https://github.com/sensorflo/adoc-mode][GitHub]]
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package adoc-mode)
+  #+END_SRC
+
+* asciidoc
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package asciidoc)
+  #+END_SRC
+
+
+
+** doc-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package doc-mode
+       :hook
+       (doc-mode . (lambda ()
+                     (turn-on-auto-fill)
+                     (require 'asciidoc))))
+   #+END_SRC

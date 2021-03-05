@@ -131,7 +131,7 @@ in
 
   home.keyboard = {
     layout = "us,us";
-    variant = ",dvp";
+    variant = "altgr-intl,dvp";
     options = [ "grp:shift_caps_toggle" ];
   };
 
@@ -182,7 +182,7 @@ in
     tmux
     victor-mono
     vlc
-    wally-cli
+    unstable.wally-cli
     watchexec
     zoom-us
 
