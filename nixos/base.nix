@@ -124,6 +124,13 @@ in
       xorg.xev
       xorg.xkbcomp
       zip
+
+      (
+      writeScriptBin "rebuild" ''
+        #!${stdenv.shell}
+        sudo nixos-rebuild switch -p ${config.networking.hostName} $@
+      ''
+    )
     ];
 
     interactiveShellInit = ''
