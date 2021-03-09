@@ -694,6 +694,13 @@
        (setq dired-isearch-filenames t)
      #+END_SRC
 
+**** Display battery in mode line
+
+     #+BEGIN_SRC emacs-lisp
+       (display-battery-mode)
+     #+END_SRC
+
+
 *** Switch to window
 
     When switching windows, it's sometimes easier to switch by name
