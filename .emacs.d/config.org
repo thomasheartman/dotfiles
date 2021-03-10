@@ -2815,6 +2815,77 @@
       :when use-exwm
       :custom
       (exwm-replace nil)
+      (exwm-input-global-keys
+       `(([?\s-r] . exwm-reset)
+         ([?\s- ] . my-exwm-launcher)
+
+         ;; buffer management
+         ([?\s-n] . next-buffer)
+         ([?\s-p] . previous-buffer)
+         ([?\s-b] . switch-to-buffer)
+         ([?\s-f] . find-file)
+         ([?\s-q] . my-kill-current-buffer)
+         ([?\s-d] . delete-window)
+         ([?\s-x] . heartman/select-window)
+
+         ([?\s-g] . magit-status)
+         ([?\s-G] . magit-status-dotfiles)
+
+         ;; window navigation and management
+         ([?\s-w] . hydra-window-movement/body)
+         ([\s-up] . windmove-up)
+         ([\s-down] . windmove-down)
+         ([\s-right] . windmove-right)
+         ([\s-left] . windmove-left)
+         ([?\s-m] . my-maximize-or-undo-window)
+         ([?\s-k] . my-exwm-previous-workspace-by-index)
+         ([?\s-j] . my-exwm-next-workspace-by-index)
+
+         ;; shell commands
+         ([?\s-!] . shell-command)
+         ([?\s-&] . async-shell-command)
+
+         ;; workspace navigation and management
+         ([\s-tab] . my-previous-window)
+         ([?\s-l] . my-exwm-next-workspace-by-index)
+         ([?\s-h] . my-exwm-previous-workspace-by-index)
+
+         ([?\s-c ?c] . org-capture)
+
+         ;; window splitting and management
+         ([?\s-|] . split-window-right-and-focus)
+         ([?\s-_] . split-window-below-and-focus)
+
+         ;; workspace / window numerical
+         ,@(mapcar (lambda (i)
+                     `(,(kbd (format "s-C-%d" i)) .
+                       (lambda ()
+                         (interactive)
+                         (exwm-workspace-switch-create ,i))))
+                   (number-sequence 0 9))
+         ,@(mapcar (lambda (i)
+                     `(,(kbd (format "s-%d" i)) .
+                       (lambda ()
+                         (interactive)
+                         (winum-select-window-by-number ,i))))
+                   (number-sequence 0 9))))
+
+      (exwm-input-simulation-keys
+       '(
+         ;; movement
+         ([?\M-b] . [C-left])
+         ([?\M-f] . [C-right])
+         ([?\C-p] . [up])
+         ([?\C-n] . [down])
+         ([?\C-a] . [home])
+         ([?\C-e] . [end])
+         ([?\C-k] . [S-end C-x])
+         ;; cut and paste
+         ;; ([?\C-w] . ?\C-x)
+         ([?\M-w] . [C-c])
+         ([?\C-y] . [C-v])
+         ;; search
+         ([?\C-s] . [C-f])))
       :config
       (when (not (server-running-p))
         (server-start))
@@ -2852,80 +2923,6 @@
         (my-exwm-switch-workspace '-))
 
       (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
-
-      (setq exwm-input-global-keys
-            `(([?\s-r] . exwm-reset)
-              ([?\s- ] . my-exwm-launcher)
-
-              ;; buffer management
-              ([?\s-n] . next-buffer)
-              ([?\s-p] . previous-buffer)
-              ([?\s-b] . switch-to-buffer)
-              ([?\s-f] . find-file)
-              ([?\s-q] . my-kill-current-buffer)
-              ([?\s-d] . delete-window)
-              ([?\s-x] . heartman/select-window)
-
-              ([?\s-g] . magit-status)
-              ([?\s-G] . magit-status-dotfiles)
-
-              ;; window navigation and management
-              ([?\s-w] . hydra-window-movement/body)
-              ([?\s-k] . windmove-up)
-              ([?\s-j] . windmove-down)
-              ([?\s-l] . windmove-right)
-              ([?\s-h] . windmove-left)
-              ([\s-up] . windmove-up)
-              ([\s-down] . windmove-down)
-              ([\s-right] . windmove-right)
-              ([\s-left] . windmove-left)
-              ([?\s-m] . my-maximize-or-undo-window)
-
-              ;; shell commands
-              ([?\s-!] . shell-command)
-              ([?\s-&] . async-shell-command)
-
-              ;; workspace navigation and management
-              ([\s-tab] . my-previous-window)
-              ([?\s-l] . my-exwm-next-workspace-by-index)
-              ([?\s-h] . my-exwm-previous-workspace-by-index)
-
-              ([?\s-c ?c] . org-capture)
-
-              ;; window splitting and management
-              ([?\s-|] . split-window-right-and-focus)
-              ([?\s-_] . split-window-below-and-focus)
-
-              ;; workspace / window numerical
-              ,@(mapcar (lambda (i)
-                          `(,(kbd (format "s-C-%d" i)) .
-                            (lambda ()
-                              (interactive)
-                              (exwm-workspace-switch-create ,i))))
-                        (number-sequence 0 9))
-              ,@(mapcar (lambda (i)
-                          `(,(kbd (format "s-%d" i)) .
-                            (lambda ()
-                              (interactive)
-                              (winum-select-window-by-number ,i))))
-                        (number-sequence 0 9))))
-
-      (setq exwm-input-simulation-keys
-            '(
-              ;; movement
-              ([?\M-b] . [C-left])
-              ([?\M-f] . [C-right])
-              ([?\C-p] . [up])
-              ([?\C-n] . [down])
-              ([?\C-a] . [home])
-              ([?\C-e] . [end])
-              ([?\C-k] . [S-end C-x])
-              ;; cut and paste
-              ;; ([?\C-w] . ?\C-x)
-              ([?\M-w] . [C-c])
-              ([?\C-y] . [C-v])
-              ;; search
-              ([?\C-s] . [C-f])))
 
       (add-hook 'exwm-update-title-hook (lambda () (exwm-workspace-rename-buffer exwm-title)))
 
