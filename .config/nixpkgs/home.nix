@@ -114,7 +114,7 @@ in
     passwordName = "enonic-mail";
   };
   home.file.".signatures/signature.${enonicMail}".text = ''
-    Thomas "Tosh" Heartman (he/him)
+    Thomas Heartman (he/him)
     Developer advocate
     Enonic (https://enonic.com)
   '';
