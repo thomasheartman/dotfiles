@@ -2958,12 +2958,12 @@
       (defun my-exwm-send-buffer-next-workspace ()
         "Send the current buffer to the next workspace."
         (interactive)
-        (heartman/send-buffer-to-frame 1))
+        (heartman/send-buffer-to-frame -1))
 
       (defun my-exwm-send-buffer-previous-workspace ()
         "Send the current buffer to the next workspace."
         (interactive)
-        (heartman/send-buffer-to-frame -1))
+        (heartman/send-buffer-to-frame 1))
 
       (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
 
