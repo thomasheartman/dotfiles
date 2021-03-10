@@ -2789,6 +2789,39 @@
   In a number of prog modes, it'd be useful to be able to move lines
   up and down. Maybe even expressions up and down. M-<up>, for instance?
 
+* Send window to next frame
+
+
+  I'd like to be able to move a window from one frame to the next. By
+  which I mean:
+  1. If the current frame has more than one window: close the current
+     window. If the current frame only has one window, switch to the
+     'previous buffer'
+  2. On the next (target) frame: open a new window. If the window is wide, open
+     it to the right; otherwise open it on the bottom.
+  3. Open the buffer from the original closed window in the new buffer.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun heartman/send-buffer-to-frame (arg)
+      "Send the current buffer to another frame.
+
+    ARG (positive or negative) specifies how many frames to send it.
+    Focus follows the window."
+      (let ((buffer (current-buffer)))
+        (if (= 1 (length (window-list)))
+            (previous-buffer)
+          (delete-window))
+        (other-frame arg)
+        (select-window
+         (car (last
+               (window-list nil 'never (frame-first-window)))))
+        (if (> (window-pixel-height) (window-pixel-width))
+            (split-window-below-and-focus)
+          (split-window-right-and-focus))
+        (switch-to-buffer buffer)))
+  #+END_SRC
+
+
 * TODO [#C] exwm
   :PROPERTIES:
   :REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
@@ -2838,8 +2871,8 @@
          ([\s-right] . windmove-right)
          ([\s-left] . windmove-left)
          ([?\s-m] . my-maximize-or-undo-window)
-         ([?\s-k] . my-exwm-previous-workspace-by-index)
-         ([?\s-j] . my-exwm-next-workspace-by-index)
+         ([\s-next] . my-exwm-send-buffer-next-workspace)
+         ([\s-prior] . my-exwm-send-buffer-previous-workspace)
 
          ;; shell commands
          ([?\s-!] . shell-command)
@@ -2921,6 +2954,16 @@
         "Switch to the previous workspace."
         (interactive)
         (my-exwm-switch-workspace '-))
+
+      (defun my-exwm-send-buffer-next-workspace ()
+        "Send the current buffer to the next workspace."
+        (interactive)
+        (heartman/send-buffer-to-frame 1))
+
+      (defun my-exwm-send-buffer-previous-workspace ()
+        "Send the current buffer to the next workspace."
+        (interactive)
+        (heartman/send-buffer-to-frame -1))
 
       (define-key key-translation-map [?\s-s] (kbd "C-x C-s"))
 
