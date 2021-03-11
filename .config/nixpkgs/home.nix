@@ -192,6 +192,14 @@ in
         ${home-manager}/bin/home-manager switch
       ''
     )
+
+    (
+      writeScriptBin "kbs" ''
+        #!${stdenv.shell}
+        ${xorg.setxkbmap}/bin/setxkbmap us,us altgr-intl,dvp 'grp:shift-caps-toggle'
+        xset r rate 200 100
+      ''
+    )
   ];
 
   services.dropbox.enable = true;
