@@ -2329,6 +2329,57 @@
      ;; (require 'org-notmuch)
    #+END_SRC
 
+** Jump to content
+
+   When at a heading (or working in the subtree of one), I'd like a
+   quick way to jump to the start of the current content section. That
+   is:
+   - if the heading has no content after it, create a new line and indent
+   - if the heading has content following, place the cursor at the
+     start of this content
+
+   If the heading has metadata, this should be skipped.
+
+   #+BEGIN_SRC emacs-lisp
+     (defun heartman/org-jump-to-content ()
+       "Jump to content below current heading.
+
+     If there is no content, place the cursor where it should start."
+       (interactive)
+       (org-back-to-heading)
+       (let ((heading-line (line-number-at-pos)))
+         (org-end-of-meta-data t)
+         (cond
+          ;; the cursor is not at the first column. this means we're at the
+          ;; end of a line for some reason, most likely at the end of a
+          ;; heading or a drawer.
+          ((not (= 0 (current-column)))
+           (newline 2))
+          ;; we're at a heading
+          ((org-at-heading-p)
+           (open-line 1)
+           (delete-blank-lines)
+           (open-line 1)
+           (newline))
+          ;; if the current line is empty
+          ((looking-at-p "[[:space:]]*$")
+           (delete-blank-lines)
+           (newline)))
+         (org-indent-line)))
+
+     (general-def
+       org-mode-map
+       "C-c f" 'heartman/org-jump-to-content)
+   #+END_SRC
+
+** TODO this
+   :LOGBOOK:
+   - State "TODO"       from              [2021-03-12 Fri 13:04] \\
+     eouhtnas
+   :END:
+
+
+
 ** Org export
 
 *** TODO GFM (ox-gfm)
