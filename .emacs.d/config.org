@@ -2175,8 +2175,8 @@
 
      (general-def
        org-mode-map
-       "<up>" 'my-org-open-previous-heading
-       "<down>" 'my-org-open-next-heading)
+       "<prior>" 'my-org-open-previous-heading
+       "<next>" 'my-org-open-next-heading)
 
      (general-def
        org-mode-map
