@@ -691,7 +691,8 @@
      it does by default.
 
      #+BEGIN_SRC emacs-lisp
-       (setq dired-isearch-filenames t)
+       (setq dired-isearch-filenames t
+             dired-listing-switches "-lah")
      #+END_SRC
 
 **** Display battery in mode line
