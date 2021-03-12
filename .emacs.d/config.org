@@ -2372,14 +2372,6 @@
        "C-c C-r" 'heartman/org-jump-to-content)
    #+END_SRC
 
-** TODO this
-   :LOGBOOK:
-   - State "TODO"       from              [2021-03-12 Fri 13:04] \\
-     eouhtnas
-   :END:
-
-
-
 ** Org export
 
 *** TODO GFM (ox-gfm)
