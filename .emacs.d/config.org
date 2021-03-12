@@ -3923,10 +3923,8 @@
             ;; prevent "c$" and "d$" from deleting blank lines
             (setq evil-this-type 'exclusive))))
 
-
-      (evil-set-initial-state 'exwm-mode 'emacs)
-      (evil-set-initial-state 'dired-mode 'emacs)
-      (evil-set-initial-state 'info-mode 'emacs)
+      (dolist (mode '(exwm-mode dired-mode info-mode image-mode))
+        (evil-set-initial-state mode 'emacs))
 
       (add-to-list 'evil-overriding-maps '(popup-menu-keymap . nil))
 
