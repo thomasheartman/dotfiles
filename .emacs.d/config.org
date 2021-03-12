@@ -2369,7 +2369,7 @@
 
      (general-def
        org-mode-map
-       "C-c f" 'heartman/org-jump-to-content)
+       "C-c C-r" 'heartman/org-jump-to-content)
    #+END_SRC
 
 ** TODO this
