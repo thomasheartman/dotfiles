@@ -700,6 +700,22 @@
        (display-battery-mode)
      #+END_SRC
 
+**** Delete current file
+
+     For when you want to delete the current file:
+
+     #+BEGIN_SRC emacs-lisp
+       (defun heartman/delete-current-file ()
+         "Delete the current file."
+         (interactive)
+         (let ((file (buffer-file-name)))
+           (if (and file (f-file-p file))
+               (progn
+                 (delete-file file)
+                 (message "Deleted %s" file))
+             (user-error "This is not a file and cannot be deleted"))))
+     #+END_SRC
+
 
 *** Switch to window
 
