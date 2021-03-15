@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
 
@@ -17,9 +17,6 @@ let
       )
     ];
   };
-
-  my-emacs = (pkgs.emacsPackagesGen unstable.emacsGcc).emacsWithPackages
-    (epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ]);
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (require 'exwm)
@@ -122,7 +119,7 @@ in
   xsession = {
     enable = true;
     windowManager.command = ''
-      ${my-emacs}/bin/emacs -l "${exwm-load-script}"
+      ${config.programs.emacs.package}/bin/emacs -l "${exwm-load-script}"
     '';
     initExtra = ''
       xset r rate 200 100
@@ -135,8 +132,13 @@ in
     options = [ "grp:shift_caps_toggle" ];
   };
 
+  programs.emacs = {
+    enable = true;
+    package = unstable.emacsGcc;
+    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ];
+  };
+
   home.packages = with pkgs; [
-    my-emacs
     alacritty
     (
       pkgs.aspellWithDicts
