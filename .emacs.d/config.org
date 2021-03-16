@@ -4414,6 +4414,7 @@
         (setq proc (start-process-shell-command (car (split-string command))
                                                 buffer
                                                 command))
+        (message "Running: %s" command)
         (with-current-buffer buffer
           (shell-command-save-pos-or-erase)
           (require 'shell)
