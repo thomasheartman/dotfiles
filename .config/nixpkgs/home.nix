@@ -211,7 +211,8 @@ in
       "checks": {
         "cursing.filth": false,
         "cursing.nfl": false,
-        "misc.but": false
+        "misc.but": false,
+        "typography.symbols": false
       }
     }
   '';
