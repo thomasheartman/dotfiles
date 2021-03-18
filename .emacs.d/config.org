@@ -2271,6 +2271,12 @@
 
 ** TODO Formatting
    :LOGBOOK:
+   - State "TODO"       from "TODO"       [2021-03-17 Wed 12:03] \\
+     Wish list:
+     - Stop this from inserting blank lines above the first heading if there
+     is no content before it
+     - Indent content correctly
+     - Delete extra whitespace between content and headings
    - State "TODO"       from              [2020-09-09 Wed 14:26] \\
      Find out how to make before-save-hook actually work.
    :END:
