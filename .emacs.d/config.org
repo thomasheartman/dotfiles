@@ -4489,3 +4489,23 @@
                      (turn-on-auto-fill)
                      (require 'asciidoc))))
    #+END_SRC
+
+* TODO lsp-grammarly
+  :PROPERTIES:
+  :REPO:     https://github.com/emacs-grammarly/lsp-grammarly
+  :END:
+  :LOGBOOK:
+  - State "TODO"       from              [2021-03-17 Wed 11:54] \\
+    This would be cool if it worked. However, the language server is
+    distributed as an npm package which is not available in nixpkgs at the
+    moment. It may be possible to use [[https://github.com/svanderburg/node2nix][node2nix]] to create an overlay
+    somehow (or look at how things are built in [[https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/development/node-packages/node-packages.nix][nixpkgs.nodePackages]]), but
+    this would require some work.
+  :END:
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package lsp-grammarly
+      ;; :hook
+      ;; (text-mode . lsp)
+      )
+  #+END_SRC
