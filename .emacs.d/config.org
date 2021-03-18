@@ -2180,6 +2180,29 @@
        "<next>" 'my-org-open-next-heading)
    #+END_SRC
 
+** TODO Toggle subtree visibility
+   :LOGBOOK:
+   - State "TODO"       from              [2021-03-18 Thu 08:54] \\
+     Make it possible to toggle directly from children to subtree (without
+     closing in between).
+   :END:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (defun heartman/toggle-heading-content (show-children)
+       "Toggle the current heading's subtree visibility.
+
+     With a prefix arg, toggle children instead."
+       (interactive "P")
+       (if show-children
+           (outline-toggle-children)
+         (pdf-outline-toggle-subtree)))
+
+     (general-def
+       org-mode-map
+       "C-<tab>" 'heartman/toggle-heading-content
+       "C-S-<iso-lefttab>" 'outline-hide-subtree)
+   #+END_SRC
 
 ** templates (org-tempo)
    :LOGBOOK:
