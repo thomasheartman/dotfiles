@@ -2976,7 +2976,12 @@
          ([?\s-l] . my-exwm-next-workspace-by-index)
          ([?\s-h] . my-exwm-previous-workspace-by-index)
 
-         ([?\s-c ?c] . org-capture)
+         ([?\s-a ?m] . notmuch)
+         ([?\s-a ?f] . elfeed)
+         ([?\s-a ?r] . ranger)
+         ([?\s-o ?a] . org-agenda)
+         ([?\s-o ?c] . org-capture)
+         ([?\s-o ?r] . helm-org-rifle-agenda-files)
 
          ;; window splitting and management
          ([?\s-|] . split-window-right-and-focus)
