@@ -144,10 +144,13 @@ in
   # Enable sound.
   sound.enable = true;
 
-  hardware.pulseaudio = {
+  services.pipewire = {
     enable = true;
-    support32Bit = true;
-    package = pkgs.pulseaudioFull;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
   };
 
   hardware.bluetooth.enable = true;
