@@ -126,11 +126,11 @@ in
       zip
 
       (
-      writeScriptBin "rebuild" ''
-        #!${stdenv.shell}
-        sudo nixos-rebuild switch -p ${config.networking.hostName} $@
-      ''
-    )
+        writeScriptBin "rebuild" ''
+          #!${stdenv.shell}
+          sudo nixos-rebuild switch -p ${config.networking.hostName} $@
+        ''
+      )
     ];
 
     interactiveShellInit = ''
