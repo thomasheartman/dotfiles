@@ -194,8 +194,9 @@ in
     enable = true;
     libinput = {
       enable = true;
-      naturalScrolling = true;
-      disableWhileTyping = true;
+      mouse.naturalScrolling = true;
+      touchpad.naturalScrolling = true;
+      touchpad.disableWhileTyping = true;
     };
 
     exportConfiguration = true;
