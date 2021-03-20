@@ -84,6 +84,7 @@ in
     };
 
     allowUnfree = true;
+    joypixels.acceptLicense = true;
   };
 
   environment = {
