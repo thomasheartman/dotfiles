@@ -12,6 +12,9 @@
 [pull]
         rebase = merges
 
+[rebase]
+        autostash = true
+
 [fetch]
         prune = true
         fetch = +refs/heads/*:refs/remotes/origin/*
@@ -143,6 +146,7 @@
         path = ~/projects/work/.gitconfig
 [merge]
         conflictStyle = diff3
+        autostash = true
 [github]
         user = thomasheartman
 [init]
