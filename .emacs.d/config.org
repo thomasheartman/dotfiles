@@ -756,21 +756,17 @@
     contains.
 
     #+BEGIN_SRC emacs-lisp
-      (defun heartman/select-window (name)
+      (defun heartman/select-window (window)
         "Switch to a window containing a buffer by the name of NAME.
 
       If multiple windows contain buffers with the same name, which one
       is chosen is not guaranteed."
         (interactive
          (list
-          (intern
-           (completing-read "Switch to window: "
-                            (mapcar (lambda (w) (buffer-name (window-buffer w)))
-                                    (window-list-1 nil nil 'visible))))))
-        (select-window (car (seq-filter
-                             (lambda (window)
-                               (string= name (buffer-name (window-buffer window))))
-                             (window-list-1 nil 0 t)))))
+          (heartman/completing-read-map "Switch to window: "
+                                          (mapcar (lambda (w) `(,(buffer-name (window-buffer w)) . ,w))
+                                                  (window-list-1 nil nil 'visible)))))
+        (select-window window))
     #+END_SRC
 
 
