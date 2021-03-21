@@ -726,6 +726,26 @@
              (user-error "This is not a file and cannot be deleted"))))
      #+END_SRC
 
+**** Alt completing read
+
+     This alternate completing read function is inspired by [[http://www.howardism.org/Technical/Emacs/alt-completing-read.html][this blog
+     post]] on creating a completing read function that accepts an
+     association list of items.
+
+     #+BEGIN_SRC emacs-lisp
+       (defun heartman/completing-read-map (prompt collection &optional predicate require-match initial-input hist def inherit-input-method)
+         "Call completing read using PROMPT and COLLECTION (alist or hash table).
+
+       A wrapper around the `completing-read' function that assums the collection is either an alist or a hash table, and returns the _value_ of the choice instead of the selected choice (the key)."
+         (cl-flet ((assoc-list-p (obj) (and (listp obj) (consp (car obj)))))
+           (let* ((choice
+                   (completing-read prompt collection predicate require-match initial-input hist def inherit-input-method))
+                  (results (cond
+                            ((hash-table-p collection) (gethash choice collection))
+                            ((assoc-list-p collection) (alist-get choice collection def nil 'equal))
+                            (t choice))))
+             (if (listp results) (first results) results))))
+     #+END_SRC
 
 *** Switch to window
 
