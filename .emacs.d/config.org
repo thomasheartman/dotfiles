@@ -769,6 +769,75 @@
         (select-window window))
     #+END_SRC
 
+*** show-matching-buffers
+
+    I'd like a function to open all buffers that match a certain regex.
+    This is most relevant when it comes to EXWM buffers, such as Firefox
+    or Alacritty.
+
+    In short, here's what I'd like to happen.
+    1. The user triggers the function and is prompted by a list of
+       open buffers (similar to ~switch-to-buffer~)
+    2. As they type in, the list filters down, only showing the buffers
+       that match the regex
+    3. When the user confirms their selection, all buffers that are
+       currently displayed should be opened in the current frame. The
+       first one should replace the buffer in the current window. For
+       the remaining buffers: new windows should be created. If
+       necessary: balance the windows to create more space.
+
+       Optionally, make this function replace all windows in the
+       current frame. That would probably make it easier.
+
+       #+BEGIN_SRC emacs-lisp
+         (defun heartman/split-largest-window ()
+           "Split the largest window in the current frame.
+
+         Splits the window along it's longest axis (bottom or right)."
+           (interactive)
+           (cl-flet ((split-window-f (window width height)
+                                     (let ((side (if (> height width)
+                                                     'below
+                                                   'right)))
+                                       (split-window window nil side t)))
+
+                     (create-window-plist (w) (let* ((height (window-pixel-height w))
+                                                     (width (window-pixel-width w))
+                                                     (area (* height width)))
+                                                `(window ,w height ,height width ,width area ,area))))
+             (require 'seq)
+             (let* ((windows (mapcar #'create-window-plist (window-list)))
+                    (largest-window (seq-reduce (lambda (largest next)
+                                                  (message "largest: %s next %s" largest next)
+                                                  (if (> (plist-get next 'area) (plist-get largest 'area))
+                                                      next
+                                                    largest)) (cdr windows)
+                                                    (car windows))))
+               (split-window-f
+                (plist-get largest-window 'window)
+                (plist-get largest-window 'width)
+                (plist-get largest-window 'height))
+               (balance-windows))))
+       #+END_SRC
+
+
+    #+BEGIN_SRC emacs-lisp
+      (defun heartman/show-matching-buffers (buffers)
+        "Show all buffers matching a given regex."
+        (interactive
+         (list
+          (let* ((buffers (mapcar (lambda (b) `(,(buffer-name b) . ,b)) (buffer-list)))
+                 (buffer-names (mapcar 'car buffers))
+                 (regexes
+                  (completing-read-multiple "Buffers matching: " buffer-names)))
+            ;; return buffers that match at least one of the regexes
+            (message "buffers are %s " buffers)
+            (mapcar (lambda (name) (alist-get name buffers))
+                    (seq-filter
+                     (lambda (buffer) t) buffer-names)))))
+        (message "The buffers are %s" buffers))
+    #+END_SRC
+
 
 *** Scroll distance
     :LOGBOOK:
