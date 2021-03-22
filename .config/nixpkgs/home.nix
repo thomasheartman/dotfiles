@@ -156,6 +156,7 @@ in
     ffmpeg
     firefox
     gcc # <-this is here to make magit forge work
+    imagemagick
     ispell
     i3lock
     jetbrains-mono

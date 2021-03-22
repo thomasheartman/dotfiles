@@ -4594,3 +4594,17 @@
       ;; (text-mode . lsp)
       )
   #+END_SRC
+
+* screenshot.el
+  :PROPERTIES:
+  :REPO:     https://github.com/tecosaur/screenshot
+  :END:
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package screenshot
+      :straight `(screenshot
+                  :type git
+                  :host github
+                  :repo "tecosaur/screenshot"))
+  #+END_SRC
