@@ -290,12 +290,11 @@ give ourselves a little bit of extra space (based on [[https://emacs.stackexchan
                  mode-line-buffer-id
                  mode-line-emphasis
                  mode-line-highlight
-                 mode-line-inactive))
-        (height (floor (*
-                        heartman/mode-line-font-size
-                        (face-attribute 'default :height)))))
+                 mode-line-inactive)))
     (mapc
-     (lambda (face) (set-face-attribute face nil :height height))
+     (lambda (face)
+       (set-face-attribute face nil
+                           :height heartman/mode-line-font-size))
      faces))
 #+END_SRC
 
