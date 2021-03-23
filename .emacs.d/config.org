@@ -2464,6 +2464,18 @@
      (add-hook 'org-mode-hook #'my-org-mode-hook)
    #+END_SRC
 
+** org-indent-mode
+
+   We can make org mode use only visual indentation (instead of hard
+   spaces). This makes working with external apps (Beorg) that don't
+   support automatic indentation easier, and also smooths out working
+   with mixed pitches.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-startup-indented t)
+   #+END_SRC
+
+
 ** TODO org-plus-contrib
    :LOGBOOK:
    - State "TODO"       from "TODO"       [2020-08-30 Sun 14:26] \\
