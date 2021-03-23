@@ -234,9 +234,11 @@
     font.
 
     #+BEGIN_SRC emacs-lisp
-      (setq preferred-fonts '("JetBrains Mono"
-                              "Cascadia Code"
-                              "Victor Mono"))
+      (defvar preferred-fonts '("JetBrains Mono"
+                                "Cascadia Code"
+                                "Victor Mono")
+        "The list of preferred fonts in descending order. Emacs will
+        use the first font it finds in this list.")
 
       (require 'cl)
 
