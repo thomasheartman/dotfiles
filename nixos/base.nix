@@ -59,6 +59,8 @@ in
       kochi-substitute
       mplus-outline-fonts
       noto-fonts
+      noto-fonts-emoji
+      open-sans
       powerline-fonts
       symbola
     ];
@@ -66,9 +68,9 @@ in
     fontconfig = {
       defaultFonts = {
         monospace = [ "DejaVu Sans Mono" "IPAGothic" ];
-        sansSerif = [ "DejaVu Sans" "IPAPGothic" ];
+        sansSerif = [ "Open Sans" "DejaVu Sans" "IPAPGothic" ];
         serif = [ "DejaVu Serif" "IPAPMincho" ];
-        emoji = [ "JoyPixels" ];
+        emoji = [ "Noto Color Emoji" "JoyPixels" ];
       };
     };
   };
