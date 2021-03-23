@@ -3036,7 +3036,7 @@
          ([?\s-f] . find-file)
          ([?\s-q] . my-kill-current-buffer)
          ([?\s-d] . delete-window)
-         ([?\s-x] . heartman/select-window)
+         ([?\s-j] . heartman/select-window)
          ([?\s-k] . heartman/delete-current-file)
 
          ([?\s-g] . magit-status)
