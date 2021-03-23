@@ -4710,5 +4710,6 @@
   #+BEGIN_SRC emacs-lisp
     (use-package mixed-pitch
       :hook
-      (text-mode . mixed-pitch-mode))
+      (text-mode . mixed-pitch-mode)
+      (adoc-mode . mixed-pitch-mode))
   #+END_SRC
