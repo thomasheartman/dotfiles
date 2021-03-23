@@ -248,6 +248,35 @@
           (set-frame-font font t t)))
     #+END_SRC
 
+**** Emoji
+
+     Because most fonts don't deal with Emoji, we have to set special
+     fonts for the emoji range. This snippet from [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][Ergoemacs' article
+     and fonts]] allows us to do just that.
+
+     When it's active, these emoji should render as expected:
+
+     😄 😱 😸 👸 👽 🙋
+
+     #+BEGIN_SRC emacs-lisp
+       ;; set font for emoji
+       (set-fontset-font
+        t
+        '(#x1f300 . #x1fad0)
+        (cond
+         ((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
+         ((member "JoyPixels" (font-family-list)) "JoyPixels")
+         ((member "Noto Emoji" (font-family-list)) "Noto Emoji")
+         ((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
+         ((member "Symbola" (font-family-list)) "Symbola")
+         ((member "Apple Color Emoji" (font-family-list)) "Apple Color Emoji"))
+        ;; Apple Color Emoji should be before Symbola, but Richard Stallman disabled it.
+        ;; GNU Emacs Removes Color Emoji Support on the Mac
+        ;; http://ergoemacs.org/misc/emacs_macos_emoji.html
+        ;;
+        )
+     #+END_SRC
+
 
 ** Misc
 
