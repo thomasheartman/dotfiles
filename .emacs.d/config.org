@@ -277,6 +277,28 @@ When it's active, these emoji should render as expected:
    )
 #+END_SRC
 
+**** Mode line font size
+
+We can make the mode line font be a little smaller than default to
+give ourselves a little bit of extra space (based on [[https://emacs.stackexchange.com/a/1062][this answer on stack exchange]]):
+
+#+BEGIN_SRC emacs-lisp
+  (defvar heartman/mode-line-font-size .8
+    "The size of the mode line font relative to the default.")
+
+  (let ((faces '(mode-line
+                 mode-line-buffer-id
+                 mode-line-emphasis
+                 mode-line-highlight
+                 mode-line-inactive))
+        (height (floor (*
+                        heartman/mode-line-font-size
+                        (face-attribute 'default :height)))))
+    (mapc
+     (lambda (face) (set-face-attribute face nil :height height))
+     faces))
+#+END_SRC
+
 
 ** Misc
 
