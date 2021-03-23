@@ -4678,3 +4678,16 @@
                        :repo "tecosaur/org-pandoc-import"
                        :files ("*.el" "filters" "preprocessors")))
   #+END_SRC
+
+
+
+* mixed-pitch
+  :PROPERTIES:
+  :REPO:     https://gitlab.com/jabranham/mixed-pitch
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package mixed-pitch
+      :hook
+      (text-mode . mixed-pitch-mode))
+  #+END_SRC
