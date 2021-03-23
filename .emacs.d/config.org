@@ -1654,7 +1654,7 @@ add ~fuzzy~ to the list of completion styles.
 :REPO:     https://github.com/sebastiencs/company-box
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company-box
     :hook
     (company-mode . company-box-mode))
@@ -1673,7 +1673,7 @@ completions in a separate frame.
 This should not be used with ~company-box~ as they both modify
 company's options.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lips
   (use-package company-posframe
     :after company
     :unless on-macos
