@@ -2792,6 +2792,20 @@ movement works.
     (mail-specify-envelope-from t)
     (message-sendmail-envelope-from 'header)
     (mail-envelope-from 'header)
+    (notmuch-hello-sections
+     '(notmuch-hello-insert-saved-searches
+       notmuch-hello-insert-recent-searches
+       notmuch-hello-insert-alltags
+       notmuch-hello-insert-footer))
+    (notmuch-saved-searches
+     '((:name "inbox" :query "tag:inbox" :key "i")
+       (:name "unread" :query "tag:unread" :key "u")
+       (:name "flagged" :query "tag:flagged" :key "f")
+       (:name "sent" :query "tag:sent" :key "s")
+       (:name "drafts" :query "tag:draft" :key "d")
+       (:name "all mail" :query "*" :key "a")
+       (:name "gheart" :query "to:thomas.*heartman.*@gmail.com" :key "g")
+       (:name "enonic" :query "to:the@enonic" :key "e")))
     :init
     (defun fetch-mail-poll-and-refresh ()
       "Pull new mail from the server and update the current buffer."
