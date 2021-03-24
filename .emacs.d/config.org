@@ -445,7 +445,7 @@ delete that on save.
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 
-For text modes, let's always use auto-fill mode and orgtbl-mode:
+For text modes, let's always use auto-fill mode and abbrev-mode:
 #+begin_src emacs-lisp
   (defun my-text-mode-hook ()
     (auto-fill-mode)
