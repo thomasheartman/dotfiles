@@ -1680,6 +1680,16 @@ company's options.
     :config (company-posframe-mode 1))
 #+END_SRC
 
+** Company-emoji
+:PROPERTIES:
+:REPO:     https://github.com/dunn/company-emoji
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-emoji
+    :init
+    (add-to-list 'company-backends 'company-emoji))
+#+END_SRC
 
 * Magit                                                          :keybinding:
 
