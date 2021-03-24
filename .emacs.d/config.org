@@ -419,7 +419,7 @@ the window. By default, visual line mode overrides a number of
 functions that work on lines, but I find this confusing, so we'll
 remove the key overrides it provides.
 #+BEGIN_SRC emacs-lisp
-  ;; (global-visual-line-mode)
+  (global-visual-line-mode)
   (general-unbind
     'visual-line-mode-map
     [remap kill-line]
