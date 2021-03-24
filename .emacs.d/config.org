@@ -2596,6 +2596,22 @@ export, including source code language and triple back ticks.
   (use-package ox-gfm)
 #+END_SRC
 
+*** Variable pitch
+:PROPERTIES:
+:REPO:     https://github.com/cadadr/elisp
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-variable-pitch
+    :straight (:host github
+                     :repo "cadadr/elisp"
+                     :files ("org-variable-pitch.el"))
+    :config
+    (setq ovp-mono-faces nil)
+    :hook
+    (org-mode . org-variable-pitch-minor-mode))
+#+END_SRC
+
 
 * Yasnippet
 :PROPERTIES:
