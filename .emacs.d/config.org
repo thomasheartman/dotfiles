@@ -140,6 +140,14 @@ Let's get rid of scroll bars:
   (set-scroll-bar-mode nil)
 #+END_SRC
 
+Also, let's disable showing fringes, because I don't really care for
+them.
+
+#+BEGIN_SRC emacs-lisp
+  (set-fringe-mode 0)
+#+END_SRC
+
+
 *** Theme
 
 To load a theme in Emacs, the default way is to use `M-x
