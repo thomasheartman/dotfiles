@@ -4795,3 +4795,14 @@ font sizes, so let's just normalize them to be regular height.
     (notmuch-search-mode . mixed-pitch-mode)
     (notmuch-hello-mode . mixed-pitch-mode))
 #+END_SRC
+
+* Olivetti
+:PROPERTIES:
+:REPO:     https://github.com/rnkn/olivetti
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package olivetti
+    :hook
+    (text-mode . olivetti-mode))
+#+END_SRC
