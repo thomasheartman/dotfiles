@@ -1676,7 +1676,6 @@ company's options.
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package company-posframe
     :after company
-    :unless on-macos
     :config (company-posframe-mode 1))
 #+END_SRC
 
