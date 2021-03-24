@@ -2771,11 +2771,17 @@ movement works.
   else has mentioned attachments it'll get triggered. To improve this,
   we should only scan the text from
 
+  #+begin_example
   --text follows this line--
+  #+end_example
 
   and to
 
-  name <email> writes:
+  #+begin_example
+    name <email> writes:
+
+    >
+  #+end_example
 :END:
 
 #+BEGIN_SRC emacs-lisp
