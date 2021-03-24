@@ -4759,5 +4759,8 @@ font sizes, so let's just normalize them to be regular height.
     :hook
     (text-mode . mixed-pitch-mode)
     (org-mode . mixed-pitch-mode)
-    (adoc-mode . mixed-pitch-mode))
+    (adoc-mode . mixed-pitch-mode)
+    (notmuch-show-mode . mixed-pitch-mode)
+    (notmuch-search-mode . mixed-pitch-mode)
+    (notmuch-hello-mode . mixed-pitch-mode))
 #+END_SRC
