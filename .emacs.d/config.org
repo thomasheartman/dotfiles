@@ -4246,9 +4246,11 @@ not for all buffers!
       "M-y"
       "C-."
       "DEL"
-      "C-t")
+      "C-t"
+      "q")
     (general-def
       :states 'normal
+      "m" 'evil-record-macro
       "K" 'my-join-line
       "U" 'evil-redo
       "C-w" 'whole-line-or-region-kill-region
