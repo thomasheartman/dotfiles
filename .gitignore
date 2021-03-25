@@ -12,6 +12,7 @@
 .emacs.d/straight/*
 .emacs.d/tramp
 .emacs.d/transient
+.emacs.d/url
 .emacs.d/var
 
 .config/*
