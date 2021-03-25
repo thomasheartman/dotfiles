@@ -4703,8 +4703,24 @@ Additionally: the markup-faces package includes some pretty massive
 font sizes, so let's just normalize them to be regular height.
 
 #+BEGIN_SRC emacs-lisp
+  (defun heartman/open-file-in-browser ()
+    "Open the current file in your preferred web browser.
+
+  If the buffer is visiting a directory or something else that is
+  not a file, open `default-directory' instead."
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (if (and file (f-file-p file))
+          (browse-url file)
+        (browse-url default-directory))))
+
   (use-package adoc-mode
     :after markup-faces
+    :general
+    (adoc-mode-map
+     "C-c C-s" 'heartman/open-file-in-browser)
+    :hook
+    (adoc-mode . (lambda () (auto-fill-mode -1)))
     :init
     (dolist (i (number-sequence 0 5))
       (set-face-attribute
