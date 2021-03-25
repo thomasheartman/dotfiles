@@ -140,11 +140,10 @@ Let's get rid of scroll bars:
   (set-scroll-bar-mode nil)
 #+END_SRC
 
-Also, let's disable showing fringes, because I don't really care for
-them.
+I don't care much for fringes, so let's decrease the size a bit.
 
 #+BEGIN_SRC emacs-lisp
-  (set-fringe-mode 0)
+  (set-fringe-mode 1)
 #+END_SRC
 
 
