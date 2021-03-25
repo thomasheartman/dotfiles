@@ -1,0 +1,6 @@
+;;-*-coding: utf-8;-*-
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ("gql" "GraphQL" nil :count 9)
+   ))
+
