@@ -218,4 +218,8 @@ in
     }
   '';
 
+  home.file.".aspell.conf".text = ''
+    home-dir /home/thomas/dotfiles/dictionaries
+  '';
+
 }
