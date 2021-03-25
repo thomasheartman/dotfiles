@@ -4811,7 +4811,15 @@ font sizes, so let's just normalize them to be regular height.
 :END:
 
 #+BEGIN_SRC emacs-lisp
+  (defun heartman/olivetti-hide-fringes ()
+    "Hide fringes when using olivetti."
+    (set-window-fringes (selected-window)
+                        nil nil t t))
+
   (use-package olivetti
+    :config
+    (setq olivetti-body-width 80)
     :hook
-    (text-mode . olivetti-mode))
+    (text-mode . olivetti-mode)
+    (olivetti-mode-on . heartman/olivetti-hide-fringes))
 #+END_SRC
