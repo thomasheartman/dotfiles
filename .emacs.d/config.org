@@ -674,7 +674,7 @@ to be unintuitive, so let's fix it with this little function.
     (interactive)
     (save-excursion
       (newline)
-      (indent-for-tab-command)))
+      (indent-according-to-mode)))
 
   (general-def
     [remap open-line] 'my-open-line)
