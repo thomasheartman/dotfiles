@@ -4837,5 +4837,6 @@ font sizes, so let's just normalize them to be regular height.
     (setq olivetti-body-width 80)
     :hook
     (text-mode . olivetti-mode)
+    (notmuch-show-mode . olivetti-mode)
     (olivetti-mode-on . heartman/olivetti-hide-fringes))
 #+END_SRC
