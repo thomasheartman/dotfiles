@@ -41,7 +41,7 @@ directory local to my emacs config:
 
 * General
 :PROPERTIES:
-:REPO:     [[https://github.com/noctuid/general.el][GitHub]]
+:REPO:     https://github.com/noctuid/general.el
 :END:
 
 General simplifies key binding.
@@ -181,7 +181,7 @@ if it is not the same as the new one.
 
 **** one-themes
 :PROPERTIES:
-:REPO:     [[https://github.com/balajisivaraman/emacs-one-themes][GitHub]]
+:REPO:     https://github.com/balajisivaraman/emacs-one-themes
 :header-args: :tangle no
 :END:
 
@@ -212,7 +212,7 @@ changing these things, so let's disable those changes.
 
 **** doom themes
 :PROPERTIES:
-:REPO:     [[https://github.com/hlissner/emacs-doom-themes][GitHub]]
+:REPO:     https://github.com/hlissner/emacs-doom-themes
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1588,7 +1588,7 @@ change the prefix to something that's easier to remember (type) than
 
 * TODO Company                                                   :keybinding:
 :PROPERTIES:
-:REPO:     [[https://github.com/company-mode/company-mode][GitHub]]
+:REPO:     https://github.com/company-mode/company-mode
 :END:
 
 TODO: We need to set this up properly. In addition to wanting to use
@@ -1726,7 +1726,7 @@ let's also use Forge.
 
 * Git-modes
 :PROPERTIES:
-:REPO:     [[https://github.com/magit/git-modes][GitHub]]
+:REPO:     https://github.com/magit/git-modes
 :END:
 
 In addition to just Magit, Magit also has modes for git config,
@@ -1743,7 +1743,7 @@ ignore, and attributes files.
 
 * Git-timemachine
 :PROPERTIES:
-:REPO:     [[https://github.com/emacsmirror/git-timemachine][GitHub]]
+:REPO:     https://github.com/emacsmirror/git-timemachine
 :END:
 
 Git-timemachine offers a way to browse all revisions of a file.
@@ -1764,7 +1764,7 @@ let's set them up.
 
 * which-key                                                      :keybinding:
 :PROPERTIES:
-:REPO:     [[https://github.com/justbur/emacs-which-key/][GitHub]]
+:REPO:     https://github.com/justbur/emacs-which-key/
 :END:
 
 which-key shows you a pop-up when you're in the middle of typing key
@@ -1786,7 +1786,7 @@ way of doing this is by increasing the initial idle delay.
 
 * LSP mode                                                       :keybinding:
 :PROPERTIES:
-:REPO:     [[https://github.com/emacs-lsp/lsp-mode][GitHub]]
+:REPO:     https://github.com/emacs-lsp/lsp-mode
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-11 Tue 20:06]
@@ -1836,7 +1836,7 @@ This setup is nearly identical to the recommended approach in their
 
 * Rust mode
 :PROPERTIES:
-:REPO:     [[https://github.com/rust-lang/rust-mode][GitHub]]
+:REPO:     https://github.com/rust-lang/rust-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1865,7 +1865,7 @@ We can also use [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] to 
 
 * Direnv mode
 :PROPERTIES:
-:REPO:     [[https://github.com/wbolster/emacs-direnv][GitHub]]
+:REPO:     https://github.com/wbolster/emacs-direnv
 :END:
 
 [[https://direnv.net/][direnv]] is a great way to load directory-specific environments into
@@ -1886,7 +1886,7 @@ Nix shells.
 
 * Nix mode                                                       :keybinding:
 :PROPERTIES:
-:REPO:     [[https://github.com/NixOS/nix-mode/][GitHub]]
+:REPO:     https://github.com/NixOS/nix-mode/
 :END:
 
 Using NixOS as my main OS and Nix shells for dev environments on
@@ -1906,7 +1906,7 @@ sure to only initialize after said mode.
 
 * TODO JSON mode
 :PROPERTIES:
-:REPO:     [[https://github.com/joshwnj/json-mode][GitHub]]
+:REPO:     https://github.com/joshwnj/json-mode
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-09-10 Thu 15:30] \\
@@ -1924,7 +1924,7 @@ to require this.
 
 * [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]                                               :keybinding:
 :PROPERTIES:
-:REPO:     [[https://github.com/magnars/multiple-cursors.el][GitHub]]
+:REPO:     https://github.com/magnars/multiple-cursors.el
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1952,7 +1952,7 @@ checking in prog modes:
 
 * Edit-indirect
 :PROPERTIES:
-:REPO:     [[https://github.com/Fanael/edit-indirect][GitHub]]
+:REPO:     https://github.com/Fanael/edit-indirect
 :END:
 
 To edit arbitrary code in separate buffers (the same way org mode
@@ -1965,7 +1965,7 @@ mode to edit source code blocks in separate buffers.
 
 * Markdown mode
 :PROPERTIES:
-:REPO:     [[https://github.com/jrblevin/markdown-mode][GitHub]]
+:REPO:     https://github.com/jrblevin/markdown-mode
 :END:
 
 #+begin_src emacs-lisp
@@ -1979,7 +1979,7 @@ mode to edit source code blocks in separate buffers.
 
 * link-hint
 :PROPERTIES:
-:REPO:     [[https://github.com/noctuid/link-hint.el][GitHub]]
+:REPO:     https://github.com/noctuid/link-hint.el
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-13 Thu 18:06]
@@ -2044,7 +2044,7 @@ functionality, let's bind that to something else.
 
 * expand-region
 :PROPERTIES:
-:REPO:     [[https://github.com/magnars/expand-region.el][GitHub]]
+:REPO:     https://github.com/magnars/expand-region.el
 :END:
 
 Expand-region increases the selected region by semantic units.
@@ -2434,7 +2434,7 @@ calling it:
 
 ** Org-rifle
 :PROPERTIES:
-:REPO:     [[https://github.com/alphapapa/org-rifle][GitHub]]
+:REPO:     https://github.com/alphapapa/org-rifle
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2587,7 +2587,7 @@ is:
 
 *** TODO GFM (ox-gfm)
 :PROPERTIES:
-:REPO:     [[https://github.com/larstvei/ox-gfm][GitHub]]
+:REPO:     https://github.com/larstvei/ox-gfm
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-10-27 Tue 23:33] \\
@@ -2621,7 +2621,7 @@ export, including source code language and triple back ticks.
 
 * Yasnippet
 :PROPERTIES:
-:REPO:     [[https://github.com/joaotavora/yasnippet][GitHub]]
+:REPO:     https://github.com/joaotavora/yasnippet
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-12 Wed 14:46]
@@ -2639,7 +2639,7 @@ added reload directive to force reload.
 
 * Hydra
 :PROPERTIES:
-:REPO:     [[https://github.com/abo-abo/hydra][GitHub]]
+:REPO:     https://github.com/abo-abo/hydra
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2718,7 +2718,7 @@ added reload directive to force reload.
 
 * ace-window
 :PROPERTIES:
-:REPO:     [[https://github.com/abo-abo/ace-window][GitHub]]
+:REPO:     https://github.com/abo-abo/ace-window
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-13 Thu 09:32]
@@ -2732,7 +2732,7 @@ added reload directive to force reload.
 
 * Smartparens
 :PROPERTIES:
-:REPO:     [[https://github.com/Fuco1/smartparens][GitHub]]
+:REPO:     https://github.com/Fuco1/smartparens
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-12 Wed 22:13]
@@ -2771,7 +2771,7 @@ movement works.
 
 * [[https://github.com/smihica/emmet-mode][emmet-mode]]
 :PROPERTIES:
-:REPO:     [[https://github.com/smihica/emmet-mode][GitHub]]
+:REPO:     https://github.com/smihica/emmet-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2783,7 +2783,7 @@ movement works.
 
 * Editorconfig
 :PROPERTIES:
-:REPO:     [[https://github.com/editorconfig/editorconfig-emacs][GitHub]]
+:REPO:     https://github.com/editorconfig/editorconfig-emacs
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2956,7 +2956,7 @@ easier, we can use gnus-alias.
 
 * TODO Elfeed
 :PROPERTIES:
-:REPO:     [[https://github.com/skeeto/elfeed][GitHub]]
+:REPO:     https://github.com/skeeto/elfeed
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-20 Thu 21:15] \\
@@ -2967,7 +2967,7 @@ easier, we can use gnus-alias.
 
 ** Elfeed-org
 :PROPERTIES:
-:REPO:     [[https://github.com/remyhonig/elfeed-org][GitHub]]
+:REPO:     https://github.com/remyhonig/elfeed-org
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2987,7 +2987,7 @@ easier, we can use gnus-alias.
 
 ** Elfeed-goodies
 :PROPERTIES:
-:REPO:     [[https://github.com/algernon/elfeed-goodies][GitHub]]
+:REPO:     https://github.com/algernon/elfeed-goodies
 :END:
 
 elfeed-goodies offers certain nice features, but most important is
@@ -3004,7 +3004,7 @@ how it reorders the columns in the elfeed buffer.
 
 * Origami
 :PROPERTIES:
-:REPO:     [[https://github.com/gregsexton/origami.el][GitHub]]
+:REPO:     https://github.com/gregsexton/origami.el
 :END:
 
 Origami provides code folding.
@@ -3046,7 +3046,7 @@ it to a pretty stupid binding.
 
 * Projectile
 :PROPERTIES:
-:REPO:     [[https://github.com/bbatsov/projectile][GitHub]]
+:REPO:     https://github.com/bbatsov/projectile
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3065,7 +3065,7 @@ it to a pretty stupid binding.
 
 * Ripgrep
 :PROPERTIES:
-:REPO:     [[https://github.com/nlamirault/ripgrep.el][GitHub]]
+:REPO:     https://github.com/nlamirault/ripgrep.el
 :END:
 
 Projectile needs Ripgrep to enable ripgrep searches!
@@ -3075,7 +3075,7 @@ Projectile needs Ripgrep to enable ripgrep searches!
 
 * pdf-tools
 :PROPERTIES:
-:REPO:     [[https://github.com/politza/pdf-tools][GitHub]]
+:REPO:     https://github.com/politza/pdf-tools
 :END:
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2020-11-11 Wed 13:33]
@@ -3139,7 +3139,7 @@ which I mean:
 
 * TODO [#C] exwm
 :PROPERTIES:
-:REPO:     [[https://github.com/ch11ng/exwm][GitHub]]
+:REPO:     https://github.com/ch11ng/exwm
 :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
 :END:
 :LOGBOOK:
@@ -3331,7 +3331,7 @@ issue]].
 
 ** desktop-environment
 :PROPERTIES:
-:REPO:     [[https://github.com/DamienCassou/desktop-environment][GitHub]]
+:REPO:     https://github.com/DamienCassou/desktop-environment
 :END:
 
 Desktop-environment offers mappings of special keys to
@@ -3395,7 +3395,7 @@ list will look a bit different.
 
 * TODO multiterm
 :PROPERTIES:
-:REPO:     [[https://github.com/manateelazycat/multi-term][GitHub]]
+:REPO:     https://github.com/manateelazycat/multi-term
 :WIKI:     [[https://www.emacswiki.org/emacs/MultiTerm][EmacsWiki]]
 :END:
 :LOGBOOK:
@@ -3417,7 +3417,7 @@ list will look a bit different.
 
 * TODO [#C] Aweshell
 :PROPERTIES:
-:REPO:     [[https://github.com/manateelazycat/aweshell][GitHub]]
+:REPO:     https://github.com/manateelazycat/aweshell
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-13 Thu 18:50]
@@ -3442,7 +3442,7 @@ It's extends eshell with a number of features.
 
 ** Eshell-autojump
 :PROPERTIES:
-:REPO:     [[https://github.com/coldnew/eshell-autojump][GitHub]]
+:REPO:     https://github.com/coldnew/eshell-autojump
 :END:
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -3484,7 +3484,7 @@ do with, so let's trim it down a bit and show only what's necessary.
 
 ** csharp-mode
 :PROPERTIES:
-:REPO:     [[https://github.com/josteink/csharp-mode][GitHub]]
+:REPO:     https://github.com/josteink/csharp-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3502,7 +3502,7 @@ do with, so let's trim it down a bit and show only what's necessary.
 
 ** TODO omnisharp-emacs
 :PROPERTIES:
-:REPO:     [[https://github.com/OmniSharp/omnisharp-emacs][GitHub]]
+:REPO:     https://github.com/OmniSharp/omnisharp-emacs
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-14 Fri 14:06]
@@ -3555,7 +3555,7 @@ version:
 
 * F#
 :PROPERTIES:
-:REPO:     [[https://github.com/fsharp/emacs-fsharp-mode][GitHub]]
+:REPO:     https://github.com/fsharp/emacs-fsharp-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3579,7 +3579,7 @@ version:
 
 * Aggressive indent
 :PROPERTIES:
-:REPO:     [[https://github.com/Malabarba/aggressive-indent-mode][GitHub]]
+:REPO:     https://github.com/Malabarba/aggressive-indent-mode
 :END:
 
 This seems to cause some serious slowdown issues in JS, at least.
@@ -3608,7 +3608,7 @@ ISO-friendly manner can be quite useful.
 
 * TODO JavaScript (rjsx-mode)
 :PROPERTIES:
-:REPO:     [[https://github.com/felipeochoa/rjsx-mode/][GitHub]]
+:REPO:     https://github.com/felipeochoa/rjsx-mode/
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-16 Sun 19:53]
@@ -3630,7 +3630,7 @@ rjsx-mode extends js2-mode to add support for JSX.
 
 * TODO Prettier
 :PROPERTIES:
-:REPO:     [[https://github.com/prettier/prettier-emacs][GitHub]]
+:REPO:     https://github.com/prettier/prettier-emacs
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-20 Thu 21:29] \\
@@ -3788,7 +3788,7 @@ happens.
 
 * Bufler
 :PROPERTIES:
-:REPO:     [[https://github.com/alphapapa/bufler.el][GitHub]]
+:REPO:     https://github.com/alphapapa/bufler.el
 :END:
 
 Bufler is a buffer management tool that groups your buffers into
@@ -3805,7 +3805,7 @@ projects or other groups for easier navigation.
 
 * TODO Ranger
 :PROPERTIES:
-:REPO:     [[https://github.com/ralesi/ranger.el][GitHub]]
+:REPO:     https://github.com/ralesi/ranger.el
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-21 Fri 09:35] \\
@@ -3835,7 +3835,7 @@ functionality.
 
 * Fish shell
 :PROPERTIES:
-:REPO:     [[https://github.com/wwwjfy/emacs-fish][GitHub]]
+:REPO:     https://github.com/wwwjfy/emacs-fish
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3845,7 +3845,7 @@ functionality.
 
 * yaml mode
 :PROPERTIES:
-:REPO:     [[https://github.com/yaml/yaml-mode][GitHub]]
+:REPO:     https://github.com/yaml/yaml-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3855,7 +3855,7 @@ functionality.
 
 * TODO indent-tools
 :PROPERTIES:
-:REPO:     [[https://gitlab.com/emacs-stuff/indent-tools/][GitLab]]
+:REPO:     https://gitlab.com/emacs-stuff/indent-tools/
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-08-24 Mon 11:58] \\
@@ -3919,7 +3919,7 @@ Scheme mode.
 
 ** Dockerfile-mode
 :PROPERTIES:
-:REPO:     [[https://github.com/spotify/dockerfile-mode][GitHub]]
+:REPO:     https://github.com/spotify/dockerfile-mode
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -3931,7 +3931,7 @@ Scheme mode.
 
 ** TODO docker.el
 :PROPERTIES:
-:REPO:     [[https://github.com/Silex/docker.el][GitHub]]
+:REPO:     https://github.com/Silex/docker.el
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-09-11 Fri 14:03] \\
@@ -3948,7 +3948,7 @@ Scheme mode.
 
 * Whole line or region
 :PROPERTIES:
-:REPO:     [[https://github.com/purcell/whole-line-or-region][GitHub]]
+:REPO:     https://github.com/purcell/whole-line-or-region
 :END:
 
 To make certain actions (cut, copy, paste) work on whole lines of
@@ -3961,7 +3961,7 @@ there is no region, I'll rely on purcell's package:
 
 * ctrlxo
 :PROPERTIES:
-:REPO:     [[https://github.com/muffinmad/emacs-ctrlxo][GitHub]]
+:REPO:     https://github.com/muffinmad/emacs-ctrlxo
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2020-09-25 Fri 13:04] \\
@@ -3988,7 +3988,7 @@ can simplify the use of it (plus get all the upgrades!).
 
 * Python
 :PROPERTIES:
-:REPO:     [[https://github.com/Microsoft/python-language-server][GitHub]]
+:REPO:     https://github.com/Microsoft/python-language-server
 :WEBSITE:  [[https://emacs-lsp.github.io/lsp-python-ms/][website]]
 :END:
 
@@ -4030,7 +4030,7 @@ does just that.
 
 * ligature.el
 :PROPERTIES:
-:REPO:     [[https://github.com/mickeynp/ligature.el][GitHub]]
+:REPO:     https://github.com/mickeynp/ligature.el
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -4067,7 +4067,7 @@ does just that.
 
 * macrostep
 :PROPERTIES:
-:REPO:     [[https://github.com/joddie/macrostep][GitHub]]
+:REPO:     https://github.com/joddie/macrostep
 :END:
 
 Macrostep is helpful for expanding (and thus working on) macros in
@@ -4087,7 +4087,7 @@ elisp.
 
 * Evil mode
 :PROPERTIES:
-:REPO:     [[https://github.com/emacs-evil/evil][GitHub]]
+:REPO:     https://github.com/emacs-evil/evil
 :WEBSITE:  [[https://evil.readthedocs.io/en/latest/overview.html][Read the docs]]
 :END:
 
@@ -4297,7 +4297,7 @@ to fixed. For instance, when inserting a new headline or item, I
 
 * balanced windows
 :PROPERTIES:
-:REPO:     [[https://github.com/wbolster/emacs-balanced-windows][GitHub]]
+:REPO:     https://github.com/wbolster/emacs-balanced-windows
 :END:
 
 
@@ -4314,7 +4314,7 @@ configuration changes.
 
 * TODO selectrum +++
 :PROPERTIES:
-:REPO:     [[https://github.com/raxod502/selectrum][GitHub]]
+:REPO:     https://github.com/raxod502/selectrum
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2021-01-15 Fri 14:11] \\
@@ -4346,7 +4346,7 @@ other recommended packages that'll make improve it.
 
 *** Prescient
 :PROPERTIES:
-:REPO:     [[https://github.com/raxod502/prescient.el][GitHub]]
+:REPO:     https://github.com/raxod502/prescient.el
 :END:
 
 #+name: prescient-config
@@ -4360,7 +4360,7 @@ other recommended packages that'll make improve it.
 
 *** TODO Consult
 :PROPERTIES:
-:REPO:     [[https://github.com/minad/consult][GitHub]]
+:REPO:     https://github.com/minad/consult
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2021-01-25 Mon 20:46] \\
@@ -4434,7 +4434,7 @@ other recommended packages that'll make improve it.
 
 *** Marginalia
 :PROPERTIES:
-:REPO:     [[https://github.com/minad/marginalia][GitHub]]
+:REPO:     https://github.com/minad/marginalia
 :END:
 
 #+name: marginalia-config
@@ -4459,7 +4459,7 @@ other recommended packages that'll make improve it.
 
 *** Embark
 :PROPERTIES:
-:REPO:     [[https://github.com/oantolin/embark/][GitHub]]
+:REPO:     https://github.com/oantolin/embark/
 :END:
 
 
@@ -4502,7 +4502,7 @@ other recommended packages that'll make improve it.
 
 *** TODO emacs-mini-frame
 :PROPERTIES:
-:REPO:     [[https://github.com/muffinmad/emacs-mini-frame][GitHub]]
+:REPO:     https://github.com/muffinmad/emacs-mini-frame
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2021-01-25 Mon 20:48] \\
@@ -4527,7 +4527,7 @@ other recommended packages that'll make improve it.
 
 * CTRLF
 :PROPERTIES:
-:REPO:     [[https://github.com/raxod502/ctrlf][GitHub]]
+:REPO:     https://github.com/raxod502/ctrlf
 :END:
 
 CTRLF is a replacement/improvement over standard isearch.
@@ -4543,7 +4543,7 @@ CTRLF is a replacement/improvement over standard isearch.
 
 ** TODO flyspell-correct
 :PROPERTIES:
-:REPO:     [[https://github.com/d12frosted/flyspell-correct][GitHub]]
+:REPO:     https://github.com/d12frosted/flyspell-correct
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2021-02-05 Fri 10:46] \\
@@ -4580,7 +4580,7 @@ mapping of ~popup-select~.
 
 * Writegood mode
 :PROPERTIES:
-:REPO:     [[https://github.com/bnbeckwith/writegood-mode][GitHub]]
+:REPO:     https://github.com/bnbeckwith/writegood-mode
 :END:
 
 
@@ -4597,7 +4597,7 @@ Writegood mode helps me keep my writing clearer and more concise.
 
 * flycheck-aspell
 :PROPERTIES:
-:REPO:     [[https://github.com/leotaku/flycheck-aspell][GitHub]]
+:REPO:     https://github.com/leotaku/flycheck-aspell
 :END:
 
 
@@ -4626,7 +4626,7 @@ Writegood mode helps me keep my writing clearer and more concise.
 
 * TODO lexic
 :PROPERTIES:
-:REPO:     [[https://github.com/tecosaur/lexic][GitHub]]
+:REPO:     https://github.com/tecosaur/lexic
 :END:
 :LOGBOOK:
 - State "TODO"       from              [2021-02-24 Wed 08:51] \\
@@ -4690,7 +4690,7 @@ let's create a workflow better suited to our usage.
 
 * adoc-mode
 :PROPERTIES:
-:REPO:     [[https://github.com/sensorflo/adoc-mode][GitHub]]
+:REPO:     https://github.com/sensorflo/adoc-mode
 :END:
 
 Adoc-mode requires the markup-faces package, so let's install that too.
