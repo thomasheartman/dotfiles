@@ -1,4 +1,4 @@
-personal_ws-1.1 en 50 
+personal_ws-1.1 en 54 
 AKS
 APIs
 Alacritty
@@ -22,8 +22,10 @@ Persijn
 QMS
 UI
 XP
+XP's
 awk
 balancer
+bundler
 checkboxes
 config
 customizable
@@ -43,9 +45,11 @@ prem
 readme
 repl
 repo
+schemas
 struct
 structs
 subchapter
 subchapters
 tsi
 unpatched
+webpack
