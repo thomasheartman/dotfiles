@@ -1,4 +1,4 @@
-personal_ws-1.1 en 54 
+personal_ws-1.1 en 57
 AKS
 APIs
 Alacritty
@@ -13,6 +13,7 @@ GraphQL
 Gummi
 JDK
 JSON
+Kondomeriet
 Kubernetes
 NGINX
 Netlify
@@ -23,6 +24,7 @@ QMS
 UI
 XP
 XP's
+aspell
 awk
 balancer
 bundler
@@ -32,6 +34,7 @@ customizable
 deadname
 dev
 enums
+flexor
 gbi
 inclusivity
 libs
