@@ -2688,6 +2688,15 @@ This template is used for maths assignments at UiO.
 
   \\declaretheorem[style = definition]{problem}
   \\declaretheorem[style = definition, sibling = problem]{exercise}
+
+  \\newenvironment{answer}
+  {
+  \\textbf{Answer}
+
+  }
+  {
+
+  }
   "
                  ("\\chapter{%s}" . "\\chapter*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
