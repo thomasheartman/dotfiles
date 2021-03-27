@@ -2618,6 +2618,72 @@ export, including source code language and triple back ticks.
     (org-mode . org-variable-pitch-minor-mode))
 #+END_SRC
 
+*** Latex templates
+
+Org mode lets you define your own latex templates that can be used
+when exporting latex.
+
+**** UiO / MAT2250
+
+This template is used for maths assignments at UiO.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-classes
+               '("uio-memoir"
+                 "\\documentclass[a4paper, 12pt, article, oneside, oldfontcommands]{memoir}
+
+  \\usepackage{lmodern}
+  \\usepackage[scaled]{beramono}
+  \\usepackage[final]{microtype}
+  \\usepackage{amssymb}
+  \\usepackage{mathtools}
+  \\usepackage{amsthm}
+  \\usepackage{thmtools}
+  \\usepackage{babel}
+  \\usepackage{csquotes}
+  \\usepackage[nodayofweek]{datetime}
+  \\usepackage{listings}
+  \\lstset{basicstyle = \\ttfamily}
+  \\usepackage{textcomp}
+  \\usepackage{siunitx}
+  \\usepackage{xcolor}
+
+
+  \\usepackage{tikz}
+  \\usetikzlibrary{
+    graphs,
+    graphs.standard
+  }
+  \\renewcommand*{\\chaptitlefont}{\\Large\\bfseries\\sffamily\\raggedright}
+  \\setsecheadstyle{\\large\\bfseries\\sffamily\\raggedright}
+  \\setsubsecheadstyle{\\large\\bfseries\\sffamily\\raggedright}
+  \\setsubsubsecheadstyle{\\normalsize\\bfseries\\sffamily\\raggedright}
+  \\setparaheadstyle{\\normalsize\\bfseries\\sffamily\\raggedright}
+  \\setsubparaheadstyle{\\normalsize\\bfseries\\sffamily\\raggedright}
+  \\setbeforesubsubsecskip{2ex}
+  \\setaftersubsubsecskip{1ex}
+
+
+  \\pretolerance = 2000
+  \\tolerance    = 6000
+  \\hbadness     = 6000
+
+
+  \\renewcommand{\\sfdefault}{phv}
+  \\definecolor{uiolink}{HTML}{0B5A9D}
+
+
+  \\declaretheorem[style = definition]{problem}
+  \\declaretheorem[style = definition, sibling = problem]{exercise}
+  "
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+
 
 * Yasnippet
 :PROPERTIES:
