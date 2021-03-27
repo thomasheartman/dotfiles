@@ -55,7 +55,6 @@ in
       fira-code
       fira-code-symbols
       ipafont
-      joypixels
       kochi-substitute
       mplus-outline-fonts
       noto-fonts
@@ -70,7 +69,7 @@ in
         monospace = [ "DejaVu Sans Mono" "IPAGothic" ];
         sansSerif = [ "Open Sans" "DejaVu Sans" "IPAPGothic" ];
         serif = [ "DejaVu Serif" "IPAPMincho" ];
-        emoji = [ "Noto Color Emoji" "JoyPixels" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
