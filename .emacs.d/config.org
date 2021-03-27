@@ -2630,8 +2630,17 @@ This template is used for maths assignments at UiO.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
                '("uio-memoir"
-                 "\\documentclass[a4paper, 12pt, article, oneside, oldfontcommands]{memoir}
+                 "
+  \\documentclass[a4paper,
+                 12pt,
+                 article,
+                 oneside,
+                 oldfontcommands]{memoir}
 
+  [NO-DEFAULT-PACKAGES]
+
+  \\usepackage[utf8]{inputenc}
+  \\usepackage[T1]{fontenc}
   \\usepackage{lmodern}
   \\usepackage[scaled]{beramono}
   \\usepackage[final]{microtype}
@@ -2647,6 +2656,10 @@ This template is used for maths assignments at UiO.
   \\usepackage{textcomp}
   \\usepackage{siunitx}
   \\usepackage{xcolor}
+  \\usepackage{graphicx}
+  \\usepackage[colorlinks, allcolors = uiolink]{hyperref}
+
+
 
 
   \\usepackage{tikz}
