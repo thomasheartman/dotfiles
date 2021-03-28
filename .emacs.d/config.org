@@ -670,10 +670,13 @@ the line that gets put onto the next line. I've always found this
 to be unintuitive, so let's fix it with this little function.
 
 #+BEGIN_SRC emacs-lisp
-  (defun my-open-line ()
-    (interactive)
+  (defun my-open-line (n)
+    "Open line below and indent it.
+
+  With numeric prefix arg, open N newlines."
+    (interactive "*p")
     (save-excursion
-      (newline)
+      (newline n)
       (indent-according-to-mode)))
 
   (general-def
