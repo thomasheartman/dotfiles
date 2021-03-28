@@ -1,6 +1,7 @@
-personal_ws-1.1 en 57
+personal_ws-1.1 en 62 
 AKS
 APIs
+Aigner
 Alacritty
 CLI
 CMS
@@ -24,9 +25,11 @@ QMS
 UI
 XP
 XP's
+acyclic
 aspell
 awk
 balancer
+bijection
 bundler
 checkboxes
 config
@@ -53,6 +56,8 @@ struct
 structs
 subchapter
 subchapters
+summand
+summands
 tsi
 unpatched
 webpack
