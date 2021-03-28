@@ -2586,6 +2586,30 @@ is:
       "C-c C-r" 'heartman/org-jump-to-content)
   #+END_SRC
 
+** org-open-line
+
+By default, ~org-open-line~ uses the normal ~open-line~ function to
+open a line. However, I'd like it to also indent the line it has
+opened (see the [[*Open line]['Open line' heading]]),  so let's create a custom definition for that.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/org-open-line (n)
+    "Insert a new row in tables, call `my-open-line' elsewhere.
+  If `org-special-ctrl-o' is nil, just call `my-open-line' everywhere.
+  As a special case, when a document starts with a table, allow to
+  call `my-open-line' on the very first character."
+    (interactive "*p")
+    (message "calling MY open line")
+    (if (and org-special-ctrl-o (/= (point) 1) (org-at-table-p))
+        (org-table-insert-row)
+      (my-open-line n)))
+
+  (general-def
+    :keymaps 'org-mode-map
+    "C-o" 'heartman/org-open-line)
+#+END_SRC
+
+
 ** Org export
 
 *** TODO GFM (ox-gfm)
