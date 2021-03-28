@@ -2,5 +2,5 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("gql" "GraphQL" nil :count 9)
+    ("iff" "if and only if" nil :count 0)
    ))
-
