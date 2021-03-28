@@ -1,4 +1,4 @@
-personal_ws-1.1 en 62 
+personal_ws-1.1 en 67 
 AKS
 APIs
 Aigner
@@ -15,6 +15,8 @@ Gummi
 JDK
 JSON
 Kondomeriet
+Kruskal
+Kruskal's
 Kubernetes
 NGINX
 Netlify
@@ -41,6 +43,7 @@ flexor
 gbi
 inclusivity
 libs
+matroid
 mixin
 mixins
 namespace
@@ -59,5 +62,7 @@ subchapters
 summand
 summands
 tsi
+undirected
 unpatched
+unselected
 webpack
