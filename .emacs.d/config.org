@@ -902,6 +902,35 @@ In short, here's what I'd like to happen.
     (message "The buffers are %s" buffers))
 #+END_SRC
 
+*** heartman/kill-matching-buffers
+
+The built-in ~kill-matching-buffers~ function doesn't offer you any
+preview of what buffers it would kill, so we can make an improved
+version that offers you a preview.
+
+Used with ~selectrum~ (or presumably any other framework that offers
+you an interactively filtered list of buffers), the ~completing-read~
+dialog will list all buffers the function would kill. You can either
+pick one buffer or use ~C-j~ (the default key binding) to accept your
+current input. The latter will use whatever is in your input to filter
+the list of buffers and kill the matching buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/kill-matching-buffers (regex buffers)
+    "Kill buffers in BUFFERS matching REGEX.
+
+  When called interactively, prompt the user for input and use `buffer-list' as the BUFFERS argument."
+    (interactive
+     (let* ((buffer-names (mapcar #'buffer-name (buffer-list)))
+            (regex
+             (completing-read "Kill buffers: " buffer-names)))
+       (list regex buffer-names)))
+    (mapc #'kill-buffer (seq-filter
+                         (lambda (name)
+                           (string-match-p regex name)) buffers)))
+#+END_SRC
+
+
 
 *** Scroll distance
 :LOGBOOK:
@@ -4959,4 +4988,10 @@ font sizes, so let's just normalize them to be regular height.
     (notmuch-show-mode . olivetti-mode)
     (notmuch-hello-mode . olivetti-mode)
     (olivetti-mode-on . heartman/olivetti-hide-fringes))
+#+END_SRC
+
+* cdlatex.el
+
+#+BEGIN_SRC emacs-lisp
+  (use-package cdlatex)
 #+END_SRC
