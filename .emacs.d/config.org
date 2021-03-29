@@ -2756,6 +2756,9 @@ This template is used for maths assignments at UiO.
   {
 
   }
+
+  \\DeclarePairedDelimiter\\ceil{\\lceil}{\\rceil}
+  \\DeclarePairedDelimiter\\floor{\\lfloor}{\\rfloor}
   "
                  ("\\chapter{%s}" . "\\chapter*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
