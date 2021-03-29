@@ -4995,8 +4995,18 @@ font sizes, so let's just normalize them to be regular height.
     (olivetti-mode-on . heartman/olivetti-hide-fringes))
 #+END_SRC
 
+* auctex
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex)
+#+END_SRC
+
+
 * cdlatex.el
 
 #+BEGIN_SRC emacs-lisp
-  (use-package cdlatex)
+  (use-package cdlatex
+    :after smartparens
+    :config
+    (sp-local-pair 'org-cdlatex-mode "$" "$"))
 #+END_SRC
