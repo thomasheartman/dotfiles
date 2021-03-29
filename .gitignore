@@ -1,4 +1,5 @@
 .emacs.d/*cache
+.emacs.d/.dap-breakpoints
 .emacs.d/.lsp-session*
 .emacs.d/.mc-lists.el
 .emacs.d/.org-id-locations
