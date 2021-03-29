@@ -4662,6 +4662,7 @@ other recommended packages that'll make improve it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package mini-frame
+    :unless (string= "t" (getenv "SUPPRESS_MINI_FRAME"))
     :custom
     (mini-frame-show-parameters '((top . 0.3)
                                   (width . 0.7)

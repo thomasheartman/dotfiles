@@ -20,6 +20,7 @@ let
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (require 'exwm)
+    (setenv "SUPPRESS_MINI_FRAME" "t")
     (exwm-init)
   '';
 
