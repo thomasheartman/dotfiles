@@ -888,15 +888,17 @@ In short, here's what I'd like to happen.
     "Show all buffers matching a given regex."
     (interactive
      (list
-      (let* ((buffers (mapcar (lambda (b) `(,(buffer-name b) . ,b)) (buffer-list)))
-             (buffer-names (mapcar 'car buffers))
-             (regexes
-              (completing-read-multiple "Buffers matching: " buffer-names)))
-        ;; return buffers that match at least one of the regexes
-        (message "buffers are %s " buffers)
-        (mapcar (lambda (name) (alist-get name buffers))
-                (seq-filter
-                 (lambda (buffer) t) buffer-names)))))
+      (let* ((buffer-names (mapcar #'buffer-name (buffer-list)))
+             (regex
+              (completing-read "Buffers matching: " buffer-names))
+             (filtered
+              (mapcar
+               (lambda (name)
+                 (get-buffer name))
+               (seq-filter
+                (lambda (name)
+                  (string-match-p regex name)) buffer-names))))
+        filtered)))
     (message "The buffers are %s" buffers))
 #+END_SRC
 
