@@ -1675,7 +1675,8 @@ bit of configuration to get set up.
     :config
     (setq company-idle-delay 0.2
           company-selection-wrap-around t
-          company-show-numbers t))
+          company-show-numbers t
+          company-format-margin #'company-vscode-dark-icons-margin))
 #+END_SRC
 
 To make completions a bit smoother, I use [[https://github.com/PythonNut/company-flx][company-flx]] to allow for
