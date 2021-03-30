@@ -3355,6 +3355,8 @@ issue]].
        ([?\s-o ?c] . org-capture)
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
 
+       ([\f9] . multi-term-dedicated-toggle)
+
        ;; window splitting and management
        ([?\s-|] . split-window-right-and-focus)
        ([?\s-_] . split-window-below-and-focus)
