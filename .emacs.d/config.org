@@ -806,6 +806,19 @@ association list of items.
         (if (listp results) (first results) results))))
 #+END_SRC
 
+**** Universal argument remap
+
+I'm experimenting with using ~C-u~ for scrolling up and down (taken from Vim), and as part of that want to be able to use ~M-u~ as a replacement for ~C-u~. The standard binding is pretty useless anyway (and superseded by evil word casing functions), so changing it should be just fine.
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    "M-u" 'universal-argument)
+  (general-def
+    universal-argument-map
+    "M-u" 'universal-argument-more)
+#+END_SRC
+
+
 *** Switch to window
 
 When switching windows, it's sometimes easier to switch by name
