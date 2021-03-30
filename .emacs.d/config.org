@@ -288,16 +288,18 @@ give ourselves a little bit of extra space (based on [[https://emacs.stackexchan
   (defvar heartman/mode-line-font-size .8
     "The size of the mode line font relative to the default.")
 
-  (let ((faces '(mode-line
-                 mode-line-buffer-id
-                 mode-line-emphasis
-                 mode-line-highlight
-                 mode-line-inactive)))
-    (mapc
-     (lambda (face)
-       (set-face-attribute face nil
-                           :height heartman/mode-line-font-size))
-     faces))
+  (defun heartman/set-mode-line-font-size ()
+    (interactive)
+    (let ((faces '(mode-line
+                   mode-line-buffer-id
+                   mode-line-emphasis
+                   mode-line-highlight
+                   mode-line-inactive)))
+      (mapc
+       (lambda (face)
+         (set-face-attribute face nil
+                             :height heartman/mode-line-font-size))
+       faces)))
 #+END_SRC
 
 
