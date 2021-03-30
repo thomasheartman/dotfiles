@@ -3005,13 +3005,22 @@ movement works.
        (:name "gheart" :query "to:thomas.*heartman.*@gmail.com" :key "g")
        (:name "enonic" :query "to:the@enonic" :key "e")))
     :init
+
+    (defvar heartman/fetch-mail-process-prefix
+      "heartman-fetch-mail"
+      "A string to prefix custom mail polling processes with.
+
+  Created as a variable to let me detect already-running
+  processes.")
     (defun fetch-mail-poll-and-refresh ()
       "Pull new mail from the server and update the current buffer."
       (interactive)
       (when
           (seq-some
            (lambda (p)
-             (string-match-p "^offlineimap-quick-.+" (process-name p)))
+             (string-match-p
+              (format "%s-.+" heartman/fetch-mail-process-prefix)
+              (process-name p)))
            (process-list))
         (user-error "A mail poll is already in progress"))
       (notmuch-refresh-this-buffer)
@@ -3084,7 +3093,10 @@ accounts. Also, to speed it up, we'll only run quick syncs.
 #+name: notmuch-fetch-mail
 #+BEGIN_SRC emacs-lisp :var account="notmuch-account"
   (set-process-sentinel
-   (start-process (format "offlineimap-quick-%s" account) (format "*OFFLINEIMAP-QUICK-SYNC-%s" account) "offlineimap" "-o" "-q" "-a" account)
+   (start-process
+    (format "%s-%s" heartman/fetch-mail-process-prefix account)
+    (format "*OFFLINEIMAP-QUICK-SYNC-%s" account)
+    "offlineimap" "-o" "-q" "-a" account)
    (lambda (p e) (when (= 0 (process-exit-status p))
                    (notmuch-poll-and-refresh-this-buffer))))
 #+END_SRC
