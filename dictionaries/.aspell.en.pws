@@ -1,4 +1,4 @@
-personal_ws-1.1 en 67 
+personal_ws-1.1 en 69 
 AKS
 APIs
 Aigner
@@ -19,6 +19,7 @@ Kruskal
 Kruskal's
 Kubernetes
 NGINX
+Nashorn
 Netlify
 NixOS
 PVCs
@@ -61,6 +62,7 @@ subchapter
 subchapters
 summand
 summands
+transpilation
 tsi
 undirected
 unpatched
