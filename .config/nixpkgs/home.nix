@@ -179,6 +179,7 @@ in
     rnix-lsp
     sdcv
     scrot
+    shellcheck
     skim
     slack
     spotify
