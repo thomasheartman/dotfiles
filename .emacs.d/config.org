@@ -5022,3 +5022,12 @@ font sizes, so let's just normalize them to be regular height.
     :config
     (sp-local-pair 'org-cdlatex-mode "$" "$"))
 #+END_SRC
+
+* shellcheck
+:PROPERTIES:
+:REPO:     https://github.com/federicotdn/flymake-shellcheck
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake-shellcheck)
+#+END_SRC
