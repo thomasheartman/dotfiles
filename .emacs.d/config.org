@@ -3008,6 +3008,12 @@ movement works.
     (defun fetch-mail-poll-and-refresh ()
       "Pull new mail from the server and update the current buffer."
       (interactive)
+      (when
+          (seq-some
+           (lambda (p)
+             (string-match-p "^offlineimap-quick-.+" (process-name p)))
+           (process-list))
+        (user-error "A mail poll is already in progress"))
       (notmuch-refresh-this-buffer)
       (message "Fetching new mail from the server.")
       (let ((accounts
