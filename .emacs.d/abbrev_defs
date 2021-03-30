@@ -3,4 +3,7 @@
   '(
     ("gql" "GraphQL" nil :count 9)
     ("iff" "if and only if" nil :count 0)
+    ("js" "JavaScript" nil :count 9)
+    ("ts" "TypeScript" nil :count 3)
    ))
+
