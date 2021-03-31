@@ -5049,6 +5049,9 @@ font sizes, so let's just normalize them to be regular height.
 #+BEGIN_SRC emacs-lisp
   (use-package cdlatex
     :after smartparens
+    :hook
+    (latex-mode . cdlatex-mode)
+    (TeX-latex-mode . cdlatex-mode)
     :config
     (sp-local-pair 'org-cdlatex-mode "$" "$"))
 #+END_SRC
