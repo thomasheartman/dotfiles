@@ -4303,6 +4303,7 @@ not for all buffers!
       (interactive "p")
       (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
     :custom
+    (evil-respect-visual-line-mode nil)
     (evil-want-Y-yank-to-eol t)
     (evil-symbol-word-search t)
     (evil-undo-system (if (fboundp 'undo-redo) 'undo-redo nil))
@@ -4336,7 +4337,6 @@ not for all buffers!
 
     (setq evil-default-state 'normal
           evil-disable-insert-state-bindings t
-          evil-respect-visual-line-mode nil
           evil-move-beyond-eol t
           evil-cross-lines t)
 
