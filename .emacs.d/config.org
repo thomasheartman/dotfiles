@@ -4466,8 +4466,11 @@ not for all buffers!
       "C-a"
       "C-k")
     (general-def
-      "M-d" 'evil-scroll-down
-      "M-u" 'evil-scroll-up
+      evil-emacs-state-map
+      "C-z" 'evil-normal-state)
+    (general-def
+      "C-d" 'evil-scroll-down
+      "C-u" 'evil-scroll-up
       [remap isearch-forward] 'evil-search-forward
       [remap isearch-backward] 'evil-search-backward
       [remap xref-find-definitions] 'evil-goto-definition))
