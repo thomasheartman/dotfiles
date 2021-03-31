@@ -1,4 +1,4 @@
-personal_ws-1.1 en 69 
+personal_ws-1.1 en 77 
 AKS
 APIs
 Aigner
@@ -12,20 +12,24 @@ GCP
 Gradle
 GraphQL
 Gummi
+Homebrew
 JDK
 JSON
 Kondomeriet
 Kruskal
 Kruskal's
 Kubernetes
+Manjaro
 NGINX
 Nashorn
 Netlify
 NixOS
 PVCs
 Persijn
+Powershell
 QMS
 UI
+XCode
 XP
 XP's
 acyclic
@@ -39,11 +43,15 @@ config
 customizable
 deadname
 dev
+distro
+distros
 enums
+executables
 flexor
 gbi
 inclusivity
 libs
+macOS
 matroid
 mixin
 mixins
