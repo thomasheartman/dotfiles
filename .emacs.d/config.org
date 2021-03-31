@@ -5061,3 +5061,14 @@ font sizes, so let's just normalize them to be regular height.
 #+BEGIN_SRC emacs-lisp
   (use-package flymake-shellcheck)
 #+END_SRC
+
+* winum
+:PROPERTIES:
+:REPO:     https://github.com/deb0ch/emacs-winum
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package winum
+    :custom
+    (winum-scope 'visible))
+#+END_SRC
