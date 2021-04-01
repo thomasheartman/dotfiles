@@ -102,7 +102,7 @@
  ("marginalia" . "7df0e53ab99e22c631cd860aea38b5e96b065914")
  ("markdown-mode" . "051734091aba17a54af96b81beebdbfc84c26459")
  ("markup-faces" . "98a807ed82473eb41c6a201ed7ef816d6bcd67b0")
- ("melpa" . "d4a0da7aa7736f5767e1c1175346dbb9fd470e2f")
+ ("melpa" . "80c4f9e9f3e398dd6d230068ae2a42b060bd84cd")
  ("mixed-pitch" . "d5f64b967d831ea776f07aa2c80cc5fa88a3e869")
  ("multi-term" . "017c77c550115936860e2ea71b88e585371475d5")
  ("multiple-cursors.el" . "a9d7764f80b241978f3d4e76bc981ef10bab5d70")
