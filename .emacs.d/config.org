@@ -1667,8 +1667,6 @@ bit of configuration to get set up.
     (company-complete-selection))
 
   (use-package company
-    :straight (company
-               :files (:defaults "icons"))
     :general
     (company-active-map
      "C-<f5>" 'my-company-complete-selection-or-first)
