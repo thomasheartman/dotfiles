@@ -5075,8 +5075,11 @@ font sizes, so let's just normalize them to be regular height.
 :REPO:     https://github.com/deb0ch/emacs-winum
 :END:
 
+
 #+BEGIN_SRC emacs-lisp
   (use-package winum
+    :init
+    (winum-mode)
     :custom
     (winum-scope 'visible))
 #+END_SRC
