@@ -3160,12 +3160,25 @@ easier, we can use gnus-alias.
 #+BEGIN_SRC emacs-lisp
   (if (string= "N/A" org-version)
       (message "Not loading elfeed; org-version is 'N/A")
+    (defun heartman/elfeed-operate-on-all-entries (operation)
+      "Perform operation on all visible entries."
+      (lambda ()
+        (interactive)
+        (save-excursion
+        (mark-whole-buffer)
+        (call-interactively operation))))
     (use-package elfeed-org
+      :custom
+      (elfeed-sort-order 'ascending)
       :init
       (elfeed-org)
       :general
       (my-app-def
         "f" 'elfeed)
+      (elfeed-search-mode-map
+       "v" 'set-mark-command
+       "R" (heartman/elfeed-operate-on-all-entries #'elfeed-search-untag-all-unread)
+       "B" (heartman/elfeed-operate-on-all-entries #'elfeed-search-browse-url))
       :config
       (setq rmh-elfeed-org-files '("~/feeds.org")
             elfeed-search-filter "@2-weeks-ago +unread")))
