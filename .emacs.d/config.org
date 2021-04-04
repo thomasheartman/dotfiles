@@ -2664,7 +2664,6 @@ opened (see the [[*Open line]['Open line' heading]]),  so let's create a custom 
   As a special case, when a document starts with a table, allow to
   call `my-open-line' on the very first character."
     (interactive "*p")
-    (message "calling MY open line")
     (if (and org-special-ctrl-o (/= (point) 1) (org-at-table-p))
         (org-table-insert-row)
       (my-open-line n)))
