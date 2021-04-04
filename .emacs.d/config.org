@@ -2358,6 +2358,20 @@ default, so let's see what we can do about that.
     "C-c _" 'org-toggle-timestamp-type
     "C-a" 'my-move-beginning-of-line)
 
+  (general-create-definer my-org-item-def
+    :keymaps 'org-mode-map
+    :prefix "C-c i")
+
+  (my-org-item-def
+    "a" 'org-beginning-of-item
+    "e" 'org-end-of-item
+    "n" 'org-next-item
+    "p" 'org-previous-item
+    "i" 'org-insert-item
+    "<tab>" 'org-indent-item
+    "<backtab>" 'org-outdent-item
+    "t" 'org-toggle-item)
+
   (my-link-def
     "s" 'org-store-link)
 #+END_SRC
