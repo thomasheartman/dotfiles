@@ -5082,7 +5082,7 @@ font sizes, so let's just normalize them to be regular height.
   (use-package cdlatex
     :after smartparens
     :hook
-    (latex-mode . cdlatex-mode)
+    (LaTeX-mode . cdlatex-mode)
     (TeX-latex-mode . cdlatex-mode)
     :config
     (sp-local-pair 'org-cdlatex-mode "$" "$"))
