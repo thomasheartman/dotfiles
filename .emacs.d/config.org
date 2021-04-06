@@ -204,9 +204,7 @@ changing these things, so let's disable those changes.
           emacs-one-height-plus-1 1.0
           emacs-one-height-plus-2 1.0
           emacs-one-height-plus-3 1.0
-          emacs-one-height-plus-4 1.0)
-    :config
-    (load-theme 'one-dark t))
+          emacs-one-height-plus-4 1.0))
 
 #+END_SRC
 
@@ -220,11 +218,29 @@ changing these things, so let's disable those changes.
     :config
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t)
-    (load-theme 'doom-palenight t)
     (doom-themes-visual-bell-config)
     (doom-themes-org-config))
 #+END_SRC
 
+**** Modus themes
+
+Modus themes are another set of themes that I quite like. These are
+high-contrast themes and come bundled with emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (modus-themes-slanted-constructs t)
+    (modus-themes-region 'bg-only))
+#+END_SRC
+
+**** Loading a theme
+
+To try and stick to loading only one theme, let's do it here.
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'modus-vivendi)
+#+END_SRC
 
 
 *** Font
