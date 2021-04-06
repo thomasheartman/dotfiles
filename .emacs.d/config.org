@@ -3000,6 +3000,8 @@ movement works.
 
 #+BEGIN_SRC emacs-lisp
   (use-package notmuch
+    :hook
+    (notmuch-search . (lambda () (toggle-truncate-lines 1)))
     :general
     (my-app-def
       "m" 'notmuch)
@@ -3178,13 +3180,15 @@ easier, we can use gnus-alias.
       (lambda ()
         (interactive)
         (save-excursion
-        (mark-whole-buffer)
-        (call-interactively operation))))
+          (mark-whole-buffer)
+          (call-interactively operation))))
     (use-package elfeed-org
       :custom
       (elfeed-sort-order 'ascending)
       :init
       (elfeed-org)
+      :hook
+      (elfeed-search-mode . (lambda () (toggle-truncate-lines 1)))
       :general
       (my-app-def
         "f" 'elfeed)
