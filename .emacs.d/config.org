@@ -5077,12 +5077,22 @@ font sizes, so let's just normalize them to be regular height.
 
 * cdlatex.el
 
+cdlatex mode adds some really nice quality of life things when working
+with latex. However, the ~cdlatex-pbb~ function seems to not work
+properly (potentially in conjunction with smartparens?), so it doesn't
+insert a closing parenthesis. So we'll unbind that mapping from a
+number of delimiters and let smartparens handle that.
+
 #+BEGIN_SRC emacs-lisp
   (use-package cdlatex
     :after smartparens
     :hook
     (LaTeX-mode . cdlatex-mode)
     (TeX-latex-mode . cdlatex-mode)
+    :general
+    (general-unbind
+      'cdlatex-mode-map
+      "{" "(" "<" "[")
     :config
     (sp-local-pair 'org-cdlatex-mode "$" "$"))
 #+END_SRC
