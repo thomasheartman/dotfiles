@@ -4431,7 +4431,8 @@ not for all buffers!
       "C-a"
       "C-y"
       "C-o"
-      "C-w")
+      "C-w"
+      "C-d")
     (general-def
       :states 'insert
       "M-o" 'evil-jump-backward
