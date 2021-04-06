@@ -205,6 +205,13 @@ in
         xset r rate 200 100
       ''
     )
+
+    (
+      writeScriptBin "copy" ''
+        #!${stdenv.shell}
+        ${pkgs.xclip}/bin/xclip -selection clipboard $@
+      ''
+    )
   ];
 
   services.dropbox.enable = true;
