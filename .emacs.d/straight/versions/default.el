@@ -16,7 +16,6 @@
  ("company-emoji" . "4ba7dc60ba67f736e698a5fa0b754b866f36a646")
  ("company-flx" . "16ca0d2f84e8e768bf2db8c5cfe421230a00bded")
  ("company-mode" . "b8224f2d78de89c08b9f80b83b324701416ea3b9")
- ("company-posframe" . "a28f38213a2a30ce68fdb0b124cadc68ebbcb24f")
  ("consult" . "4d755a09853d1ecaa39fd0fcceed48222c3ac5f1")
  ("csharp-mode" . "09b4d57d020a97e1696e89baa6d9855ff5c86014")
  ("dap-mode" . "05ff9ec70fcb985f5ced0eefa01d64b92a2d1150")

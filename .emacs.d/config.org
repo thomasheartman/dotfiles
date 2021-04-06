@@ -1725,7 +1725,7 @@ completions in a separate frame.
 This should not be used with ~company-box~ as they both modify
 company's options.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company-posframe
     :after company
     :config (company-posframe-mode 1))
