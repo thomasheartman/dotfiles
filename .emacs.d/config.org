@@ -834,6 +834,19 @@ I'm experimenting with using ~C-u~ for scrolling up and down (taken from Vim), a
     "M-u" 'universal-argument-more)
 #+END_SRC
 
+*** Scroll a line at a time
+
+When moving off the edge of the screen, Emacs tries to center the
+point on the screen instead. This scroll behavior is a bit strange, so
+let's instead make it work so that if you move the point off the
+screen, Emacs will only scroll as little as it has to.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (scroll-conservatively 101))
+#+END_SRC
+
 
 *** Switch to window
 
