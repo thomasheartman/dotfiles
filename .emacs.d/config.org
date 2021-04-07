@@ -3469,10 +3469,13 @@ issue]].
        ([?\C-p] . [up])
        ([?\C-n] . [down])
        ([?\C-a] . [home])
+       ([?\M-n] . [C-n])
+       ([?\M-p] . [C-S-p])
+       ([?\M-a] . [C-a])
        ([?\C-e] . [end])
        ([?\C-k] . [S-end C-x])
        ;; cut and paste
-       ;; ([?\C-w] . ?\C-x)
+       ([?\M-k] . [C-x])
        ([?\M-w] . [C-c])
        ([?\C-y] . [C-v])
        ;; search
