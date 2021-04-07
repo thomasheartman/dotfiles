@@ -4372,7 +4372,11 @@ not for all buffers!
 
       Based on spacemacs/evil-insert-line-above (https://github.com/syl20bnr/spacemacs/blob/61ff12cbfc1daf39a63d6597982c6f7b6c4db7a4/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L37)"
       (interactive "p")
-      (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
+      (let ((at-column-0 (= 0 (current-column))))
+        (dotimes (_ count)
+          (save-excursion (evil-insert-newline-above)))
+        (when at-column-0
+          (forward-line count))))
 
     (defun my-evil-insert-line-below (count)
       "Insert one or more lines below the current line without changing state or position.
@@ -4537,8 +4541,8 @@ not for all buffers!
       "K" 'my-join-line
       "U" 'evil-redo
       "C-w" 'whole-line-or-region-kill-region
-      "<return>" 'my-evil-insert-line-below
-      "<S-return>" 'my-evil-insert-line-above
+      "<S-return>" 'my-evil-insert-line-below
+      "<C-S-return>" 'my-evil-insert-line-above
       [remap evil-next-line] 'evil-next-visual-line
       [remap evil-previous-line] 'evil-previous-visual-line
       "n" 'evil-next-line
