@@ -1462,18 +1462,15 @@ them.
 *** Buffer functions
 
 #+BEGIN_SRC emacs-lisp
-  (defun my-kill-current-buffer ()
-    "Kill the currently active buffer."
-    (interactive)
-    (kill-buffer))
+  (defun my-kill-current-buffer (delete-window?)
+    "Kill the currently active buffer.
 
-  (defun heartman/kill-current-buffer-and-window ()
-    "Kill the currently active buffer and delete the window.
+  With a prefix argument, also delete the current window."
 
-  If the window is the only active window in the frame, don't delete it."
-    (interactive)
-    (my-kill-current-buffer)
-    (delete-window))
+    (interactive "P")
+    (kill-buffer)
+    (when delete-window?
+      (delete-window)))
 #+END_SRC
 
 
@@ -3429,7 +3426,6 @@ issue]].
        ([?\s-b] . switch-to-buffer)
        ([?\s-f] . find-file)
        ([?\s-q] . my-kill-current-buffer)
-       ([?\s-Q] . heartman/kill-current-buffer-and-window)
        ([?\s-d] . delete-window)
        ([?\s-j] . heartman/select-window)
        ([?\s-k] . heartman/delete-current-file)
