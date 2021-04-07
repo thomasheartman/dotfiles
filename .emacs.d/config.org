@@ -3705,11 +3705,14 @@ do with, so let's trim it down a bit and show only what's necessary.
   (use-package doom-modeline
     :after markdown-mode
     :init (doom-modeline-mode 1)
-    :config
-    (setq doom-modeline-unicode-fallback t
-          doom-modeline-enable-word-count t
-          doom-modeline-continuous-word-count-modes nil
-          doom-modeline-checker-simple-format nil))
+    :custom
+    (doom-modeline-unicode-fallback t)
+    (doom-modeline-enable-word-count t)
+    (doom-modeline-continuous-word-count-modes nil)
+    (doom-modeline-checker-simple-format nil)
+    (doom-modeline-buffer-modification-icon nil)
+    (doom-modeline-buffer-state-icon nil)
+    (doom-modeline-buffer-encoding nil))
 #+END_SRC
 
 
