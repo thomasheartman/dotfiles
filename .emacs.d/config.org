@@ -3497,7 +3497,9 @@ issue]].
        ([?\M-w] . [C-c])
        ([?\C-y] . [C-v])
        ;; search
-       ([?\C-s] . [C-f])))
+       ([?\C-s] . [C-f])
+       ;; terminal escape
+       ([?\C-g] . [C-c])))
     :config
     (when (not (server-running-p))
       (server-start))
