@@ -157,6 +157,7 @@ in
     ffmpeg
     firefox
     gcc # <-this is here to make magit forge work
+    git-lfs
     imagemagick
     ispell
     i3lock
