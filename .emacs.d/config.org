@@ -860,6 +860,15 @@ screen, Emacs will only scroll as little as it has to.
     (scroll-conservatively 101))
 #+END_SRC
 
+*** Don't show line numbers in image modes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook
+    (image-mode . (lambda () (display-line-numbers-mode -1)))
+    (image-dired-display-image-mode . (lambda () (display-line-numbers-mode -1))))
+#+END_SRC
+
 
 *** Switch to window
 
