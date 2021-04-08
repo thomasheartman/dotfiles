@@ -7,6 +7,7 @@
 .emacs.d/bookmarks
 .emacs.d/config.el
 .emacs.d/forge-database.sqlite
+.emacs.d/image-dired
 .emacs.d/projectile-*
 .emacs.d/projects
 .emacs.d/recentf
