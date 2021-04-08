@@ -4449,7 +4449,7 @@ not for all buffers!
           ;; prevent "c$" and "d$" from deleting blank lines
           (setq evil-this-type 'exclusive))))
 
-    (dolist (mode '(image-mode image-dired-display-image-mode lexic-mode))
+    (dolist (mode '(image-mode image-dired-display-image-mode))
       (evil-set-initial-state mode 'emacs))
 
     (dolist (keymap '((exwm-mode-map . nil)
@@ -4459,7 +4459,8 @@ not for all buffers!
                       (Man-mode-map . nil)
                       (notmuch-search-mode-map . nil)
                       (elfeed-search-mode-map . nil)
-                      (popup-menu-keymap . nil)))
+                      (popup-menu-keymap . nil)
+                      (lexic-mode-map . 'normal)))
       (add-to-list 'evil-overriding-maps keymap))
 
     (setq evil-buffer-regexps
@@ -4945,7 +4946,7 @@ Writegood mode helps me keep my writing clearer and more concise.
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package lexic
-    :config
+    :init
     (setq lexic-dictionary-path "~/dotfiles/sdcv"))
 #+END_SRC
 
