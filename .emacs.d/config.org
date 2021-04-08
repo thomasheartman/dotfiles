@@ -4519,7 +4519,8 @@ not for all buffers!
       "C-o"
       "C-b"
       "C-f"
-      "C-]")
+      "C-]"
+      "SPC")
     (general-def
       :states 'motion
       "$" '(lambda ()
