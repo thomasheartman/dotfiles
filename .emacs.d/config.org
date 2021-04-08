@@ -3334,8 +3334,6 @@ it to a pretty stupid binding.
           projectile-sort-order 'recently-active))
 #+END_SRC
 
-
-
 * Ripgrep
 :PROPERTIES:
 :REPO:     https://github.com/nlamirault/ripgrep.el
@@ -3380,7 +3378,6 @@ In a number of prog modes, it'd be useful to be able to move lines
 up and down. Maybe even expressions up and down. M-<up>, for instance?
 
 * Send window to next frame
-
 
 I'd like to be able to move a window from one frame to the next. By
 which I mean:
@@ -3480,13 +3477,8 @@ To solve this:
                                    ((eq direction 'up) 'down)
                                    ((eq direction 'down) 'up))))
         (let ((new-main-window (selected-window))
-              (window-to-partition (split-window nil nil (flip section)))
-              ;; (windows-to-fill
-              ;;  (heartman/split-windows (list window-to-partition) (length other-windows)))
-              )
-          (heartman/split-windows (list window-to-partition) other-buffers)
-          ;; (mapcar* (lambda (buffer window) (switch-to-buffer)))
-          ))))
+              (window-to-partition (split-window nil nil (flip section))))
+          (heartman/split-windows (list window-to-partition) other-buffers)))))
 
 
   (defun heartman/send-window (direction)
@@ -3536,6 +3528,13 @@ issue]].
        ([?\s-d] . delete-window)
        ([?\s-j] . heartman/select-window)
        ([?\s-k] . heartman/delete-current-file)
+
+       ;; window management
+       ([\C-\s-<left>] . (heartman/send-window 'left))
+       ([\C-\s-<right>] . (heartman/send-window 'right))
+       ([\C-\s-<up>] . (heartman/send-window 'up))
+       ([\C-\s-<down>] . (heartman/send-window 'down))
+
 
        ([?\s-g] . magit-status)
        ([?\s-G] . magit-status-dotfiles)
