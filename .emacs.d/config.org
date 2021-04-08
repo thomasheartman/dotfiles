@@ -4449,10 +4449,18 @@ not for all buffers!
           ;; prevent "c$" and "d$" from deleting blank lines
           (setq evil-this-type 'exclusive))))
 
-    (dolist (mode '(exwm-mode dired-mode info-mode image-mode))
+    (dolist (mode '(image-mode image-dired-display-image-mode))
       (evil-set-initial-state mode 'emacs))
 
-    (add-to-list 'evil-overriding-maps '(popup-menu-keymap . nil))
+    (dolist (keymap '((exwm-mode-map . nil)
+                      (dired-mode-map . nil)
+                      (info-mode-map . nil)
+                      (image-mode-map . nil)
+                      (Man-mode-map . nil)
+                      (notmuch-search-mode-map . nil)
+                      (elfeed-search-mode-map . nil)
+                      (popup-menu-keymap . nil)))
+      (add-to-list 'evil-overriding-maps keymap))
 
     (setq evil-buffer-regexps
           '(("^ \\*load\\*" . nil)
