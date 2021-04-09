@@ -3489,17 +3489,15 @@ To solve this:
 #+END_SRC
 
 
-* TODO [#C] exwm
+* exwm
 :PROPERTIES:
 :REPO:     https://github.com/ch11ng/exwm
 :WIKI:     [[https://github.com/ch11ng/exwm/wiki][GitHub wiki]]
 :END:
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2021-04-09 Fri 08:02]
 - State "TODO"       from              [2020-08-16 Sun 12:19]
 :END:
-
-Todo: make Norwegian input keys work in X-windows. Not sure why, but
-setting them in ~exwm-input-simulation-keys~ doesn't seem to work.
 
 I use EXWM as my window manager on NixOS, so let's get that set up.
 
