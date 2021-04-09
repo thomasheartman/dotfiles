@@ -3530,10 +3530,10 @@ issue]].
        ([?\s-k] . heartman/delete-current-file)
 
        ;; window management
-       ([\C-\s-<left>] . (heartman/send-window 'left))
-       ([\C-\s-<right>] . (heartman/send-window 'right))
-       ([\C-\s-<up>] . (heartman/send-window 'up))
-       ([\C-\s-<down>] . (heartman/send-window 'down))
+       ([\C-\s-left] . ,(heartman/send-window 'left))
+       ([\C-\s-right] . ,(heartman/send-window 'right))
+       ([\C-\s-up] . ,(heartman/send-window 'up))
+       ([\C-\s-down] . ,(heartman/send-window 'down))
 
 
        ([?\s-g] . magit-status)
