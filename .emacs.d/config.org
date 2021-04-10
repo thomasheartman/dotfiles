@@ -3562,6 +3562,7 @@ issue]].
        ([?\s-o ?a] . org-agenda)
        ([?\s-o ?c] . org-capture)
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
+       ([?\s-a ?l] . lexic-search)
 
        ([\f9] . multi-term-dedicated-toggle)
 
@@ -5027,9 +5028,7 @@ Writegood mode helps me keep my writing clearer and more concise.
 
 
 #+BEGIN_SRC emacs-lisp :tangle no
-  (use-package lexic
-    :init
-    (setq lexic-dictionary-path "~/dotfiles/sdcv"))
+  (use-package lexic)
 #+END_SRC
 
 * Git clone url
