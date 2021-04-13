@@ -3058,6 +3058,13 @@ movement works.
 
     >
   #+end_example
+
+  or, in the event that there is no name:
+  #+begin_example
+    xyz@host.tld writes:
+
+    >
+  #+end_example
 :END:
 
 #+BEGIN_SRC emacs-lisp
