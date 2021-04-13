@@ -36,6 +36,8 @@
 
 *** https://dpwright.com/atom.xml
 
+*** [[http://pragmaticemacs.com/feed/][Pragmatic Emacs]]                                                 :emacs:
+
 *** https://bodil.lol/rss.xml                                          :rust:
 
 *** https://hacks.mozilla.org/feed/
