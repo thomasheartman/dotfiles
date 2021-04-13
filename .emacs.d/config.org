@@ -778,9 +778,15 @@ there is no region. With a prefix arg, unfill the whole buffer.
 We can configure dired to behave a little more intuitively than
 it does by default.
 
+Also, as mentioned in [[http://pragmaticemacs.com/emacs/automatically-revert-buffers/][this post on pragmatic emacs]],
+~global-auto-revert-mode~ doesn't apply to dired buffers, so we need
+to add a separate hook for that.
+
 #+BEGIN_SRC emacs-lisp
   (setq dired-isearch-filenames t
         dired-listing-switches "-lah")
+
+  (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+END_SRC
 
 **** Display battery in mode line
