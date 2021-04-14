@@ -3576,6 +3576,7 @@ issue]].
        ([?\s-o ?c] . org-capture)
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
        ([?\s-a ?l] . lexic-search)
+       ([?\s-a ?g] . heartman/open-google-meet-link-in-chromium)
 
        ([\f9] . multi-term-dedicated-toggle)
 
@@ -5092,6 +5093,23 @@ let's create a workflow better suited to our usage.
 
       (set-process-filter proc #'comint-output-filter)))
 #+END_SRC
+
+* Open google meet link in chromium
+
+Google meet links work much better in Chromium than in Firefox, so
+let's create a function to open those urls in chromium if you have one
+in the clipboard.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/open-google-meet-link-in-chromium (meet-link)
+    "Clone the git URL in the clipboard and open in dired."
+    (interactive
+     (progn
+       (cl-assert (string-match-p "\\(https?://\\)?meet.google.com/.+" (current-kill 0)) nil "No meet link in clipboard")
+       (list (current-kill 0))))
+    (browse-url-chromium meet-link))
+#+END_SRC
+
 
 * adoc-mode
 :PROPERTIES:
