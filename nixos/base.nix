@@ -176,8 +176,8 @@ in
   };
 
   hardware.nvidia.prime = {
-    offload.enable = true;
-    # sync.enable = true;
+    # offload.enable = true;
+    sync.enable = true;
 
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
@@ -235,22 +235,7 @@ in
     screenSection = ''
       Option         "AllowIndirectGLXProtocol" "off"
       Option         "TripleBuffer" "on"
-
-      # from https://discourse.nixos.org/t/getting-nvidia-to-work-avoiding-screen-tearing/10422/15
-      Identifier     "Screen0"
-      Device         "Device0"
-      Monitor        "Monitor0"
-      DefaultDepth   24
-      Option         "Stereo" "0"
-      Option         "nvidiaXineramaInfoOrder" "DFP-5"
       Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
-      Option         "SLI" "Off"
-      Option         "MultiGPU" "Off"
-      Option         "BaseMosaic" "off"
-      SubSection     "Display"
-      Depth          24
-      EndSubSection
-
     '';
 
     windowManager.exwm = {
