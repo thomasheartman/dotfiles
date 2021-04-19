@@ -3675,24 +3675,16 @@ issue]].
     (defun heartman/auto-set-exwm-monitors ()
       "Try to automatically detect and set EXWM monitors based on xrandr output."
       (interactive)
-      (let ((current-buffer (generate-new-buffer "*xrandr-monitor-list*")))
-        (set-process-sentinel
-         (start-process-shell-command
-          "xrandr-monitor-list" current-buffer
-          "xrandr | grep \" connected\" | awk '{ print $1 }'")
-         (lambda (process state)
-           (if (= (process-exit-status process) 0)
-               (let* ((output (with-current-buffer (process-buffer process)
-                                (buffer-string)))
-                      (monitors-list (split-string output))
-                      (monitors
-                       (flatten-tree (seq-map-indexed (lambda (n x) (list x n)) monitors-list))))
-                 (kill-buffer current-buffer)
-                 (if (and (eq (length monitors) (length exwm-randr-workspace-monitor-plist))
-                          (seq-every-p (lambda (x) (seq-contains exwm-randr-workspace-monitor-plist x)) monitors))
-                     (message "No change in monitor setup. Not doing anything.")
-                   (setq exwm-randr-workspace-monitor-plist monitors)))
-             (error "Xrandr monitor listing failed. See buffer %s for more info" current-buffer)))))
+      (let* ((output (shell-command-to-string
+                      "xrandr | grep \" connected\" | awk '{ print $1 }'"))
+             (monitors-list (split-string output))
+             (monitors
+              (flatten-tree (seq-map-indexed (lambda (n x) (list x n)) monitors-list))))
+        (if (and (eq (length monitors) (length exwm-randr-workspace-monitor-plist))
+                 (seq-every-p (lambda (x)
+                                (seq-contains exwm-randr-workspace-monitor-plist x)) monitors))
+            (message "No change in monitor setup. Not doing anything.")
+          (setq exwm-randr-workspace-monitor-plist monitors)))
       )
     (defun heartman/exwm-randr-refresh ()
       "Auto-detects monitors and tries to refresh exwm-randr"
