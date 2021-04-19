@@ -28,6 +28,7 @@ in
       "mem_sleep_default=deep"
       "acpi_rev_override"
       "intel_iommu=igfx=off"
+      "nvidia-drm.modeset=1"
     ];
     kernelPackages = pkgs.linuxPackages_5_4;
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
@@ -176,7 +177,7 @@ in
   };
 
   hardware.nvidia.prime = {
-    offload.enable = true;
+    sync.enable = true;
 
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
@@ -210,22 +211,30 @@ in
 
     videoDrivers = [ "nvidia" ];
 
-    screenSection = ''
-      # from https://discourse.nixos.org/t/getting-nvidia-to-work-avoiding-screen-tearing/10422/15
-      Identifier     "Screen0"
-      Device         "Device0"
-      Monitor        "Monitor0"
-      DefaultDepth   24
-      Option         "Stereo" "0"
-      Option         "nvidiaXineramaInfoOrder" "DFP-5"
-      Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
-      Option         "SLI" "Off"
-      Option         "MultiGPU" "Off"
-      Option         "BaseMosaic" "off"
-      SubSection     "Display"
-      Depth          24
-      EndSubSection
+    config = ''
+      Section "Device"
+          Identifier  "Intel Graphics"
+          Driver      "intel"
+          #Option      "AccelMethod"  "sna" # default
+          #Option      "AccelMethod"  "uxa" # fallback
+          Option      "TearFree"        "true"
+          Option      "SwapbuffersWait" "true"
+          BusID       "PCI:0:2:0"
+          #Option      "DRI" "2"             # DRI3 is now default
+      EndSection
 
+      Section "Device"
+          Identifier "nvidia"
+          Driver "nvidia"
+          BusID "PCI:1:0:0"
+          Option "AllowEmptyInitialConfiguration"
+      EndSection
+    '';
+
+    screenSection = ''
+      Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+      Option         "AllowIndirectGLXProtocol" "off"
+      Option         "TripleBuffer" "on"
     '';
 
     windowManager.exwm = {
