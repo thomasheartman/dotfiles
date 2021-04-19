@@ -3684,8 +3684,8 @@ issue]].
                  (seq-every-p (lambda (x)
                                 (seq-contains exwm-randr-workspace-monitor-plist x)) monitors))
             (message "No change in monitor setup. Not doing anything.")
-          (setq exwm-randr-workspace-monitor-plist monitors)))
-      )
+          (setq exwm-randr-workspace-monitor-plist monitors))))
+
     (defun heartman/exwm-randr-refresh ()
       "Auto-detects monitors and tries to refresh exwm-randr"
       (interactive)
@@ -3693,7 +3693,6 @@ issue]].
       (exwm-randr-refresh))
 
     (heartman/auto-set-exwm-monitors)
-
     (exwm-randr-enable)
 
 
