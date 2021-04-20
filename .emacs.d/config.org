@@ -3097,8 +3097,18 @@ movement works.
        (:name "sent" :query "tag:sent" :key "s")
        (:name "drafts" :query "tag:draft" :key "d")
        (:name "all mail" :query "*" :key "a")
-       (:name "gheart" :query "to:thomas.*heartman.*@gmail.com" :key "g")
-       (:name "enonic" :query "to:the@enonic" :key "e")))
+       (:name "gheart"
+              :query "to:@gmail.com"
+              :key "g")
+       (:name "gheart (unread)"
+              :query "to:@gmail.com AND tag:unread"
+              :key "G")
+       (:name "enonic"
+              :query "to:@enonic.com"
+              :key "e")
+       (:name "enonic (unread)"
+              :query "to:@enonic.com AND tag:unread"
+              :key "E")))
     :init
 
     (defvar heartman/fetch-mail-process-prefix
