@@ -1,9 +1,16 @@
 ;;-*-coding: utf-8;-*-
+(define-abbrev-table 'adoc-mode-abbrev-table
+  '(
+    ("cs" "Content Studio" nil :count 4)
+    ("pcon" "piece of content" nil :count 12)
+   ))
+
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("gql" "GraphQL" nil :count 9)
+    ("ct" "content type" nil :count 7)
+    ("gql" "GraphQL" nil :count 15)
     ("iff" "if and only if" nil :count 0)
-    ("js" "JavaScript" nil :count 9)
-    ("ts" "TypeScript" nil :count 3)
+    ("js" "JavaScript" nil :count 13)
+    ("ts" "TypeScript" nil :count 5)
    ))
 
