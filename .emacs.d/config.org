@@ -3470,7 +3470,7 @@ To solve this:
                    (largest-window (if (<= 2 (length windows-list))
                                        (progn
                                          (seq-reduce (lambda (largest next)
-                                                       (if (> (plist-get next 'area) (plist-get largest 'area))
+                                                       (if (>= (plist-get next 'area) (plist-get largest 'area))
                                                            next
                                                          largest)) (cdr windows-list)
                                                          (car windows-list)))
