@@ -1827,6 +1827,8 @@ let's also use Forge.
   (use-package forge
     :after magit
     :when (require 'emacsql nil t)
+    :hook
+    (forge-post-mode . (lambda () (auto-fill-mode -1)))
     :bind (:map magit-mode-map
                 ("C-c M-w" . forge-copy-url-at-point-as-kill)))
 #+END_SRC
