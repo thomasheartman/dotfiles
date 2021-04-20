@@ -4764,6 +4764,10 @@ selectrum is a replacement for ivy/helm.
 
 #+BEGIN_SRC emacs-lisp
   (use-package selectrum
+    :general
+    ('selectrum-minibuffer-map
+     [remap evil-scroll-down] 'selectrum-next-page
+     [remap evil-scroll-up] 'selectrum-previous-page)
     :config
     (setq selectrum-show-indices t)
     <<selectrum-additional-packages>>
