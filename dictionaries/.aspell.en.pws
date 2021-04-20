@@ -1,10 +1,11 @@
-personal_ws-1.1 en 82
+personal_ws-1.1 en 89
 AKS
 APIs
 Aigner
 Alacritty
 CLI
 CMS
+CheckBox
 EXWM
 Enonic
 Enonic's
@@ -13,6 +14,8 @@ Gradle
 GraphQL
 Gummi
 Homebrew
+HtmlArea
+ImageSelector
 JDK
 JSON
 Kondomeriet
@@ -28,6 +31,7 @@ PVCs
 Persijn
 Powershell
 QMS
+TextLine
 UI
 XCode
 XP
@@ -46,6 +50,7 @@ deadname
 dev
 distro
 distros
+dropdown
 enums
 executables
 flexor
@@ -80,4 +85,6 @@ tsi
 undirected
 unpatched
 unselected
+utf
 webpack
+xml
