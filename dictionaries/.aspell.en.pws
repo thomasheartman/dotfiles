@@ -1,20 +1,28 @@
-personal_ws-1.1 en 89
+personal_ws-1.1 en 99 
 AKS
 APIs
 Aigner
 Alacritty
+Arnette
+AttachmentUploader
 CLI
 CMS
 CheckBox
+ComboBox
+ContentSelector
+DateTime
+DateTime's
 EXWM
 Enonic
 Enonic's
 GCP
+GeoPoint
 Gradle
 GraphQL
 Gummi
 Homebrew
 HtmlArea
+HtmlAreas
 ImageSelector
 JDK
 JSON
@@ -56,6 +64,7 @@ executables
 flexor
 focusable
 gbi
+https
 inclusivity
 libs
 macOS
@@ -71,6 +80,7 @@ readme
 repl
 repo
 schemas
+shorthands
 struct
 structs
 subchapter
