@@ -5143,7 +5143,12 @@ in the clipboard.
     "Clone the git URL in the clipboard and open in dired."
     (interactive
      (save-match-data
-       (cl-assert (string-match "\\b\\(https://meet.google.com/.+\\)\\b" (current-kill 0)) nil "No meet link found in clipboard")
+       (cl-assert
+        (string-match
+         "\\b\\(\\(https://\\)?meet.google.com/.+\\)\\b"
+         (current-kill 0))
+        nil
+        "No meet link found in clipboard")
        (list (match-string 1 (current-kill 0)))))
     (browse-url-chromium meet-link))
 #+END_SRC
