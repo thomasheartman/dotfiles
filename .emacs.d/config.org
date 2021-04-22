@@ -4714,6 +4714,8 @@ not for all buffers!
     (general-def
       "C-d" 'evil-scroll-down
       "C-u" 'evil-scroll-up
+      [remap end-of-buffer]'evil-goto-line
+      [remap beginning-of-buffer]'evil-goto-first-line
       [remap isearch-forward] 'evil-search-forward
       [remap isearch-backward] 'evil-search-backward
       [remap xref-find-definitions] 'evil-goto-definition))
