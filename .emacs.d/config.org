@@ -5142,9 +5142,9 @@ in the clipboard.
   (defun heartman/open-google-meet-link-in-chromium (meet-link)
     "Clone the git URL in the clipboard and open in dired."
     (interactive
-     (progn
-       (cl-assert (string-match-p "\\(https?://\\)?meet.google.com/.+" (current-kill 0)) nil "No meet link in clipboard")
-       (list (current-kill 0))))
+     (save-match-data
+       (cl-assert (string-match "\\b\\(https://meet.google.com/.+\\)\\b" (current-kill 0)) nil "No meet link found in clipboard")
+       (list (match-string 1 (current-kill 0)))))
     (browse-url-chromium meet-link))
 #+END_SRC
 
@@ -5353,4 +5353,15 @@ number of delimiters and let smartparens handle that.
     (winum-mode)
     :custom
     (winum-scope 'visible))
+#+END_SRC
+
+* XML (nxml-mode)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook
+    (nxml-mode . emmet-mode)
+    (nxml-mode . lsp)
+    :init
+    (setq nxml-slash-auto-complete-flag t))
 #+END_SRC
