@@ -1593,6 +1593,37 @@ frame, so this function sorts that out:
     (let-alist tab
       (select-frame .frame)
       (tab-bar-switch-to-tab .name)))
+
+  (defun heartman/show-tab-other-frame (tab)
+    "Show the tab `TAB' on the other frame without changing focus."
+    (interactive
+     (let* ((other-frames
+             (seq-remove (lambda (frame)
+                           (eq (selected-frame) frame)) (frame-list)))
+            (tabs (seq-mapcat (lambda (frame)
+                                (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
+                                         (seq-remove
+                                          (lambda (tab) (eq (car tab) 'current-tab)) (tab-bar-tabs frame)))) other-frames))
+            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab))
+                               tabs)))
+       (list (heartman/completing-read-map "Show tab: " tabs-map))))
+    (let-alist tab
+      (let ((original-frame (selected-frame)))
+        (save-mark-and-excursion
+          (select-frame .frame)
+          (tab-bar-switch-to-tab .name)
+          (select-frame original-frame)))))
+
+  (defun heartman/tab-other-frame (keep-focus)
+    "Switch to a different tab or display a non-current tab on another frame.
+
+  If KEEP-FOCUS is non-nil, prompt for a tab to display on another
+  frame. Otherwise, switch to any non-current tab."
+    (interactive "P")
+    (let ((f (if keep-focus
+                 #'heartman/show-tab-other-frame
+               #'heartman/switch-to-tab-any-frame)))
+      (call-interactively f)))
 #+END_SRC
 
 
@@ -3619,7 +3650,7 @@ issue]].
        ([?\s-m] . my-maximize-or-undo-window)
        ([\s-next] . my-exwm-send-buffer-next-workspace)
        ([\s-prior] . my-exwm-send-buffer-previous-workspace)
-       ([?\s-t] . heartman/switch-to-tab-any-frame)
+       ([?\s-t] . heartman/tab-other-frame)
 
        ;; shell commands
        ([?\s-!] . shell-command)
