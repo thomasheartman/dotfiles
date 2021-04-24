@@ -1585,12 +1585,12 @@ frame, so this function sorts that out:
             (tabs-simple (seq-map (lambda (tab) `((name . ,(alist-get 'name tab))
                                                   (frame . ,(alist-get 'frame tab)))) tabs))
             (tabs-named (mapcar (lambda (tab) (alist-get 'name tab)) tabs))
-            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,(list tab))) tabs-simple))
+            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab)) tabs-simple))
             (default-choice (alist-get 'name (car tabs-map))))
 
        (list
         (heartman/completing-read-map "Switch to tab: " tabs-map))))
-    (let-alist (car tab)
+    (let-alist tab
       (select-frame .frame)
       (tab-bar-switch-to-tab .name)))
 #+END_SRC
