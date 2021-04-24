@@ -1547,6 +1547,54 @@ To have the scratch buffer be empty by default, we can set the
                                     "~/projects/personal")))
 #+END_SRC
 
+*** Tabs
+
+Emacs tabs can be used for window management (similarly to eyebrowse).
+It's nice, but it's missing the ability to switch to any tab on any
+frame, so this function sorts that out:
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/get-all-other-tabs-any-frame ()
+    "Get all tabs on all frames except for the current one.
+
+  Additionally, add a `frame' entry to each tab."
+    (let* ((current-frame (selected-frame))
+           (other-frames
+            (seq-remove (lambda (frame) (eq current-frame frame))
+                        (frame-list)))
+           (other-tabs-current-frame
+            (seq-map (lambda (tab) (cons `(frame . ,current-frame) tab))
+                     (seq-remove (lambda (tab) (eq (car tab) 'current-tab))
+                                 (funcall tab-bar-tabs-function))))
+           (other-tabs-other-frames (seq-mapcat (lambda (frame)
+                                                  (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
+                                                           (tab-bar-tabs frame))) other-frames))
+           (all-other-tabs (seq-concatenate 'list other-tabs-current-frame other-tabs-other-frames)))
+      all-other-tabs))
+
+
+  (defun heartman/switch-to-tab-any-frame (tab)
+    "Switch to a different tab on any frame. `tab' is the desired
+  tab, including its frame as an alist entry."
+    (interactive
+     (let* ((tab-bar-show nil)
+            (tabs (seq-sort-by
+                   (lambda (tab) (or (alist-get 'time tab) 0))
+                   #'>
+                   (heartman/get-all-other-tabs-any-frame)))
+            (tabs-simple (seq-map (lambda (tab) `((name . ,(alist-get 'name tab))
+                                                  (frame . ,(alist-get 'frame tab)))) tabs))
+            (tabs-named (mapcar (lambda (tab) (alist-get 'name tab)) tabs))
+            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,(list tab))) tabs-simple))
+            (default-choice (alist-get 'name (car tabs-map))))
+
+       (list
+        (heartman/completing-read-map "Switch to tab: " tabs-map))))
+    (let-alist (car tab)
+      (select-frame .frame)
+      (tab-bar-switch-to-tab .name)))
+#+END_SRC
+
 
 ** Custom file
 
@@ -3571,6 +3619,7 @@ issue]].
        ([?\s-m] . my-maximize-or-undo-window)
        ([\s-next] . my-exwm-send-buffer-next-workspace)
        ([\s-prior] . my-exwm-send-buffer-previous-workspace)
+       ([?\s-t] . heartman/switch-to-tab-any-frame)
 
        ;; shell commands
        ([?\s-!] . shell-command)
