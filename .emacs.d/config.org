@@ -1582,12 +1582,10 @@ frame, so this function sorts that out:
                    (lambda (tab) (or (alist-get 'time tab) 0))
                    #'>
                    (heartman/get-all-other-tabs-any-frame)))
-            (tabs-simple (seq-map (lambda (tab) `((name . ,(alist-get 'name tab))
-                                                  (frame . ,(alist-get 'frame tab)))) tabs))
-            (tabs-named (mapcar (lambda (tab) (alist-get 'name tab)) tabs))
-            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab)) tabs-simple))
+            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab)) tabs))
             (default-choice (alist-get 'name (car tabs-map))))
 
+       (cl-assert (> (length tabs) 0) nil "No tabs to switch to.")
        (list
         (heartman/completing-read-map "Switch to tab: " tabs-map))))
     (let-alist tab
@@ -1606,6 +1604,7 @@ frame, so this function sorts that out:
                                           (lambda (tab) (eq (car tab) 'current-tab)) (tab-bar-tabs frame)))) other-frames))
             (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab))
                                tabs)))
+       (cl-assert (> (length tabs) 0) nil "No tabs to show on other frames.")
        (list (heartman/completing-read-map "Show tab: " tabs-map))))
     (let-alist tab
       (let ((original-frame (selected-frame)))
