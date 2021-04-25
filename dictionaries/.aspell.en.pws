@@ -1,4 +1,4 @@
-personal_ws-1.1 en 100 
+personal_ws-1.1 en 103 
 AKS
 APIs
 Aigner
@@ -22,6 +22,7 @@ GraphQL
 Gummi
 Homebrew
 HtmlArea
+HtmlArea's
 HtmlAreas
 ImageSelector
 JDK
@@ -66,6 +67,7 @@ flexor
 focusable
 gbi
 https
+img
 inclusivity
 libs
 macOS
@@ -82,6 +84,7 @@ repl
 repo
 schemas
 shorthands
+src
 struct
 structs
 subchapter
