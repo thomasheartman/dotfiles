@@ -1574,10 +1574,10 @@ frame, so this function sorts that out:
                                    (funcall tab-bar-tabs-function))))
              (other-tabs-other-frames (seq-mapcat (lambda (frame)
                                                     (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
-                                                             (tab-bar-tabs frame))) other-frames))
+                                                             (seq-remove (lambda (tab) (eq (buffer-name) (alist-get 'name tab)))
+                                                                         (tab-bar-tabs frame)))) other-frames))
              (all-other-tabs (seq-concatenate 'list other-tabs-current-frame other-tabs-other-frames)))
         all-other-tabs))
-
 
     (defun heartman/switch-to-tab-any-frame (tab)
       "Switch to a different tab on any frame. `tab' is the desired
