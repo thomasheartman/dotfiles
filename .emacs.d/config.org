@@ -1554,75 +1554,81 @@ It's nice, but it's missing the ability to switch to any tab on any
 frame, so this function sorts that out:
 
 #+BEGIN_SRC emacs-lisp
-  (defun heartman/get-all-other-tabs-any-frame ()
-    "Get all tabs on all frames except for the current one.
+  (use-package emacs
+    :custom
+    (tab-bar-close-button-show nil)
+    (tab-bar-new-button-show nil)
+    (tab-bar-show 1)
+    :config
+    (defun heartman/get-all-other-tabs-any-frame ()
+      "Get all tabs on all frames except for the current one.
 
   Additionally, add a `frame' entry to each tab."
-    (let* ((current-frame (selected-frame))
-           (other-frames
-            (seq-remove (lambda (frame) (eq current-frame frame))
-                        (frame-list)))
-           (other-tabs-current-frame
-            (seq-map (lambda (tab) (cons `(frame . ,current-frame) tab))
-                     (seq-remove (lambda (tab) (eq (car tab) 'current-tab))
-                                 (funcall tab-bar-tabs-function))))
-           (other-tabs-other-frames (seq-mapcat (lambda (frame)
-                                                  (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
-                                                           (tab-bar-tabs frame))) other-frames))
-           (all-other-tabs (seq-concatenate 'list other-tabs-current-frame other-tabs-other-frames)))
-      all-other-tabs))
+      (let* ((current-frame (selected-frame))
+             (other-frames
+              (seq-remove (lambda (frame) (eq current-frame frame))
+                          (frame-list)))
+             (other-tabs-current-frame
+              (seq-map (lambda (tab) (cons `(frame . ,current-frame) tab))
+                       (seq-remove (lambda (tab) (eq (car tab) 'current-tab))
+                                   (funcall tab-bar-tabs-function))))
+             (other-tabs-other-frames (seq-mapcat (lambda (frame)
+                                                    (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
+                                                             (tab-bar-tabs frame))) other-frames))
+             (all-other-tabs (seq-concatenate 'list other-tabs-current-frame other-tabs-other-frames)))
+        all-other-tabs))
 
 
-  (defun heartman/switch-to-tab-any-frame (tab)
-    "Switch to a different tab on any frame. `tab' is the desired
+    (defun heartman/switch-to-tab-any-frame (tab)
+      "Switch to a different tab on any frame. `tab' is the desired
   tab, including its frame as an alist entry."
-    (interactive
-     (let* ((tab-bar-show nil)
-            (tabs (seq-sort-by
-                   (lambda (tab) (or (alist-get 'time tab) 0))
-                   #'>
-                   (heartman/get-all-other-tabs-any-frame)))
-            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab)) tabs))
-            (default-choice (alist-get 'name (car tabs-map))))
+      (interactive
+       (let* ((tab-bar-show nil)
+              (tabs (seq-sort-by
+                     (lambda (tab) (or (alist-get 'time tab) 0))
+                     #'>
+                     (heartman/get-all-other-tabs-any-frame)))
+              (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab)) tabs))
+              (default-choice (alist-get 'name (car tabs-map))))
 
-       (cl-assert (> (length tabs) 0) nil "No tabs to switch to.")
-       (list
-        (heartman/completing-read-map "Switch to tab: " tabs-map))))
-    (let-alist tab
-      (select-frame .frame)
-      (tab-bar-switch-to-tab .name)))
+         (cl-assert (> (length tabs) 0) nil "No tabs to switch to.")
+         (list
+          (heartman/completing-read-map "Switch to tab: " tabs-map))))
+      (let-alist tab
+        (select-frame .frame)
+        (tab-bar-switch-to-tab .name)))
 
-  (defun heartman/show-tab-other-frame (tab)
-    "Show the tab `TAB' on the other frame without changing focus."
-    (interactive
-     (let* ((other-frames
-             (seq-remove (lambda (frame)
-                           (eq (selected-frame) frame)) (frame-list)))
-            (tabs (seq-mapcat (lambda (frame)
-                                (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
-                                         (seq-remove
-                                          (lambda (tab) (eq (car tab) 'current-tab)) (tab-bar-tabs frame)))) other-frames))
-            (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab))
-                               tabs)))
-       (cl-assert (> (length tabs) 0) nil "No tabs to show on other frames.")
-       (list (heartman/completing-read-map "Show tab: " tabs-map))))
-    (let-alist tab
-      (let ((original-frame (selected-frame)))
-        (save-mark-and-excursion
-          (select-frame .frame)
-          (tab-bar-switch-to-tab .name)
-          (select-frame original-frame)))))
+    (defun heartman/show-tab-other-frame (tab)
+      "Show the tab `TAB' on the other frame without changing focus."
+      (interactive
+       (let* ((other-frames
+               (seq-remove (lambda (frame)
+                             (eq (selected-frame) frame)) (frame-list)))
+              (tabs (seq-mapcat (lambda (frame)
+                                  (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
+                                           (seq-remove
+                                            (lambda (tab) (eq (car tab) 'current-tab)) (tab-bar-tabs frame)))) other-frames))
+              (tabs-map (seq-map (lambda (tab) `(,(alist-get 'name tab) . ,tab))
+                                 tabs)))
+         (cl-assert (> (length tabs) 0) nil "No tabs to show on other frames.")
+         (list (heartman/completing-read-map "Show tab: " tabs-map))))
+      (let-alist tab
+        (let ((original-frame (selected-frame)))
+          (save-mark-and-excursion
+            (select-frame .frame)
+            (tab-bar-switch-to-tab .name)
+            (select-frame original-frame)))))
 
-  (defun heartman/tab-other-frame (keep-focus)
-    "Switch to a different tab or display a non-current tab on another frame.
+    (defun heartman/tab-other-frame (keep-focus)
+      "Switch to a different tab or display a non-current tab on another frame.
 
   If KEEP-FOCUS is non-nil, prompt for a tab to display on another
   frame. Otherwise, switch to any non-current tab."
-    (interactive "P")
-    (let ((f (if keep-focus
-                 #'heartman/show-tab-other-frame
-               #'heartman/switch-to-tab-any-frame)))
-      (call-interactively f)))
+      (interactive "P")
+      (let ((f (if keep-focus
+                   #'heartman/show-tab-other-frame
+                 #'heartman/switch-to-tab-any-frame)))
+        (call-interactively f))))
 #+END_SRC
 
 
@@ -3650,6 +3656,9 @@ issue]].
        ([\s-next] . my-exwm-send-buffer-next-workspace)
        ([\s-prior] . my-exwm-send-buffer-previous-workspace)
        ([?\s-t] . heartman/tab-other-frame)
+       ([?\s->] . tab-bar-switch-to-next-tab)
+       ([?\s-<] . tab-bar-switch-to-prev-tab)
+       ([?\s-,] . tab-bar-switch-to-recent-tab)
 
        ;; shell commands
        ([?\s-!] . shell-command)
