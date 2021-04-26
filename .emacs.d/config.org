@@ -5458,3 +5458,27 @@ number of delimiters and let smartparens handle that.
     :init
     (setq nxml-slash-auto-complete-flag t))
 #+END_SRC
+
+* graphql
+
+** graphql-mode
+:PROPERTIES:
+:REPO:     https://github.com/davazp/graphql-mode
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package graphql-mode
+    :init
+    (use-package request))
+#+END_SRC
+
+
+** ob-graphql
+:PROPERTIES:
+:REPO:     https://github.com/jdormit/ob-graphql
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-graphql
+    :init (add-to-list 'org-babel-load-languages '(graphql . t)))
+#+END_SRC
