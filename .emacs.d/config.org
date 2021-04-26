@@ -4858,7 +4858,7 @@ selectrum is a replacement for ivy/helm.
     ('selectrum-minibuffer-map
      [remap evil-scroll-down] 'selectrum-next-page
      [remap evil-scroll-up] 'selectrum-previous-page)
-    :config
+    :init
     (setq selectrum-show-indices t)
     <<selectrum-additional-packages>>
     (selectrum-mode +1))
