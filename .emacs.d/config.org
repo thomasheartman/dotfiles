@@ -1550,6 +1550,18 @@ To have the scratch buffer be empty by default, we can set the
 #+END_SRC
 
 *** Tabs
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-04-26 Mon 15:47]
+- State "TODO"       from              [2021-04-26 Mon 15:34] \\
+  Turns out I was wrong regarding the extra tab named the same as the
+  current buffer. What happens is: the tab bar fetching functions looks
+  for tabs that have explicit names. If it doesn't have an explicit
+  name, it uses the name of the currently active buffer. That's what's
+  causing problems.
+
+  Find a way around this. It might involve taking the name of the first
+  buffer in the current tab, for instance.
+:END:
 
 Emacs tabs can be used for window management (similarly to eyebrowse).
 It's nice, but it's missing the ability to switch to any tab on any
@@ -1574,10 +1586,17 @@ frame, so this function sorts that out:
               (seq-map (lambda (tab) (cons `(frame . ,current-frame) tab))
                        (seq-remove (lambda (tab) (eq (car tab) 'current-tab))
                                    (funcall tab-bar-tabs-function))))
-             (other-tabs-other-frames (seq-mapcat (lambda (frame)
-                                                    (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
-                                                             (seq-remove (lambda (tab) (eq (buffer-name) (alist-get 'name tab)))
-                                                                         (tab-bar-tabs frame)))) other-frames))
+             (other-tabs-other-frames
+              (seq-mapcat (lambda (frame)
+                            (seq-map (lambda (tab) (cons `(frame . ,frame) tab))
+                                     (seq-map (lambda (tab)
+                                                (if (and
+                                                     (eq (car tab) 'current-tab)
+                                                     (not (alist-get 'explicit-name tab)))
+                                                    (cons `(name . ,(alist-get 'name (frame-parameters frame))) tab)
+                                                  tab))
+                                              (tab-bar-tabs frame))))
+                          other-frames))
              (all-other-tabs (seq-concatenate 'list other-tabs-current-frame other-tabs-other-frames)))
         all-other-tabs))
 
