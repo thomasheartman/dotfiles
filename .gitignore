@@ -11,6 +11,7 @@
 .emacs.d/projectile-*
 .emacs.d/projects
 .emacs.d/recentf
+.emacs.d/request
 .emacs.d/straight/*
 .emacs.d/tramp
 .emacs.d/transient
