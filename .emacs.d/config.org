@@ -805,18 +805,20 @@ to add a separate hook for that.
 For when you want to delete the current file:
 
 #+BEGIN_SRC emacs-lisp
-  (defun heartman/delete-current-file (keep-buffer)
-    "Delete the current file and kill the buffer.
+  (defun heartman/delete-current-file (keep-window)
+    "Delete the current file and delete the window.
 
-  When KEEP-BUFFER is non-nil, keep the current buffer."
+  When KEEP-WINDOW is non-nil, keep the current window."
     (interactive "P")
     (let ((file (buffer-file-name)))
       (if (and file (f-file-p file))
           (progn
-            (delete-file file)
-            (unless keep-buffer
-              (my-kill-current-buffer))
-            (message "Deleted %s" file))
+            (when (y-or-n-p "Do you really want to delete this file? ")
+              (delete-file file)
+              (unless keep-window
+                (message "Get here")
+                (my-kill-current-buffer t))
+              (message "Deleted %s" file)))
         (user-error "This is not a file and cannot be deleted"))))
 #+END_SRC
 
