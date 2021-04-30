@@ -3872,8 +3872,7 @@ available:
     :demand t
     :custom
     (desktop-environment-screenlock-command "i3lock --nofork -c 000000")
-    (desktop-environment-screenshot-command "scrot -e 'mv $f /tmp/'")
-    (desktop-environment-screenshot-partial-command "scrot -se 'mv $f /tmp/'")
+    (desktop-environment-screenshot-directory "/tmp")
     :config
     (setf (alist-get (elt (kbd "s-l") 0) desktop-environment-mode-map nil t) nil)
     (desktop-environment-mode)
