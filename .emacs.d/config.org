@@ -852,7 +852,8 @@ I'm experimenting with using ~C-u~ for scrolling up and down (taken from Vim), a
     "M-u" 'universal-argument)
   (general-def
     universal-argument-map
-    "M-u" 'universal-argument-more)
+    "M-u" 'universal-argument-more
+    "s-u" 'universal-argument-more)
 #+END_SRC
 
 *** Scroll a line at a time
@@ -3702,6 +3703,9 @@ issue]].
        ([?\s-a ?g] . heartman/open-google-meet-link-in-chromium)
 
        ([\f9] . multi-term-dedicated-toggle)
+
+       ([?\s-u] . universal-argument)
+       ([?\M-u] . universal-argument)
 
        ;; window splitting and management
        ([?\s-|] . split-window-right-and-focus)
