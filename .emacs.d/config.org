@@ -5294,11 +5294,25 @@ font sizes, so let's just normalize them to be regular height.
           (browse-url file)
         (browse-url default-directory))))
 
+  (defun heartman/toggle-adoc-source-note ()
+    "Add or remove an adoc comment to the end of the current line."
+    (interactive)
+    (let ((comment "<--.-->"))
+      (save-excursion
+        (end-of-line)
+        (if (looking-back "<--\.--> *")
+            (progn
+              (while (not (looking-at "<"))
+                (backward-char))
+              (delete-char (length comment)))
+          (insert (format " %s" comment))))))
+
   (use-package adoc-mode
     :after markup-faces
     :general
     (adoc-mode-map
-     "C-c C-s" 'heartman/open-file-in-browser)
+     "C-c C-s" 'heartman/open-file-in-browser
+     "C-c C-c" 'heartman/toggle-adoc-source-note)
     :hook
     (adoc-mode . (lambda () (auto-fill-mode -1)))
     :init
