@@ -179,6 +179,7 @@ in
     proselint
     ripgrep
     rnix-lsp
+    sd
     sdcv
     scrot
     shellcheck
