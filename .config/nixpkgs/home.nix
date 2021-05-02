@@ -5,18 +5,7 @@ let
   unstable = import (
     fetchTarball
       "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-  ) {
-    overlays = [
-      (
-        import (
-          builtins.fetchTarball {
-            url =
-              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-          }
-        )
-      )
-    ];
-  };
+  ) {};
 
   exwm-load-script = pkgs.writeText "exwm-load.el" ''
     (require 'exwm)
@@ -135,9 +124,21 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsGcc;
+    package = pkgs.emacsGcc;
     extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ];
   };
+
+  nixpkgs.overlays = [
+    (
+      import (
+        builtins.fetchTarball {
+          url =
+            "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+        }
+      )
+    )
+  ];
+
 
   home.packages = with pkgs; [
     alacritty
