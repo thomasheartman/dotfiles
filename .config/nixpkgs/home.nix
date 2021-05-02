@@ -148,6 +148,7 @@ in
     autojump
     bat
     bitwarden-cli
+    brightnessctl
     cacert
     cascadia-code
     chromium
