@@ -5429,6 +5429,10 @@ font sizes, so let's just normalize them to be regular height.
   (use-package olivetti
     :custom
     (olivetti-body-width 80)
+    :general
+    (general-unbind
+      'olivetti-mode-map
+      "C-c |")
     :hook
     (text-mode . olivetti-mode)
     (notmuch-show-mode . olivetti-mode)
