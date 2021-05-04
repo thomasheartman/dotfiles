@@ -5585,7 +5585,13 @@ number of delimiters and let smartparens handle that.
     :init
     (winum-mode)
     :custom
-    (winum-scope 'visible))
+    (winum-scope 'visible)
+    :config
+    (defun heartman/update-winum (&rest args)
+      (winum--update)
+      args)
+
+    (advice-add 'tab-bar-select-tab :filter-return #'heartman/update-winum))
 #+END_SRC
 
 * XML (nxml-mode)
