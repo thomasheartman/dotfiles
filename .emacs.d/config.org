@@ -4781,7 +4781,10 @@ not for all buffers!
           ;; prevent "c$" and "d$" from deleting blank lines
           (setq evil-this-type 'exclusive))))
 
-    (dolist (mode '(image-mode image-dired-display-image-mode exwm-mode))
+    (dolist (mode '(exwm-mode
+                    git-timemachine-mode
+                    image-dired-display-image-mode
+                    image-mode))
       (evil-set-initial-state mode 'emacs))
 
     (dolist (keymap '((exwm-mode-map . nil)
