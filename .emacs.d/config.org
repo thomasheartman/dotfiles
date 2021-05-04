@@ -4787,15 +4787,16 @@ not for all buffers!
                     image-mode))
       (evil-set-initial-state mode 'emacs))
 
-    (dolist (keymap '((exwm-mode-map . nil)
-                      (dired-mode-map . nil)
-                      (info-mode-map . nil)
+    (dolist (keymap '((dired-mode-map . nil)
+                      (elfeed-search-mode-map . nil)
+                      (exwm-mode-map . nil)
                       (image-mode-map . nil)
+                      (info-mode-map . nil)
+                      (lexic-mode-map . 'normal)
                       (Man-mode-map . nil)
                       (notmuch-search-mode-map . nil)
-                      (elfeed-search-mode-map . nil)
-                      (popup-menu-keymap . nil)
-                      (lexic-mode-map . 'normal)))
+                      (notmuch-show-mode-map . nil)
+                      (popup-menu-keymap . nil)))
       (add-to-list 'evil-overriding-maps keymap))
 
     (setq evil-buffer-regexps
