@@ -5628,3 +5628,12 @@ number of delimiters and let smartparens handle that.
   (use-package ob-graphql
     :init (add-to-list 'org-babel-load-languages '(graphql . t)))
 #+END_SRC
+
+* groovy-mode
+:PROPERTIES:
+:REPO:     https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package groovy-mode)
+#+END_SRC
