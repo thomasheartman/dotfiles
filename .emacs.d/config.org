@@ -5372,16 +5372,21 @@ Additionally: the markup-faces package includes some pretty massive
 font sizes, so let's just normalize them to be regular height.
 
 #+BEGIN_SRC emacs-lisp
-  (defun heartman/open-file-in-browser ()
+  (defun heartman/open-file-in-browser (open-in-new-window)
     "Open the current file in your preferred web browser.
 
   If the buffer is visiting a directory or something else that is
   not a file, open `default-directory' instead."
-    (interactive)
-    (let ((file (buffer-file-name)))
-      (if (and file (f-file-p file))
-          (browse-url file)
-        (browse-url default-directory))))
+    (interactive "P")
+    (let* ((file (buffer-file-name))
+           (target (if (and file (f-file-p file))
+                       file
+                     default-directory))
+           (window (if open-in-new-window
+                       (funcall split-window-preferred-function)
+                     (selected-window))))
+      (select-window window)
+      (browse-url target)))
 
   (defun heartman/toggle-adoc-source-note ()
     "Add or remove an adoc comment to the end of the current line."
