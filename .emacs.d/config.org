@@ -5361,6 +5361,11 @@ in the clipboard.
 :PROPERTIES:
 :REPO:     https://github.com/sensorflo/adoc-mode
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-05-03 Mon 10:10]
+- State "TODO"       from              [2021-05-03 Mon 09:51] \\
+  Make the 'open browser in other window functionality work.'
+:END:
 
 Adoc-mode requires the markup-faces package, so let's install that too.
 
