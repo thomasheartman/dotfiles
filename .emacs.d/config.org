@@ -5344,6 +5344,7 @@ font sizes, so let's just normalize them to be regular height.
      "C-c C-c" 'heartman/toggle-adoc-source-note)
     :hook
     (adoc-mode . (lambda () (auto-fill-mode -1)))
+    (adoc-mode . writegood-mode)
     :init
     (dolist (i (number-sequence 0 5))
       (set-face-attribute
