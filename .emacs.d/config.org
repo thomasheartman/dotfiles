@@ -1001,6 +1001,66 @@ In short, here's what I'd like to happen.
     (message "The buffers are %s" buffers))
 #+END_SRC
 
+*** heartman/split-window-sensibly
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/split-window-sensibly (&optional window)
+    "Split WINDOW in a way suitable for `display-buffer'.
+  WINDOW defaults to the currently selected window. If
+  `split-width-threshold' specifies an integer, WINDOW is at least
+  `split-width-threshold' columns wide and can be split
+  horizontally, split WINDOW into two windows side by side and
+  return the window on the right. Otherwise, if
+  `split-height-threshold' specifies an integer, WINDOW is at least
+  `split-height-threshold' lines tall and can be split vertically,
+  split WINDOW into two windows one above the other and return the
+  lower window. If this can't be done either and WINDOW is the only
+  window on its frame, try to split WINDOW vertically disregarding
+  any value specified by `split-height-threshold'. If that
+  succeeds, return the lower window. Return nil otherwise.
+  "
+    (interactive)
+    (let* ((window (or window (selected-window)))
+           (width (window-pixel-width window))
+           (height (window-pixel-height window)))
+      (or (and
+           (and (>= width height) (window-splittable-p window t))
+           (with-selected-window window
+             (split-window-right)))
+          (and
+           (and (> height width) (window-splittable-p window))
+           (with-selected-window window
+             (split-window-below)))
+          (and
+           ;; If WINDOW is the only usable window on its frame (it is
+           ;; the only one or, not being the only one, all the other
+           ;; ones are dedicated) and is not the minibuffer window, try
+           ;; to split it vertically disregarding the value of
+           ;; `split-height-threshold'.
+           (let ((frame (window-frame window)))
+             (or
+              (eq window (frame-root-window frame))
+              (catch 'done
+                (walk-window-tree (lambda (w)
+                                    (unless (or (eq w window)
+                                                (window-dedicated-p w))
+                                      (throw 'done nil)))
+                                  frame nil 'nomini)
+                t)))
+           (not (window-minibuffer-p window))
+           (let ((split-height-threshold 0))
+             (when (window-splittable-p window)
+               (with-selected-window window
+                 (split-window-below))))))))
+
+  (use-package emacs
+    :custom
+    (split-width-threshold 60)
+    (split-height-threshold 20)
+    (split-window-preferred-function #'heartman/split-window-sensibly))
+#+END_SRC
+
+
 *** heartman/kill-matching-buffers
 
 The built-in ~kill-matching-buffers~ function doesn't offer you any
