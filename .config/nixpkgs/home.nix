@@ -177,6 +177,7 @@ in
     pijul
     playerctl
     powertop
+    unstable.procs
     proselint
     ripgrep
     rnix-lsp
