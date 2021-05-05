@@ -8,9 +8,9 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ct" "content type" nil :count 7)
-    ("gql" "GraphQL" nil :count 15)
+    ("gql" "GraphQL" nil :count 22)
     ("iff" "if and only if" nil :count 0)
-    ("js" "JavaScript" nil :count 13)
-    ("ts" "TypeScript" nil :count 5)
+    ("jsc" "JavaScript" nil :count 16)
+    ("tsc" "TypeScript" nil :count 5)
    ))
 
