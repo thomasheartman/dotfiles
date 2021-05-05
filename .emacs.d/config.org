@@ -4893,7 +4893,10 @@ not for all buffers!
     (general-def
       :states 'normal
       "m" 'evil-record-macro
-      "K" 'my-join-line
+      "j" 'evil-join
+      "J" 'my-join-line
+      "k" 'evil-paste-after
+      "K" 'evil-paste-before
       "U" 'evil-redo
       "C-w" 'whole-line-or-region-kill-region
       "<S-return>" 'my-evil-insert-line-below
@@ -4909,6 +4912,8 @@ not for all buffers!
     (general-def
       :states 'visual
       "s" 'evil-surround-region
+      "k" 'evil-paste-after
+      "K" 'evil-paste-before
       "C-w" 'whole-line-or-region-kill-region
       [remap evil-next-line]'evil-next-visual-line
       [remap evil-previous-line] 'evil-previous-visual-line)
