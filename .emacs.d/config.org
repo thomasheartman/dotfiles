@@ -5555,6 +5555,7 @@ font sizes, so let's just normalize them to be regular height.
       "C-c |")
     :hook
     (text-mode . olivetti-mode)
+    (info-mode . olivetti-mode)
     (notmuch-show-mode . olivetti-mode)
     (notmuch-hello-mode . olivetti-mode)
     (nxml-mode . (lambda () (olivetti-mode -1)))
