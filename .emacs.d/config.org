@@ -3785,6 +3785,7 @@ issue]].
        ([?\s-a ?m] . notmuch)
        ([?\s-a ?f] . elfeed)
        ([?\s-a ?r] . ranger)
+       ([?\s-a ?b] . browse-url)
        ([?\s-o ?a] . org-agenda)
        ([?\s-o ?c] . org-capture)
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
