@@ -197,7 +197,7 @@ in
     scrot
     shellcheck
     skim
-    slack
+    unstable.slack
     spotify
     teensy-loader-cli
     tmux
