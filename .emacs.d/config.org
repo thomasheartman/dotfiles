@@ -4080,7 +4080,7 @@ do with, so let's trim it down a bit and show only what's necessary.
   (display-time-mode)
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package doom-modeline
     :after markdown-mode
     :init (doom-modeline-mode 1)
