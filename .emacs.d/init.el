@@ -19,9 +19,6 @@
 
 (message "Using config dir %s and user-emacs-directory %s" my-config-dir user-emacs-directory)
 
-(when (not (version<= emacs-version "28"))
-  (load-file (expand-file-name "my-obsolete-fns.el" my-config-dir)))
-
 (setq straight-use-package-by-default t
       straight-fix-flycheck t)
 
