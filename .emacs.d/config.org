@@ -5676,5 +5676,5 @@ rich-minority enables us to hide all minor modes from the mode line.
     :init
     (rich-minority-mode)
     :custom
-    (rm-blacklist ".*"))
+    (rm-blacklist ""))
 #+END_SRC
