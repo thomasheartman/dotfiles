@@ -5663,3 +5663,18 @@ number of delimiters and let smartparens handle that.
 #+BEGIN_SRC emacs-lisp
   (use-package groovy-mode)
 #+END_SRC
+
+* rich-minority
+:PROPERTIES:
+:REPO:     https://github.com/Malabarba/rich-minority
+:END:
+
+rich-minority enables us to hide all minor modes from the mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rich-minority
+    :init
+    (rich-minority-mode)
+    :custom
+    (rm-blacklist ".*"))
+#+END_SRC
