@@ -135,7 +135,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsGcc;
+    package = unstable.emacsUnstable;
     extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ];
   };
 

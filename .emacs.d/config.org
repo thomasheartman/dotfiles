@@ -239,7 +239,7 @@ high-contrast themes and come bundled with emacs.
 To try and stick to loading only one theme, let's do it here.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'modus-vivendi)
+  ;; (load-theme 'modus-vivendi)
 #+END_SRC
 
 
