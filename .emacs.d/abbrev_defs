@@ -2,7 +2,8 @@
 (define-abbrev-table 'adoc-mode-abbrev-table
   '(
     ("cs" "Content Studio" nil :count 4)
-    ("pcon" "piece of content" nil :count 12)
+    ("dt" "Data Toolbox" nil :count 2)
+    ("pcon" "piece of content" nil :count 13)
    ))
 
 (define-abbrev-table 'global-abbrev-table
