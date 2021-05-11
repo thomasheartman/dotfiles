@@ -74,40 +74,82 @@ font:
   use_thin_strokes: true
 
 # Colors (One Dark)
-colors:
-  # Default colors
-  primary:
-    background: '0x080808'
-    foreground: '0xabb2bf'
+themes:
+  one dark: &one-dark
+    primary:
+      background: '#282c34'
+      foreground: '#abb2bf'
+    cursor:
+      text:       CellBackground
+      cursor:     '#528bff' # syntax-cursor-color
+    selection:
+      text:       CellForeground
+      background: '#3e4451' # syntax-selection-color
+    normal:
+      black:      '#5c6370' # mono-3
+      red:        '#e06c75' # red 1
+      green:      '#98c379'
+      yellow:     '#e5c07b' # orange 2
+      blue:       '#61afef'
+      magenta:    '#c678dd'
+      cyan:       '#56b6c2'
+      white:      '#828997' # mono-2
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0x98c379'
-
-    # Normal colors
-  normal:
-    black:   '0x1e2127'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xabb2bf'
-
-  # Bright colors
-  bright:
-    black:   '0x5c6370'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xffffff'
+  one light: &one-light
+    # Colors (One Light - https://github.com/atom/atom/tree/master/packages/one-light-syntax)
+    primary:
+      background: '#fafafa'
+      foreground: '#383a42'
+    cursor:
+      text:       CellBackground
+      cursor:     '#526eff' # syntax-cursor-color
+    selection:
+      text:       CellForeground
+      background: '#e5e5e6' # syntax-selection-color
+    normal:
+      black:      '#696c77' # mono-2
+      red:        '#e45649' # red 1
+      green:      '#50a14f'
+      yellow:     '#c18401' # orange 2
+      blue:       '#4078f2'
+      magenta:    '#a626a4'
+      cyan:       '#0184bc'
+      white:      '#a0a1a7' # mono-3
 
 
+  ayu mirage: &ayu-mirage
+    # Colors (Ayu Mirage)
+    colors:
+      # Default colors
+      primary:
+        background: '#202734'
+        foreground: '#CBCCC6'
+
+      # Normal colors
+      normal:
+        black: '#191E2A'
+        red: '#FF3333'
+        green: '#BAE67E'
+        yellow: '#FFA759'
+        blue: '#73D0FF'
+        magenta: '#FFD580'
+        cyan: '#95E6CB'
+        white: '#C7C7C7'
+
+      # Bright colors
+      bright:
+        black: '#686868'
+        red: '#F27983'
+        green: '#A6CC70'
+        yellow: '#FFCC66'
+        blue: '#5CCFE6'
+        magenta: '#FFEE99'
+        cyan: '#95E6CB'
+        white: '#FFFFFF'
+
+
+
+colors: *one-dark
 
 # Visual Bell
 #
