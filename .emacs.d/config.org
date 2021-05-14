@@ -4105,6 +4105,50 @@ do with, so let's trim it down a bit and show only what's necessary.
 #+END_SRC
 
 
+** TODO Custom mode line
+:LOGBOOK:
+- State "TODO"       from              [2021-05-14 Fri 16:15] \\
+  Finish this
+:END:
+
+This is my attempt at customizing my mode line from the ground up.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default mode-line-format
+                (list
+                 '(:eval (format winum-format (winum-get-number-string)))
+
+                 '(:eval evil-mode-line-tag)
+
+                 '(:eval (when-let (vc vc-mode)
+                           (list
+                            (propertize (substring vc 5)
+                                        'face 'font-lock-doc-face)
+                            (propertize "/"
+                                        'face 'font-lock-comment-face))))
+
+                 '(:eval (list
+                          (propertize "%b"
+                                      'face 'font-lock-type-face
+                                      'help-echo (buffer-file-name))
+                          (if (buffer-modified-p)
+                              (propertize "*"
+                                          'face 'font-lock-warning-face)
+                            " ")
+                          (when buffer-read-only
+                            "👀")
+
+                          " "))
+
+                 (propertize " %m " 'face 'font-lock-string-face)
+
+                 mode-line-position
+
+                 " "
+
+                 mode-line-misc-info))
+
+#+END_SRC
 
 * C#
 
