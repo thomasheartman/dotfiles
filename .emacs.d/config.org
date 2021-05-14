@@ -793,6 +793,9 @@ to add a separate hook for that.
 **** Display battery in mode line
 
 #+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (battery-mode-line-format "%b%p%% (%05t) "))
   (display-battery-mode)
 #+END_SRC
 
