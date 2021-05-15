@@ -3580,11 +3580,8 @@ Projectile needs Ripgrep to enable ripgrep searches!
 :END:
 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package pdf-tools
-    :straight `(pdf-tools :type git
-                          :host github
-                          :repo "vedang/pdf-tools")
     :hook
     (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
     :general
