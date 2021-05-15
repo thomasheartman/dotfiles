@@ -4113,7 +4113,7 @@ This is my attempt at customizing my mode line from the ground up.
 #+BEGIN_SRC emacs-lisp
   (setq-default mode-line-format
                 (list
-                 '(:eval (format winum-format (winum-get-number-string)))
+                 "%e"
 
                  '(:eval evil-mode-line-tag)
 
