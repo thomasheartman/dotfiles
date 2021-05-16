@@ -4137,7 +4137,8 @@ This is my attempt at customizing my mode line from the ground up.
 
                           " "))
 
-                 (propertize " %m " 'face 'font-lock-string-face)
+
+                 mode-line-modes
 
                  mode-line-position
 
