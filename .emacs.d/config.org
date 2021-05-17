@@ -4149,21 +4149,25 @@ This is my attempt at customizing my mode line from the ground up.
 
                  '(:eval
                    (when flycheck-mode
-                     (cl-flet ((fmt (count) (format "%d" (or count 0))))
+                     (cl-flet ((fmt (count face)
+                                    (if count
+                                        (propertize (format "%d" count)
+                                                    'face face)
+                                      (propertize "0"
+                                                  'face 'font-lock-comment-face))))
                        (let-alist (flycheck-count-errors flycheck-current-errors)
                          (list
-                          (propertize "!"
-                                      'face 'font-lock-negation-char-face)
-                          (propertize (fmt .error)
-                                      'face compilation-error-face)
+                          (if (or .error .warning .info)
+                              (propertize "!"
+                                          'face 'font-lock-negation-char-face)
+                            " ")
+                          (fmt .error compilation-error-face)
                           (propertize "/"
                                       'face 'font-lock-comment-face)
-                          (propertize (fmt .warning)
-                                      'face compilation-warning-face)
+                          (fmt .warning compilation-warning-face)
                           (propertize "/"
                                       'face 'font-lock-comment-face)
-                          (propertize (fmt .info)
-                                      'face compilation-info-face))))))
+                          (fmt .info compilation-info-face))))))
 
 
                  " "
