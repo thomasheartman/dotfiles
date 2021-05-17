@@ -4116,13 +4116,6 @@ This is my attempt at customizing my mode line from the ground up.
 
                  '(:eval evil-mode-line-tag)
 
-                 '(:eval (when-let (vc vc-mode)
-                           (list
-                            (propertize (substring vc 5)
-                                        'face 'font-lock-doc-face)
-                            (propertize "/"
-                                        'face 'font-lock-comment-face))))
-
                  '(:eval (list
                           (propertize "%b"
                                       'face 'font-lock-type-face
@@ -4135,6 +4128,13 @@ This is my attempt at customizing my mode line from the ground up.
                             "👀")
 
                           " "))
+
+                 '(:eval (when-let (vc vc-mode)
+                           (list
+                            (format "%c " ?\xf020)
+                            (propertize (substring vc 5)
+                                        'face 'font-lock-doc-face)
+                            " ")))
 
 
                  mode-line-modes
