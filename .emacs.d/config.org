@@ -4130,7 +4130,7 @@ This is my attempt at customizing my mode line from the ground up.
                                       'help-echo (buffer-file-name))
                           (if (buffer-modified-p)
                               (propertize "*"
-                                          'face 'font-lock-warning-face)
+                                          'face 'font-lock-negation-char-face)
                             " ")
                           (when buffer-read-only
                             "👀")
@@ -4141,6 +4141,25 @@ This is my attempt at customizing my mode line from the ground up.
                  mode-line-modes
 
                  mode-line-position
+
+                 '(:eval
+                   (when flycheck-mode
+                     (cl-flet ((fmt (count) (format "%d" (or count 0))))
+                       (let-alist (flycheck-count-errors flycheck-current-errors)
+                         (list
+                          (propertize "!"
+                                      'face 'font-lock-negation-char-face)
+                          (propertize (fmt .error)
+                                      'face compilation-error-face)
+                          (propertize "/"
+                                      'face 'font-lock-comment-face)
+                          (propertize (fmt .warning)
+                                      'face compilation-warning-face)
+                          (propertize "/"
+                                      'face 'font-lock-comment-face)
+                          (propertize (fmt .info)
+                                      'face compilation-info-face))))))
+
 
                  " "
 
