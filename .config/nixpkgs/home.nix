@@ -135,19 +135,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsGcc.overrideAttrs (
-      old: {
-        patches = old.patches ++ [
-          (
-            pkgs.fetchpatch {
-              url = "https://github.com/emacs-mirror/emacs/commit/483c5e953c12a95382bef4a3b6769a680c32fe86.patch";
-              sha256 = "sha256-8GEGLqiVMwhd4HSEI306eDv988UmITBy/y1rmGXAppg=";
-              revert = true;
-            }
-          )
-        ];
-      }
-    );
+    package = unstable.emacsGcc;
     extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ];
   };
 
