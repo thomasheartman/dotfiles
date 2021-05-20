@@ -468,9 +468,11 @@ tell Emacs that it's okay.
   (setq sentence-end-double-space nil)
 #+END_SRC
 
-I also want files to auto-update if they change on disk.
+I also want files to auto-update if they change on disk, but I don't
+want Emacs to notify me.
 #+begin_src emacs-lisp
   (global-auto-revert-mode)
+  (setq auto-revert-verbose nil)
 #+end_src
 
 Trailing whitespace is something I prefer to avoid, so let's
@@ -788,6 +790,10 @@ to add a separate hook for that.
         dired-listing-switches "-lah")
 
   (add-hook 'dired-mode-hook 'auto-revert-mode)
+
+  (use-package emacs
+    :custom
+    (dired-auto-revert-buffer t))
 #+END_SRC
 
 **** Display battery in mode line
