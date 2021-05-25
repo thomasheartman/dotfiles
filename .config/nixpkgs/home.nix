@@ -174,6 +174,7 @@ in
     nixfmt
     pavucontrol
     pandoc
+    pdfgrep
     pijul
     playerctl
     powertop
