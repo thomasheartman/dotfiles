@@ -137,6 +137,14 @@ in
           sudo nixos-rebuild switch -p ${config.networking.hostName} $@
         ''
       )
+
+      (
+        writeScriptBin "mfx" ''
+          #!${stdenv.shell}
+          ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1-2 --off
+          ${pkgs.autorandr}/bin/autorandr -c
+        ''
+      )
     ];
 
     interactiveShellInit = ''
