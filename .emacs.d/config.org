@@ -4120,6 +4120,9 @@ This is my attempt at customizing my mode line from the ground up.
   (defvar heartman/mode-line-buffer-max-length 30
     "The maximum number of charaacters in a buffer name. Any more characters will cause a truncation.")
 
+  (defvar heartman/mode-line-flycheck-separator "/"
+    "The separator to use between flycheck notifications.")
+
   (defun heartman/mode-line-format-buffer-name (name)
     "Format the buffer name for display"
     (truncate-string-to-width
@@ -4165,8 +4168,7 @@ This is my attempt at customizing my mode line from the ground up.
                                     (if count
                                         (propertize (format "%d" count)
                                                     'face face)
-                                      (propertize "0"
-                                                  'face 'font-lock-comment-face))))
+                                      "0")))
                        (let-alist (flycheck-count-errors flycheck-current-errors)
                          (list
                           (if (or .error .warning .info)
@@ -4174,11 +4176,9 @@ This is my attempt at customizing my mode line from the ground up.
                                           'face 'font-lock-negation-char-face)
                             " ")
                           (fmt .error compilation-error-face)
-                          (propertize "/"
-                                      'face 'font-lock-comment-face)
+                          heartman/mode-line-flycheck-separator
                           (fmt .warning compilation-warning-face)
-                          (propertize "/"
-                                      'face 'font-lock-comment-face)
+                          heartman/mode-line-flycheck-separator
                           (fmt .info compilation-info-face))))))
 
 
