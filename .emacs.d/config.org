@@ -3279,6 +3279,7 @@ movement works.
   (use-package notmuch
     :hook
     (notmuch-search . (lambda () (toggle-truncate-lines 1)))
+    (notmuch-message-mode . (lambda () (auto-fill-mode -1)))
     :general
     (my-app-def
       "m" 'notmuch)
@@ -4116,6 +4117,16 @@ do with, so let's trim it down a bit and show only what's necessary.
 This is my attempt at customizing my mode line from the ground up.
 
 #+BEGIN_SRC emacs-lisp
+  (defvar heartman/mode-line-buffer-max-length 30
+    "The maximum number of charaacters in a buffer name. Any more characters will cause a truncation.")
+
+  (defun heartman/mode-line-format-buffer-name (name)
+    "Format the buffer name for display"
+    (truncate-string-to-width
+     (string-replace "— Mozilla Firefox" "🦊" name)
+     heartman/mode-line-buffer-max-length
+     nil nil t))
+
   (setq-default mode-line-format
                 (list
                  "%e"
@@ -4123,9 +4134,10 @@ This is my attempt at customizing my mode line from the ground up.
                  '(:eval evil-mode-line-tag)
 
                  '(:eval (list
-                          (propertize "%b"
-                                      'face 'font-lock-type-face
-                                      'help-echo (buffer-file-name))
+                          (heartman/mode-line-format-buffer-name
+                           (propertize  "%b"
+                                        'face 'font-lock-type-face
+                                        'help-echo (buffer-file-name)))
                           (if (buffer-modified-p)
                               (propertize "*"
                                           'face 'font-lock-negation-char-face)
@@ -4849,6 +4861,16 @@ not for all buffers!
           evil-move-beyond-eol t
           evil-cross-lines t)
 
+    (evil-define-text-object evil-a-pipe (count &optional beg end type)
+      "Select an expression around a set of pipes."
+      :extend-selection t
+      (evil-select-quote ?| beg end type count t))
+
+    (evil-define-text-object evil-inner-pipe (count &optional beg end type)
+      "Select expression inside a set of pipes."
+      :extend-selection nil
+      (evil-select-quote ?| beg end type count))
+
     (setq evil-v$-gets-eol t)
     ;; stop `v$' from selecting newlines
     (evil-define-motion evil-end-of-line
@@ -5250,7 +5272,7 @@ other recommended packages that'll make improve it.
   is previewed.
 :END:
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref nop
   (use-package mini-frame
     :unless (string= "t" (getenv "SUPPRESS_MINI_FRAME"))
     :custom
