@@ -4766,9 +4766,9 @@ not for all buffers!
     (evil-undo-system (if (fboundp 'undo-redo) 'undo-redo nil))
 
     :config
-    (defmacro define-and-bind-text-object (key start-regex end-regex)
-      (let ((inner-name (make-symbol "inner-line"))
-            (outer-name (make-symbol "outer-line")))
+    (defmacro define-and-bind-text-object (name key start-regex end-regex)
+      (let ((inner-name (make-symbol (format "evil-i-%s" name)))
+            (outer-name (make-symbol (format "evil-a-%s" name))))
         `(progn
            (evil-define-text-object ,inner-name
              (count &optional beg end type)
@@ -4780,8 +4780,11 @@ not for all buffers!
                                 beg end type count t))
            (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
            (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-    (define-and-bind-text-object "l" "^\\s-*"
-      "\\s-*$")
+    (define-and-bind-text-object
+      "line" "l" "^\\s-*" "\\s-*$")
+
+    (define-and-bind-text-object
+      "pipe" "|" "|" "|")
 
     (evil-define-text-object evil-inner-buffer (count &optional beg end type)
       (list (point-min) (point-max)))
@@ -4796,16 +4799,6 @@ not for all buffers!
           evil-disable-insert-state-bindings t
           evil-move-beyond-eol t
           evil-cross-lines t)
-
-    (evil-define-text-object evil-a-pipe (count &optional beg end type)
-      "Select an expression around a set of pipes."
-      :extend-selection t
-      (evil-select-quote ?| beg end type count t))
-
-    (evil-define-text-object evil-inner-pipe (count &optional beg end type)
-      "Select expression inside a set of pipes."
-      :extend-selection nil
-      (evil-select-quote ?| beg end type count))
 
     (setq evil-v$-gets-eol t)
     ;; stop `v$' from selecting newlines
