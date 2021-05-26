@@ -76,6 +76,8 @@ in
 
   programs.notmuch = { enable = true; };
 
+  programs.feh.enable = true;
+
   programs.offlineimap = {
     enable = true;
     extraConfig.general = {
@@ -229,6 +231,12 @@ in
   ];
 
   services.dropbox.enable = true;
+
+  services.picom = {
+    enable = true;
+    shadow = true;
+    shadowOpacity = "0.1";
+  };
 
   home.file.".config/proselint/config".text = ''
     {
