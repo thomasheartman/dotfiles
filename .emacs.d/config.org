@@ -1297,81 +1297,6 @@ check whether the variable is bound or not. If it is, increase it.
     (setq read-process-output-max (* 1024 1024 3)))
 #+END_SRC
 
-*** OS-specifics                                                         :os:
-
-Because I use Emacs with multiple operating systems, I want to make transitioning between the systems as easy as possible.
-
-**** macOS                                                            :macos:
-:PROPERTIES:
-:header-args: :tangle no
-:END:
-:LOGBOOK:
-- State "TODO"       from              [2020-08-13 Thu 17:56]
-:END:
-
-#+begin_src emacs-lisp :tangle yes :noweb yes
-  (when on-macos
-    <<resize>>
-    <<macos-exec-path>>
-    <<macos-env-path>>
-    <<macos-key-config>>
-    <<macos-server-start>>)
-#+end_src
-
-***** Resizing
-
-Using Amethyst as a window manager on macOS, the Emacs frame will
-often not expand to take up the whole allotted space, leaving a
-gap between itself and the edge of the screen or other
-applications. To fix this, make frames resize pixelwise:
-#+name: resize
-#+begin_src emacs-lisp
-  (setq frame-resize-pixelwise t)
-#+end_src
-
-***** $PATH and ~exec-path~
-
-Dealing with path variables can be tricky. Because I use
-#+name: macos-exec-path
-#+BEGIN_SRC emacs-lisp
-  (setq exec-path (append exec-path '("/Library/Frameworks/Mono.framework/Commands"
-                                      "/usr/local/bin"
-                                      "/usr/local/share/dotnet"
-                                      "~/.dotnet/tools"
-                                      "/run/current-system/sw/bin")))
-#+END_SRC
-
-Additionally, to avoid having to set this manually for programs
-that use the "PATH" variable (and because it seems to not get
-set correctly), we'll manually add a couple directories to
-~$PATH~:
-
-#+name: macos-env-path
-#+BEGIN_SRC emacs-lisp
-  (setenv "PATH" (concat "/run/current-system/sw/bin:/usr/local/bin:" (getenv "PATH")))
-#+END_SRC
-
-***** Key switching
-
-On macOS, I want the CMD key to act as Meta, and the Alt key as
-super, because this works better with their location on the
-keyboard and their corresponding keys on Linux.
-#+name: macos-key-config
-#+BEGIN_SRC emacs-lisp
-  (setq mac-option-modifier nil
-        mac-command-modifier 'meta)
-#+END_SRC
-
-***** Starting the server
-
-On macOS, let's have Emacs start a server for emacsclient
-windows.
-
-#+name: macos-server-start
-#+BEGIN_SRC emacs-lisp
-  (server-start)
-#+END_SRC
-
 *** Window functions
 :LOGBOOK:
 - State "TODO"       from              [2020-08-13 Thu 20:16]
@@ -3288,7 +3213,9 @@ movement works.
   (use-package notmuch
     :hook
     (notmuch-search . (lambda () (toggle-truncate-lines 1)))
-    (notmuch-message-mode . (lambda () (auto-fill-mode -1)))
+    (notmuch-message-mode . (lambda ()
+                              (auto-fill-mode -1)
+                              (company-emoji-init)))
     :general
     (my-app-def
       "m" 'notmuch)
