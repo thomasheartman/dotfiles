@@ -339,7 +339,7 @@ give ourselves a little bit of extra space (based on [[https://emacs.stackexchan
   (defvar heartman/frame-opacity 93
     "The default frame opacity.")
 
-  (add-to-list 'default-frame-alist '(heartman/frame-opacity))
+  (add-to-list 'default-frame-alist `(alpha .  ,heartman/frame-opacity))
 #+END_SRC
 
 ** Misc
