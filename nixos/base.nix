@@ -208,8 +208,10 @@ in
     enable = true;
     libinput = {
       enable = true;
-      naturalScrolling = true;
-      disableWhileTyping = true;
+      touchpad = {
+        naturalScrolling = true;
+        disableWhileTyping = true;
+      };
     };
 
     exportConfiguration = true;
@@ -260,6 +262,7 @@ in
 
   # users
   users.extraUsers.thomas = {
+    isNormalUser = true;
     name = "thomas";
     group = "users";
     extraGroups = [
