@@ -4959,15 +4959,19 @@ not for all buffers!
       "C-k")
     (general-def
       evil-emacs-state-map
+      :start-maps t
       "C-z" 'evil-normal-state)
     (general-def
       "C-d" 'evil-scroll-down
       "C-u" 'evil-scroll-up
+      "M-." 'evil-goto-definition
       [remap end-of-buffer]'evil-goto-line
       [remap beginning-of-buffer]'evil-goto-first-line
       [remap isearch-forward] 'evil-search-forward
       [remap isearch-backward] 'evil-search-backward
-      [remap xref-find-definitions] 'evil-goto-definition))
+      [remap xref-find-definitions] 'evil-goto-definition
+      [remap forward-paragraph] 'evil-forward-paragraph
+      [remap backward-paragraph] 'evil-backward-paragraph))
 #+END_SRC
 
 ** Org mode modifications
