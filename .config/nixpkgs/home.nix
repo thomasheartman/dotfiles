@@ -158,6 +158,7 @@ in
     direnv
     docker
     dropbox-cli
+    element-desktop
     ffmpeg
     firefox
     gcc # <-this is here to make magit forge work
