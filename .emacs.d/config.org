@@ -4823,7 +4823,8 @@ not for all buffers!
     (dolist (mode '(exwm-mode
                     git-timemachine-mode
                     image-dired-display-image-mode
-                    image-mode))
+                    image-mode
+                    Man-mode))
       (evil-set-initial-state mode 'emacs))
 
     (dolist (keymap '((dired-mode-map . nil)
