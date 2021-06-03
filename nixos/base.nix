@@ -234,6 +234,9 @@ in
     enable = true;
     libinput = {
       enable = true;
+      mouse = {
+        naturalScrolling = true;
+      };
       touchpad = {
         naturalScrolling = true;
         disableWhileTyping = true;
