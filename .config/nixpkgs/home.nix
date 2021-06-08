@@ -182,6 +182,7 @@ in
     playerctl
     powertop
     unstable.procs
+    pamixer # <- for Emacs' desktop-environment
     proselint
     ripgrep
     rnix-lsp
