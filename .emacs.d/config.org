@@ -258,8 +258,8 @@ they do, we'll set the first font we find as the default frame
 font.
 
 #+BEGIN_SRC emacs-lisp
-  (defvar preferred-fonts '("JetBrains Mono"
-                            "Cascadia Code"
+  (defvar preferred-fonts '("Cascadia Code"
+                            "JetBrains Mono"
                             "Victor Mono")
     "The list of preferred fonts in descending order. Emacs will
     use the first font it finds in this list.")
