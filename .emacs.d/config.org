@@ -5642,8 +5642,8 @@ font sizes, so let's just normalize them to be regular height.
 
 * auctex
 
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package auctex)
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package auctex)
 #+END_SRC
 
 
