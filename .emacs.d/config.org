@@ -4116,7 +4116,9 @@ This is my attempt at customizing my mode line from the ground up.
                 (list
                  "%e"
 
-                 '(:eval evil-mode-line-tag)
+                 '(:eval
+                   (unless (eq major-mode 'exwm-mode)
+                     evil-mode-line-tag))
 
                  '(:eval (list
                           (heartman/mode-line-format-buffer-name
