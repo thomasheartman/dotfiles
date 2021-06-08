@@ -5062,7 +5062,7 @@ configuration changes.
 
 selectrum is a replacement for ivy/helm.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package selectrum
     :general
     ('selectrum-minibuffer-map
@@ -5641,7 +5641,7 @@ font sizes, so let's just normalize them to be regular height.
 * auctex
 
 #+BEGIN_SRC emacs-lisp
-  (use-package auctex)
+  ;; (use-package auctex)
 #+END_SRC
 
 
@@ -5753,4 +5753,12 @@ rich-minority enables us to hide all minor modes from the mode line.
     (rich-minority-mode)
     :custom
     (rm-blacklist ""))
+#+END_SRC
+
+* Matrix client
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package matrix-client
+    :straight (:host github
+                     :repo "alphapapa/matrix-client.el"))
 #+END_SRC
