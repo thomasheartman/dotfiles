@@ -3878,7 +3878,13 @@ issue]].
     ;; force set frame-position on every posframe display
     (advice-add 'posframe--set-frame-position :before
                 (lambda (&rest args)
-                  (setq-local posframe--last-posframe-pixel-position nil))))
+                  (setq-local posframe--last-posframe-pixel-position nil)))
+    :hook
+    (exwm-randr-screen-change . (lambda ()
+                                  (let ((proc (start-process-shell-command
+                                               "autorandr" nil
+                                               "autorandr -c"))))
+                                  )))
 #+END_SRC
 
 ** desktop-environment
