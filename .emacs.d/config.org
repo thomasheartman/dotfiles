@@ -2904,7 +2904,7 @@ export, including source code language and triple back ticks.
 :REPO:     https://github.com/cadadr/elisp
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package org-variable-pitch
     :straight (:host github
                      :repo "cadadr/elisp"
@@ -5599,7 +5599,7 @@ font sizes, so let's just normalize them to be regular height.
 :REPO:     https://gitlab.com/jabranham/mixed-pitch
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package mixed-pitch
     :hook
     (text-mode . mixed-pitch-mode)
