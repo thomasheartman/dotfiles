@@ -4171,6 +4171,14 @@ This is my attempt at customizing my mode line from the ground up.
 
                  " "
 
+                 '(:eval
+                   (when debug-on-error
+                     (propertize
+                      (format "%c" ?\xf188)
+                      'face compilation-error-face)))
+
+                 " "
+
                  mode-line-misc-info))
 
 #+END_SRC
