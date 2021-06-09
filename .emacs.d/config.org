@@ -4115,6 +4115,60 @@ This is my attempt at customizing my mode line from the ground up.
      heartman/mode-line-buffer-max-length
      nil nil t))
 
+  (defvar heartman/mode-line-icons '(;; VCS
+                                     (git-compare . ?\xf0ac)            ; 
+                                     (git-merge . ?\xf023)              ; 
+                                     (arrow-down . ?\xf03f)             ; 
+                                     (alert . ?\xf02d)                  ; 
+                                     (git-branch . ?\xf020)             ; 
+
+                                     ;; Checker
+                                     (do_not_disturb_alt . ?\xe611)     ; 
+                                     (check . ?\xe5ca)                  ; 
+                                     (access_time . ?\xe192)            ; 
+                                     (sim_card_alert . ?\xe624)         ; 
+                                     (pause . ?\xe034)                  ; 
+                                     (priority_high . ?\xe645)          ; 
+
+                                     ;; Minor modes
+                                     (gear . ?\xf02f)                   ; 
+
+                                     ;; Persp
+                                     (folder . ?\xe2c7)                 ; 
+
+                                     ;; Preview
+                                     (pageview . ?\xe8a0)               ; 
+
+                                     ;; REPL
+                                     (dollar-sign . ?\xf155)            ; 
+
+                                     ;; LSP
+                                     (rocket . ?\xf135)                 ; 
+
+                                     ;; GitHub
+                                     (github . ?\xf09b)                 ; 
+
+                                     ;; Debug
+                                     (bug . ?\xf188)                    ; 
+
+                                     ;; Mail
+                                     (email . ?\xe0be)                  ; 
+
+                                     ;; IRC
+                                     (message . ?\xe0c9)                ; 
+
+                                     ;; Battery
+                                     (battery-charging . ?\xe939)       ; 
+                                     (battery-empty . ?\xf244)          ; 
+                                     (battery-full . ?\xf240)           ; 
+                                     (battery-half . ?\xf242)           ; 
+                                     (battery-quarter . ?\xf243)        ; 
+                                     (battery-three-quarters . ?\xf241) ; 
+                                     )
+    "Icons for mode line (stolen from doom-modeline). Depending on
+  your font, they may display differently in the comments.")
+
+
   (setq-default mode-line-format
                 (list
                  "%e"
