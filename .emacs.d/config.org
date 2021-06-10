@@ -4112,10 +4112,14 @@ This is my attempt at customizing my mode line from the ground up.
 
   (defun heartman/mode-line-format-buffer-name (name)
     "Format the buffer name for display"
-    (truncate-string-to-width
-     (string-replace "— Mozilla Firefox" "🦊" name)
-     heartman/mode-line-buffer-max-length
-     nil nil t))
+    (let ((new-name (if (and (stringp exwm-class-name)
+                             (string= "Firefox" exwm-class-name))
+                        (format "🦊 %s" (string-remove-suffix "— Mozilla Firefox" name))
+                      name)))
+      (truncate-string-to-width
+       new-name
+       heartman/mode-line-buffer-max-length
+       nil nil t)))
 
   (defvar heartman/mode-line-icons '(;; VCS
                                      (git-compare . ?\xf0ac)            ; 
