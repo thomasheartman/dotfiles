@@ -43,5 +43,5 @@ end
 # fix fish in emacs
 function fish_title
     set -q argv[1]; and set program "($argv)"
-    echo (fish_prompt_pwd_dir_length=1 prompt_pwd) $program "[fish]"
+    echo 🐟 (fish_prompt_pwd_dir_length=1 prompt_pwd) $program "[fish]"
 end
