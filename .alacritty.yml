@@ -35,6 +35,9 @@ window:
 
   startup_mode: Maximized
 
+  dynamic_title:  true
+
+
 scrolling:
   history: 10000
   multiplier: 3
@@ -220,7 +223,6 @@ mouse:
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
 
-window.dynamic_title: true
 
 mouse.hide_when_typing: false
 
