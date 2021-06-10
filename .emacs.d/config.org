@@ -3885,6 +3885,8 @@ issue]].
                 (lambda (&rest args)
                   (setq-local posframe--last-posframe-pixel-position nil)))
     :hook
+    (exwm-mode . (lambda ()
+                   (display-line-numbers-mode -1)))
     (exwm-randr-screen-change . (lambda ()
                                   (let ((proc (start-process-shell-command
                                                "autorandr" nil
