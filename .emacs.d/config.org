@@ -2399,7 +2399,7 @@ I want to set up set of common tags. We'll define a group of mutually exclusive 
                         ("read")
                         ("listen")
                         (:endgroup)
-                        ("wishlist" . w)
+                        ("wishlist" . ?w)
                         ("dev" . ?d)
                         ("GTD" . ?g)
                         ("productivity")))
