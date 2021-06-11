@@ -4194,8 +4194,8 @@ This is my attempt at customizing my mode line from the ground up.
                               (propertize "*"
                                           'face 'font-lock-negation-char-face)
                             " ")
-                          (when buffer-read-only
-                            "👀")
+                          (when (and buffer-read-only (not exwm-class-name))
+                            "👁")
 
                           " "))
 
