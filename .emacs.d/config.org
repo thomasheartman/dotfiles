@@ -1714,6 +1714,11 @@ frame, so this function sorts that out:
         ;; check whether this tab is the only one in the frame
         (tab-bar-move-tab-to-frame nil nil nil target-frame nil)
         ;; after moving the tab, focus the new tab in the target frame
+
+        ;; also make sure to display tabs in the new frame! If I move a
+        ;; tab to a frame with only one tab (I hide the tab bar when
+        ;; there is a single tab), then the tab bar remains hidden.
+        (tab-bar--update-tab-bar-lines (list target-frame))
         ))
 
     (defun heartman/send-tab-to-next-frame ()
