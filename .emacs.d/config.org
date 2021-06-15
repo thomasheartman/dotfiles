@@ -1585,8 +1585,10 @@ To have the scratch buffer be empty by default, we can set the
                                     "~/projects/personal")))
 #+END_SRC
 
-*** Tabs
+*** TODO Tabs
 :LOGBOOK:
+- State "TODO"       from              [2021-06-15 Tue 10:03] \\
+  Fix tab movement between frames.
 - State "DONE"       from "TODO"       [2021-04-26 Mon 15:47]
 - State "TODO"       from              [2021-04-26 Mon 15:34] \\
   Turns out I was wrong regarding the extra tab named the same as the
@@ -1690,7 +1692,37 @@ frame, so this function sorts that out:
       (let ((f (if keep-focus
                    #'heartman/show-tab-other-frame
                  #'heartman/switch-to-tab-any-frame)))
-        (call-interactively f))))
+        (call-interactively f)))
+
+    (defun heartman/get-nth-frame (n &optional frame)
+      "Get the frame N steps from the current frame."
+      (let ((steps (mod n (length (frame-list))))
+            (source-frame (or frame (selected-frame))))
+        (cl-labels ((go (current-frame num-steps)
+                        (if (= 0 num-steps)
+                            current-frame
+                          (go (next-frame current-frame) (1- num-steps)))))
+          (go source-frame steps))))
+
+    (defun heartman/send-tab-to-frame (arg)
+      "Send the current frame the ARGth next frame.
+
+  When sending the frame, remove the frame from the source frame."
+      (interactive "P")
+      (let ((target-frame (heartman/get-nth-frame (prefix-numeric-value arg)))
+            (current-tab-name (alist-get 'name (tab-bar--current-tab))))
+        ;; check whether this tab is the only one in the frame
+        (tab-bar-move-tab-to-frame nil nil nil target-frame nil)
+        ;; after moving the tab, focus the new tab in the target frame
+        ))
+
+    (defun heartman/send-tab-to-next-frame ()
+      (interactive)
+      (heartman/send-tab-to-frame 1))
+
+    (defun heartman/send-tab-to-previous-frame ()
+      (interactive)
+      (heartman/send-tab-to-frame -1)))
 #+END_SRC
 
 
@@ -3718,10 +3750,17 @@ issue]].
        ([?\s-m] . my-maximize-or-undo-window)
        ([\s-next] . my-exwm-send-buffer-next-workspace)
        ([\s-prior] . my-exwm-send-buffer-previous-workspace)
-       ([?\s-t] . heartman/tab-other-frame)
+
+       ;;tabs
+       ([?\s-t ?t] . heartman/tab-other-frame)
+       ([?\s-t right] . heartman/send-tab-to-next-frame)
+       ([?\s-t left] . heartman/send-tab-to-previous-frame)
        ([?\s->] . tab-bar-switch-to-next-tab)
        ([?\s-<] . tab-bar-switch-to-prev-tab)
        ([?\s-,] . tab-bar-switch-to-recent-tab)
+       ([?\s-t ?k] . tab-close)
+       ([?\s-t ?n] . tab-bar-new-tab)
+       ([?\s-t ?c] . tab-bar-duplicate-tab)
 
        ;; shell commands
        ([?\s-!] . shell-command)
