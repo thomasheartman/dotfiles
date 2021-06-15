@@ -5760,12 +5760,12 @@ font sizes, so let's just normalize them to be regular height.
       'olivetti-mode-map
       "C-c |")
     :hook
-    (text-mode . olivetti-mode)
-    (Info-mode . olivetti-mode)
-    (help-mode . olivetti-mode)
-    (Custom-mode . olivetti-mode)
-    (notmuch-show-mode . olivetti-mode)
-    (notmuch-hello-mode . olivetti-mode)
+    ((text-mode
+      Info-mode
+      help-mode
+      Custom-mode
+      notmuch-show-mode
+      notmuch-hello-mode) . olivetti-mode)
     (nxml-mode . (lambda () (olivetti-mode -1)))
     (olivetti-mode-on . heartman/olivetti-hide-fringes))
 #+END_SRC
