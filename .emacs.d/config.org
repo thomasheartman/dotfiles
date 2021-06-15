@@ -3768,6 +3768,7 @@ issue]].
        ([?\s-t ?k] . tab-close)
        ([?\s-t ?n] . tab-bar-new-tab)
        ([?\s-t ?c] . tab-bar-duplicate-tab)
+       ([?\s-t ?r] . tab-rename)
 
        ;; shell commands
        ([?\s-!] . shell-command)
