@@ -1717,7 +1717,6 @@ frame, so this function sorts that out:
       "Send the current frame the ARGth next frame.
 
   When sending the frame, remove the frame from the source frame."
-      (interactive "P")
       (let* ((target-frame (heartman/get-nth-frame (prefix-numeric-value arg)))
              (target-index (1+ (length (funcall tab-bar-tabs-function target-frame))))
              (current-tab-name (alist-get 'name (tab-bar--current-tab))))
