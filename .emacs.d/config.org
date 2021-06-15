@@ -1585,8 +1585,9 @@ To have the scratch buffer be empty by default, we can set the
                                     "~/projects/personal")))
 #+END_SRC
 
-*** TODO Tabs
+*** Tabs
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2021-06-15 Tue 17:30]
 - State "TODO"       from              [2021-06-15 Tue 10:03] \\
   Fix tab movement between frames.
 - State "DONE"       from "TODO"       [2021-04-26 Mon 15:47]
@@ -1709,25 +1710,43 @@ frame, so this function sorts that out:
 
   When sending the frame, remove the frame from the source frame."
       (interactive "P")
-      (let ((target-frame (heartman/get-nth-frame (prefix-numeric-value arg)))
-            (current-tab-name (alist-get 'name (tab-bar--current-tab))))
-        ;; check whether this tab is the only one in the frame
-        (tab-bar-move-tab-to-frame nil nil nil target-frame nil)
+      (let* ((target-frame (heartman/get-nth-frame (prefix-numeric-value arg)))
+             (target-index (1+ (length (funcall tab-bar-tabs-function target-frame))))
+             (current-tab-name (alist-get 'name (tab-bar--current-tab))))
+
+        ;; check whether this tab is the only one in the frame if so,
+        ;; create a new tab with only a scratch buffer and then move the
+        ;; original tab to its target.
+        (when (= 1 (length (funcall tab-bar-tabs-function)))
+          (tab-bar-new-tab)
+          (switch-to-buffer "*scratch*")
+          (tab-bar-switch-to-recent-tab))
+
+        (tab-bar-move-tab-to-frame nil nil nil target-frame target-index)
+
         ;; after moving the tab, focus the new tab in the target frame
+        (select-frame target-frame)
+        (tab-bar-select-tab-by-name current-tab-name)
+
+        ;; move tab all the way to the right (this should be taken care
+        ;; of above, but there seems to be an error(?) in tab-bar.el
+        ;; that prohibits this.):
+        ;; (to-index (max 0 (min (1- (or to-index 1)) (1- (length to-tabs)))))
+        ;; where the last expression means you can't move a new tab all the way to the right.
+        (tab-bar-move-tab-to target-index)
 
         ;; also make sure to display tabs in the new frame! If I move a
         ;; tab to a frame with only one tab (I hide the tab bar when
         ;; there is a single tab), then the tab bar remains hidden.
-        (tab-bar--update-tab-bar-lines (list target-frame))
-        ))
+        (tab-bar--update-tab-bar-lines (list target-frame))))
 
     (defun heartman/send-tab-to-next-frame ()
       (interactive)
-      (heartman/send-tab-to-frame 1))
+      (heartman/send-tab-to-frame -1))
 
     (defun heartman/send-tab-to-previous-frame ()
       (interactive)
-      (heartman/send-tab-to-frame -1)))
+      (heartman/send-tab-to-frame 1)))
 #+END_SRC
 
 
