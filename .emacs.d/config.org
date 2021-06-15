@@ -3206,6 +3206,8 @@ movement works.
 
 #+BEGIN_SRC emacs-lisp
   (use-package emmet-mode
+    :hook
+    mhtml-mode
     :config
     (setq emmet-expand-jsx-className? t))
 #+END_SRC
