@@ -1705,6 +1705,14 @@ frame, so this function sorts that out:
                           (go (next-frame current-frame) (1- num-steps)))))
           (go source-frame steps))))
 
+    (defvar heartman/new-tab-default-buffer
+      "*scratch*"
+      "The name of the buffer to use when creating a new tab as a
+  fallback.
+
+  This can happen in `heartman/send-tab-to-frame' if the tab you
+  want to move is the only tab in its frame.")
+
     (defun heartman/send-tab-to-frame (arg)
       "Send the current frame the ARGth next frame.
 
@@ -1714,12 +1722,12 @@ frame, so this function sorts that out:
              (target-index (1+ (length (funcall tab-bar-tabs-function target-frame))))
              (current-tab-name (alist-get 'name (tab-bar--current-tab))))
 
-        ;; check whether this tab is the only one in the frame if so,
+        ;; check whether this tab is the only one in the frame. If so,
         ;; create a new tab with only a scratch buffer and then move the
         ;; original tab to its target.
         (when (= 1 (length (funcall tab-bar-tabs-function)))
           (tab-bar-new-tab)
-          (switch-to-buffer "*scratch*")
+          (switch-to-buffer heartman/new-tab-default-buffer)
           (tab-bar-switch-to-recent-tab))
 
         (tab-bar-move-tab-to-frame nil nil nil target-frame target-index)
