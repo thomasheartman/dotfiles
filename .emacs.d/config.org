@@ -1313,14 +1313,22 @@ Turns out that function is based on [[https://gist.github.com/mads-hartmann/3402
 casually copy here.
 #+BEGIN_SRC emacs-lisp
   (defun my-maximize-or-undo-window ()
-    "If there are multiple windows in the frame, maximize the
-    current one. If there is only one window in the current frame,
-    revert to the previous multi-window configuration."
+    "Maximize the current window or revert to a previous window setting.
+
+  If there are multiple windows in the frame, maximize the current
+  one.
+
+  If there is only one window in the current frame, revert to the
+  previous multi-window configuration.
+
+  When reverting, leave the current window's buffer as is."
     (interactive)
     (save-excursion
       (if (and (= 1 (count-windows))
                (assoc ?_ register-alist))
-          (jump-to-register ?_)
+          (let ((window-buffer (current-buffer)))
+            (jump-to-register ?_)
+            (switch-to-buffer window-buffer nil t))
         (progn
           (window-configuration-to-register ?_)
           (delete-other-windows)))))
