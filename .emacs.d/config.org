@@ -3639,7 +3639,7 @@ which I mean:
      Focus follows the window."
        (let ((buffer (current-buffer))
              (window (selected-window)))
-         (if (> 1 (length (window-list)))
+         (if (< 1 (length (window-list)))
              (delete-window)
            (previous-buffer)
            (unrecord-window-buffer window buffer))
