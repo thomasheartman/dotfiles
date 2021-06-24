@@ -47,7 +47,7 @@
     enable = true;
   };
 
-  users.extraUsers.thomas.extraGroups = [ "vboxusers" ];
+  users.extraGroups.vboxusers.members = [ "thomas" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
