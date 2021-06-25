@@ -5920,6 +5920,9 @@ rich-minority enables us to hide all minor modes from the mode line.
 #+END_SRC
 
 * Matrix client
+:PROPERTIES:
+:REPO:     https://github.com/alphapapa/matrix-client.el
+:END:
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package matrix-client
