@@ -5940,3 +5940,15 @@ rich-minority enables us to hide all minor modes from the mode line.
 #+BEGIN_SRC emacs-lisp
   (use-package bluetooth)
 #+END_SRC
+
+* Java
+
+** lsp
+:PROPERTIES:
+:REPO:     https://github.com/emacs-lsp/lsp-java
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-java
+    :hook (java-mode . lsp))
+#+END_SRC
