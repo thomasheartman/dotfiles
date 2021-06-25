@@ -3822,6 +3822,7 @@ issue]].
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
        ([?\s-a ?l] . lexic-search)
        ([?\s-a ?g] . heartman/open-google-meet-link-in-chromium)
+       ([?\s-e ?b] . bluetooth-list-devices)
 
        ([\f9] . multi-term-dedicated-toggle)
 
@@ -5027,7 +5028,8 @@ not for all buffers!
           ;; prevent "c$" and "d$" from deleting blank lines
           (setq evil-this-type 'exclusive))))
 
-    (dolist (mode '(exwm-mode
+    (dolist (mode '(bluetooth-mode
+                    exwm-mode
                     git-timemachine-mode
                     image-dired-display-image-mode
                     image-mode
@@ -5928,4 +5930,13 @@ rich-minority enables us to hide all minor modes from the mode line.
   (use-package matrix-client
     :straight (:host github
                      :repo "alphapapa/matrix-client.el"))
+#+END_SRC
+
+* Bluetooth
+:PROPERTIES:
+:REPO:     https://gitlab.com/rstocker/emacs-bluetooth
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package bluetooth)
 #+END_SRC
