@@ -4267,6 +4267,13 @@ This is my attempt at customizing my mode line from the ground up.
                    (unless (eq major-mode 'exwm-mode)
                      evil-mode-line-tag))
 
+                 '(:eval (let ((remote-info
+                                (file-remote-p (or buffer-file-name default-directory ""))))
+                           (when remote-info
+                             (propertize
+                              remote-info
+                              'face 'font-lock-function-name-face))))
+
                  '(:eval (list
                           (heartman/mode-line-format-buffer-name
                            (propertize  "%b"
