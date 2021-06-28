@@ -4278,8 +4278,12 @@ This is my attempt at customizing my mode line from the ground up.
                             " ")
                           (when (and buffer-read-only (not exwm-class-name))
                             "👁")
-
                           " "))
+
+                 '(:eval (let ((project (projectile-project-name)))
+                           (unless (string= "-" project)
+                             (propertize (format "%s " project)
+                                         'face 'font-lock-constant-face))))
 
                  '(:eval (when-let (vc vc-mode)
                            (list
