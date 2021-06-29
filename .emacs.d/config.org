@@ -4835,7 +4835,23 @@ there is no region, I'll rely on purcell's package:
 #+BEGIN_SRC emacs-lisp
   (use-package whole-line-or-region
     :config
-    (whole-line-or-region-global-mode))
+    (whole-line-or-region-global-mode)
+
+    (defun heartman/comment-whole-line-or-region (prefix)
+      "Override comment-whole-line-or-region.
+
+  The original function doesn't work well with empty lines, so let's change create a wrapper."
+      (interactive "*p")
+      (if (heartman/current-line-empty-p)
+          (progn
+            (message "the line is empty")
+            (funcall-interactively 'comment-dwim prefix))
+        (message "the line is not empty")
+        (funcall-interactively 'whole-line-or-region-comment-dwim-2 prefix)))
+
+    :general
+    ('whole-line-or-region-local-mode-map
+     "M-;" 'heartman/comment-whole-line-or-region))
 #+END_SRC
 
 * ctrlxo
