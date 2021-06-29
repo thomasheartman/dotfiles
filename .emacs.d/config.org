@@ -1765,6 +1765,20 @@ frame, so this function sorts that out:
 #+END_SRC
 
 
+*** Current line empty
+
+Is the current line empty?
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/current-line-empty-p ()
+    "Check whether the current line is empty."
+    (save-excursion
+      (beginning-of-line)
+      (looking-at-p "[[:space:]]*$")))
+
+
+#+END_SRC
+
 ** Custom file
 
 To avoid getting customizations stuck into my init.el, I want to
