@@ -4843,10 +4843,7 @@ there is no region, I'll rely on purcell's package:
   The original function doesn't work well with empty lines, so let's change create a wrapper."
       (interactive "*p")
       (if (heartman/current-line-empty-p)
-          (progn
-            (message "the line is empty")
-            (funcall-interactively 'comment-dwim prefix))
-        (message "the line is not empty")
+          (funcall-interactively 'comment-dwim prefix)
         (funcall-interactively 'whole-line-or-region-comment-dwim-2 prefix)))
 
     :general
