@@ -5849,7 +5849,7 @@ font sizes, so let's just normalize them to be regular height.
 
   (use-package olivetti
     :custom
-    (olivetti-body-width 80)
+    (olivetti-body-width 90)
     :general
     (general-unbind
       'olivetti-mode-map
@@ -5859,6 +5859,7 @@ font sizes, so let's just normalize them to be regular height.
       Info-mode
       help-mode
       Custom-mode
+      Man-mode
       notmuch-show-mode
       notmuch-hello-mode) . olivetti-mode)
     (nxml-mode . (lambda () (olivetti-mode -1)))
