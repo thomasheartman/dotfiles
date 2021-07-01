@@ -78,6 +78,8 @@
 
 **** https://daverupert.com/atom.xml
 
+**** [[https://adrianroselli.com/][Adrian Roselli]]
+
 *** Rust                                                           :dev:rust:
 
 **** https://blog.rust-lang.org/feed.xml
@@ -127,6 +129,8 @@
 *** https://www.nngroup.com/feed/rss/                                    :ux:
 
 *** [[https://www.uio.no/studier/emner/matnat/math/MAT2250/v21/forelesningsvideoer/?vrtx=feed][MAT2250 (UiO)]]                                                       :uio:
+
+*** [[https://www.a11yproject.com/feed/feed.xml][The A11y Project]]
 
 *** [[https://d12frosted.io/atom.xml][d12frosted/Boris Buliga]]                                                  :emacs:
 
