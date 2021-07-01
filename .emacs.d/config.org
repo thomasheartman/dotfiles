@@ -3358,23 +3358,35 @@ movement works.
 
   Created as a variable to let me detect already-running
   processes.")
-    (defun fetch-mail-poll-and-refresh ()
-      "Pull new mail from the server and update the current buffer."
-      (interactive)
-      (when
-          (seq-some
-           (lambda (p)
-             (string-match-p
-              (format "%s-.+" heartman/fetch-mail-process-prefix)
-              (process-name p)))
-           (process-list))
+
+
+    (defun heartman/fetch-mail-in-progress ()
+      "Check whether there is a mail fetch currently in progress."
+      (seq-some
+       (lambda (p)
+         (string-match-p
+          (format "%s-.+" heartman/fetch-mail-process-prefix)
+          (process-name p)))
+       (process-list)))
+
+    (defun heartman/fetch-mail ()
+      "Pull new mail from the server"
+      (when (heartman/fetch-mail-in-progress)
         (user-error "A mail poll is already in progress"))
-      (notmuch-refresh-this-buffer)
-      (message "Fetching new mail from the server.")
       (let ((accounts
              <<notmuch-get-account-names>>))
         (dolist (account accounts)
           <<notmuch-fetch-mail>>)))
+
+    (run-with-timer 0 120 #'heartman/fetch-mail)
+
+
+    (defun fetch-mail-poll-and-refresh ()
+      "Pull new mail from the server and update the current buffer."
+      (interactive)
+      (notmuch-refresh-this-buffer)
+      (message "Fetching new mail from the server.")
+      (heartman/fetch-mail))
     :config
     (setq message-send-mail-function 'message-send-mail-with-sendmail
           notmuch-fcc-dirs "sent +sent -unread -inbox")
