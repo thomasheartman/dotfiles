@@ -3456,7 +3456,7 @@ accounts. Also, to speed it up, we'll only run quick syncs.
     (format "*OFFLINEIMAP-QUICK-SYNC-%s" account)
     "offlineimap" "-o" "-q" "-a" account)
    (lambda (p e) (when (= 0 (process-exit-status p))
-                   (notmuch-poll-and-refresh-this-buffer))))
+                   (notmuch-poll))))
 #+END_SRC
 
 ** gnus-alias
