@@ -1909,18 +1909,24 @@ dialogs show up. This setup is based on [[https://www.reddit.com/r/emacs/comment
 #+END_SRC
 
 * Flycheck
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-07-01 Thu 09:10]
+- State "TODO"       from              [2021-07-01 Thu 08:56] \\
+  Activate flycheck in text-mode and prog-mode buffers; not globally.
+:END:
 
 Let's activate flycheck mode pretty much everywhere. Also, let's
 change the prefix to something that's easier to remember (type) than
 ~C-c !~.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :config (global-flycheck-mode)
+    :hook
+    ((prog-mode text-mode) . flycheck-mode)
+    :config
     (define-key flycheck-mode-map flycheck-keymap-prefix nil)
     (setq flycheck-keymap-prefix (kbd my-flycheck-prefix))
     (define-key flycheck-mode-map flycheck-keymap-prefix
-      flycheck-command-map)
-    )
+      flycheck-command-map))
 #+END_SRC
 
 * TODO Company                                                   :keybinding:
