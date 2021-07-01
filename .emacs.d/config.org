@@ -5358,6 +5358,23 @@ other recommended packages that'll make improve it.
     (setq consult-narrow-key "<"
           consult-project-root-function #'projectile-project-root
           consult-config `((consult-buffer :preview-key nil)))
+
+    (defun heartman/all-exwm-buffers ()
+      (seq-filter
+       (lambda (buffer)
+         (eq 'exwm-mode (buffer-local-value 'major-mode buffer)))
+       (buffer-list)))
+
+    (defvar exwm-buffer-source
+      `(:name "EXWM"
+              :hidden t
+              :narrow ?x
+              :category buffer
+              :state ,#'consult--buffer-state
+              :items ,(lambda () (mapcar #'buffer-name (heartman/all-exwm-buffers)))))
+
+    (add-to-list 'consult-buffer-sources 'exwm-buffer-source 'append)
+
     (defun consult-buffer-state-no-x ()
       "Buffer state function that doesn't preview X buffers."
       (let* ((orig-state (consult--buffer-state))
