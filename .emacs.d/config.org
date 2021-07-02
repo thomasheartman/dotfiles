@@ -3390,7 +3390,10 @@ movement works.
         (dolist (account accounts)
           <<notmuch-fetch-mail>>)))
 
-    (run-with-timer 0 120 #'heartman/fetch-mail)
+    (unless (boundp 'heartman/timer-mail-poll)
+      (defvar heartman/timer-mail-poll
+        (run-with-timer 0 120 #'heartman/fetch-mail))
+      "Timer to fetch mail from the server every so often.")
 
 
     (defun fetch-mail-poll-and-refresh ()
