@@ -3359,15 +3359,27 @@ movement works.
   Created as a variable to let me detect already-running
   processes.")
 
+    (defun heartman/process-is-mail-fetch (p)
+      "Check whether P is a mail fetch process."
+      (string-match-p
+       (format "%s-.+" heartman/fetch-mail-process-prefix)
+       (process-name p)))
+
+    (defun heartman/stop-mail-polls-in-progress ()
+      "Stop current mail poll processes."
+      (interactive)
+      (mapc (lambda (p) (delete-process p))
+            (seq-filter
+             #'heartman/process-is-mail-fetch
+             (process-list))))
+
 
     (defun heartman/fetch-mail-in-progress ()
       "Check whether there is a mail fetch currently in progress."
       (seq-some
-       (lambda (p)
-         (string-match-p
-          (format "%s-.+" heartman/fetch-mail-process-prefix)
-          (process-name p)))
+       #'heartman/process-is-mail-fetch
        (process-list)))
+
 
     (defun heartman/fetch-mail ()
       "Pull new mail from the server"
