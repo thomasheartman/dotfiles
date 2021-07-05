@@ -237,7 +237,7 @@ in
   services.picom = {
     enable = true;
     shadow = true;
-    shadowOpacity = "0.1";
+    shadowExclude = [ "!focused" ];
   };
 
   home.file.".config/proselint/config".text = ''
