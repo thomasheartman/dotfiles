@@ -231,7 +231,12 @@ high-contrast themes and come bundled with emacs.
   (use-package emacs
     :custom
     (modus-themes-slanted-constructs t)
-    (modus-themes-region 'bg-only))
+    (modus-themes-region 'bg-only)
+    (modus-themes-bold-constructs t)
+    (modus-themes-hl-line 'accented-background)
+    (modus-themes-mode-line 'borderless-moody)
+    (modus-themes-org-blocks 'gray-background)
+    (modus-themes-variable-pitch-headings t))
 #+END_SRC
 
 **** Loading a theme
