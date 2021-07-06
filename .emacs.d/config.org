@@ -4885,7 +4885,7 @@ there is no region, I'll rely on purcell's package:
   consisting solely of whitespace), it'll call `comment-dwim'.
 
   At the time of writing, the `whole-line-or-region-comment-dwim-2'
-  doesn't work handle empty lines well, which is why this wrapper
+  doesn't handle empty lines well, which is why this wrapper
   is necessary."
       (interactive "*p")
       (if (heartman/current-line-empty-p)
