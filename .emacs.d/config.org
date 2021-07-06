@@ -2259,7 +2259,7 @@ sure to only initialize after said mode.
 #+begin_src emacs-lisp
   (use-package nix-mode
     :after json-mode
-    :mode "\\.nix\\'"
+    :hook (nix-mode . lsp)
     :general
     (general-def
       :keymaps 'nix-mode-map
