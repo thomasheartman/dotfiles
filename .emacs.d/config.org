@@ -3392,7 +3392,9 @@ movement works.
 
     (unless (boundp 'heartman/timer-mail-poll)
       (defvar heartman/timer-mail-poll
-        (run-with-timer 30 120 #'heartman/fetch-mail))
+        (progn
+          (require 'notmuch-lib)
+          (run-with-timer 0 120 #'heartman/fetch-mail)))
       "Timer to fetch mail from the server every so often.")
 
 
