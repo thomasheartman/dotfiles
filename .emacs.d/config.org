@@ -4878,7 +4878,15 @@ there is no region, I'll rely on purcell's package:
     (defun heartman/comment-whole-line-or-region (prefix)
       "Override comment-whole-line-or-region.
 
-  The original function doesn't work well with empty lines, so let's change create a wrapper."
+  This is a wrapper function around
+  `whole-line-or-region-comment-dwim-2'. It will comment out a line
+  if it contains non-whitespace characters (using
+  `whole-line-or-region-comment-dwim-2'). If the line is empty (or
+  consisting solely of whitespace), it'll call `comment-dwim'.
+
+  At the time of writing, the `whole-line-or-region-comment-dwim-2'
+  doesn't work handle empty lines well, which is why this wrapper
+  is necessary."
       (interactive "*p")
       (if (heartman/current-line-empty-p)
           (funcall-interactively 'comment-dwim prefix)
