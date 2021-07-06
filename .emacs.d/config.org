@@ -236,6 +236,7 @@ high-contrast themes and come bundled with emacs.
     (modus-themes-hl-line 'accented-background)
     (modus-themes-mode-line 'borderless-moody)
     (modus-themes-org-blocks 'gray-background)
+    (modus-themes-scale-headings t)
     (modus-themes-variable-pitch-headings t))
 #+END_SRC
 
