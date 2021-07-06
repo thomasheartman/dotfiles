@@ -4884,7 +4884,7 @@ there is no region, I'll rely on purcell's package:
   `whole-line-or-region-comment-dwim-2'). If the line is empty (or
   consisting solely of whitespace), it'll call `comment-dwim'.
 
-  At the time of writing, the `whole-line-or-region-comment-dwim-2'
+  At the time of writing, `whole-line-or-region-comment-dwim-2'
   doesn't handle empty lines well, which is why this wrapper
   is necessary."
       (interactive "*p")
