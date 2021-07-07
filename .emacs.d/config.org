@@ -5743,49 +5743,46 @@ Adoc-mode requires the markup-faces package, so let's install that too.
   (use-package markup-faces)
 #+END_SRC
 
-Additionally: the markup-faces package includes some pretty massive
-font sizes, so let's just normalize them to be regular height.
-
 #+BEGIN_SRC emacs-lisp
   (defun heartman/open-file-in-browser (open-in-new-window)
-    "Open the current file in your preferred web browser.
+     "Open the current file in your preferred web browser.
 
-  If the buffer is visiting a directory or something else that is
-  not a file, open `default-directory' instead."
-    (interactive "P")
-    (let* ((file (buffer-file-name))
-           (target (if (and file (f-file-p file))
-                       file
-                     default-directory))
-           (window (if open-in-new-window
-                       (funcall split-window-preferred-function)
-                     (selected-window))))
-      (select-window window)
-      (browse-url target)))
+   If the buffer is visiting a directory or something else that is
+   not a file, open `default-directory' instead."
+     (interactive "P")
+     (let* ((file (buffer-file-name))
+            (target (if (and file (f-file-p file))
+                        file
+                      default-directory))
+            (window (if open-in-new-window
+                        (funcall split-window-preferred-function)
+                      (selected-window))))
+       (select-window window)
+       (browse-url target)))
 
-  (defun heartman/toggle-adoc-source-note ()
-    "Add or remove an adoc comment to the end of the current line."
-    (interactive)
-    (let ((comment "<--.-->"))
-      (save-excursion
-        (end-of-line)
-        (if (looking-back "<--\.--> *")
-            (progn
-              (while (not (looking-at "<"))
-                (backward-char))
-              (delete-char (length comment)))
-          (insert (format " %s" comment))))))
+   (defun heartman/toggle-adoc-source-note ()
+     "Add or remove an adoc comment to the end of the current line."
+     (interactive)
+     (let ((comment "<--.-->"))
+       (save-excursion
+         (end-of-line)
+         (if (looking-back "<--\.--> *")
+             (progn
+               (while (not (looking-at "<"))
+                 (backward-char))
+               (delete-char (length comment)))
+           (insert (format " %s" comment))))))
 
-  (use-package adoc-mode
-    :after markup-faces
-    :general
-    (adoc-mode-map
-     "C-c C-s" 'heartman/open-file-in-browser
-     "C-c C-c" 'heartman/toggle-adoc-source-note)
-    :hook
-    (adoc-mode . (lambda () (auto-fill-mode -1)))
-    (adoc-mode . writegood-mode)
-    :mode "\\.adoc\\'")
+   (use-package adoc-mode
+     :after markup-faces
+     :general
+     (adoc-mode-map
+      "C-c C-s" 'heartman/open-file-in-browser
+      "C-c C-c" 'heartman/toggle-adoc-source-note)
+     :hook
+     (adoc-mode . (lambda () (auto-fill-mode -1)))
+     (adoc-mode . writegood-mode)
+     :mode "\\.adoc\\'")
 #+END_SRC
 
 * asciidoc
