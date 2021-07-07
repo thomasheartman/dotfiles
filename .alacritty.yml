@@ -179,7 +179,7 @@ themes:
       cursor:     '#202c3d'
     selection:
       text:       CellForeground
-      background: '#202c3d' # syntax-selection-color
+      background: '#39304f'
     normal:
       black:      '#202c3d'
       red:        '#fe6f70'
@@ -189,6 +189,15 @@ themes:
       magenta:    '#d285ad'
       cyan:       '#3dae9f'
       white:      '#949cbf'
+    bright:
+      black:      '#39304f'
+      red:        '#ec7f4f'
+      green:      '#5baf4f'
+      yellow:     '#be981f'
+      blue:       '#8599ef'
+      magenta:    '#cc82d7'
+      cyan:       '#2aacbf'
+      white:      '#a0abae'
 
 
   tempus totus: &tempus-totus
