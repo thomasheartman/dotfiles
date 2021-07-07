@@ -5785,10 +5785,6 @@ font sizes, so let's just normalize them to be regular height.
     :hook
     (adoc-mode . (lambda () (auto-fill-mode -1)))
     (adoc-mode . writegood-mode)
-    :init
-    (dolist (i (number-sequence 0 5))
-      (set-face-attribute
-       (intern (format "markup-title-%d-face" i))	nil :height 1.0))
     :mode "\\.adoc\\'")
 #+END_SRC
 
