@@ -226,7 +226,7 @@ in
     (
       writeScriptBin "emq" ''
         #!${stdenv.shell}
-        ${config.programs.emacs.package}/bin/emacs -Q -l ~/.emacs.d/straight/repos/straight.el/bootstrap.el
+        ${config.programs.emacs.package}/bin/emacs -Q -l ~/.emacs.d/straight/repos/straight.el/bootstrap.el $@
       ''
     )
 
