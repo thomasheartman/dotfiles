@@ -150,9 +150,68 @@ themes:
         cyan: '#95E6CB'
         white: '#FFFFFF'
 
+  tempus tempest: &tempus-tempest
+    primary:
+      background: '#282b2b'
+      foreground: '#b6e0ca'
+    cursor:
+      text:       CellBackground
+      cursor:     '#282b2b'
+    selection:
+      text:       CellForeground
+      background: '#282b2b' # syntax-selection-color
+    normal:
+      black:      '#282b2b'
+      red:        '#cfc80a'
+      green:      '#7ad97a'
+      yellow:     '#bfcc4a'
+      blue:       '#60d7cd'
+      magenta:    '#c5c4af'
+      cyan:       '#8bd0bf'
+      white:      '#b0c8ca'
+
+  tempus summer: &tempus-summer
+    primary:
+      background: '#202c3d'
+      foreground: '#a0abae'
+    cursor:
+      text:       CellBackground
+      cursor:     '#202c3d'
+    selection:
+      text:       CellForeground
+      background: '#202c3d' # syntax-selection-color
+    normal:
+      black:      '#202c3d'
+      red:        '#fe6f70'
+      green:      '#4eb075'
+      yellow:     '#ba9a0a'
+      blue:       '#60a1e6'
+      magenta:    '#d285ad'
+      cyan:       '#3dae9f'
+      white:      '#949cbf'
 
 
-colors: *one-dark
+  tempus totus: &tempus-totus
+    primary:
+      background: '#ffffff'
+      foreground: '#4a484d'
+    cursor:
+      text:       CellBackground
+      cursor:     '#ffffff'
+    selection:
+      text:       CellForeground
+      background: '#efefef'
+    normal:
+      black:      '#4a484d'
+      red:        '#a50000'
+      green:      '#005d26'
+      yellow:     '#714700'
+      blue:       '#1d3ccf'
+      magenta:    '#88267a'
+      cyan:       '#185570'
+      white:      '#efefef'
+
+colors: *tempus-summer
 
 # Visual Bell
 #
