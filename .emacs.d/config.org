@@ -34,7 +34,7 @@ can disable showing them immediately. They will still show up in the
 #+BEGIN_SRC emacs-lisp
   (use-package emacs
     :custom
-    (warning-suppress-types '((use-package) (:warning))))
+    (warning-suppress-types '((comp) (use-package) (:warning))))
 #+END_SRC
 
 
