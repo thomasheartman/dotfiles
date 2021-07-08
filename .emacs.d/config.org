@@ -25,6 +25,18 @@ following snippet:
   (debug-on-variable-change 'ido-mode)
 #+END_SRC
 
+* Suppress warnings
+
+Because some warnings give a lot of annoying pop-ups on startup, we
+can disable showing them immediately. They will still show up in the
+~*Warnings*~ buffer, they will just not be show automatically.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (warning-suppress-types '((use-package) (:warning))))
+#+END_SRC
+
 
 * Package setup
 
