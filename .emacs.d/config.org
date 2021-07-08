@@ -5752,7 +5752,8 @@ in the clipboard.
 Adoc-mode requires the markup-faces package, so let's install that too.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package markup-faces)
+  (straight-use-package
+   `(markup-faces :type git :host github :repo "thomasheartman/markup-faces"))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
