@@ -3880,16 +3880,22 @@ issue]].
        ([?\s-l] . my-exwm-next-workspace-by-index)
        ([?\s-h] . my-exwm-previous-workspace-by-index)
 
+       ;;applications
        ([?\s-a ?m] . notmuch)
        ([?\s-a ?f] . elfeed)
        ([?\s-a ?r] . ranger)
        ([?\s-a ?b] . browse-url)
+       ([?\s-a ?l] . lexic-search)
+       ([?\s-a ?g] . heartman/open-google-meet-link-in-chromium)
+
+       ;;org
        ([?\s-o ?a] . org-agenda)
        ([?\s-o ?c] . org-capture)
        ([?\s-o ?r] . helm-org-rifle-agenda-files)
-       ([?\s-a ?l] . lexic-search)
-       ([?\s-a ?g] . heartman/open-google-meet-link-in-chromium)
+
+       ;;extra
        ([?\s-e ?b] . bluetooth-list-devices)
+       ([?\s-e ?d] . toggle-debug-on-error)
 
        ([\f9] . multi-term-dedicated-toggle)
 
