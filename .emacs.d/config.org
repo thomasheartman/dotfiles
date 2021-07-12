@@ -895,6 +895,30 @@ I'm experimenting with using ~C-u~ for scrolling up and down (taken from Vim), a
     "s-u" 'universal-argument-more)
 #+END_SRC
 
+**** Eval and replace
+
+Based on [[https://emacsredux.com/blog/2013/06/21/eval-and-replace/][this blog post by Bozhidar Batsov]], we can write a function to
+replace the preceding elisp expression by the result of evaluating it.
+If the expression is invalid, leave the expression as is.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/eval-and-replace ()
+    "Replace the preceding sexp with its value.
+
+  If the sexp is invalid, leave it as is."
+    (interactive)
+    (backward-kill-sexp)
+    (condition-case nil
+        (prin1 (eval (read (current-kill 0)))
+               (current-buffer))
+      (error (message "Invalid expression")
+             (insert (current-kill 0)))))
+
+  (general-def
+    "C-x C-r" 'heartman/eval-and-replace)
+#+END_SRC
+
+
 *** Remove advice
 
 Sometimes, working with advice can be hard and removing one isn't
