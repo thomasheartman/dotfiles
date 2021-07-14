@@ -104,9 +104,6 @@ in
     mailBoxName = gheart;
     address = "thomasheartman@gmail.com";
   };
-  home.file.".signatures/signature.${gheart}".text = ''
-    Thomas Heartman (he/him)
-  '';
 
   accounts.email.accounts.${enonicMail} = mailConfig {
     mailBoxName = enonicMail;
@@ -118,6 +115,8 @@ in
     Developer advocate
     Enonic (https://enonic.com)
   '';
+
+  home.file.".signatures/signature.simple".source = ~/dotfiles/email/signatures/simple;
 
   accounts.email.accounts."thomasheartman" =
     let

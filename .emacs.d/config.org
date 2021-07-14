@@ -3535,23 +3535,48 @@ easier, we can use gnus-alias.
 #+BEGIN_SRC emacs-lisp
   (use-package gnus-alias
     :config
-    (setq gnus-alias-identity-alist
-          '(("gheart"
-             nil
-             "Thomas Heartman <thomasheartman@gmail.com>"
-             nil
-             nil
-             nil
-             "~/.signatures/signature.gheart")
+    (defvar heartman/gnus-aliases
+      '(("thomasheartman@gmail.com" "~/.signatures/signature.simple" "gheart")
+        ("the@enonic.com" "~/.signatures/signature.enonic" "enonic")
+        ("thomas@thomasheartman.com" "~/.signatures/signature.simple")
+        ("contact@thomasheartman.com" "~/.signatures/signature.simple")
+        ("self@thomasheartman.com" "~/.signatures/signature.simple")))
+
+    (defun heartman/create-gnus-alias (address signature &optional name)
+      "Create a gnus alias identity from address and signature.
+
+  Use NAME as the alias's name if it is not nil. Otherwise, use ADDRESS."
+      `(,(or name address)
+        nil
+        ,(format "Thomas Heartman <%s>" address)
+        nil
+        nil
+        nil
+        ,signature))
+
+
+    (setq gnus-alias-identity-alist (seq-map
+                                     (lambda (args)
+                                       (apply #'heartman/create-gnus-alias args))
+                                     heartman/gnus-aliases)
+
+          gnus-alias-default-identity "thomas@thomasheartman.com"
+          gnus-alias-identity-rules
+          '(("contact@thomasheartman.com"
+             ("From" "contact@thomasheartman.com" both)
+             "contact@thomasheartman.com")
+
+            ("self@thomasheartman.com"
+             ("From" "self@thomasheartman.com" both)
+             "self@thomasheartman.com")
+
+            ("thomas@thomasheartman.com"
+             ("From" "@thomasheartman.com" both)
+             "thomas@thomasheartman.com")
+
             ("enonic"
-             nil
-             "Thomas Heartman <the@enonic.com>"
-             nil
-             nil
-             nil
-             "~/.signatures/signature.enonic"))
-          gnus-alias-default-identity "gheart"
-          gnus-alias-identity-rules '(("enonic" ("From" "the@enonic.com" both) "enonic")))
+             ("From" "the@enonic.com" both)
+             "enonic")))
 
     :hook
     (message-setup . gnus-alias-determine-identity))
