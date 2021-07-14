@@ -2114,6 +2114,15 @@ let's also use Forge.
                 ("C-c M-w" . forge-copy-url-at-point-as-kill)))
 #+END_SRC
 
+ssh-agency smooths out the workflow with adding SSH keys for Magit,
+storing the key once you enter it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ssh-agency
+    :after magit)
+#+END_SRC
+
+
 * Git-modes
 :PROPERTIES:
 :REPO:     https://github.com/magit/git-modes
