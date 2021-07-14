@@ -122,7 +122,7 @@ in
     let
       mailBoxName = "thomasheartman.com";
       primary = false;
-      address = "self@thomasheartman.com";
+      address = "thomas@thomasheartman.com";
       passwordName = "mail@thomasheartman.com";
     in
       {
@@ -166,11 +166,15 @@ in
         };
       };
 
+  # note: this is how you set up aliases for sending (along with the
+  # appropriate config for gnus-aliases). Because it's the same inbox
+  # as the one listed above, we don't need to set up more offlineimap
+  # stuff or use a different log file.
   accounts.email.accounts."thomas@thomasheartman" =
     let
       mailBoxName = "thomasheartman.com";
       primary = false;
-      address = "thomas@thomasheartman.com";
+      address = "self@thomasheartman.com";
       passwordName = "mail@thomasheartman.com";
     in
       {
@@ -181,13 +185,14 @@ in
 
         smtp.tls.useStartTls = true;
 
+        notmuch.enable = true; # enables this as a sender in notmuch
         msmtp = {
           enable = true;
           extraConfig = {
             host = "smtppro.zoho.eu";
             port = "587";
-            from = "thomas@thomasheartman.com";
-            user = "thomas@thomasheartman.com";
+            from = address;
+            user = address;
             passwordeval = ''fish -c "bw get password ${passwordName}"'';
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
