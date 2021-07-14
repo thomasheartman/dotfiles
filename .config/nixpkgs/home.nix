@@ -81,7 +81,7 @@ in
   programs.offlineimap = {
     enable = true;
     extraConfig.general = {
-      accounts = "gheart, enonic";
+      accounts = "gheart, enonic, thomasheartman";
       autorefresh = "5";
     };
     pythonFile = ''
@@ -118,6 +118,82 @@ in
     Developer advocate
     Enonic (https://enonic.com)
   '';
+
+  accounts.email.accounts."thomasheartman" =
+    let
+      mailBoxName = "thomasheartman.com";
+      primary = false;
+      address = "self@thomasheartman.com";
+      passwordName = "mail@thomasheartman.com";
+    in
+      {
+
+        realName = "Thomas Heartman";
+        primary = primary;
+        address = address;
+
+        smtp.tls.useStartTls = true;
+        imap.tls.useStartTls = true;
+        imap.host = "imappro.zoho.eu";
+
+        notmuch.enable = true;
+
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            host = "smtppro.zoho.eu";
+            port = "587";
+            from = address;
+            user = address;
+            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            logfile = "~/.msmtp.${mailBoxName}.log";
+          };
+        };
+
+        offlineimap = {
+          enable = true;
+          extraConfig = {
+            local = {
+              type = "Maildir";
+              localfolders = "~/mail/${mailBoxName} ";
+            };
+            remote = {
+              type = "IMAP";
+              remotehost = "imappro.zoho.eu";
+              remoteuser = address;
+              remotepasseval = ''mailpasswd("${passwordName}")'';
+            };
+          };
+        };
+      };
+
+  accounts.email.accounts."thomas@thomasheartman" =
+    let
+      mailBoxName = "thomasheartman.com";
+      primary = false;
+      address = "thomas@thomasheartman.com";
+      passwordName = "mail@thomasheartman.com";
+    in
+      {
+
+        realName = "Thomas Heartman";
+        primary = primary;
+        address = address;
+
+        smtp.tls.useStartTls = true;
+
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            host = "smtppro.zoho.eu";
+            port = "587";
+            from = "thomas@thomasheartman.com";
+            user = "thomas@thomasheartman.com";
+            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            logfile = "~/.msmtp.${mailBoxName}.log";
+          };
+        };
+      };
 
   xsession = {
     enable = true;
