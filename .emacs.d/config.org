@@ -3400,7 +3400,13 @@ movement works.
               :key "e")
        (:name "enonic (unread)"
               :query "to:@enonic.com AND tag:unread"
-              :key "E")))
+              :key "E")
+       (:name "thomasheartman.com"
+              :query "to:@thomasheartman.com"
+              :key "t")
+       (:name "thomasheartman.com (unread)"
+              :query "to:@thomasheartman.com AND tag:unread"
+              :key "T")))
     :init
 
     (defvar heartman/fetch-mail-process-prefix
