@@ -3947,6 +3947,7 @@ issue]].
        ;;applications
        ([?\s-a ?m ?m] . notmuch)
        ([?\s-a ?m ?j] . notmuch-jump-search)
+       ([?\s-a ?m ?s] . notmuch-search)
        ([?\s-a ?m ?n] . notmuch-mua-new-mail)
        ([?\s-a ?f] . elfeed)
        ([?\s-a ?r] . ranger)
