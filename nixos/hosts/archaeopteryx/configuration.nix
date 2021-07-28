@@ -5,10 +5,6 @@
 
   boot.kernelParams = [ "acpi_rev_override" ];
 
-  environment.systemPackages = with pkgs; [
-    dropbox-cli
-  ];
-
   services.xserver = {
     useGlamor = true;
 
