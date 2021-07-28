@@ -1821,6 +1821,15 @@ Is the current line empty?
 
 #+END_SRC
 
+*** Movement                                                   :keybinding:
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    "<home>" 'beginning-of-buffer
+    "<end>" 'end-of-buffer)
+#+END_SRC
+
+
 ** Custom file
 
 To avoid getting customizations stuck into my init.el, I want to
