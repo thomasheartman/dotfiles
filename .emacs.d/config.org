@@ -3529,17 +3529,20 @@ First, we'll need to find out what accounts there are:
 #+END_SRC
 
 Next, we'll want to create a sentinel for fetching each of the
-accounts. Also, to speed it up, we'll only run quick syncs.
+accounts. To speed it up, we'll only run quick syncs. We set the
+default directory to ~~/~ because ~start-process~ runs in the default
+directory, and if that directory does not exist, the sync fails.
 
 #+name: notmuch-fetch-mail
 #+BEGIN_SRC emacs-lisp :var account="notmuch-account"
-  (set-process-sentinel
-   (start-process
-    (format "%s-%s" heartman/fetch-mail-process-prefix account)
-    (format "*OFFLINEIMAP-QUICK-SYNC-%s" account)
-    "offlineimap" "-o" "-q" "-a" account)
-   (lambda (p e) (when (= 0 (process-exit-status p))
-                   (notmuch-poll))))
+  (let ((default-directory "~/"))
+    (set-process-sentinel
+     (start-process
+      (format "%s-%s" heartman/fetch-mail-process-prefix account)
+      (format "*OFFLINEIMAP-QUICK-SYNC-%s" account)
+      "offlineimap" "-o" "-q" "-a" account)
+     (lambda (p e) (when (= 0 (process-exit-status p))
+                     (notmuch-poll)))))
 #+END_SRC
 
 ** gnus-alias
