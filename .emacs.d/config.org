@@ -4356,12 +4356,13 @@ This is my attempt at customizing my mode line from the ground up.
   (defvar heartman/mode-line-flycheck-separator "/"
     "The separator to use between flycheck notifications.")
 
-  (defun heartman/mode-line-format-buffer-name (name)
+  (defun heartman/mode-line-format-buffer-name (mode-line-format)
     "Format the buffer name for display"
-    (let ((new-name (if (and (stringp exwm-class-name)
-                             (string= "Firefox" exwm-class-name))
-                        (format "🦊 %s" (string-remove-suffix "— Mozilla Firefox" name))
-                      name)))
+    (let* ((name (format-mode-line mode-line-format))
+           (new-name (if (and (stringp exwm-class-name)
+                              (string= "Firefox" exwm-class-name))
+                         (format "🦊 %s" (string-remove-suffix " — Mozilla Firefox" name))
+                       name)))
       (truncate-string-to-width
        new-name
        heartman/mode-line-buffer-max-length
