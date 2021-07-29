@@ -3401,8 +3401,8 @@ movement works.
        notmuch-hello-insert-alltags
        notmuch-hello-insert-footer))
     (notmuch-saved-searches
-     '((:name "inbox" :query "tag:inbox" :key "i")
-       (:name "unread" :query "tag:unread" :key "u")
+     `((:name "inbox" :query "tag:inbox" :key "i")
+       (:name "unread" :query ,heartman/notmuch-unread-mail-query :key "u")
        (:name "flagged" :query "tag:flagged" :key "f")
        (:name "sent" :query "tag:sent" :key "s")
        (:name "drafts" :query "tag:draft" :key "d")
@@ -3426,6 +3426,10 @@ movement works.
               :query "to:@thomasheartman.com AND tag:unread"
               :key "T")))
     :init
+
+    (defvar heartman/notmuch-unread-mail-query
+      "tag:unread -is:draft -is:sent"
+      "The query to list unread mail")
 
     (defvar heartman/fetch-mail-process-prefix
       "heartman-fetch-mail"
@@ -4490,7 +4494,7 @@ This is my attempt at customizing my mode line from the ground up.
                    (when-let ((_ (require 'notmuch nil t))
                               (results
                                (notmuch-hello-query-counts
-                                '((:name "unread" :query "tag:unread"))))
+                                `((:name "unread" :query ,heartman/notmuch-unread-mail-query))))
                               (count (plist-get (car results) ':count)))
                      (format " 📬 (%d)" count)))
 
