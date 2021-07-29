@@ -919,6 +919,15 @@ If the expression is invalid, leave the expression as is.
 #+END_SRC
 
 
+**** Em- and en-dashes
+
+#+BEGIN_SRC emacs-lisp
+  (cl-flet ((ins (c) (lambda () (interactive) (insert c))))
+    (general-def
+      "C-S-<kp-subtract>" (ins ?–)
+      "S-<kp-subtract>" (ins ?—)))
+#+END_SRC
+
 *** Remove advice
 
 Sometimes, working with advice can be hard and removing one isn't
