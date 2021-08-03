@@ -3972,6 +3972,7 @@ issue]].
        ;;extra
        ([?\s-e ?b] . bluetooth-list-devices)
        ([?\s-e ?d] . toggle-debug-on-error)
+       ([?\s-e ?g] . heartman/git-clone-clipboard-url)
 
        ([\f9] . multi-term-dedicated-toggle)
 
