@@ -1,11 +1,13 @@
 .emacs.d/*cache
 .emacs.d/.dap-breakpoints
+.emacs.d/.lsp-eslint-choices
 .emacs.d/.lsp-session*
 .emacs.d/.mc-lists.el
 .emacs.d/.org-id-locations
 .emacs.d/auto-save-list
 .emacs.d/bookmarks
 .emacs.d/config.el
+.emacs.d/eclipse.jdt.ls
 .emacs.d/forge-database.sqlite
 .emacs.d/image-dired
 .emacs.d/projectile-*
@@ -17,6 +19,7 @@
 .emacs.d/transient
 .emacs.d/url
 .emacs.d/var
+.emacs.d/workspace
 
 .config/*
 !.config/fish
