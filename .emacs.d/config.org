@@ -1570,13 +1570,11 @@ them.
 #+BEGIN_SRC emacs-lisp
   (defun split-window-right-and-focus ()
     (interactive)
-    (split-window-right)
-    (windmove-right))
+    (select-window (split-window-right)))
 
   (defun split-window-below-and-focus ()
     (interactive)
-    (split-window-below)
-    (windmove-down))
+    (select-window (split-window-below)))
 
   (global-set-key (kbd "C-x |") 'split-window-right-and-focus)
   (global-set-key (kbd "C-x -") 'split-window-below-and-focus)
