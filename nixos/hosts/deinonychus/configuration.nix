@@ -51,6 +51,7 @@
 
   networking.extraHosts = ''
     127.0.0.1 xp-api.com
+    127.0.0.1 xp-site.com
     127.0.0.1 xp-admin.com
   '';
 
