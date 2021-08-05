@@ -4147,7 +4147,9 @@ issue]].
           (with-selected-window window (switch-to-buffer buffer))
           new-window)))
 
-    (advice-add 'split-window :around #'heartman/split-window-exwm-advice)
+    (dolist (f '(split-window-below-and-focus
+                 split-window-right-and-focus))
+      (advice-add f :around #'heartman/split-window-exwm-advice))
     :hook
     (exwm-mode . (lambda ()
                    (display-line-numbers-mode -1)))
