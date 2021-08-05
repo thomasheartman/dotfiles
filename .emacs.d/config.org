@@ -4131,6 +4131,23 @@ issue]].
     (advice-add 'posframe--set-frame-position :before
                 (lambda (&rest args)
                   (setq-local posframe--last-posframe-pixel-position nil)))
+
+    ;; when splitting windows, move the EXWM buffer back to the original window
+    ;;
+    ;; Emacs selects the current buffer to the new window when you split
+    ;; it, which means that if X windows get moved (because they can
+    ;; only exist in one window at a time). To get around this, select
+    ;; the previous buffer if the current window has an X buffer in it.
+    (defun heartman/split-window-exwm-advice (oldfun &rest args)
+      (let* ((window (or (car args) (selected-window)))
+             (buffer (window-buffer window)))
+        (when (eq major-mode 'exwm-mode)
+          (previous-buffer))
+        (let ((new-window (apply oldfun args)))
+          (with-selected-window window (switch-to-buffer buffer))
+          new-window)))
+
+    (advice-add 'split-window :around #'heartman/split-window-exwm-advice)
     :hook
     (exwm-mode . (lambda ()
                    (display-line-numbers-mode -1)))
