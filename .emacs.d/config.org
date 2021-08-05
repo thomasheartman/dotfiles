@@ -1026,7 +1026,7 @@ In short, here's what I'd like to happen.
      (defun heartman/split-largest-window ()
        "Split the largest window in the current frame.
 
-     Splits the window along it's longest axis (bottom or right)."
+     Splits the largest window along it's longest axis (bottom or right) and returns the new window."
        (interactive)
        (cl-flet ((split-window-f (window width height)
                                  (let ((side (if (> height width)
@@ -1049,8 +1049,7 @@ In short, here's what I'd like to happen.
            (split-window-f
             (plist-get largest-window 'window)
             (plist-get largest-window 'width)
-            (plist-get largest-window 'height))
-           (balance-windows))))
+            (plist-get largest-window 'height)))))
    #+END_SRC
 
 
@@ -4041,9 +4040,11 @@ issue]].
           exwm-workspace-show-all-buffers t
           exwm-layout-show-all-buffers t)
 
-    (defun my-exwm-launcher (command)
+    (defun my-exwm-launcher (command new-window)
       "A super-simple launcher"
-      (interactive (list (read-shell-command "Launch application: ")))
+      (interactive (list (read-shell-command "Launch application: ") current-prefix-arg))
+      (when new-window
+        (select-window (heartman/split-largest-window)))
       (start-process-shell-command command nil command))
 
     (defvar my-exwm-toggle-workspace 0
