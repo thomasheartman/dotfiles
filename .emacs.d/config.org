@@ -4146,8 +4146,7 @@ issue]].
               (previous-buffer))
             (let ((new-window (apply oldfun args)))
               (with-selected-window window (switch-to-buffer buffer))
-              (select-window new-window)
-              new-window))
+              (select-window new-window)))
         (apply oldfun args)))
 
     (dolist (f '(split-window-below-and-focus
