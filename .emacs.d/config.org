@@ -4139,13 +4139,16 @@ issue]].
     ;; only exist in one window at a time). To get around this, select
     ;; the previous buffer if the current window has an X buffer in it.
     (defun heartman/split-window-exwm-advice (oldfun &rest args)
-      (let* ((window (or (car args) (selected-window)))
-             (buffer (window-buffer window)))
-        (when (eq major-mode 'exwm-mode)
-          (previous-buffer))
-        (let ((new-window (apply oldfun args)))
-          (with-selected-window window (switch-to-buffer buffer))
-          new-window)))
+      (if (eq major-mode 'exwm-mode)
+          (let* ((window (or (car args) (selected-window)))
+                 (buffer (window-buffer window)))
+            (with-selected-window window
+              (previous-buffer))
+            (let ((new-window (apply oldfun args)))
+              (with-selected-window window (switch-to-buffer buffer))
+              (select-window new-window)
+              new-window))
+        (apply oldfun args)))
 
     (dolist (f '(split-window-below-and-focus
                  split-window-right-and-focus))
