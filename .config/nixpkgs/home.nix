@@ -170,7 +170,7 @@ in
   # appropriate config for gnus-aliases). Because it's the same inbox
   # as the one listed above, we don't need to set up more offlineimap
   # stuff or use a different log file.
-  accounts.email.accounts."thomas@thomasheartman" =
+  accounts.email.accounts."self@thomasheartman" =
     let
       mailBoxName = "thomasheartman.com";
       primary = false;
@@ -185,7 +185,7 @@ in
 
         smtp.tls.useStartTls = true;
 
-        notmuch.enable = true; # enables this as a sender in notmuch
+        notmuch.enable = false; # set this to true to enable this as a sender in notmuch
         msmtp = {
           enable = true;
           extraConfig = {
