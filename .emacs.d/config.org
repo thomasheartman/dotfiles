@@ -6242,3 +6242,25 @@ rich-minority enables us to hide all minor modes from the mode line.
   (use-package lsp-java
     :hook (java-mode . lsp))
 #+END_SRC
+
+* TODO org-caldav
+:PROPERTIES:
+:REPO:     https://github.com/dengste/org-caldav/
+:END:
+:LOGBOOK:
+- State "TODO"       from              [2021-08-08 Sun 22:19] \\
+  Make sync work. At the moment, syncing doesn't work. All  I get is the
+  message 'url-dav-process-DAV:prop: No child nodes in DAV:prop'.
+  However, using the same creds as in my auths file, the sync seems to
+  work via ~curl~.
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-caldav
+    :config
+    (setq org-icalendar-timezone "Europe/Oslo"
+          org-caldav-save-directory "~/gtd/org-caldav/"
+          org-caldav-calendars '((:url "https://calendar.zoho.eu/caldav"
+                                       :calendar-id "c2de9b18b9fb50dd23c19b49396254d1e47a575fa549be5b10c9e3aaafd2afa5da55d323baacf5ddfde93a588167e61d"
+                                       :inbox "~/gtd/calendar.org"))))
+#+END_SRC
