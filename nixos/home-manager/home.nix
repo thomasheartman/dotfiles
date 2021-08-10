@@ -284,7 +284,7 @@ in
     (
       writeScriptBin "hms" ''
         #!${stdenv.shell}
-        ${home-manager}/bin/home-manager switch
+        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/home-manager/${config.networking.hostName}.nix
       ''
     )
 

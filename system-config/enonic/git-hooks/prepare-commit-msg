@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+IFS='/'
+if read -r _ DEFAULT_BRANCH <<< "$(git rev-parse --verify -q --abbrev-ref origin/HEAD)" && [ "$DEFAULT_BRANCH" = "$CURRENT_BRANCH" ]; then
+    MESSAGE="; YOU'RE ON THE DEFAULT BRANCH.\n"
+
+else
+    TASK_ID="#$(cut -d '-' -f 2-2 <<< "$CURRENT_BRANCH")";
+    MESSAGE="(${TASK_ID})"
+fi
+
+if [ -z "$(head -n 1 "$1")" ]; then
+    sed -i "1s/^/\n\n${MESSAGE}/" "$1";
+fi
