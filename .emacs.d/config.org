@@ -1835,6 +1835,13 @@ Is the current line empty?
     "<end>" 'end-of-buffer)
 #+END_SRC
 
+*** Isearch mapping                                            :keybinding:
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    "<f3>" 'isearch-repeat-forward
+    "S-<f3>" 'isearch-repeat-backward)
+#+END_SRC
 
 ** Custom file
 
@@ -5329,7 +5336,9 @@ not for all buffers!
       :states 'insert
       "M-o" 'evil-jump-backward
       "M-i" 'evil-jump-forward
-      "C-v" 'rectangle-mark-mode)
+      "C-v" 'rectangle-mark-mode
+      "<f3>" 'evil-search-next
+      "S-<f3>" 'evil-search-previous)
     (general-unbind
       :states 'motion
       "C-e"
