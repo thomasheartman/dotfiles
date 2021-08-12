@@ -928,6 +928,46 @@ If the expression is invalid, leave the expression as is.
       "S-<kp-subtract>" (ins ?—)))
 #+END_SRC
 
+**** Open common files
+
+There are a number of files that I open on a regular basis and  that
+it would be nice to have quick keyboard shortcuts too. Let's see what
+we can do!
+
+#+BEGIN_SRC emacs-lisp
+  (let ((dotfiles-dir "~/dotfiles")
+        (gtd-dir "~/gtd"))
+    (general-create-definer common-files-def :prefix "s-F")
+
+    (cl-flet ((open-in-dir (base-dir)
+                           (lambda (filename)
+                             (lambda () (interactive)
+                               (find-file
+                                (format "%s/%s" base-dir filename))))))
+
+      (when (file-directory-p dotfiles-dir)
+
+        (cl-flet ((open (open-in-dir dotfiles-dir)))
+
+          (common-files-def
+            "c" `(,(open ".emacs.d/config.org") :wk "Emacs config")
+            "e" `(,(open ".emacs.d/init.el") :wk "init.el")
+            "n b" `(,(open "nixos/base.nix") :wk "NixOS base config")
+            "n p" `(,(open "nixos/hosts/phaaze/configuration.nix") :wk "NixOS Phaaze config")
+            "n e" `(,(open "nixos/hosts/elysia/configuration.nix") :wk "NixOS Elysia config")
+            "n h h" `(,(open "nixos/home-manager/home.nix") :wk "home.nix")
+            "n h p" `(,(open "nixos/home-manager/phaaze.nix") :wk "Home manager: Phaaze")
+            "n h e" `(,(open "nixos/home-manager/elysia.nix") :wk "Home manager: Elysia"))))
+
+      (when (file-directory-p gtd-dir)
+
+        (cl-flet ((open (open-in-dir gtd-dir)))
+          (common-files-def
+            "m" `(,(open "main.org") :wk "main.org")
+            "i" `(,(open "inbox.org") :wk "inbox")
+            "s" `(,(open "someday-maybe.org") :wk "someday maybe"))))))
+#+END_SRC
+
 *** Remove advice
 
 Sometimes, working with advice can be hard and removing one isn't
