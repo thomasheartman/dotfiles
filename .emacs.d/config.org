@@ -2587,7 +2587,6 @@ I want to set up set of common tags. We'll define a group of mutually exclusive 
                         (:startgroup)
                         ("work" . ?W)
                         (:grouptags)
-                        ("enonic" . ?E)
                         ("logrocket")
                         (:endgroup)
                         (:startgroup)
@@ -3457,12 +3456,6 @@ movement works.
        (:name "gheart (unread)"
               :query "to:@gmail.com AND tag:unread"
               :key "G")
-       (:name "enonic"
-              :query "to:@enonic.com"
-              :key "e")
-       (:name "enonic (unread)"
-              :query "to:@enonic.com AND tag:unread"
-              :key "E")
        (:name "thomasheartman.com"
               :query "to:@thomasheartman.com"
               :key "t")
@@ -3612,7 +3605,6 @@ easier, we can use gnus-alias.
     :config
     (defvar heartman/gnus-aliases
       '(("thomasheartman@gmail.com" "~/.signatures/signature.simple" "gheart")
-        ("the@enonic.com" "~/.signatures/signature.enonic" "enonic")
         ("thomas@thomasheartman.com" "~/.signatures/signature.simple")
         ("contact@thomasheartman.com" "~/.signatures/signature.simple")
         ("self@thomasheartman.com" "~/.signatures/signature.simple")))
@@ -3647,11 +3639,7 @@ easier, we can use gnus-alias.
 
             ("thomas@thomasheartman.com"
              ("From" "@thomasheartman.com" both)
-             "thomas@thomasheartman.com")
-
-            ("enonic"
-             ("From" "the@enonic.com" both)
-             "enonic")))
+             "thomas@thomasheartman.com")))
 
     :hook
     (message-setup . gnus-alias-determine-identity))
