@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
+let
+
+  hostname = "phaaze";
+
+in
 {
-  imports = [ ./hardware-configuration.nix ./../../base.nix ];
+  imports = [ (./. + "${hostname}.hardware-configuration.nix") ./base.nix ];
 
   boot.kernelParams = [ "acpi_rev_override" ];
 
@@ -11,7 +16,7 @@
     displayManager.autoLogin.user = "thomas";
   };
 
-  networking.hostName = "archaeopteryx";
+  networking.hostName = hostname;
 
 
   # This value determines the NixOS release with which your system is to be
