@@ -6,7 +6,7 @@ let
 
 in
 {
-  imports = [ (./. + "${hostname}.hardware-configuration.nix") ./base.nix ];
+  imports = [ (./. + "/${hostname}.hardware-configuration.nix") ./base.nix ];
 
   boot.kernelParams = [ "acpi_rev_override" ];
 
