@@ -953,11 +953,11 @@ we can do!
             "c" `(,(open ".emacs.d/config.org") :wk "Emacs config")
             "e" `(,(open ".emacs.d/init.el") :wk "init.el")
             "n b" `(,(open "nixos/base.nix") :wk "NixOS base config")
-            "n p" `(,(open "nixos/hosts/phaaze/configuration.nix") :wk "NixOS Phaaze config")
-            "n e" `(,(open "nixos/hosts/elysia/configuration.nix") :wk "NixOS Elysia config")
+            "n p" `(,(open "nixos/phaaze.nix") :wk "NixOS Phaaze config")
+            "n e" `(,(open "nixos/elysia.nix") :wk "NixOS Elysia config")
             "n h h" `(,(open "nixos/home-manager/home.nix") :wk "home.nix")
-            "n h p" `(,(open "nixos/home-manager/phaaze.nix") :wk "Home manager: Phaaze")
-            "n h e" `(,(open "nixos/home-manager/elysia.nix") :wk "Home manager: Elysia"))))
+            "n h p" `(,(open "nixos/home-manager/phaaze.home.nix") :wk "Home manager: Phaaze")
+            "n h e" `(,(open "nixos/home-manager/elysia.home.nix") :wk "Home manager: Elysia"))))
 
       (when (file-directory-p gtd-dir)
 
