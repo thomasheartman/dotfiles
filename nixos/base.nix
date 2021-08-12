@@ -17,6 +17,8 @@ let
   unstableTarball = fetchTarball
     "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
 
+  user = "thomas";
+  homeDir = "/home/${user}";
 
 in
 {
@@ -134,7 +136,10 @@ in
       (
         writeScriptBin "rebuild" ''
           #!${stdenv.shell}
-          sudo nixos-rebuild switch -p ${config.networking.hostName} $@
+          sudo nixos-rebuild switch \
+            -p ${config.networking.hostName} \
+            -I nixos-config=${homeDir}/dotfiles/nixos/${config.networking.hostName}.nix
+            $@
         ''
       )
 
@@ -290,9 +295,9 @@ in
   };
 
   # users
-  users.extraUsers.thomas = {
+  users.extraUsers.${user} = {
     isNormalUser = true;
-    name = "thomas";
+    name = user;
     group = "users";
     extraGroups = [
       "audio"
@@ -307,11 +312,11 @@ in
     ];
     createHome = true;
     uid = 1000;
-    home = "/home/thomas";
+    home = homeDir;
     shell = pkgs.fish;
   };
 
-  nix.trustedUsers = [ "root" "thomas" ];
+  nix.trustedUsers = [ "root" user ];
   services.emacs.defaultEditor = true;
 
   virtualisation.docker = {
