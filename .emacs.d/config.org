@@ -3800,7 +3800,7 @@ Projectile needs Ripgrep to enable ripgrep searches!
 :END:
 
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package pdf-tools
     :hook
     (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
