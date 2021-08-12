@@ -67,7 +67,6 @@ let
       };
 
   gheart = "gheart";
-  enonicMail = "enonic";
 
 in
 {
@@ -81,7 +80,7 @@ in
   programs.offlineimap = {
     enable = true;
     extraConfig.general = {
-      accounts = "gheart, enonic, thomasheartman";
+      accounts = "gheart, thomasheartman";
       autorefresh = "5";
     };
     pythonFile = ''
@@ -105,16 +104,6 @@ in
     address = "thomasheartman@gmail.com";
   };
 
-  accounts.email.accounts.${enonicMail} = mailConfig {
-    mailBoxName = enonicMail;
-    address = "the@enonic.com";
-    passwordName = "enonic-mail";
-  };
-  home.file.".signatures/signature.${enonicMail}".text = ''
-    Thomas Heartman (he/him)
-    Developer advocate
-    Enonic (https://enonic.com)
-  '';
 
   home.file.".signatures/signature.simple".source = ~/dotfiles/email/signatures/simple;
 
