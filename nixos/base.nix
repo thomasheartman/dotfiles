@@ -176,6 +176,8 @@ in
             "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
             # mSBC is not expected to work on all headset + adapter combinations.
             "bluez5.msbc-support" = true;
+            # SBC-XQ is not expected to work on all headset + adapter combinations.
+            "bluez5.sbc-xq-support" = true;
           };
         };
       }
