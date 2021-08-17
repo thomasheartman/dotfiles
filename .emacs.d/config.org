@@ -937,7 +937,7 @@ we can do!
 #+BEGIN_SRC emacs-lisp
   (let ((dotfiles-dir "~/dotfiles")
         (gtd-dir "~/gtd"))
-    (general-create-definer common-files-def :prefix "s-F")
+    (general-create-definer common-files-def :prefix "s-c")
 
     (cl-flet ((open-in-dir (base-dir)
                            (lambda (filename)
