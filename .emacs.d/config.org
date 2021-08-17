@@ -950,6 +950,7 @@ we can do!
         (cl-flet ((open (open-in-dir dotfiles-dir)))
 
           (common-files-def
+            exwm-mode-map
             "c" `(,(open ".emacs.d/config.org") :wk "Emacs config")
             "e" `(,(open ".emacs.d/init.el") :wk "init.el")
             "n b" `(,(open "nixos/base.nix") :wk "NixOS base config")
