@@ -6258,3 +6258,23 @@ rich-minority enables us to hide all minor modes from the mode line.
                                        :calendar-id "thomasheartman@gmail.com"
                                        :inbox "~/gtd/calendar.org"))))
 #+END_SRC
+
+* comint-mode
+
+Disable/enable certain bindings in comint-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :general
+    (general-unbind
+      'comint-mode-map
+      "C-d"))
+#+END_SRC
+
+* sql
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook
+    (sql-interactive-mode . (lambda () (visual-line-mode -1))))
+#+END_SRC
