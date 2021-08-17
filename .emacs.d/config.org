@@ -15,14 +15,14 @@
 :END:
 
 When having issues, set this to ~:tangle yes~
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq debug-on-error t)
 #+END_SRC
 
 If you need to figure out when a variable is modified, try using the
 following snippet:
-#+BEGIN_SRC emacs-lisp
-  (debug-on-variable-change 'ido-mode)
+#+BEGIN_SRC emacs-lisp :tangle no
+  (debug-on-variable-change 'evil-want-Y-yank-to-eol)
 #+END_SRC
 
 * Suppress warnings
