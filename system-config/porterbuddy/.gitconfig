@@ -1,0 +1,5 @@
+[user]
+        email = heartman@porterbuddy.com
+
+[core]
+        hooksPath = ~/dotfiles/system-config/porterbuddy/git-hooks

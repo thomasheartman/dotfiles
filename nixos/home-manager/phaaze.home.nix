@@ -12,4 +12,6 @@
   home.sessionVariables = {
     HOSTNAME = "phaaze";
   };
+
+  home.file.".gitconfig.work".source = ~/dotfiles/system-config/porterbuddy/.gitconfig;
 }
