@@ -6276,5 +6276,40 @@ Disable/enable certain bindings in comint-mode.
 #+BEGIN_SRC emacs-lisp
   (use-package emacs
     :hook
-    (sql-interactive-mode . (lambda () (visual-line-mode -1))))
+    (sql-interactive-mode . (lambda () (visual-line-mode -1)))
+    :config
+    (require 'sql)
+
+    (defmacro heartman/sql-specify-connections (&rest connections)
+      "Set the `sql-connection-alist' variable from CONNECTIONS.
+
+  Generates interactive functions to establish each connection."
+      `(progn
+         ,@(mapcar (lambda (conn)
+                     `(add-to-list 'sql-connection-alist ',conn))
+                   connections)
+         ,@(mapcar (lambda (conn)
+                     (let* ((varname (car conn))
+                            (fn-name (intern (format "sql-connect-to-%s" varname)))
+                            (buf-name (format "*%s*" varname)))
+                       `(defun ,fn-name ,'()
+                          (interactive)
+                          (sql-connect ',varname ,buf-name))))
+                   connections)))
+
+    (let ((file "~/.emacs.d/sql-connections.el"))
+      (if (file-exists-p file)
+          (load-file file)
+        (message "sql connection file not found: %s" file))))
+#+END_SRC
+
+** sqlup-mode
+
+sqlup-mode is a minor mode that auto-capitalizes SQL keywords as you
+type.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sqlup-mode
+    :hook
+    (sql-interactive-mode . sqlup-mode))
 #+END_SRC
