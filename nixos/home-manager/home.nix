@@ -260,6 +260,7 @@ in
     unstable.procs
     pamixer # <- for Emacs' desktop-environment
     proselint
+    postgresql # <- for porterbuddy: extract this when you get the new host system
     ripgrep
     rnix-lsp
     sd
