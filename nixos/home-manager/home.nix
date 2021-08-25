@@ -218,7 +218,6 @@ in
   };
 
   home.packages = with pkgs; [
-    unstable._1password-gui
     alacritty
     (
       pkgs.aspellWithDicts
@@ -232,6 +231,7 @@ in
     cascadia-code
     chromium
     direnv
+    discord
     docker
     dropbox-cli
     element-desktop
@@ -260,7 +260,7 @@ in
     unstable.procs
     pamixer # <- for Emacs' desktop-environment
     proselint
-    postgresql # <- for porterbuddy: extract this when you get the new host system
+    unstable.postgresql # <- for porterbuddy: extract this when you get the new host system
     ripgrep
     rnix-lsp
     sd
@@ -304,6 +304,13 @@ in
       writeScriptBin "emq" ''
         #!${stdenv.shell}
         ${config.programs.emacs.package}/bin/emacs -Q -l ~/.emacs.d/straight/repos/straight.el/bootstrap.el $@
+      ''
+    )
+
+    (
+      writeScriptBin "lwo" ''
+        #!${stdenv.shell}
+        ${pkgs.lorri}/bin/lorri watch --once $@
       ''
     )
 
