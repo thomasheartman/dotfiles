@@ -5506,6 +5506,8 @@ selectrum is a replacement for ivy/helm.
     ('selectrum-minibuffer-map
      [remap evil-scroll-down] 'selectrum-next-page
      [remap evil-scroll-up] 'selectrum-previous-page)
+    :custom
+    (selectrum-extend-current-candidate-highlight t)
     :init
     (setq selectrum-show-indices t)
     <<selectrum-additional-packages>>
