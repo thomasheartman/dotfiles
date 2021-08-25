@@ -75,6 +75,9 @@
         lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=short
         ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative
 
+        # who has worked on this repo within the last year?
+        reviewers = "shortlog --summary --numbered --email --after='1 year ago'"
+
         # list modified files in last commit
         dl = "!git ll -1"
         # diff last commit
