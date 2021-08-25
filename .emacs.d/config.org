@@ -3767,7 +3767,10 @@ it to a pretty stupid binding.
     (projectile-mode t)
     :config
     (setq projectile-project-search-path (my-project-paths)
-          projectile-sort-order 'recently-active))
+          projectile-sort-order 'recently-active)
+    (advice-add #'heartman/git-clone-clipboard-url
+                :after (lambda (&rest _)
+                         (projectile-discover-projects-in-search-path))))
 #+END_SRC
 
 * Ripgrep
