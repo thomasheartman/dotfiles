@@ -3462,8 +3462,7 @@ movement works.
               :key "w")
        (:name "porterbuddy (unread)"
               :query "to:@porterbuddy.com AND tag:unread"
-              :key "
-W")
+              :key "W")
        (:name "thomasheartman.com"
               :query "to:@thomasheartman.com"
               :key "t")
