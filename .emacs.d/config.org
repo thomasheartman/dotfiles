@@ -6320,3 +6320,11 @@ type.
     :hook
     (sql-interactive-mode . sqlup-mode))
 #+END_SRC
+
+* process menu mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook
+    (process-menu-mode . (lambda () (toggle-truncate-lines 1))))
+#+END_SRC
