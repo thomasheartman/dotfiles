@@ -5269,6 +5269,9 @@ not for all buffers!
     (define-and-bind-text-object
       "pipe" "|" "|" "|")
 
+    (define-and-bind-text-object
+      "underscore" "_" "_" "_")
+
     (evil-define-text-object evil-inner-buffer (count &optional beg end type)
       (list (point-min) (point-max)))
     (general-def
