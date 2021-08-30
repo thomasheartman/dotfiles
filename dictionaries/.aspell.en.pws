@@ -1,4 +1,4 @@
-personal_ws-1.1 en 125 
+personal_ws-1.1 en 128 
 AKS
 APIs
 ASA
@@ -20,6 +20,7 @@ Enonic
 Enonic's
 GCP
 GeoPoint
+GitLab
 Gradle
 GraphQL
 Gummi
@@ -41,6 +42,7 @@ NGINX
 Nashorn
 Netlify
 NixOS
+OSS
 PVCs
 Persijn
 Porterbuddy
@@ -113,6 +115,7 @@ subcommands
 subdirectory
 summand
 summands
+toolchain
 transpilation
 tsi
 undirected
