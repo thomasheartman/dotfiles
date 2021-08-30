@@ -5326,8 +5326,7 @@ not for all buffers!
             ("^*Flycheck" . nil)
             ("^*info" . nil)
             ("^\\*xref" . nil)
-            ("^\\*Messages\\*$" . nil)
-            ("COMMIT_EDITMSG" . insert)))
+            ("^\\*Messages\\*$" . nil)))
 
     <<evil-org-config>>
 
