@@ -5332,6 +5332,24 @@ not for all buffers!
     <<evil-org-config>>
 
     (use-package evil-surround
+      :custom
+      (evil-surround-pairs-alist
+       '((40 "( " . " )")
+         (91 "[ " . " ]")
+         (123 "{ " . " }")
+         (41 "(" . ")")
+         (93 "[" . "]")
+         (125 "{" . "}")
+         (35 "#{" . "}")
+         (98 "(" . ")")
+         (66 "{" . "}")
+         (62 "<" . ">")
+         (60 "< " . " >")
+         (116 . evil-surround-read-tag)
+         (102 . evil-surround-function)))
+      :hook
+      (rust-mode . (lambda ()
+                     (push '(?# . ("#[" . "]")) evil-surround-pairs-alist)))
       :config
       (global-evil-surround-mode))
 
