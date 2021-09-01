@@ -214,7 +214,7 @@ in
   programs.emacs = {
     enable = true;
     package = unstable.emacsGcc;
-    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm ];
+    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 ];
   };
 
   home.packages = with pkgs; [
