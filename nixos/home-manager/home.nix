@@ -314,6 +314,13 @@ in
       ''
     )
 
+    (
+      writeScriptBin "ff" ''
+        #!${stdenv.shell}
+        ${firefox}/bin/firefox -p default $@
+      ''
+    )
+
   ];
 
   services.dropbox.enable = true;
