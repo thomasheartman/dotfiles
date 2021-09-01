@@ -4764,18 +4764,44 @@ For indenting JS, CSS, HTML (maybe markdown?), let's use prettier!
 
 ** Tide
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package tide
-    :mode ("\\.tsx?\\'" . typescript-mode)
-    :after (typescript-mode company flycheck prettier)
-    :hook ((typescript-mode . tide-setup)
-           (typescript-mode . tide-hl-identifier-mode)
-           (typescript-mode . lsp)
-           (typescript-mode . prettier-mode)
-           (typescript-mode . emmet-mode)
-           (before-save . 'prettier-prettify)))
+    :after (typescript-mode company flycheck prettier))
 #+END_SRC
 
+** Typescript-mode (and tsx)
+
+This is based on the config on the typescript-mode repo (specifically
+[[https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004][this comment]]) to get TSX working properly using tree-sitter.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package typescript-mode
+    :init
+    (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+    (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode))
+    :hook
+    ((typescript-mode . (lambda ()
+                          (lsp)
+                          (prettier-mode)
+                          (emmet-mode)))))
+#+END_SRC
+
+* Tree sitter
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tree-sitter
+    :hook ((typescript-mode typescript-tsx-mode) . tree-sitter-hl-mode))
+#+END_SRC
+
+** Tree sitter langs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tree-sitter-langs
+    :after tree-sitter
+    :config
+    (tree-sitter-require 'tsx)
+    (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+#+END_SRC
 
 
 * TODO desktop (saving emacs sessions)
