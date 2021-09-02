@@ -240,6 +240,7 @@ in
         epkgs.vterm
         epkgs.magit
         epkgs.pdf-tools
+        pkgs.python3
       ];
     };
 
