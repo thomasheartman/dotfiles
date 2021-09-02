@@ -214,7 +214,7 @@ in
   programs.emacs = {
     enable = true;
     package = unstable.emacsGcc;
-    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 ];
+    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
   home.packages = with pkgs; [
@@ -237,7 +237,6 @@ in
     element-desktop
     ffmpeg
     firefox
-    gcc # <-this is here to make magit forge work
     git-lfs
     imagemagick
     ispell
@@ -260,7 +259,6 @@ in
     unstable.procs
     pamixer # <- for Emacs' desktop-environment
     proselint
-    unstable.postgresql # <- for porterbuddy: extract this when you get the new host system
     ripgrep
     rnix-lsp
     sd
@@ -281,7 +279,7 @@ in
     (
       writeScriptBin "hms" ''
         #!${stdenv.shell}
-        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/home-manager/${config.home.sessionVariables.HOSTNAME}.home.nix
+        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/home-manager/${config.home.sessionVariables.HOSTNAME}/home.nix
       ''
     )
 
