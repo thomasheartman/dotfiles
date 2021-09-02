@@ -13,6 +13,15 @@ in
     ../base.nix
   ];
 
+  boot = {
+    kernelParams = [
+      # as recommended by
+      # https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_6)
+      "i915.enable_dc=2"
+    ];
+  };
+
+
   services.xserver = {
     useGlamor = true;
     displayManager.autoLogin.user = "thomas";
