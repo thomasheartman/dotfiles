@@ -2,11 +2,11 @@
 
 let
 
-  hostname = "phaaze";
+  hostname = baseNameOf ./.;
 
 in
 {
-  imports = [ (./. + "/${hostname}.hardware-configuration.nix") ./base.nix ];
+  imports = [ ./hardware-configuration.nix ../base.nix ];
 
   boot = {
     kernelParams = [
