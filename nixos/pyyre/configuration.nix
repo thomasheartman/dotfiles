@@ -26,6 +26,11 @@ in
   services.xserver = {
     useGlamor = true;
     displayManager.autoLogin.user = "thomas";
+    videoDrivers = [ "intel" ];
+    deviceSection = ''
+      Option "DRI" "2"
+      Option "TearFree" "true"
+    '';
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
