@@ -15,6 +15,7 @@ in
       "nvidia-drm.modeset=1"
     ];
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    kernelPackages = pkgs.linuxPackages_5_4;
   };
 
   environment.systemPackages = [

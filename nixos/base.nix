@@ -22,7 +22,6 @@ in
     kernelParams = [
       "mem_sleep_default=deep"
     ];
-    kernelPackages = pkgs.linuxPackages_5_4;
 
     tmpOnTmpfs = true;
   };

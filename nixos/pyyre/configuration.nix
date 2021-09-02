@@ -19,6 +19,7 @@ in
       # https://wiki.archlinux.org/title/Lenovo_ThinkPad_X1_Carbon_(Gen_6)
       "i915.enable_dc=2"
     ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
 
