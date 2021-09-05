@@ -4036,6 +4036,12 @@ issue]].
        ([?\s-e ?b] . bluetooth-list-devices)
        ([?\s-e ?d] . toggle-debug-on-error)
        ([?\s-e ?g] . heartman/git-clone-clipboard-url)
+       ([?\s-e ?l] . list-processes)
+
+       ;; others
+       ([?\s-P] . projectile-command-map)
+       ;; ([?s-c] . )
+
 
        ([\f9] . multi-term-dedicated-toggle)
 
