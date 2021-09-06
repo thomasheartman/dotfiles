@@ -2418,7 +2418,7 @@ to require this.
 Enable regular spell checking in all text modes and prog type spell
 checking in prog modes:
 #+begin_src emacs-lisp
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (add-hook 'text-mode-hook 'flyspell-mode)
 #+end_src
 
