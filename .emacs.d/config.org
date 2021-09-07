@@ -3363,7 +3363,7 @@ movement works.
     (sp-base-key-bindings 'sp)
     :config
     (require 'smartparens-config)
-    (sp-local-pair 'csharp-mode "<" ">")
+    (sp-local-pair '(csharp-mode typescript-mode) "<" ">")
     (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
     (add-to-list 'sp--html-modes 'mhtml-mode))
 #+END_SRC
