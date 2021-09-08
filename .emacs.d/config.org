@@ -3515,14 +3515,6 @@ movement works.
         (dolist (account accounts)
           <<notmuch-fetch-mail>>)))
 
-    (unless (boundp 'heartman/timer-mail-poll)
-      (defvar heartman/timer-mail-poll
-        (progn
-          (require 'notmuch-lib)
-          (run-with-timer 0 120 #'heartman/fetch-mail)))
-      "Timer to fetch mail from the server every so often.")
-
-
     (defun fetch-mail-poll-and-refresh ()
       "Pull new mail from the server and update the current buffer."
       (interactive)

@@ -272,6 +272,12 @@ in
   nix.trustedUsers = [ "root" user ];
   services.emacs.defaultEditor = true;
 
+  services.offlineimap = {
+    enable = true;
+    install = true;
+    path = [ pkgs.pass pkgs.notmuch ];
+  };
+
   virtualisation.docker = {
     enable = true;
     autoPrune = {

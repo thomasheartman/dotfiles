@@ -45,13 +45,14 @@ let
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            passwordeval = ''${mailPass passwordName}'';
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
 
         offlineimap = {
           enable = true;
+          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
           extraConfig = {
             local = {
               type = "Maildir";
@@ -69,6 +70,8 @@ let
   gheart = "gheart";
   porterbuddy = "porterbuddy";
 
+  mailPass = account: "${pkgs.pass}/bin/pass show email/${account}";
+
 in
 {
 
@@ -85,14 +88,12 @@ in
       autorefresh = "5";
     };
     pythonFile = ''
-      # implicitly requires fish shell and the bitwarden-cli, and for the bitwarden
-      # session env variable ($BW_SESSION) to have been set
       import subprocess
 
       def mailpasswd(account):
-        print "Starting password fetching for account %s" % account
+        print "Starting password fetching for account email/%s" % account
         try:
-          return subprocess.check_output('fish -c "bw get password %s" '% account, shell=True)
+          return subprocess.check_output("${mailPass "%s"}" % account, shell=True)
         except subprocess.CalledProcessError:
           return ""
     '';
@@ -108,7 +109,6 @@ in
   accounts.email.accounts.${porterbuddy} = mailConfig {
     mailBoxName = porterbuddy;
     address = "heartman@porterbuddy.com";
-    passwordName = "${porterbuddy}-mail";
   };
 
   home.file.".signatures/${porterbuddy}".source = ~/dotfiles/email/signatures/porterbuddy;
@@ -119,7 +119,7 @@ in
       mailBoxName = "thomasheartman.com";
       primary = false;
       address = "thomas@thomasheartman.com";
-      passwordName = "mail@thomasheartman.com";
+      passwordName = "thomasheartman.com";
     in
       {
 
@@ -140,13 +140,14 @@ in
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            passwordeval = ''${mailPass passwordName}'';
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
 
         offlineimap = {
           enable = true;
+          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
           extraConfig = {
             local = {
               type = "Maildir";
@@ -189,7 +190,7 @@ in
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''fish -c "bw get password ${passwordName}"'';
+            passwordeval = ''${mailPass passwordName}'';
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
