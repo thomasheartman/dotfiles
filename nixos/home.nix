@@ -280,7 +280,7 @@ in
     (
       writeScriptBin "hms" ''
         #!${stdenv.shell}
-        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/home-manager/${config.home.sessionVariables.HOSTNAME}/home.nix
+        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/${config.home.sessionVariables.HOSTNAME}/home.nix
       ''
     )
 
