@@ -3951,6 +3951,9 @@ issue]].
   (use-package exwm
     :after (hydra)
     :when use-exwm
+    :straight `(exwm
+                :fork (:host github
+                             :repo "daviwil/exwm"))
     :custom
     (exwm-replace nil)
     (exwm-input-global-keys
