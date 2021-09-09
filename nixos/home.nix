@@ -61,7 +61,7 @@ let
             remote = {
               type = "Gmail";
               remoteuser = address;
-              remotepasseval = ''mailpasswd("${passwordName}")'';
+              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
             };
           };
         };
@@ -90,10 +90,10 @@ in
     pythonFile = ''
       import subprocess
 
-      def mailpasswd(account):
-        print "Starting password fetching for account email/%s" % account
+      def mailpasswd(get_password_command):
+        print "Running password command: '%s'" % get_password_command
         try:
-          return subprocess.check_output("${mailPass "%s"}" % account, shell=True)
+          return subprocess.check_output(get_password_command, shell=True)
         except subprocess.CalledProcessError:
           return ""
     '';
@@ -157,7 +157,7 @@ in
               type = "IMAP";
               remotehost = "imappro.zoho.eu";
               remoteuser = address;
-              remotepasseval = ''mailpasswd("${passwordName}")'';
+              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
             };
           };
         };
@@ -253,6 +253,7 @@ in
     nixfmt
     pavucontrol
     pandoc
+    pass
     pdfgrep
     pijul
     playerctl
