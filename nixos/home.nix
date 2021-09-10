@@ -9,9 +9,13 @@ let
     overlays = [
       (
         import (
+          # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
+          # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
+          # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
           builtins.fetchTarball {
             url =
-              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+              "https://github.com/nix-community/emacs-overlay/archive/8320c615b706f0d459544d7d37a59c5a5ff5e7e0.tar.gz";
+            sha256 = "1pajyn4n0yzi8qxlqjlh20zhdifxfvxqdcjmphqmb8b5p2grk2rx";
           }
         )
       )
