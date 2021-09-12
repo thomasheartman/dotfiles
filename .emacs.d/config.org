@@ -37,6 +37,28 @@ can disable showing them immediately. They will still show up in the
     (warning-suppress-types '((comp) (use-package) (:warning))))
 #+END_SRC
 
+* Utils for config
+
+** Execute macro on kvps
+
+A few times I've had to execute a macro on a list of key-value pairs
+(usually to create some sort of bindings). To make this more
+manageable, let's create a macro for it.
+
+#+BEGIN_SRC emacs-lisp
+  (defmacro heartman/execute-macro-on-kvp-list (macro &rest kvps)
+    "Execute macro on the given list of args.
+
+  MACRO is any macro. KVPS is a list of key-value pairs to use, formatted as a flat list of alternating keys and values (e.g. `(key1 value1 key2 value2)'). The MACRO is called once for with each pair as argument."
+    (let (forms)
+      (while kvps
+        (let ((key (pop kvps)))
+          (when (not kvps)
+            (error "Couldn't execute macro. The provided args are unbalanced."))
+          (let ((value (pop kvps)))
+            (push `(,macro ,key ,value) forms))))
+      `(progn ,@(nreverse forms))))
+#+END_SRC
 
 * Package setup
 
@@ -99,20 +121,8 @@ Let's create a couple prefixes:
          (defconst ,constant-name ,key)
          (general-create-definer ,def-name :prefix ,constant-name))))
 
-  (defmacro create-definers (&rest bindings)
-    "Create definers for the given list of arguments.
-
-  BINDINGS is a list of name and keys."
-    (let (forms)
-      (while bindings
-        (let ((key (pop bindings)))
-          (when (not bindings)
-            (error "Couldn't create definers. The provided bindings are unbalanced"))
-          (let ((value (pop bindings)))
-            (push `(create-definer ,key ,value) forms))))
-      `(progn ,@(nreverse forms))))
-
-  (create-definers
+  (heartman/execute-macro-on-kvp-list
+   create-definer
    "link" "C-x l"
    "flycheck" "C-c e"
    "lsp" "<f6>"
@@ -5541,15 +5551,23 @@ to fixed. For instance, when inserting a new headline or item, I
                         :repo "meain/evil-textobj-tree-sitter"
                         :files (:defaults "queries"))
     :config
-    ;; bind `function.outer`(entire function block) to `f` for use in
-    ;; things like `vaf`, `yaf`
-    (define-key evil-outer-text-objects-map
-      "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+    (defmacro define-evil-textobj-tree-sitter (key textobj)
+      "Define text objects for tree sitter"
+      (let ((inner (concat textobj ".inner"))
+            (outer (concat textobj ".outer")))
+        `(progn
+           (define-key evil-inner-text-objects-map
+             ,key (evil-textobj-tree-sitter-get-textobj ,inner))
+           (define-key evil-outer-text-objects-map
+             ,key (evil-textobj-tree-sitter-get-textobj ,outer)))))
 
-    ;; bind `function.inner`(function block without name and args) to
-    ;; `f` for use in things like `vif`, `yif`
-    (define-key evil-inner-text-objects-map
-      "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+
+    (heartman/execute-macro-on-kvp-list
+     define-evil-textobj-tree-sitter
+     "i" "conditional"
+     "f" "function"
+     "c" "class")
+
 
     ;; The first argument to `evil-textobj-tree-sitter-get-textobj' will
     ;; be the capture group to use and the second arg will be an alist
