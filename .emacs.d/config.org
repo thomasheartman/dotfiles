@@ -5920,6 +5920,7 @@ Writegood mode helps me keep my writing clearer and more concise.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-aspell
     :init
+    (require 'flycheck)
     (setq ispell-dictionary "english"
           ispell-program-name "aspell"
           ispell-silently-savep t)
