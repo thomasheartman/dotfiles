@@ -6443,3 +6443,18 @@ type.
 #+BEGIN_SRC emacs-lisp
   (use-package kotlin-mode)
 #+END_SRC
+
+* Tree-sitter / tree sitter
+:PROPERTIES:
+:REPO:     https://github.com/emacs-tree-sitter/elisp-tree-sitter
+:WEBSITE:  https://emacs-tree-sitter.github.io/installation/
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tree-sitter
+    :config
+    (use-package tree-sitter-langs)
+    (global-tree-sitter-mode)
+    :hook
+    (tree-sitter-mode . tree-sitter-hl-mode))
+#+END_SRC
