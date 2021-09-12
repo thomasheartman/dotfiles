@@ -110,6 +110,10 @@
 
 **** https://williamyaoh.com/feed.atom
 
+*** Nix
+
+**** [[https://christine.website/blog.rss][Xe]]                                                              :nix:
+
 *** Reddit                                                           :reddit:
 
 **** [[https://www.reddit.com/r/emacs/.rss?format=xml][r/Emacs]]                                                          :emacs:
