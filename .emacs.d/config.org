@@ -5529,6 +5529,38 @@ to fixed. For instance, when inserting a new headline or item, I
                            (evil-insert-state))))
 #+END_SRC
 
+** Evil tree sitter
+:PROPERTIES:
+:REPO:     https://github.com/meain/evil-textobj-tree-sitter
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-textobj-tree-sitter
+    :straight (el-patch :type git
+                        :host github
+                        :repo "meain/evil-textobj-tree-sitter"
+                        :files (:defaults "queries"))
+    :config
+    ;; bind `function.outer`(entire function block) to `f` for use in
+    ;; things like `vaf`, `yaf`
+    (define-key evil-outer-text-objects-map
+      "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+
+    ;; bind `function.inner`(function block without name and args) to
+    ;; `f` for use in things like `vif`, `yif`
+    (define-key evil-inner-text-objects-map
+      "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+
+    ;; The first argument to `evil-textobj-tree-sitter-get-textobj' will
+    ;; be the capture group to use and the second arg will be an alist
+    ;; mapping major-mode to the corresponding query to use.
+    (define-key evil-outer-text-objects-map "m"
+      (evil-textobj-tree-sitter-get-textobj "import"
+        '((python-mode . [(import_statement) @import])
+          (rust-mode . [(use_declaration) @import])))))
+
+#+END_SRC
+
 * balanced windows
 :PROPERTIES:
 :REPO:     https://github.com/wbolster/emacs-balanced-windows
