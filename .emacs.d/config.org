@@ -5564,9 +5564,17 @@ to fixed. For instance, when inserting a new headline or item, I
 
     (heartman/execute-macro-on-kvp-list
      define-evil-textobj-tree-sitter
-     "i" "conditional"
+     "c" "class"
+     "F" "frame"
      "f" "function"
-     "c" "class")
+     "h" "statement"
+     "i" "conditional"
+     "k" "call"
+     "l" "loop"
+     "m" "block"
+     "q" "comment"
+     "v" "scopename"
+     "x" "parameter")
 
 
     ;; The first argument to `evil-textobj-tree-sitter-get-textobj' will
