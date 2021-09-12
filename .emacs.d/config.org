@@ -5571,7 +5571,7 @@ to fixed. For instance, when inserting a new headline or item, I
      "i" "conditional"
      "k" "call"
      "l" "loop"
-     "m" "block"
+     "z" "block"
      "q" "comment"
      "v" "scopename"
      "x" "parameter")
