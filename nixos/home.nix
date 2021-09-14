@@ -280,6 +280,7 @@ in
     vlc
     unstable.wally-cli
     watchexec
+    yaml-language-server
     zoom-us
 
     (
