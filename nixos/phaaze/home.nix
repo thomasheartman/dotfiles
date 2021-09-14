@@ -4,7 +4,7 @@
   imports = [ ../home.nix ];
 
   home.sessionVariables = {
-    HOSTNAME = "phaaze";
+    HOSTNAME = baseNameOf ./.;
   };
 
   home.packages = with pkgs; [
