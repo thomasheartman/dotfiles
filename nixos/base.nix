@@ -244,6 +244,14 @@ in
       ];
     };
 
+    displayManager.lightdm = {
+      enable = true;
+      greeters.enso = {
+        enable = true;
+        blur = true;
+      };
+    };
+
     displayManager.defaultSession = "none+exwm";
   };
 
