@@ -3484,7 +3484,7 @@ movement works.
     :init
 
     (defvar heartman/notmuch-unread-mail-query
-      "tag:unread -is:draft -is:sent"
+      "tag:unread +is:inbox -is:draft -is:sent"
       "The query to list unread mail")
 
     (defvar heartman/fetch-mail-process-prefix
