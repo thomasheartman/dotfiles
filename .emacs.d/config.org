@@ -3533,7 +3533,8 @@ movement works.
       (heartman/fetch-mail))
     :config
     (setq message-send-mail-function 'message-send-mail-with-sendmail
-          notmuch-fcc-dirs "sent +sent -unread -inbox")
+          notmuch-fcc-dirs "sent +sent -unread -inbox"
+          notmuch-archive-tags '("-unread"))
 
     ;; based on https://notmuchmail.org/pipermail/notmuch/2018/026414.html
     (defcustom notmuch-message-attachment-regex
