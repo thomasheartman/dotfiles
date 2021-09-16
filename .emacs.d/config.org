@@ -4797,6 +4797,13 @@ This is based on the config on the typescript-mode repo (specifically
 [[https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004][this comment]]) to get TSX working properly using tree-sitter.
 
 #+BEGIN_SRC emacs-lisp
+  (defvar-local flycheck-local-checkers nil)
+  (defun +flycheck-checker-get(fn checker property)
+    (or (alist-get property (alist-get checker flycheck-local-checkers))
+        (funcall fn checker property)))
+  (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+
+
   (use-package typescript-mode
     :init
     (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
@@ -4805,7 +4812,11 @@ This is based on the config on the typescript-mode repo (specifically
     ((typescript-mode . (lambda ()
                           (lsp)
                           (prettier-mode)
-                          (emmet-mode)))))
+                          (emmet-mode)
+                          (setq flycheck-local-checkers
+                                '((lsp .
+                                       ((next-checkers
+                                         . (javascript-eslint))))))))))
 #+END_SRC
 
 * Tree sitter
