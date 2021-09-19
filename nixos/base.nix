@@ -146,6 +146,8 @@ in
 
   # audio config based on https://nixos.wiki/wiki/PipeWire
   security.rtkit.enable = true;
+
+  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
