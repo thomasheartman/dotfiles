@@ -124,7 +124,7 @@ in
           #!${stdenv.shell}
           sudo nixos-rebuild switch \
             -p ${config.networking.hostName} \
-            -I nixos-config=${homeDir}/dotfiles/nixos/${config.networking.hostName}/configuration.nix \
+            -I nixos-config=${toString ./.}/${config.networking.hostName}/configuration.nix \
             "$@"
         ''
       )
