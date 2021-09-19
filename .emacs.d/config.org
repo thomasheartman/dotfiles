@@ -2750,6 +2750,13 @@ superscripts properly.
   (setq org-pretty-entities t)
 #+end_src
 
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (org-time-stamp-custom-formats '("<%Y年%m月%d日 (%a) %W週>" . "<%Y年%m月%d日 (%a) %H:%M %W週>")))
+#+END_SRC
+
+
 I also want my footnotes to be automatically sorted and renumbered whenever I insert a new one.
 #+begin_src emacs-lisp
   (setq org-footnote-auto-adjust t)
