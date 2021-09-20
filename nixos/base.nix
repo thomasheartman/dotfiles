@@ -21,7 +21,7 @@ let
           builtins.fetchTarball {
             url =
               "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
-            sha256 = "1pajyn4n0yzi8qxlqjlh20zhdifxfvxqdcjmphqmb8b5p2grk2rx";
+            sha256 = "07pzqz0kivwi0kv3q9bykx9203jmvs4psiqhrb1if91kvwcll3fp";
           }
         )
       )
