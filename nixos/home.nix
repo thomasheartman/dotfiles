@@ -49,7 +49,7 @@ let
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''${mailPass passwordName}'';
+            passwordeval = mailPass passwordName;
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
@@ -65,7 +65,7 @@ let
             remote = {
               type = "Gmail";
               remoteuser = address;
-              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+              remotepasseval = ''${pythonMailPassFn}("${mailPass passwordName}")'';
             };
           };
         };
@@ -73,6 +73,8 @@ let
 
   gheart = "gheart";
   porterbuddy = "porterbuddy";
+
+  pythonMailPassFn = "mailpasswd";
 
   mailPass = account: "${pkgs.pass}/bin/pass show email/${account}";
 
@@ -94,7 +96,7 @@ in
     pythonFile = ''
       import subprocess
 
-      def mailpasswd(get_password_command):
+      def ${pythonMailPassFn}(get_password_command):
         print "Running password command: '%s'" % get_password_command
         try:
           return subprocess.check_output(get_password_command, shell=True)
@@ -144,7 +146,7 @@ in
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''${mailPass passwordName}'';
+            passwordeval = mailPass passwordName;
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
@@ -194,7 +196,7 @@ in
             port = "587";
             from = address;
             user = address;
-            passwordeval = ''${mailPass passwordName}'';
+            passwordeval = mailPass passwordName;
             logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
