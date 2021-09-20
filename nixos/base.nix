@@ -272,6 +272,13 @@ in
       };
     };
 
+    desktopManager.gnome.enable = true;
+
+    desktopManager.xfce = {
+      enable = true;
+      enableXfwm = false;
+    };
+
     displayManager.defaultSession = "none+exwm";
   };
 
