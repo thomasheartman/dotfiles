@@ -204,9 +204,10 @@ in
 
   xsession = {
     enable = true;
-    windowManager.command = ''
-      ${config.programs.emacs.package}/bin/emacs -l "${exwm-load-script}"
-    '';
+    windowManager.i3.enable = true;
+    # windowManager.command = ''
+    #   ${config.programs.emacs.package}/bin/emacs -l "${exwm-load-script}"
+    # '';
     initExtra = ''
       xset r rate 200 100
     '';
