@@ -203,8 +203,8 @@ in
       };
 
   xsession = {
-    enable = true;
-    windowManager.i3.enable = true;
+    enable = false;
+    # windowManager.i3.enable = true;
     # windowManager.command = ''
     #   ${config.programs.emacs.package}/bin/emacs -l "${exwm-load-script}"
     # '';
