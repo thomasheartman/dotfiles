@@ -107,8 +107,8 @@ in
 
   accounts.email.maildirBasePath = "mail";
   accounts.email.accounts.${gheart} = mailConfig {
-    primary = true;
     mailBoxName = gheart;
+    primary = false;
     address = "thomasheartman@gmail.com";
   };
 
@@ -123,7 +123,7 @@ in
   accounts.email.accounts."thomasheartman" =
     let
       mailBoxName = "thomasheartman.com";
-      primary = false;
+      primary = true;
       address = "thomas@thomasheartman.com";
       passwordName = "thomasheartman.com";
     in
