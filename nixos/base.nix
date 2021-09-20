@@ -7,8 +7,26 @@ let
   '';
 
 
-  unstableTarball = fetchTarball
-    "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
+  unstablePkgs = import (
+    fetchTarball
+      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
+  ) {
+    config = config.nixpkgs.config;
+    overlays = [
+      (
+        import (
+          # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
+          # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
+          # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
+          builtins.fetchTarball {
+            url =
+              "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
+            sha256 = "1pajyn4n0yzi8qxlqjlh20zhdifxfvxqdcjmphqmb8b5p2grk2rx";
+          }
+        )
+      )
+    ];
+  };
 
   user = "thomas";
   homeDir = "/home/${user}";
@@ -76,7 +94,7 @@ in
   # $ nix search wget
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      unstable = import unstableTarball { config = config.nixpkgs.config; };
+      unstable = unstablePkgs;
     };
 
     allowUnfree = true;
