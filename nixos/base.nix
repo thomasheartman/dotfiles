@@ -298,7 +298,12 @@ in
   };
 
   nix.trustedUsers = [ "root" user ];
-  services.emacs.defaultEditor = true;
+
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    package = pkgs.unstable.emacsGcc;
+  };
 
   services.offlineimap = {
     enable = true;
