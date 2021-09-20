@@ -328,6 +328,14 @@ in
       ''
     )
 
+    (
+      writeScriptBin "hmr" ''
+        #!${stdenv.shell}
+        echo "Activating back to the second most recent home-manager generation"
+        cd ${home-manager}/bin/home-manager generations | ${gnused}/bin/sed -n 2p | ${coreutils}/bin/cut -d ' ' -f 7) && ./activate
+      ''
+    )
+
   ];
 
   services.dropbox.enable = true;
