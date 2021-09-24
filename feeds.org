@@ -80,6 +80,8 @@
 
 **** [[https://adrianroselli.com/][Adrian Roselli]]
 
+**** [[https://kittygiraudel.com/rss/index.xml][Kitty Giraudel]]
+
 *** Rust                                                           :dev:rust:
 
 **** https://blog.rust-lang.org/feed.xml
