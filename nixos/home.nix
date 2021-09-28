@@ -173,34 +173,35 @@ in
   # appropriate config for gnus-aliases). Because it's the same inbox
   # as the one listed above, we don't need to set up more offlineimap
   # stuff or use a different log file.
-  accounts.email.accounts."self@thomasheartman" =
-    let
-      mailBoxName = "thomasheartman.com";
-      primary = false;
-      address = "self@thomasheartman.com";
-      passwordName = "mail@thomasheartman.com";
-    in
-      {
 
-        realName = "Thomas Heartman";
-        primary = primary;
-        address = address;
+  # accounts.email.accounts."self@thomasheartman" =
+  #   let
+  #     mailBoxName = "thomasheartman.com";
+  #     primary = false;
+  #     address = "self@thomasheartman.com";
+  #     passwordName = "mail@thomasheartman.com";
+  #   in
+  #     {
 
-        smtp.tls.useStartTls = true;
+  #       realName = "Thomas Heartman";
+  #       primary = primary;
+  #       address = address;
 
-        notmuch.enable = false; # set this to true to enable this as a sender in notmuch
-        msmtp = {
-          enable = true;
-          extraConfig = {
-            host = "smtppro.zoho.eu";
-            port = "587";
-            from = address;
-            user = address;
-            passwordeval = mailPass passwordName;
-            logfile = "~/.msmtp.${mailBoxName}.log";
-          };
-        };
-      };
+  #       smtp.tls.useStartTls = true;
+
+  #       notmuch.enable = false; # set this to true to enable this as a sender in notmuch
+  #       msmtp = {
+  #         enable = true;
+  #         extraConfig = {
+  #           host = "smtppro.zoho.eu";
+  #           port = "587";
+  #           from = address;
+  #           user = address;
+  #           passwordeval = mailPass passwordName;
+  #           logfile = "~/.msmtp.${mailBoxName}.log";
+  #         };
+  #       };
+  #     };
 
   xsession = {
     enable = false;
