@@ -160,6 +160,7 @@ in
       alias nixdot='git --git-dir=/etc/nixos/git --work-tree=/etc/nixos/'
     '';
 
+    pathsToLink = ["/libexec"];
   };
 
   # audio config based on https://nixos.wiki/wiki/PipeWire
@@ -277,9 +278,20 @@ in
     desktopManager.xfce = {
       enable = true;
       enableXfwm = false;
+      noDesktop = true;
     };
 
-    displayManager.defaultSession = "none+exwm";
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+        i3blocks
+      ];
+    };
+
+    displayManager.defaultSession = "xfce+i3";
   };
 
   # users
