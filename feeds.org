@@ -82,6 +82,8 @@
 
 **** [[https://kittygiraudel.com/rss/index.xml][Kitty Giraudel]]
 
+**** [[https://ishadeed.com/feed.xml][Ahmad Shadeed]]
+
 *** Rust                                                           :dev:rust:
 
 **** https://blog.rust-lang.org/feed.xml
