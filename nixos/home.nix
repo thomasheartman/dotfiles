@@ -263,6 +263,11 @@ in
           "${mod}+Shift+Up" = "move up";
           "${mod}+Shift+Right" = "move right";
 
+          # cycle workspaces
+          "${mod}+Home" = "workspace prev";
+          "${mod}+End" = "workspace next";
+          "${mod}+Tab" = "workspace back_and_forth";
+          "${mod}+Shift+Tab" = "move container to workspace back_and_forth";
 
           # change v and h because 'split h' means 'when opening a new
           # window, split the current window's width in two and open
