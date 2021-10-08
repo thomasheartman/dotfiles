@@ -2,7 +2,9 @@
 
 let
 
- mod = "Mod4";
+  mod = "Mod4";
+  terminal = "${pkgs.alacritty}/bin/alacritty";
+  rofi = pkgs.rofi.override { plugins = [pkgs.rofi-emoji ];};
 
   unstable = import (
     fetchTarball
@@ -219,35 +221,40 @@ in
       config = {
         modifier = mod;
 
-        fonts = [ "DejaVu Sans Mono, FontAwesome 20" ];
+        fonts = [ "DejaVu Sans Mono, FontAwesome 12" ];
+
+        focus = {
+          followMouse = false;
+        };
+
+        terminal = terminal;
+
+        window = {
+          titlebar = false;
+        };
 
         keybindings = pkgs.lib.mkOptionDefault {
-          "${mod}+space" = "exec ${pkgs.dmenu}/bin/dmenu_run";
-          "${mod}+x" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
-          "${mod}+Shift+x" = "exec sh -c '${pkgs.i3lock}/bin/i3lock -c 222222 & sleep 5 && xset dpms force of'";
+          "${mod}+space" = "exec ${rofi}/bin/rofi -show run";
+          "${mod}+print" = "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
+          "${mod}+Shift+print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
-          # Focus
-          "${mod}+j" = "focus left";
-          "${mod}+k" = "focus down";
-          "${mod}+l" = "focus up";
-          "${mod}+semicolon" = "focus right";
-
-          # Move
-          "${mod}+Shift+j" = "move left";
-          "${mod}+Shift+k" = "move down";
-          "${mod}+Shift+l" = "move up";
-          "${mod}+Shift+semicolon" = "move right";
+          # Move ... make these work?
+          # "${mod}+down" = "move down";
+          # "${mod}+up" = "move up";
 
           # My multi monitor setup
-          "${mod}+m" = "move workspace to output DP-2";
-          "${mod}+Shift+m" = "move workspace to output DP-5";
+          "${mod}+Next" = "move container to output right";
+          "${mod}+Prior" = "move container to output left";
+          "${mod}+Shift+Next" = "move workspace to output right";
+          "${mod}+Shift+Prior" = "move workspace to output left";
         };
 
 
         bars = [
           {
-            position = "bottom";
+            position = "top";
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${./i3status-rust.toml}";
+            fonts = [ "JetBrains Mono, FontAwesome 20" ];
           }
         ];
       };
@@ -265,6 +272,16 @@ in
     enable = true;
     package = unstable.emacsGcc;
     extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
+  };
+
+  programs.rofi = {
+    enable = true;
+    package = rofi;
+    cycle = true;
+    terminal = terminal;
+    extraConfig = {
+      modi = "window,run,emoji";
+    };
   };
 
   home.packages = with pkgs; [
