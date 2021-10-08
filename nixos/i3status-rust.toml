@@ -47,5 +47,5 @@ block = "battery"
 
 [[block]]
 block = "maildir"
-inboxes = ["/home/thomas/mail/gheart/INBOX", "/home/thomas/mail/thomasheartman.com/INBOX/", "/home/thomas/mail/porterbuddy/INBOX"]
+inboxes = ["/home/thomas/mail/gheart/INBOX", "/home/thomas/mail/thomasheartman.com/INBOX", "/home/thomas/mail/porterbuddy/INBOX"]
 icon = true
