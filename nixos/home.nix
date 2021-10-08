@@ -397,6 +397,14 @@ in
       ''
     )
 
+    (
+      writeScriptBin "emc" ''
+        #!${stdenv.shell}
+        ${config.programs.emacs.package}/bin/emacsclient -nc "$@"
+      ''
+    )
+
+
   ];
 
   services.dropbox.enable = true;
