@@ -39,7 +39,7 @@ show_volume_when_muted = true
 [[block]]
 block = "time"
 interval = 60
-format = "%a %m/%d %I:%M"
+format = "%a %m/%d %_H:%M"
 
 [[block]]
 block = "battery"
