@@ -4,7 +4,7 @@ let
 
   mod = "Mod4";
   terminal = "${pkgs.alacritty}/bin/alacritty";
-  rofi = pkgs.rofi.override { plugins = [pkgs.rofi-emoji ];};
+  rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 
   unstable = import (
     fetchTarball
@@ -234,20 +234,93 @@ in
           titlebar = false;
         };
 
-        keybindings = pkgs.lib.mkOptionDefault {
-          "${mod}+space" = "exec ${rofi}/bin/rofi -show run";
-          "${mod}+print" = "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
-          "${mod}+Shift+print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
+        keybindings = {
+          # rofi: apps, switching, and emoji
+          "${mod}+space" = "exec ${rofi}/bin/rofi -show run -show-icons";
+          "${mod}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
+          "${mod}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
 
-          # Move ... make these work?
-          # "${mod}+down" = "move down";
-          # "${mod}+up" = "move up";
+          # screenshots
+          "${mod}+Print" = "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
+          "${mod}+Shift+Print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
-          # My multi monitor setup
+          # move windows and containers
           "${mod}+Next" = "move container to output right";
           "${mod}+Prior" = "move container to output left";
           "${mod}+Shift+Next" = "move workspace to output right";
           "${mod}+Shift+Prior" = "move workspace to output left";
+
+          "${mod}+Return" = "exec ${terminal}";
+          "${mod}+Shift+q" = "kill";
+
+          "${mod}+Left" = "focus left";
+          "${mod}+Down" = "focus down";
+          "${mod}+Up" = "focus up";
+          "${mod}+Right" = "focus right";
+
+          "${mod}+Shift+Left" = "move left";
+          "${mod}+Shift+Down" = "move down";
+          "${mod}+Shift+Up" = "move up";
+          "${mod}+Shift+Right" = "move right";
+
+
+          # change v and h because 'split h' means 'when opening a new
+          # window, split the current window's width in two and open
+          # it to the right', whereas I think of it as 'draw a
+          # horizontal line and use that to split it'. One is: 'split
+          # along the horizontal axis', the other is: 'make the
+          # separator horizontal'
+          "${mod}+v" = "split h";
+          "${mod}+h" = "split v";
+          "${mod}+Shift+f" = "fullscreen toggle";
+
+          "${mod}+Shift+s" = "layout stacking";
+          "${mod}+Shift+w" = "layout tabbed";
+          "${mod}+e" = "layout toggle split";
+
+          "${mod}+z" = "floating toggle";
+          "${mod}+Shift+z" = "focus mode_toggle";
+
+          "${mod}+a" = "focus parent";
+
+          "${mod}+1" = "workspace number 1";
+          "${mod}+2" = "workspace number 2";
+          "${mod}+3" = "workspace number 3";
+          "${mod}+4" = "workspace number 4";
+          "${mod}+5" = "workspace number 5";
+          "${mod}+6" = "workspace number 6";
+          "${mod}+7" = "workspace number 7";
+          "${mod}+8" = "workspace number 8";
+          "${mod}+9" = "workspace number 9";
+          "${mod}+0" = "workspace number 10";
+
+          "${mod}+Shift+1" =
+            "move container to workspace number 1";
+          "${mod}+Shift+2" =
+            "move container to workspace number 2";
+          "${mod}+Shift+3" =
+            "move container to workspace number 3";
+          "${mod}+Shift+4" =
+            "move container to workspace number 4";
+          "${mod}+Shift+5" =
+            "move container to workspace number 5";
+          "${mod}+Shift+6" =
+            "move container to workspace number 6";
+          "${mod}+Shift+7" =
+            "move container to workspace number 7";
+          "${mod}+Shift+8" =
+            "move container to workspace number 8";
+          "${mod}+Shift+9" =
+            "move container to workspace number 9";
+          "${mod}+Shift+0" =
+            "move container to workspace number 10";
+
+          "${mod}+Shift+c" = "reload";
+          "${mod}+Shift+r" = "restart";
+          "${mod}+Shift+n" =
+            "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
+
+          "${mod}+r" = "mode resize";
         };
 
 
