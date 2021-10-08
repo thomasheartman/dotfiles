@@ -283,6 +283,7 @@ in
     extraConfig = {
       modi = "window,run,emoji";
     };
+    theme = ../rofi/themes/alter.rasi;
   };
 
   home.packages = with pkgs; [
