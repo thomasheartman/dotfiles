@@ -7,11 +7,6 @@ alias nixdot="git --git-dir=/etc/nixos/.git/"
 
 alias p="pijul"
 
-alias sc="systemctl"
-alias jc="journalctl"
-alias sus="systemctl suspend"
-alias hib="systemctl hibernate"
-
 # git
 alias g="git"
 alias gfs="git fs"

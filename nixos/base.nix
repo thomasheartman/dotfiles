@@ -148,12 +148,52 @@ in
       )
 
       (
+        writeScriptBin "build-vm" ''
+          #!${stdenv.shell}
+          sudo nixos-rebuild build-vm \
+            -p ${config.networking.hostName} \
+            -I nixos-config=${toString ./.}/${config.networking.hostName}/configuration.nix \
+            "$@"
+        ''
+      )
+
+
+      (
         writeScriptBin "mfx" ''
           #!${stdenv.shell}
           ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1-2 --off
           ${pkgs.autorandr}/bin/autorandr -c
         ''
       )
+
+      (
+        writeScriptBin "hib" ''
+          #!${stdenv.shell}
+          systemctl hibernate "$@"
+        ''
+      )
+
+      (
+        writeScriptBin "sus" ''
+          #!${stdenv.shell}
+          systemctl suspend "$@"
+        ''
+      )
+
+      (
+        writeScriptBin "jc" ''
+          #!${stdenv.shell}
+          journalctrl "$@"
+        ''
+      )
+
+      (
+        writeScriptBin "sc" ''
+          #!${stdenv.shell}
+          systemctl "$@"
+        ''
+      )
+
     ];
 
     interactiveShellInit = ''
