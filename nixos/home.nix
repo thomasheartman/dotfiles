@@ -5,6 +5,7 @@ let
   mod = "Mod4";
   terminal = "${pkgs.alacritty}/bin/alacritty";
   rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
+  emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
   unstable = import (
     fetchTarball
@@ -251,6 +252,8 @@ in
           "${mod}+Shift+Prior" = "move workspace to output left";
 
           "${mod}+Return" = "exec ${terminal}";
+          "${mod}+Shift+Return" = "exec ${emacsclient}";
+
           "${mod}+Shift+q" = "kill";
 
           "${mod}+Left" = "focus left";
@@ -479,7 +482,7 @@ in
     (
       writeScriptBin "emc" ''
         #!${stdenv.shell}
-        ${config.programs.emacs.package}/bin/emacsclient -nc "$@"
+        ${emacsclient}
       ''
     )
 
