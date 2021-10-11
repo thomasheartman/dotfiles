@@ -2033,6 +2033,10 @@ got used to and want to keep.
 
     "s-|" 'split-window-right-and-focus
     "s-_" 'split-window-below-and-focus)
+
+  (general-def
+    :keymaps 'key-translation-map
+    "s-s" (kbd "C-x C-s"))
 #+END_SRC
 
 
