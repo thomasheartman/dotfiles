@@ -1895,6 +1895,87 @@ Is the current line empty?
     "S-<f3>" 'isearch-repeat-backward)
 #+END_SRC
 
+*** Make window fill {left,right,upper,lower} half of frame
+
+I'd like to be able to send a window to a specified half of a frame.
+Any other windows in the same frame should split the remaining space
+evenly between them.
+
+To solve this:
+
+1. Delete other windows. We'll start with a fresh window covering the
+   whole screen.
+2. Split this window according to the directional argument.
+3. Partition the other screen half into `frame-windows - 1` smaller windows.
+4. Assign buffers to windows.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/split-windows (windows buffers-to-display)
+    "Split the largest window among WINDOWS. Repeat til there are NUM-WINDOWS.
+
+  Splits the window along it's longest axis (bottom or right)."
+    (let ((next-buffer (car buffers-to-display))
+          (remaining-buffers (cdr buffers-to-display)))
+      (cl-flet ((split-window-f (window width height)
+                                (let ((side (if (> height width)
+                                                'below
+                                              'right)))
+                                  (split-window window nil side t)))
+
+                (create-window-plist (w) (let* ((height (window-pixel-height w))
+                                                (width (window-pixel-width w))
+                                                (area (* height width)))
+                                           `(window ,w height ,height width ,width area ,area))))
+        (require 'seq)
+        (if remaining-buffers
+            (let* ((windows-list (mapcar #'create-window-plist windows))
+                   (largest-window (if (<= 2 (length windows-list))
+                                       (progn
+                                         (seq-reduce (lambda (largest next)
+                                                       (if (>= (plist-get next 'area) (plist-get largest 'area))
+                                                           next
+                                                         largest)) (cdr windows-list)
+                                                         (car windows-list)))
+                                     (car windows-list)))
+                   (new-window (split-window-f
+                                (plist-get largest-window 'window)
+                                (plist-get largest-window 'width)
+                                (plist-get largest-window 'height))))
+              (save-selected-window
+                (select-window new-window)
+                (switch-to-buffer next-buffer))
+              (heartman/split-windows (cons new-window windows) remaining-buffers)))
+        (save-selected-window
+          (select-window (car windows))
+          (switch-to-buffer next-buffer)))))
+
+
+  (defun heartman/send-window-to-frame-half (section)
+    "Send the current window to the specified half of the screen.
+
+  Valid values for `SECTION' are 'left, 'right, 'above and 'below."
+    (let* ((windows (window-list))
+           (other-windows (cdr windows))
+           (other-buffers (mapcar #'window-buffer other-windows)))
+      (delete-other-windows)
+      (cl-flet ((flip (direction) (cond
+                                   ((eq direction 'left) 'right)
+                                   ((eq direction 'right) 'left)
+                                   ((eq direction 'up) 'down)
+                                   ((eq direction 'down) 'up))))
+        (let ((new-main-window (selected-window))
+              (window-to-partition (split-window nil nil (flip section))))
+          (heartman/split-windows (list window-to-partition) other-buffers)))))
+
+
+  (defun heartman/send-window (direction)
+    "Send the current window to frame half."
+    (lambda ()
+      (interactive)
+      (heartman/send-window-to-frame-half direction)))
+#+END_SRC
+
+
 *** Super key bindings                                         :keybinding:
 
 These are key bindings that remain from when I used EXWM but that I
@@ -3928,87 +4009,6 @@ which I mean:
            (split-window-right-and-focus))
          (switch-to-buffer buffer)))
    #+END_SRC
-
-* Make window fill {left,right,upper,lower} half of frame
-
-I'd like to be able to send a window to a specified half of a frame.
-Any other windows in the same frame should split the remaining space
-evenly between them.
-
-To solve this:
-
-1. Delete other windows. We'll start with a fresh window covering the
-   whole screen.
-2. Split this window according to the directional argument.
-3. Partition the other screen half into `frame-windows - 1` smaller windows.
-4. Assign buffers to windows.
-
-#+BEGIN_SRC emacs-lisp
-  (defun heartman/split-windows (windows buffers-to-display)
-    "Split the largest window among WINDOWS. Repeat til there are NUM-WINDOWS.
-
-  Splits the window along it's longest axis (bottom or right)."
-    (let ((next-buffer (car buffers-to-display))
-          (remaining-buffers (cdr buffers-to-display)))
-      (cl-flet ((split-window-f (window width height)
-                                (let ((side (if (> height width)
-                                                'below
-                                              'right)))
-                                  (split-window window nil side t)))
-
-                (create-window-plist (w) (let* ((height (window-pixel-height w))
-                                                (width (window-pixel-width w))
-                                                (area (* height width)))
-                                           `(window ,w height ,height width ,width area ,area))))
-        (require 'seq)
-        (if remaining-buffers
-            (let* ((windows-list (mapcar #'create-window-plist windows))
-                   (largest-window (if (<= 2 (length windows-list))
-                                       (progn
-                                         (seq-reduce (lambda (largest next)
-                                                       (if (>= (plist-get next 'area) (plist-get largest 'area))
-                                                           next
-                                                         largest)) (cdr windows-list)
-                                                         (car windows-list)))
-                                     (car windows-list)))
-                   (new-window (split-window-f
-                                (plist-get largest-window 'window)
-                                (plist-get largest-window 'width)
-                                (plist-get largest-window 'height))))
-              (save-selected-window
-                (select-window new-window)
-                (switch-to-buffer next-buffer))
-              (heartman/split-windows (cons new-window windows) remaining-buffers)))
-        (save-selected-window
-          (select-window (car windows))
-          (switch-to-buffer next-buffer)))))
-
-
-  (defun heartman/send-window-to-frame-half (section)
-    "Send the current window to the specified half of the screen.
-
-  Valid values for `SECTION' are 'left, 'right, 'above and 'below."
-    (let* ((windows (window-list))
-           (other-windows (cdr windows))
-           (other-buffers (mapcar #'window-buffer other-windows)))
-      (delete-other-windows)
-      (cl-flet ((flip (direction) (cond
-                                   ((eq direction 'left) 'right)
-                                   ((eq direction 'right) 'left)
-                                   ((eq direction 'up) 'down)
-                                   ((eq direction 'down) 'up))))
-        (let ((new-main-window (selected-window))
-              (window-to-partition (split-window nil nil (flip section))))
-          (heartman/split-windows (list window-to-partition) other-buffers)))))
-
-
-  (defun heartman/send-window (direction)
-    "Send the current window to frame half."
-    (lambda ()
-      (interactive)
-      (heartman/send-window-to-frame-half direction)))
-#+END_SRC
-
 
 * exwm
 :PROPERTIES:
