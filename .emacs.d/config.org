@@ -1895,6 +1895,66 @@ Is the current line empty?
     "S-<f3>" 'isearch-repeat-backward)
 #+END_SRC
 
+*** Super key bindings                                         :keybinding:
+
+These are key bindings that remain from when I used EXWM but that I
+got used to and want to keep.
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    ;; buffers, windows, and files
+    "s-n" 'next-buffer
+    "s-p" 'previous-buffer
+    "s-b" 'switch-to-buffer
+    "s-f" 'find-file
+    "s-q" 'my-kill-current-buffer
+    "s-d" 'delete-window
+    "s-k" 'heartman/delete-current-file
+
+    "C-s-<left>" (heartman/send-window 'left)
+    "C-s-<right>" (heartman/send-window 'right)
+    "C-s-<up>" (heartman/send-window 'up)
+    "C-s-<down>" (heartman/send-window 'down)
+
+    "s-m" 'my-maximize-or-undo-window
+
+    ;; tabs
+    "s-t t" 'heartman/tab-other-frame
+    "s-t t" 'heartman/send-tab-to-next-frame
+    "s-t t" 'heartman/send-tab-to-previous-frame
+    "s->" 'tab-bar-switch-to-next-tab
+    "s-<" 'tab-bar-switch-to-prev-tab
+    "s-," 'tab-bar-switch-to-recent-tab
+    "s-t k" 'tab-close
+    "s-t n" 'tab-bar-new-tab
+    "s-t c" 'tab-bar-duplicate-tab
+    "s-t r" 'tab-rename
+
+    "s-!" 'shell-command
+    "s-&" 'async-shell-command
+
+    ;;apps, org, etc: "open"
+    "s-o m m" 'notmuch
+    "s-o m j" 'notmuch-jump-search
+    "s-o m s" 'notmuch-search
+    "s-o m n" 'notmuch-mua-new-mail
+    "s-o f" 'elfeed
+
+    "s-o a" 'org-agenda
+    "s-o c" 'org-capture
+    "s-o r" 'helm-org-rifle-agenda-files
+
+    "s-o p" 'list-proceses
+
+    "s-o g" 'heartman/git-clone-clipboard-url
+
+    "s-o d" 'toggle-debug-on-error
+
+    "s-|" 'split-window-right-and-focus
+    "s-_" 'split-window-below-and-focus)
+#+END_SRC
+
+
 ** Custom file
 
 To avoid getting customizations stuck into my init.el, I want to
@@ -2164,6 +2224,9 @@ course I want to enable and use Magit:
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :demand t
+    :general
+    ("s-g" 'magit-status
+     "s-G" 'magit-status-dotfiles)
     :init
     (setq magit-repository-directories (seq-map (lambda (path) `(,path . 2)) (my-project-paths)))
     :config
@@ -3965,7 +4028,7 @@ setup.
 The ivy-posframe workaround is taken from [[https://github.com/ch11ng/exwm/issues/550#issuecomment-590875069][this comment on a GitHub
 issue]].
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package exwm
     :after (hydra)
     :when use-exwm
@@ -4250,7 +4313,7 @@ available:
 - music :: [[https://github.com/altdesktop/playerctl][playerctl]]
 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package desktop-environment
     :after (exwm)
     :when use-exwm
