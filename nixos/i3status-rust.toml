@@ -1,5 +1,15 @@
-theme = "gruvbox-dark"
-icons = "awesome"
+theme = "nord-dark"
+icons = "awesome5"
+
+[[block]]
+block = "focused_window"
+
+[[block]]
+block = "keyboard_layout"
+
+[[block]]
+block = "networkmanager"
+primary_only = true
 
 [[block]]
 block = "disk_space"
@@ -10,6 +20,7 @@ unit = "GB"
 interval = 20
 warning = 20.0
 alert = 10.0
+format = "{icon} {used}/{total}"
 
 [[block]]
 block = "memory"
@@ -27,14 +38,16 @@ interval = 1
 format = "{1m}"
 
 [[block]]
-block = "net"
-device = "wlp59s0"
-interval = 5
+block = "music"
+buttons = ["prev", "play", "next"]
 
 [[block]]
 block = "sound"
 on_click = "pulsemixer --toggle-mute"
 show_volume_when_muted = true
+
+[[block]]
+block = "xrandr"
 
 [[block]]
 block = "time"
@@ -43,9 +56,12 @@ format = "%a %m/%d %_H:%M"
 
 [[block]]
 block = "battery"
-
+format = "{percentage} ({time})"
 
 [[block]]
-block = "maildir"
-inboxes = ["/home/thomas/mail/gheart/INBOX", "/home/thomas/mail/thomasheartman.com/INBOX", "/home/thomas/mail/porterbuddy/INBOX"]
-icon = true
+block = "notmuch"
+query = "tag:unread +is:inbox -is:draft -is:sent"
+maildir = "/home/thomas/mail"
+threshold_info = 1
+threshold_good = 10
+threshold_warning = 100
