@@ -336,7 +336,7 @@ in
           {
             position = "top";
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${./i3status-rust.toml}";
-            fonts = [ "JetBrains Mono, FontAwesome 20" ];
+            fonts = [ "JetBrains Mono, FontAwesome 16" ];
           }
         ];
       };
