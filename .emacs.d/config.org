@@ -1976,10 +1976,11 @@ To solve this:
 #+END_SRC
 
 
-*** Super key bindings                                         :keybinding:
+*** Super key bindings and more                                :keybinding:
 
 These are key bindings that remain from when I used EXWM but that I
-got used to and want to keep.
+got used to and want to keep. Some have been modified to work better
+with my current setup.
 
 #+BEGIN_SRC emacs-lisp
   (general-def
@@ -1992,10 +1993,15 @@ got used to and want to keep.
     "s-d" 'delete-window
     "s-k" 'heartman/delete-current-file
 
-    "C-s-<left>" (heartman/send-window 'left)
-    "C-s-<right>" (heartman/send-window 'right)
-    "C-s-<up>" (heartman/send-window 'up)
-    "C-s-<down>" (heartman/send-window 'down)
+    "C-s-<left>" 'windmove-left
+    "C-s-<right>" 'windmove-right
+    "C-s-<up>" 'windmove-up
+    "C-s-<down>" 'windmove-down
+
+    "C-x w <left>" (heartman/send-window 'left)
+    "C-x w <right>" (heartman/send-window 'right)
+    "C-x w <up>" (heartman/send-window 'up)
+    "C-x w <down>" (heartman/send-window 'down)
 
     "s-m" 'my-maximize-or-undo-window
 
@@ -3405,7 +3411,7 @@ added reload directive to force reload.
 :REPO:     https://github.com/abo-abo/hydra
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package hydra
     :demand t
     :after eyebrowse
