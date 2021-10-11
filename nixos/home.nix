@@ -245,6 +245,9 @@ in
           "${mod}+Print" = "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
           "${mod}+Shift+Print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
+          # mail
+          "${mod}+Shift+m" = "exec ${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
+
           # move windows and containers
           "${mod}+Next" = "move container to output right";
           "${mod}+Prior" = "move container to output left";
