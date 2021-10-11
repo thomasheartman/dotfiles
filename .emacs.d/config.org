@@ -4652,25 +4652,12 @@ This is my attempt at customizing my mode line from the ground up.
                           heartman/mode-line-flycheck-separator
                           (fmt .info compilation-info-face))))))
 
-                 '(:eval
-                   (when-let ((_ (require 'notmuch nil t))
-                              (results
-                               (notmuch-hello-query-counts
-                                `((:name "unread" :query ,heartman/notmuch-unread-mail-query))))
-                              (count (plist-get (car results) ':count)))
-                     (format " 📬 (%d)" count)))
-
-                 " "
 
                  '(:eval
                    (when debug-on-error
                      (propertize
                       (format "%c" ?\xf188)
-                      'face compilation-error-face)))
-
-                 " "
-
-                 mode-line-misc-info))
+                      'face compilation-error-face)))))
 
 #+END_SRC
 
