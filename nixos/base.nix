@@ -20,8 +20,9 @@ let
           # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
           builtins.fetchTarball {
             url =
-              "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
-            sha256 = "07pzqz0kivwi0kv3q9bykx9203jmvs4psiqhrb1if91kvwcll3fp";
+              # "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
+              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+            # sha256 = "07pzqz0kivwi0kv3q9bykx9203jmvs4psiqhrb1if91kvwcll3fp";
           }
         )
       )
