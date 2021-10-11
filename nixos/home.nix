@@ -356,6 +356,10 @@ in
     extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
+  services.emacs = {
+    enable = true;
+  };
+
   programs.rofi = {
     enable = true;
     package = rofi;

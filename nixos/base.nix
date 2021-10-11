@@ -12,21 +12,6 @@ let
       "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
   ) {
     config = config.nixpkgs.config;
-    overlays = [
-      (
-        import (
-          # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
-          # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
-          # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
-          builtins.fetchTarball {
-            url =
-              # "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
-              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-            # sha256 = "07pzqz0kivwi0kv3q9bykx9203jmvs4psiqhrb1if91kvwcll3fp";
-          }
-        )
-      )
-    ];
   };
 
   user = "thomas";
@@ -358,12 +343,6 @@ in
   };
 
   nix.trustedUsers = [ "root" user ];
-
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-    package = pkgs.unstable.emacsGcc;
-  };
 
   services.offlineimap = {
     enable = true;
