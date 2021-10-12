@@ -209,6 +209,7 @@ in
 
     windowManager.i3 = {
       enable = true;
+      package = pkgs.i3-gaps;
       config = {
         modifier = mod;
 
@@ -223,6 +224,12 @@ in
         window = {
           titlebar = false;
         };
+
+        # gaps = {
+        #   inner = 5;
+        #   outer = 5;
+        #   smartGaps = true;
+        # };
 
         keybindings = {
           # rofi: apps, switching, and emoji
