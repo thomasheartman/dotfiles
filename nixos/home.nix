@@ -497,7 +497,7 @@ in
   services.picom = {
     enable = true;
     shadow = true;
-    shadowExclude = [ "!focused" "name ~= '^EXWM workspace'" ];
+    blur = true;
   };
 
   home.file.".config/proselint/config".text = ''
