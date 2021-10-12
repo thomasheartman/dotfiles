@@ -223,7 +223,7 @@ in
       config = {
         modifier = mod;
 
-        fonts = [ "DejaVu Sans Mono, FontAwesome 12" ];
+        fonts = [ "JetBrains Mono, FontAwesome 12" ];
 
         focus = {
           followMouse = false;
