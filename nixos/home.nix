@@ -7,75 +7,68 @@ let
   rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
-  unstable = import (
-    fetchTarball
-      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-  ) {
-    overlays = [
-      (
-        import (
-          # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
-          # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
-          # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
-          builtins.fetchTarball {
-            url =
-              # "https://github.com/nix-community/emacs-overlay/archive/c51b95cce591f58e0631f6c3c2cdc0c9ff96adab.tar.gz";
-              "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-            # sha256 = "07pzqz0kivwi0kv3q9bykx9203jmvs4psiqhrb1if91kvwcll3fp";
-          }
+  unstable = import
+    (
+      fetchTarball
+        "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
+    )
+    {
+      overlays = [
+        (
+          import (
+            # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
+            # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
+            # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
+            builtins.fetchTarball {
+              url =
+                # "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+                "https://github.com/nix-community/emacs-overlay/archive/e1f59a9f5cabf42d7fd02e682c12dc362565f512.tar.gz";
+              sha256 = "0gqny4p4hrxm9zcnzk66sjnnrhwqljhl90zy1zp4573sqd0prgvc";
+            }
+          )
         )
-      )
-    ];
-  };
+      ];
+    };
 
-  exwm-load-script = pkgs.writeText "exwm-load.el" ''
-    (require 'exwm)
-    (setenv "SUPPRESS_MINI_FRAME" "t")
-    (exwm-init)
-  '';
+  mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }: {
+    realName = "Thomas Heartman";
+    primary = primary;
+    address = address;
+    flavor = "gmail.com";
 
-  mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }:
-    let
-    in
-      {
-        realName = "Thomas Heartman";
-        primary = primary;
-        address = address;
-        flavor = "gmail.com";
+    smtp.tls.useStartTls = true;
+    imap.tls.useStartTls = true;
 
-        smtp.tls.useStartTls = true;
-        imap.tls.useStartTls = true;
+    notmuch.enable = true;
 
-        notmuch.enable = true;
+    msmtp = {
+      enable = true;
+      extraConfig = {
+        host = "smtp.gmail.com";
+        port = "587";
+        from = address;
+        user = address;
+        passwordeval = mailPass passwordName;
+        logfile = "~/.msmtp.${mailBoxName}.log";
+      };
+    };
 
-        msmtp = {
-          enable = true;
-          extraConfig = {
-            host = "smtp.gmail.com";
-            port = "587";
-            from = address;
-            user = address;
-            passwordeval = mailPass passwordName;
-            logfile = "~/.msmtp.${mailBoxName}.log";
-          };
+    offlineimap = {
+      enable = true;
+      postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+      extraConfig = {
+        local = {
+          type = "Maildir";
+          localfolders = "~/mail/${mailBoxName} ";
         };
-
-        offlineimap = {
-          enable = true;
-          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-          extraConfig = {
-            local = {
-              type = "Maildir";
-              localfolders = "~/mail/${mailBoxName} ";
-            };
-            remote = {
-              type = "Gmail";
-              remoteuser = address;
-              remotepasseval = ''${pythonMailPassFn}("${mailPass passwordName}")'';
-            };
-          };
+        remote = {
+          type = "Gmail";
+          remoteuser = address;
+          remotepasseval = ''${pythonMailPassFn}("${mailPass passwordName}")'';
         };
       };
+    };
+  };
 
   gheart = "gheart";
   porterbuddy = "porterbuddy";
@@ -211,9 +204,6 @@ in
 
   xsession = {
     enable = true;
-    # windowManager.command = ''
-    #   ${config.programs.emacs.package}/bin/emacs -l "${exwm-load-script}"
-    # '';
     initExtra = ''
       xset r rate 200 100
     '';
@@ -356,7 +346,7 @@ in
   programs.emacs = {
     enable = true;
     package = unstable.emacsGcc;
-    extraPackages = epkgs: [ epkgs.exwm epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
+    extraPackages = epkgs: [ epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
   services.emacs = {
