@@ -8,10 +8,6 @@ block = "focused_window"
 block = "keyboard_layout"
 
 [[block]]
-block = "networkmanager"
-primary_only = true
-
-[[block]]
 block = "disk_space"
 path = "/"
 alias = "/"
@@ -54,6 +50,10 @@ block = "xrandr"
 block = "time"
 interval = 60
 format = "%a %m/%d %_H:%M"
+
+[[block]]
+block = "networkmanager"
+primary_only = true
 
 [[block]]
 block = "battery"
