@@ -40,6 +40,7 @@ format = "{1m}"
 [[block]]
 block = "music"
 buttons = ["prev", "play", "next"]
+hide_when_empty = true
 
 [[block]]
 block = "sound"
@@ -56,7 +57,7 @@ format = "%a %m/%d %_H:%M"
 
 [[block]]
 block = "battery"
-format = "{percentage} ({time})"
+format = "{percentage}"
 
 [[block]]
 block = "notmuch"
