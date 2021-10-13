@@ -516,6 +516,14 @@ in
     enable = true;
     shadow = true;
     blur = true;
+
+    activeOpacity = "1.0";
+    inactiveOpacity = "0.95";
+    inactiveDim = "0.01";
+
+    extraOptions = ''
+      detect-transient = true;
+    '';
   };
 
   home.file.".config/proselint/config".text = ''
