@@ -337,6 +337,25 @@ in
             fonts = [ "JetBrains Mono, FontAwesome 16" ];
           }
         ];
+
+        startup = [
+          {
+            command = "exec i3-msg workspace 1";
+            always = true;
+            notification = false;
+          }
+          # when using polybar
+          # {
+          #   command = "systemctl --user restart polybar.service";
+          #   always = true;
+          #   notification = false;
+          # }
+          {
+            command = "${pkgs.feh}/bin/feh --bg-scale ~/.background-image";
+            always = true;
+            notification = false;
+          }
+        ];
       };
     };
 
