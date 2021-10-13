@@ -128,46 +128,46 @@ in
       address = "thomas@thomasheartman.com";
       passwordName = "thomasheartman.com";
     in
-    {
-      realName = "Thomas Heartman";
-      primary = primary;
-      address = address;
+      {
+        realName = "Thomas Heartman";
+        primary = primary;
+        address = address;
 
-      smtp.tls.useStartTls = true;
-      imap.tls.useStartTls = true;
-      imap.host = "imappro.zoho.eu";
+        smtp.tls.useStartTls = true;
+        imap.tls.useStartTls = true;
+        imap.host = "imappro.zoho.eu";
 
-      notmuch.enable = true;
+        notmuch.enable = true;
 
-      msmtp = {
-        enable = true;
-        extraConfig = {
-          host = "smtppro.zoho.eu";
-          port = "587";
-          from = address;
-          user = address;
-          passwordeval = mailPass passwordName;
-          logfile = "~/.msmtp.${mailBoxName}.log";
-        };
-      };
-
-      offlineimap = {
-        enable = true;
-        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-        extraConfig = {
-          local = {
-            type = "Maildir";
-            localfolders = "~/mail/${mailBoxName} ";
-          };
-          remote = {
-            type = "IMAP";
-            remotehost = "imappro.zoho.eu";
-            remoteuser = address;
-            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            host = "smtppro.zoho.eu";
+            port = "587";
+            from = address;
+            user = address;
+            passwordeval = mailPass passwordName;
+            logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
+
+        offlineimap = {
+          enable = true;
+          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+          extraConfig = {
+            local = {
+              type = "Maildir";
+              localfolders = "~/mail/${mailBoxName} ";
+            };
+            remote = {
+              type = "IMAP";
+              remotehost = "imappro.zoho.eu";
+              remoteuser = address;
+              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+            };
+          };
+        };
       };
-    };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
