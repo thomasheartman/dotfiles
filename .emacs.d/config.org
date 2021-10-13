@@ -267,8 +267,7 @@ high-contrast themes and come bundled with emacs.
 To try and stick to loading only one theme, let's do it here.
 
 #+BEGIN_SRC emacs-lisp
-  (unless (version<= emacs-version "28")
-    (load-theme 'modus-operandi))
+  (heartman/load-theme 'doom-palenight)
 #+END_SRC
 
 
