@@ -351,7 +351,7 @@ in
           #   notification = false;
           # }
           {
-            command = "${pkgs.feh}/bin/feh --bg-scale ~/.background-image";
+            command = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
             always = true;
             notification = false;
           }
