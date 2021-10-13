@@ -225,11 +225,10 @@ in
           titlebar = false;
         };
 
-        # gaps = {
-        #   inner = 5;
-        #   outer = 5;
-        #   smartGaps = true;
-        # };
+        gaps = {
+          inner = 15;
+          smartGaps = true;
+        };
 
         keybindings = {
           # rofi: apps, switching, and emoji
