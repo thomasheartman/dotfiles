@@ -316,11 +316,11 @@ to do with the font than with Emacs. The emoji in the table below use
 zero-width joiners. When they all display as single emoji, we'll know
 be closer to full support.
 
-| Emoji  |
-|--------|
-| 👨‍👨‍👦 |
-| 👨🏾‍🦱 |
-| 🙋🏾‍♀️  |
+| Emoji |
+|-------|
+| 👨‍👨‍👦    |
+| 👨🏾‍🦱    |
+| 🙋🏾‍♀️    |
 
 
 #+BEGIN_SRC emacs-lisp
