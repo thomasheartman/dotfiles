@@ -4521,17 +4521,6 @@ This is my attempt at customizing my mode line from the ground up.
   (defvar heartman/mode-line-flycheck-separator "/"
     "The separator to use between flycheck notifications.")
 
-  (defun heartman/mode-line-format-buffer-name (mode-line-format)
-    "Format the buffer name for display"
-    (let* ((name (format-mode-line mode-line-format))
-           (new-name (if (and (stringp exwm-class-name)
-                              (string= "Firefox" exwm-class-name))
-                         (format "🦊 %s" (string-remove-suffix " — Mozilla Firefox" name))
-                       name)))
-      (truncate-string-to-width
-       new-name
-       heartman/mode-line-buffer-max-length
-       nil nil t)))
 
   (defvar heartman/mode-line-icons '(;; VCS
                                      (git-compare . ?\xf0ac)            ; 
@@ -4591,9 +4580,7 @@ This is my attempt at customizing my mode line from the ground up.
                 (list
                  "%e"
 
-                 '(:eval
-                   (unless (eq major-mode 'exwm-mode)
-                     evil-mode-line-tag))
+                 '(:eval evil-mode-line-tag)
 
                  '(:eval (let ((remote-info
                                 (file-remote-p (or buffer-file-name default-directory ""))))
@@ -4603,15 +4590,14 @@ This is my attempt at customizing my mode line from the ground up.
                               'face 'font-lock-function-name-face))))
 
                  '(:eval (list
-                          (heartman/mode-line-format-buffer-name
-                           (propertize  "%b"
-                                        'face 'font-lock-type-face
-                                        'help-echo (buffer-file-name)))
+                          (propertize  "%b"
+                                       'face 'font-lock-type-face
+                                       'help-echo (buffer-file-name))
                           (if (buffer-modified-p)
                               (propertize "*"
                                           'face 'font-lock-negation-char-face)
                             " ")
-                          (when (and buffer-read-only (not exwm-class-name))
+                          (when buffer-read-only
                             "👁")
                           " "))
 
