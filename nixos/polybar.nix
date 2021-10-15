@@ -73,7 +73,7 @@ in {
         font-0 = "FuraCode Nerd Font:size=12;3";
         font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
 
-        modules-left = "distro-icon dulS ddrT i3 dulT";
+        modules-left = "i3 dulT";
         modules-center = "title";
         modules-right = "durS cpu ddlS durT memory ddlT durP battery ddlP durT audio ddlT date";
 
@@ -236,29 +236,30 @@ in {
       "module/i3" = {
         type = "internal/i3";
         pin-workspaces = false;
-        strip-wsnumbers = true;
+        # strip-wsnumbers = true;
         format = "<label-state> <label-mode>";
         format-background = tertiary;
+        index-sort = true;
 
-        ws-icon-0 = "1;";
-        ws-icon-1 = "2;";
-        ws-icon-2 = "3;﬏";
-        ws-icon-3 = "4;";
-        ws-icon-4 = "5;";
-        ws-icon-5 = "6;";
-        ws-icon-6 = "7;";
-        ws-icon-7 = "8;";
-        ws-icon-8 = "9;";
-        ws-icon-9 = "10;";
+        # ws-icon-0 = "1;";
+        # ws-icon-1 = "2;";
+        # ws-icon-2 = "3;﬏";
+        # ws-icon-3 = "4;";
+        # ws-icon-4 = "5;";
+        # ws-icon-5 = "6;";
+        # ws-icon-6 = "7;";
+        # ws-icon-7 = "8;";
+        # ws-icon-8 = "9;";
+        # ws-icon-9 = "10;";
 
         label-mode = "%mode%";
         label-mode-padding = 1;
 
-        label-unfocused = "%icon%";
+        label-unfocused = "%name% %output%";
         label-unfocused-foreground = quinternary;
         label-unfocused-padding = 1;
 
-        label-focused = "%index% %icon%";
+        label-focused = "%name% %output%";
         label-focused-font = 2;
         label-focused-foreground = secondary;
         label-focused-padding = 1;
