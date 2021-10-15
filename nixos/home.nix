@@ -404,7 +404,6 @@ in
     direnv
     discord
     docker
-    dropbox-cli
     element-desktop
     ffmpeg
     firefox
