@@ -7,6 +7,8 @@ let
   rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
+  setBackgroundImage = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
+
   unstable = import
     (
       fetchTarball
@@ -352,7 +354,7 @@ in
             notification = false;
           }
           {
-            command = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
+            command = setBackgroundImage;
             always = true;
             notification = false;
           }
@@ -387,6 +389,16 @@ in
       modi = "window,run,emoji";
     };
     theme = ../rofi/themes/alter.rasi;
+  };
+
+  programs.autorandr = {
+    enable = true;
+    hooks = {
+      postswitch = {
+        # "notify-i3" = "${pkgs.i3-gaps}/bin/i3-msg restart";
+        "change-background" = setBackgroundImage;
+      };
+    };
   };
 
   home.packages = with pkgs; [
