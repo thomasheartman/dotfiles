@@ -6318,7 +6318,7 @@ number of delimiters and let smartparens handle that.
 :END:
 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package winum
     :init
     (winum-mode)
