@@ -4621,10 +4621,10 @@ This is my attempt at customizing my mode line from the ground up.
                  '(:eval
                    (when flycheck-mode
                      (cl-flet ((fmt (count face)
-                                    (if count
-                                        (propertize (format "%d" count)
-                                                    'face face)
-                                      "0")))
+                                 (if count
+                                     (propertize (format "%d" count)
+                                                 'face face)
+                                   "0")))
                        (let-alist (flycheck-count-errors flycheck-current-errors)
                          (list
                           (if (or .error .warning .info)
