@@ -3,6 +3,12 @@
 # Created By @icanwalkonwater
 # Edited and ported to Nix by Th0rgal
 
+# Look at this setup for potential use on multiple monitors:
+# https://github.com/polybar/polybar/issues/763#issuecomment-331604987
+
+# See also this for autorandr-integration:
+# https://github.com/polybar/polybar/issues/763#issuecomment-887425778
+
 let
   ac = "#1E88E5";
   mf = "#383838";
@@ -37,7 +43,8 @@ in {
       alsaSupport = true;
     };
 
-    script = "polybar -q -r top & polybar -q -r bottom &";
+    # script = "polybar -q -r top & polybar -q -r bottom &";
+    script = "polybar -q -r top &";
 
     config = {
       "global/wm" = {
@@ -68,7 +75,7 @@ in {
 
         modules-left = "distro-icon dulS ddrT i3 dulT";
         modules-center = "title";
-        modules-right = "durT audio ddlT date";
+        modules-right = "durS cpu ddlS durT memory ddlT durP battery ddlP durT audio ddlT date";
 
         locale = "en_US.UTF-8";
       };
