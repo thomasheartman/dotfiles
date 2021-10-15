@@ -364,7 +364,7 @@ give ourselves a little bit of extra space (based on [[https://emacs.stackexchan
 
 To set transparency, use ~(set-frame-parameter (selected-frame) 'alpha '(100 100))~
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defvar heartman/frame-opacity 93
     "The default frame opacity.")
 
