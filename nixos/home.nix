@@ -80,6 +80,8 @@ let
 in
 {
 
+  imports = [ ./polybar.nix ];
+
   programs.msmtp = { enable = true; };
 
   programs.notmuch = { enable = true; };
@@ -126,46 +128,46 @@ in
       address = "thomas@thomasheartman.com";
       passwordName = "thomasheartman.com";
     in
-    {
-      realName = "Thomas Heartman";
-      primary = primary;
-      address = address;
+      {
+        realName = "Thomas Heartman";
+        primary = primary;
+        address = address;
 
-      smtp.tls.useStartTls = true;
-      imap.tls.useStartTls = true;
-      imap.host = "imappro.zoho.eu";
+        smtp.tls.useStartTls = true;
+        imap.tls.useStartTls = true;
+        imap.host = "imappro.zoho.eu";
 
-      notmuch.enable = true;
+        notmuch.enable = true;
 
-      msmtp = {
-        enable = true;
-        extraConfig = {
-          host = "smtppro.zoho.eu";
-          port = "587";
-          from = address;
-          user = address;
-          passwordeval = mailPass passwordName;
-          logfile = "~/.msmtp.${mailBoxName}.log";
-        };
-      };
-
-      offlineimap = {
-        enable = true;
-        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-        extraConfig = {
-          local = {
-            type = "Maildir";
-            localfolders = "~/mail/${mailBoxName} ";
-          };
-          remote = {
-            type = "IMAP";
-            remotehost = "imappro.zoho.eu";
-            remoteuser = address;
-            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+        msmtp = {
+          enable = true;
+          extraConfig = {
+            host = "smtppro.zoho.eu";
+            port = "587";
+            from = address;
+            user = address;
+            passwordeval = mailPass passwordName;
+            logfile = "~/.msmtp.${mailBoxName}.log";
           };
         };
+
+        offlineimap = {
+          enable = true;
+          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+          extraConfig = {
+            local = {
+              type = "Maildir";
+              localfolders = "~/mail/${mailBoxName} ";
+            };
+            remote = {
+              type = "IMAP";
+              remotehost = "imappro.zoho.eu";
+              remoteuser = address;
+              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+            };
+          };
+        };
       };
-    };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
@@ -331,11 +333,11 @@ in
 
 
         bars = [
-          {
-            position = "top";
-            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${../i3status-rust/config.toml}";
-            fonts = [ "JetBrains Mono, FontAwesome 16" ];
-          }
+          # {
+          #   position = "top";
+          #   statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${../i3status-rust/config.toml}";
+          #   fonts = [ "JetBrains Mono, FontAwesome 16" ];
+          # }
         ];
 
         startup = [
@@ -344,12 +346,11 @@ in
             always = true;
             notification = false;
           }
-          # when using polybar
-          # {
-          #   command = "systemctl --user restart polybar.service";
-          #   always = true;
-          #   notification = false;
-          # }
+          {
+            command = "systemctl --user restart polybar.service";
+            always = true;
+            notification = false;
+          }
           {
             command = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
             always = true;
@@ -522,6 +523,33 @@ in
       detect-transient = true;
     '';
   };
+
+  # services.polybar = {
+  #   enable = true;
+
+  #   package = pkgs.polybar.override {
+  #     i3GapsSupport = true;
+  #   };
+
+  #   script = "polybar -q -r top &";
+
+  #   config = {
+  #     "bar/top" = {
+  #       bottom = false;
+  #       fixed-center = true;
+
+  #       width = "100%";
+  #       height = 19;
+  #       offset-x = "1%";
+
+  #       modules-left = "distro-icon dulS ddrT i3 dulT";
+  #       modules-center = "title";
+  #       modules-right = "durT audio ddlT date";
+
+  #       locale = "en_US.UTF-8";
+  #     };
+  #   };
+  # };
 
   home.file.".config/proselint/config".text = ''
     {

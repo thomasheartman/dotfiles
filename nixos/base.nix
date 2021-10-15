@@ -57,10 +57,12 @@ in
       ipafont
       kochi-substitute
       mplus-outline-fonts
+      nerdfonts
       noto-fonts
       noto-fonts-emoji
       open-sans
       powerline-fonts
+      siji
       symbola
     ];
 
