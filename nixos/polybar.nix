@@ -40,35 +40,30 @@ let
 
   polyscript = scriptName: "~/.config/polybar/${scriptName}";
 
+  pkg = pkgs.polybar.override {
+    i3GapsSupport = true;
+    alsaSupport = true;
+  };
+
 
 in
 {
   services.polybar = {
     enable = true;
 
-    package = pkgs.polybar.override {
-      i3GapsSupport = true;
-      alsaSupport = true;
-    };
+    package = pkg;
 
-    # script = "polybar -q -r top & polybar -q -r bottom &";
-    script = ''
-
-      if type "xrandr"; then
-        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-          MONITOR=$m polybar --reload top &
+    # load the top bar on all monitors, bottom bar only on main monitor.
+    script = let
+      pb = "${pkg}/bin/polybar";
+    in
+      ''
+        for m in $(${pb} --list-monitors | ${pkgs.coreutils}/bin/cut -d":" -f1); do
+            MONITOR=$m ${pb} --reload top &
         done
-      else
-        polybar --reload top &
-      fi
 
-      # for m in $(polybar --list-monitors | cut -d":" -f1); do
-      #     MONITOR=$m polybar --reload top &
-      #     echo "monitor is $m"
-      # done
-
-      polybar -q -r bottom &
-    '';
+        ${pb} -q -r bottom &
+      '';
 
     config = {
       "global/wm" = {
