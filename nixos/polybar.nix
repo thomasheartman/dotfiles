@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, openMailClient, ... }:
 
 # Created By @icanwalkonwater
 # Edited and ported to Nix by Th0rgal
@@ -34,7 +34,8 @@ let
   # Red
   urgency = "#e74c3c";
 
-in {
+in
+{
   services.polybar = {
     enable = true;
 
@@ -43,8 +44,8 @@ in {
       alsaSupport = true;
     };
 
-    # script = "polybar -q -r top & polybar -q -r bottom &";
-    script = "polybar -q -r top &";
+    script = "polybar -q -r top & polybar -q -r bottom &";
+    # script = "polybar -q -r top &";
 
     config = {
       "global/wm" = {
@@ -89,7 +90,7 @@ in {
 
         offset-x = "1%";
 
-        background = bg;
+        background = "#88000000";
         foreground = fg;
 
         radius-top = 0;
@@ -97,9 +98,9 @@ in {
         tray-position = "left";
         tray-detached = false;
         tray-maxsize = 15;
-        tray-background = primary;
-        tray-offset-x = -19;
-        tray-offset-y = 0;
+        # tray-background = primary;
+        # tray-offset-x = -19;
+        # tray-offset-y = 0;
         tray-padding = 5;
         tray-scale = 1;
         padding = 0;
@@ -107,9 +108,11 @@ in {
         font-0 = "FuraCode Nerd Font:size=12;3";
         font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
 
-        modules-left = "powermenu ddlS";
+        modules-left = "i3";
 
-        modules-right = "ddrS cpu dulS ddrT memory dulT ddrP battery";
+        modules-center = "title";
+
+        modules-right = "bluetooth cpu memory volume wifi wired-network battery keyboard date";
 
         locale = "en_US.UTF-8";
       };
@@ -147,9 +150,11 @@ in {
       };
 
       "module/audio" = {
-        type = "internal/alsa";
+        ## TODO: revisit this with the pipewire module:
+        ## https://github.com/polybar/polybar-scripts/pull/320/files
+        type = "internal/pulseaudio";
 
-        format-volume = "墳 VOL <label-volume>";
+        format-volume = "墳 <label-volume>";
         format-volume-padding = 1;
         format-volume-foreground = secondary;
         format-volume-background = tertiary;
@@ -160,19 +165,21 @@ in {
         format-muted-foreground = secondary;
         format-muted-background = tertiary;
         format-muted-prefix = "婢 ";
-        format-muted-prefix-foreground = urgency;
+        format-muted-prefix-foreground = secondary;
         format-muted-overline = bg;
 
-        label-muted = "VOL Muted";
+        label-muted = "%percentage%";
+
+        click-right = "pavucontrol";
       };
 
       "module/battery" = {
         type = "internal/battery";
         full-at = 101; # to disable it
         battery = "BAT0"; # TODO: Better way to fill this
-        adapter = "AC0";
+        adapter = "AC";
 
-        poll-interval = 2;
+        poll-interval = 5;
 
         label-full = " 100%";
         format-full-padding = 1;
@@ -224,13 +231,13 @@ in {
         interval = "1.0";
 
         time = "%H:%M:%S";
-        time-alt = "%Y-%m-%d%";
+        date = "%b %d | W%V";
 
         format = "<label>";
         format-padding = 4;
         format-foreground = fg;
 
-        label = "%time%";
+        label = "%time% | %date%";
       };
 
       "module/i3" = {
@@ -294,9 +301,36 @@ in {
         label = "RAM %percentage_used%%";
       };
 
-      "module/network" = {
+      "module/wifi" = {
         type = "internal/network";
-        interface = "enp3s0";
+        interface = "wlp59s0";
+
+        interval = "1.0";
+
+        accumulate-stats = true;
+        unknown-as-up = true;
+
+        format-connected = "<label-connected>";
+        format-connected-background = mf;
+        format-connected-underline = bg;
+        format-connected-overline = bg;
+        format-connected-padding = 2;
+        format-connected-margin = 0;
+
+        format-disconnected = "<label-disconnected>";
+        format-disconnected-background = mf;
+        format-disconnected-underline = bg;
+        format-disconnected-overline = bg;
+        format-disconnected-padding = 2;
+        format-disconnected-margin = 0;
+
+        label-connected = "D %downspeed:2% | U %upspeed:2%";
+        label-disconnected = "DISCONNECTED";
+      };
+
+      "module/wired-network" = {
+        type = "internal/network";
+        interface = "enp10s0";
 
         interval = "1.0";
 
@@ -369,10 +403,29 @@ in {
         menu-0-2-exec = "systemctl poweroff";
       };
 
-      #"module/wireless-network" = {
-      #  type = "internal/network";
-      #  interval = "wlp2s0";
-      #};
+      "module/keyboard" = {
+        format-padding = 1;
+        type = "internal/xkeyboard";
+        label-layout = " %name:0:13:…%";
+
+        label-indicator-on-capslock = "CAPS";
+      };
+
+
+      "module/mail" = {
+        type = "custom/script";
+        exec = "notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
+        format-prefix = "";
+        label = "%output:2:3:+%";
+        click-left = openMailClient;
+      };
+
+      "module/bluetooth" = {
+        type = "custom/script";
+        exec = "~/.config/polybar/bluetooth.sh";
+        tail = true;
+        click-left = "~/.config/polybar/bluetooth.sh --toggle &";
+      };
 
       #--------------------SOLID TRANSITIONS--------------------#
 
