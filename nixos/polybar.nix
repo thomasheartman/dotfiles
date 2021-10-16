@@ -169,8 +169,6 @@ in
         script = polyscript "pipewire.sh";
       in
         {
-          ## TODO: revisit this with the pipewire module:
-          ## https://github.com/polybar/polybar-scripts/pull/320/files
           type = "custom/script";
 
           label = "%output%";
