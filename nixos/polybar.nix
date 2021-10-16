@@ -248,43 +248,33 @@ in
 
       "module/i3" = {
         type = "internal/i3";
-        # pin-workspaces = true;
-        # strip-wsnumbers = true;
-        format = "<label-state> <label-mode>";
-        # format-background = tertiary;
-        # index-sort = true;
+        pin-workspaces = true;
 
-        # ws-icon-0 = "1;";
-        # ws-icon-1 = "2;";
-        # ws-icon-2 = "3;﬏";
-        # ws-icon-3 = "4;";
-        # ws-icon-4 = "5;";
-        # ws-icon-5 = "6;";
-        # ws-icon-6 = "7;";
-        # ws-icon-7 = "8;";
-        # ws-icon-8 = "9;";
-        # ws-icon-9 = "10;";
+        format = " <label-state> <label-mode>";
 
         label-mode = "%mode%";
         label-mode-padding = 1;
+        label-mode-focused-font = 2;
+        label-mode-foreground = secondary;
+        label-mode-background = fg;
 
-        label-unfocused = "%name% %output%";
-        # label-unfocused-foreground = quinternary;
+        label-unfocused = "%name%";
         label-unfocused-padding = 1;
 
-        label-focused = "%name% %output%";
+        label-focused = "%name%";
         label-focused-font = 2;
-        # label-focused-foreground = secondary;
+        label-focused-foreground = secondary;
+        label-focused-background = fg;
         label-focused-padding = 1;
 
-        label-visible = "%icon%";
+        label-visible = "%name%";
         label-visible-padding = 1;
 
-        label-urgent = "%index%";
+        label-urgent = "%name%";
         label-urgent-foreground = urgency;
         label-urgent-padding = 1;
 
-        label-separator = "";
+        label-separator = "|";
       };
 
       "module/title" = {
