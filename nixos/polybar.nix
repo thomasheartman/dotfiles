@@ -1,4 +1,4 @@
-{ pkgs, openMailClient, ... }:
+{ pkgs, config, ... }:
 
 # Created By @icanwalkonwater
 # Edited and ported to Nix by Th0rgal
@@ -33,6 +33,11 @@ let
 
   # Red
   urgency = "#e74c3c";
+
+  emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
+
+  openMailClient = "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
+
 
 in
 {
@@ -112,7 +117,7 @@ in
 
         modules-center = "title";
 
-        modules-right = "bluetooth cpu memory volume wifi wired-network battery keyboard date";
+        modules-right = "mail bluetooth cpu memory volume wifi wired-network battery keyboard date";
 
         locale = "en_US.UTF-8";
       };
@@ -414,14 +419,15 @@ in
 
       "module/mail" = {
         type = "custom/script";
-        exec = "notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
-        format-prefix = "";
-        label = "%output:2:3:+%";
+        exec = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
+        format-prefix = " ";
+        label = "%output%";
         click-left = openMailClient;
       };
 
       "module/bluetooth" = {
         type = "custom/script";
+        exec-if = "bluetoothctl -h";
         exec = "~/.config/polybar/bluetooth.sh";
         tail = true;
         click-left = "~/.config/polybar/bluetooth.sh --toggle &";
