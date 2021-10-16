@@ -38,6 +38,8 @@ let
 
   openMailClient = "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
 
+  polyscript = scriptName: "~/.config/polybar/${scriptName}";
+
 
 in
 {
@@ -75,12 +77,13 @@ in
       };
 
       "bar/shared" = {
-        monitor = "\${env:MONITOR:}";
+        monitor = ''''${env:MONITOR:}'';
         fixed-center = true;
         width = "100%";
         height = 19;
         offset-x = "1%";
 
+        module-margin = "1";
         radius = 0;
 
         font-0 = "FuraCode Nerd Font:size=12;3";
@@ -104,7 +107,7 @@ in
 
         modules-left = "i3";
         modules-center = "title";
-        modules-right = "mail wired-network wifi keyboard battery date";
+        modules-right = "mail wired-network wifi audio keyboard battery date";
       };
 
       "bar/bottom" = {
@@ -125,7 +128,7 @@ in
         # tray-background = primary;
         # tray-offset-x = -19;
         # tray-offset-y = 0;
-        tray-padding = 5;
+        # tray-padding = 5;
         tray-scale = 1;
         padding = 0;
 
@@ -167,29 +170,27 @@ in
         label-font = 2;
       };
 
-      "module/audio" = {
-        ## TODO: revisit this with the pipewire module:
-        ## https://github.com/polybar/polybar-scripts/pull/320/files
-        type = "internal/pulseaudio";
+      "module/audio" = let
+        script = polyscript "pipewire.sh";
+      in
+        {
+          ## TODO: revisit this with the pipewire module:
+          ## https://github.com/polybar/polybar-scripts/pull/320/files
+          type = "custom/script";
 
-        format-volume = "墳 <label-volume>";
-        format-volume-padding = 1;
-        format-volume-foreground = secondary;
-        format-volume-background = tertiary;
-        label-volume = "%percentage%%";
+          label = "%output%";
 
-        format-muted = "<label-muted>";
-        format-muted-padding = 1;
-        format-muted-foreground = secondary;
-        format-muted-background = tertiary;
-        format-muted-prefix = "婢 ";
-        format-muted-prefix-foreground = secondary;
-        format-muted-overline = bg;
+          label-font = 2;
 
-        label-muted = "%percentage%";
+          interval = "2.0";
 
-        click-right = "pavucontrol";
-      };
+          exec = script;
+
+          click-right = "exec ${pkgs.pavucontrol}/bin/pavucontrol &";
+          click-left = "exec ${script} mute &";
+          scroll-up = "exec ${script} down &";
+          scroll-down = "exec ${script} up &";
+        };
 
       "module/battery" = {
         type = "internal/battery";
@@ -200,10 +201,10 @@ in
         poll-interval = 5;
 
         label-full = " 100%";
-        format-full-padding = 1;
+        # format-full-padding = 1;
 
         format-charging = " <animation-charging> <label-charging>";
-        format-charging-padding = 1;
+        # format-charging-padding = 1;
         label-charging = "%percentage%% +%consumption%W";
         animation-charging-0 = "";
         animation-charging-1 = "";
@@ -213,7 +214,7 @@ in
         animation-charging-framerate = 500;
 
         format-discharging = "<ramp-capacity> <label-discharging>";
-        format-discharging-padding = 1;
+        # format-discharging-padding = 1;
         label-discharging = "%percentage%% -%consumption%W";
         ramp-capacity-0 = "";
         ramp-capacity-0-foreground = urgency;
@@ -244,7 +245,7 @@ in
         date = "%b %d | W%V";
 
         format = "<label>";
-        format-padding = 4;
+        # format-padding = 4;
         format-foreground = fg;
 
         label = "%time% | %date%";
@@ -316,7 +317,7 @@ in
         format-connected = "<label-connected>";
         format-connected-underline = bg;
         format-connected-overline = bg;
-        format-connected-padding = 1;
+        format-connected-padding = 0;
         format-connected-margin = 0;
 
         format-disconnected = "<label-disconnected>";
@@ -358,13 +359,16 @@ in
         click-left = openMailClient;
       };
 
-      "module/bluetooth" = {
-        type = "custom/script";
-        exec-if = "bluetoothctl -h";
-        exec = "~/.config/polybar/bluetooth.sh";
-        tail = true;
-        click-left = "~/.config/polybar/bluetooth.sh --toggle &";
-      };
+      "module/bluetooth" = let
+        scriptPath = polyscript "bluetooth.sh";
+      in
+        {
+          type = "custom/script";
+          exec-if = "bluetoothctl -h";
+          exec = scriptPath;
+          tail = true;
+          click-left = "${scriptPath} --toggle &";
+        };
 
     };
   };

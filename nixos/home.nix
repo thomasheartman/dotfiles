@@ -574,4 +574,37 @@ in
     home-dir /home/thomas/dotfiles/dictionaries
   '';
 
+  home.file.".config/polybar/pipewire.sh" = {
+    executable = true;
+
+    text = ''
+      #!${pkgs.bash}/bin/bash
+
+      function main() {
+          DEFAULT_SOURCE=$(${pkgs.pipewire}/bin/pw-record --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*[[:digit:]]\+: description="\(.*\)" prio=[[:digit:]]\+$/\1/p')
+          DEFAULT_SINK_ID=$(${pkgs.pipewire}/bin/pw-play --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*\([[:digit:]]\+\):.*$/\1/p')
+          DEFAULT_SINK=$(${pkgs.pipewire}/bin/pw-play --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*[[:digit:]]\+: description="\(.*\)" prio=[[:digit:]]\+$/\1/p')
+          VOLUME=$(${pkgs.pulseaudio}/bin/pactl list sinks | ${pkgs.gnused}/bin/sed -n "/Sink #''${DEFAULT_SINK_ID}/,/Volume/ s!^[[:space:]]\+Volume:.* \([[:digit:]]\+\)%.*!\1!p" | ${pkgs.coreutils}/bin/head -n1)
+          IS_MUTED=$(${pkgs.pulseaudio}/bin/pactl list sinks | ${pkgs.gnused}/bin/sed -n "/Sink #''${DEFAULT_SINK_ID}/,/Mute/ s/Mute: \(yes\)/\1/p")
+
+          action=$1
+          if [ "''${action}" == "up" ]; then
+              ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%
+          elif [ "''${action}" == "down" ]; then
+              ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%
+          elif [ "''${action}" == "mute" ]; then
+              ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+          else
+              if [ "''${IS_MUTED}" != "" ]; then
+                  echo " ''${DEFAULT_SOURCE} | ﱝ ''${VOLUME}% ''${DEFAULT_SINK}"
+              else
+                  echo " ''${DEFAULT_SOURCE} | 墳 ''${VOLUME}% ''${DEFAULT_SINK}"
+              fi
+          fi
+      }
+
+      main "$@"
+
+    '';
+  };
 }
