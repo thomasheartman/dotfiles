@@ -49,8 +49,24 @@ in
       alsaSupport = true;
     };
 
-    script = "polybar -q -r top & polybar -q -r bottom &";
-    # script = "polybar -q -r top &";
+    # script = "polybar -q -r top & polybar -q -r bottom &";
+    script = ''
+
+      if type "xrandr"; then
+        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+          MONITOR=$m polybar --reload top &
+        done
+      else
+        polybar --reload top &
+      fi
+
+      # for m in $(polybar --list-monitors | cut -d":" -f1); do
+      #     MONITOR=$m polybar --reload top &
+      #     echo "monitor is $m"
+      # done
+
+      polybar -q -r bottom &
+    '';
 
     config = {
       "global/wm" = {
@@ -58,15 +74,27 @@ in
         margin-top = 0;
       };
 
-      #====================BARS====================#
-
-      "bar/top" = {
-        bottom = false;
+      "bar/shared" = {
+        monitor = "\${env:MONITOR:}";
         fixed-center = true;
-
         width = "100%";
         height = 19;
         offset-x = "1%";
+
+        radius = 0;
+
+        font-0 = "FuraCode Nerd Font:size=12;3";
+        font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
+        font-2 = "Noto Color Emoji:style=Regular:size=12";
+
+        locale = "en_US.UTF-8";
+      };
+
+      #====================BARS====================#
+
+      "bar/top" = {
+        "inherit" = "bar/shared";
+        bottom = false;
 
         scroll-up = "i3wm-wsnext";
         scroll-down = "i3wm-wsprev";
@@ -74,31 +102,22 @@ in
         background = bg;
         foreground = fg;
 
-        radius = 0;
-
-        font-0 = "FuraCode Nerd Font:size=12;3";
-        font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
-
-        modules-left = "i3 dulT";
+        modules-left = "i3";
         modules-center = "title";
-        modules-right = "durS cpu ddlS durT memory ddlT durP battery ddlP durT audio ddlT date";
-
-        locale = "en_US.UTF-8";
+        modules-right = "mail wired-network wifi keyboard battery date";
       };
 
       "bar/bottom" = {
+        "inherit" = "bar/shared";
         bottom = true;
-        fixed-center = true;
 
-        width = "100%";
-        height = 19;
 
-        offset-x = "1%";
-
-        background = "#88000000";
+        # background = "#88000000";
+        background = bg;
         foreground = fg;
 
         radius-top = 0;
+
 
         tray-position = "left";
         tray-detached = false;
@@ -110,22 +129,16 @@ in
         tray-scale = 1;
         padding = 0;
 
-        font-0 = "FuraCode Nerd Font:size=12;3";
-        font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
+        # modules-left = "i3";
 
-        modules-left = "i3";
+        # modules-center = "title";
 
-        modules-center = "title";
-
-        modules-right = "mail bluetooth cpu memory volume wifi wired-network battery keyboard date";
-
-        locale = "en_US.UTF-8";
+        modules-right = "bluetooth cpu memory";
       };
 
       "settings" = {
         throttle-output = 5;
         throttle-output-for = 10;
-        throttle-input-for = 30;
 
         screenchange-reload = true;
 
@@ -188,13 +201,9 @@ in
 
         label-full = " 100%";
         format-full-padding = 1;
-        format-full-foreground = secondary;
-        format-full-background = primary;
 
         format-charging = " <animation-charging> <label-charging>";
         format-charging-padding = 1;
-        format-charging-foreground = secondary;
-        format-charging-background = primary;
         label-charging = "%percentage%% +%consumption%W";
         animation-charging-0 = "";
         animation-charging-1 = "";
@@ -205,8 +214,6 @@ in
 
         format-discharging = "<ramp-capacity> <label-discharging>";
         format-discharging-padding = 1;
-        format-discharging-foreground = secondary;
-        format-discharging-background = primary;
         label-discharging = "%percentage%% -%consumption%W";
         ramp-capacity-0 = "";
         ramp-capacity-0-foreground = urgency;
@@ -222,12 +229,10 @@ in
 
         interval = "0.5";
 
-        format = " <label>";
-        format-foreground = quaternary;
-        format-background = secondary;
+        format = " CPU <label>";
         format-padding = 1;
 
-        label = "CPU %percentage%%";
+        label = "%percentage:3:3%%";
       };
 
       "module/date" = {
@@ -247,11 +252,11 @@ in
 
       "module/i3" = {
         type = "internal/i3";
-        pin-workspaces = false;
+        # pin-workspaces = true;
         # strip-wsnumbers = true;
         format = "<label-state> <label-mode>";
-        format-background = tertiary;
-        index-sort = true;
+        # format-background = tertiary;
+        # index-sort = true;
 
         # ws-icon-0 = "1;";
         # ws-icon-1 = "2;";
@@ -268,12 +273,12 @@ in
         label-mode-padding = 1;
 
         label-unfocused = "%name% %output%";
-        label-unfocused-foreground = quinternary;
+        # label-unfocused-foreground = quinternary;
         label-unfocused-padding = 1;
 
         label-focused = "%name% %output%";
         label-focused-font = 2;
-        label-focused-foreground = secondary;
+        # label-focused-foreground = secondary;
         label-focused-padding = 1;
 
         label-visible = "%icon%";
@@ -298,121 +303,49 @@ in
 
         interval = 3;
 
-        format = " <label>";
-        format-background = tertiary;
-        format-foreground = secondary;
+        format = " RAM <label>";
         format-padding = 1;
 
-        label = "RAM %percentage_used%%";
+        label = "%percentage_used:3:3%%";
+      };
+
+      "module/network" = {
+        type = "internal/network";
+        interval = "1.0";
+
+        format-connected = "<label-connected>";
+        format-connected-underline = bg;
+        format-connected-overline = bg;
+        format-connected-padding = 1;
+        format-connected-margin = 0;
+
+        format-disconnected = "<label-disconnected>";
+        format-disconnected-underline = bg;
+        format-disconnected-overline = bg;
+        format-disconnected-padding = 1;
+        format-disconnected-margin = 0;
       };
 
       "module/wifi" = {
-        type = "internal/network";
+        "inherit" = "module/network";
         interface = "wlp59s0";
 
-        interval = "1.0";
-
-        accumulate-stats = true;
-        unknown-as-up = true;
-
-        format-connected = "<label-connected>";
-        format-connected-background = mf;
-        format-connected-underline = bg;
-        format-connected-overline = bg;
-        format-connected-padding = 2;
-        format-connected-margin = 0;
-
-        format-disconnected = "<label-disconnected>";
-        format-disconnected-background = mf;
-        format-disconnected-underline = bg;
-        format-disconnected-overline = bg;
-        format-disconnected-padding = 2;
-        format-disconnected-margin = 0;
-
-        label-connected = "D %downspeed:2% | U %upspeed:2%";
-        label-disconnected = "DISCONNECTED";
+        label-connected = "直";
+        label-disconnected = "睊";
       };
 
       "module/wired-network" = {
-        type = "internal/network";
+        "inherit" = "module/network";
         interface = "enp10s0";
 
-        interval = "1.0";
-
-        accumulate-stats = true;
-        unknown-as-up = true;
-
-        format-connected = "<label-connected>";
-        format-connected-background = mf;
-        format-connected-underline = bg;
-        format-connected-overline = bg;
-        format-connected-padding = 2;
-        format-connected-margin = 0;
-
-        format-disconnected = "<label-disconnected>";
-        format-disconnected-background = mf;
-        format-disconnected-underline = bg;
-        format-disconnected-overline = bg;
-        format-disconnected-padding = 2;
-        format-disconnected-margin = 0;
-
-        label-connected = "D %downspeed:2% | U %upspeed:2%";
-        label-disconnected = "DISCONNECTED";
-      };
-
-      "module/temperature" = {
-        type = "internal/temperature";
-
-        interval = "0.5";
-
-        thermal-zone = 0; # TODO: Find a better way to fill that
-        warn-temperature = 60;
-        units = true;
-
-        format = "<label>";
-        format-background = mf;
-        format-underline = bg;
-        format-overline = bg;
-        format-padding = 2;
-        format-margin = 0;
-
-        format-warn = "<label-warn>";
-        format-warn-background = mf;
-        format-warn-underline = bg;
-        format-warn-overline = bg;
-        format-warn-padding = 2;
-        format-warn-margin = 0;
-
-        label = "TEMP %temperature-c%";
-        label-warn = "TEMP %temperature-c%";
-        label-warn-foreground = "#f00";
-      };
-
-      "module/powermenu" = {
-        type = "custom/menu";
-        expand-right = true;
-
-        format = "<label-toggle> <menu>";
-        format-background = secondary;
-        format-padding = 1;
-
-        label-open = "";
-        label-close = "";
-        label-separator = "  ";
-
-        menu-0-0 = " Suspend";
-        menu-0-0-exec = "systemctl suspend";
-        menu-0-1 = " Reboot";
-        menu-0-1-exec = "v";
-        menu-0-2 = " Shutdown";
-        menu-0-2-exec = "systemctl poweroff";
+        label-connected = "";
+        label-disconnected = "";
       };
 
       "module/keyboard" = {
         format-padding = 1;
         type = "internal/xkeyboard";
-        label-layout = " %name:0:13:…%";
-
+        label-layout = " %name:0:13%)";
         label-indicator-on-capslock = "CAPS";
       };
 
@@ -433,149 +366,6 @@ in
         click-left = "~/.config/polybar/bluetooth.sh --toggle &";
       };
 
-      #--------------------SOLID TRANSITIONS--------------------#
-
-      "module/dsPT" = {
-        type = "custom/text";
-        content = "";
-        content-background = primary;
-        content-foreground = tertiary;
-      };
-
-      "module/dsTS" = {
-        type = "custom/text";
-        content = "";
-        content-background = tertiary;
-        content-foreground = secondary;
-      };
-
-      "module/dsST" = {
-        type = "custom/text";
-        content = "";
-        content-background = secondary;
-        content-foreground = tertiary;
-      };
-
-      "module/daPT" = {
-        type = "custom/text";
-        content = "";
-        content-background = primary;
-        content-foreground = tertiary;
-      };
-
-      "module/daTP" = {
-        type = "custom/text";
-        content = "";
-        content-background = tertiary;
-        content-foreground = primary;
-      };
-
-      "module/daST" = {
-        type = "custom/text";
-        content = "";
-        content-background = secondary;
-        content-foreground = tertiary;
-      };
-
-      "module/daTS" = {
-        type = "custom/text";
-        content = "";
-        content-background = secondary;
-        content-foreground = primary;
-      };
-
-      "module/daSP" = {
-        type = "custom/text";
-        content = "";
-        content-background = secondary;
-        content-foreground = primary;
-      };
-
-      #--------------------GAPS TRANSITIONS--------------------#
-
-      "module/dulT" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = tertiary;
-        content-background = bg;
-      };
-
-      "module/ddrT" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = tertiary;
-        content-background = bg;
-      };
-
-      "module/ddlT" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = tertiary;
-        content-background = bg;
-      };
-
-      "module/durT" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = tertiary;
-        content-background = bg;
-      };
-
-      "module/ddlP" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = primary;
-        content-background = bg;
-      };
-
-      "module/durP" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = primary;
-        content-background = bg;
-      };
-
-      "module/dulP" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = primary;
-        content-background = bg;
-      };
-
-      "module/ddrP" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = primary;
-        content-background = bg;
-      };
-
-      "module/dulS" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = secondary;
-        content-background = bg;
-      };
-
-      "module/ddlS" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = secondary;
-        content-background = bg;
-      };
-
-      "module/durS" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = secondary;
-        content-background = bg;
-      };
-
-      "module/ddrS" = {
-        type = "custom/text";
-        content = "";
-        content-foreground = secondary;
-        content-background = bg;
-      };
     };
   };
 }
