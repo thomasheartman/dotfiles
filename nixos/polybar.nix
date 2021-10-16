@@ -77,7 +77,7 @@ in
       };
 
       "bar/shared" = {
-        monitor = ''''${env:MONITOR:}'';
+        monitor = "\${env:MONITOR:}";
         fixed-center = true;
         width = "100%";
         height = 19;
@@ -107,7 +107,7 @@ in
 
         modules-left = "i3";
         modules-center = "title";
-        modules-right = "mail wired-network wifi audio keyboard battery date";
+        modules-right = "mail wired-network wifi keyboard battery date";
       };
 
       "bar/bottom" = {
@@ -132,11 +132,11 @@ in
         tray-scale = 1;
         padding = 0;
 
-        # modules-left = "i3";
+        # modules-left = "audio";
 
         # modules-center = "title";
 
-        modules-right = "bluetooth cpu memory";
+        modules-right = "bluetooth audio cpu memory";
       };
 
       "settings" = {
@@ -346,7 +346,7 @@ in
       "module/keyboard" = {
         format-padding = 1;
         type = "internal/xkeyboard";
-        label-layout = " %name:0:13%)";
+        label-layout = " %name:0:13:)%";
         label-indicator-on-capslock = "CAPS";
       };
 
@@ -354,7 +354,7 @@ in
       "module/mail" = {
         type = "custom/script";
         exec = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
-        format-prefix = " ";
+        format-prefix = " ";
         label = "%output%";
         click-left = openMailClient;
       };
