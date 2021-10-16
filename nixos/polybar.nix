@@ -334,12 +334,16 @@ in
       };
 
 
-      "module/mail" = {
+      "module/mail" = let search = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'"; in  {
         type = "custom/script";
-        exec = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
+        # only show mail icon if there are any unread mails
+        exec-if = ''test $(${search}) -gt 0'';
+        exec = search;
         format-prefix = " ";
         label = "%output%";
         click-left = openMailClient;
+
+        interval = 5;
       };
 
       "module/bluetooth" = let
