@@ -7,6 +7,8 @@ let
   rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
+  openMailClient = "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
+
   setBackgroundImage = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
 
   unstable = import
@@ -245,7 +247,7 @@ in
           "${mod}+Shift+Print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
           # mail
-          "${mod}+Shift+m" = "exec ${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
+          "${mod}+Shift+m" = "exec ${openMailClient}";
 
           # move windows and containers
           "${mod}+Next" = "move container to output right";
