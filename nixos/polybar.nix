@@ -334,17 +334,19 @@ in
       };
 
 
-      "module/mail" = let search = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'"; in  {
-        type = "custom/script";
-        # only show mail icon if there are any unread mails
-        exec-if = ''test $(${search}) -gt 0'';
-        exec = search;
-        format-prefix = " ";
-        label = "%output%";
-        click-left = openMailClient;
+      "module/mail" = let
+        search = "${pkgs.notmuch}/bin/notmuch count 'tag:unread +is:inbox -is:draft -is:sent'";
+      in
+        {
+          type = "custom/script";
 
-        interval = 5;
-      };
+          # only show mail icon if there are any unread mails
+          exec = ''count=$(${search}); if [ $count -gt 0 ]; then echo " $count"; else echo ""; fi '';
+          label = "%output%";
+          click-left = openMailClient;
+
+          interval = 5;
+        };
 
       "module/bluetooth" = let
         scriptPath = polyscript "bluetooth.sh";
