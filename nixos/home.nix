@@ -333,6 +333,22 @@ in
             "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
           "${mod}+r" = "mode resize";
+
+          # media keys
+
+          # Pulse Audio controls
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; #increase sound volume
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%"; #decrease sound volume
+          "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle"; # mute sound
+
+          # Sreen brightness controls
+          "XF86MonBrightnessUp" = "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -inc 20"; # increase screen brightness
+          "XF86MonBrightnessDown" = "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -dec 20"; # decrease screen brightness
+
+          # Media player controls
+          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         };
 
 
