@@ -11,6 +11,8 @@ let
 
   setBackgroundImage = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
 
+  restartPolybar = "systemctl --user restart polybar.service";
+
   unstable = import
     (
       fetchTarball
@@ -361,7 +363,7 @@ in
             notification = false;
           }
           {
-            command = "systemctl --user restart polybar.service";
+            command = restartPolybar;
             always = true;
             notification = false;
           }
@@ -409,6 +411,7 @@ in
       postswitch = {
         # "notify-i3" = "${pkgs.i3-gaps}/bin/i3-msg restart";
         "change-background" = setBackgroundImage;
+        "restart-polybar" = restartPolybar;
       };
     };
   };
