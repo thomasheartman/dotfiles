@@ -26,11 +26,11 @@ in
   services.xserver = {
     useGlamor = true;
     displayManager.autoLogin.user = "thomas";
-    videoDrivers = [ "intel" ];
-    deviceSection = ''
-      Option "DRI" "2"
-      Option "TearFree" "true"
-    '';
+    videoDrivers = [ "modesetting" ];
+    # deviceSection = ''
+    #   Option "DRI" "2"
+    #   Option "TearFree" "true"
+    # '';
   };
 
   services.fwupd.enable = true;
