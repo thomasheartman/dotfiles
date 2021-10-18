@@ -5213,8 +5213,7 @@ can simplify the use of it (plus get all the upgrades!).
 #+BEGIN_SRC emacs-lisp
   (use-package ctrlxo
     :general
-    ("C-x o" 'ctrlxo
-     "s-<tab>" 'ctrlxo))
+    ("C-x o" 'ctrlxo-current-frame))
 #+END_SRC
 
 * Python
