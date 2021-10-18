@@ -430,7 +430,7 @@ in
     cascadia-code
     chromium
     direnv
-    discord
+    unstable.discord
     docker
     element-desktop
     ffmpeg
