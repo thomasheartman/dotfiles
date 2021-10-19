@@ -2852,12 +2852,10 @@ I use [[https://github.com/jkitchin/org-ref][org-ref]] for managing bibliographi
   (use-package org-ref
     :after org
     :init (setq reftex-default-bibliography'("~/gtd/bibliography/references.bib")
-                org-ref-bibliography-notes "~/gtd/bibliography/notes.org"
-                org-ref-default-bibliography'("~/gtd/bibliography/references.bib")
-                org-ref-pdf-directory "~/gtd/bibliography/bibtex-pdfs/"
+                bibtex-completion-notes-path '("~/gtd/bibliography/notes.org"
+                                               "~/gtd/bibliography/helm-bibtext-notes")
                 bibtex-completion-bibliography "~/gtd/bibliography/references.bib"
-                bibtex-completion-library-path "~/gtd/bibliography/bibtex-pdfs"
-                bibtex-completion-notes-path "~/gtd/bibliography/helm-bibtext-notes"))
+                bibtex-completion-library-path "~/gtd/bibliography/bibtex-pdfs"))
 #+end_src
 
 ** Babel
