@@ -27,4 +27,8 @@ in
   ];
 
   home.file.".gitconfig.work".source = ~/dotfiles/system-config/porterbuddy/.gitconfig;
+
+  services.picom = {
+    vSync = true;
+  };
 }
