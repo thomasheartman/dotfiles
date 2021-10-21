@@ -2006,8 +2006,8 @@ with my current setup.
 
     ;; tabs
     "s-t t" 'heartman/tab-other-frame
-    "s-t t" 'heartman/send-tab-to-next-frame
-    "s-t t" 'heartman/send-tab-to-previous-frame
+    "s-t n" 'heartman/send-tab-to-next-frame
+    "s-t p" 'heartman/send-tab-to-previous-frame
     "s->" 'tab-bar-switch-to-next-tab
     "s-<" 'tab-bar-switch-to-prev-tab
     "s-," 'tab-bar-switch-to-recent-tab
