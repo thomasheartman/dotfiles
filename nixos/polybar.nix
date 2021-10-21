@@ -234,14 +234,14 @@ in
 
         interval = "1.0";
 
-        time = "%H:%M:%S";
-        date = "%b %d | W%V";
+        time = "%H:%M";
+        date = "%V %a %b %d";
 
         format = "<label>";
         # format-padding = 4;
         format-foreground = fg;
 
-        label = "%time% | %date%";
+        label = " %date%  %time%";
       };
 
       "module/i3" = {
