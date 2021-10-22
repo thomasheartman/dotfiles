@@ -77,7 +77,6 @@ let
   };
 
   gheart = "gheart";
-  porterbuddy = "porterbuddy";
 
   pythonMailPassFn = "mailpasswd";
 
@@ -97,7 +96,7 @@ in
   programs.offlineimap = {
     enable = true;
     extraConfig.general = {
-      accounts = "${gheart}, ${porterbuddy}, thomasheartman";
+      accounts = "${gheart}, thomasheartman";
       autorefresh = "5";
     };
     pythonFile = ''
@@ -119,12 +118,6 @@ in
     address = "thomasheartman@gmail.com";
   };
 
-  accounts.email.accounts.${porterbuddy} = mailConfig {
-    mailBoxName = porterbuddy;
-    address = "heartman@porterbuddy.com";
-  };
-
-  home.file.".signatures/${porterbuddy}".source = ~/dotfiles/email/signatures/porterbuddy;
   home.file.".signatures/simple".source = ~/dotfiles/email/signatures/simple;
 
   accounts.email.accounts."thomasheartman" =
