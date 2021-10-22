@@ -102,7 +102,7 @@ in
 
         modules-left = "i3";
         modules-center = "title";
-        modules-right = "mail wired-network wifi keyboard battery date";
+        modules-right = "mail wired-network wifi battery date";
       };
 
       "bar/bottom" = {
@@ -131,7 +131,7 @@ in
 
         # modules-center = "title";
 
-        modules-right = "bluetooth audio cpu memory";
+        modules-right = "bluetooth audio keyboard cpu memory";
       };
 
       "settings" = {
