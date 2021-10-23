@@ -3649,12 +3649,6 @@ movement works.
        (:name "gheart (unread)"
               :query "to:@gmail.com AND tag:unread"
               :key "G")
-       (:name "porterbuddy"
-              :query "to:@porterbuddy.com"
-              :key "w")
-       (:name "porterbuddy (unread)"
-              :query "to:@porterbuddy.com AND tag:unread"
-              :key "W")
        (:name "thomasheartman.com"
               :query "to:@thomasheartman.com"
               :key "t")
@@ -3797,8 +3791,7 @@ easier, we can use gnus-alias.
     :config
     (defvar heartman/gnus-aliases
       '(("thomasheartman@gmail.com" "~/.signatures/simple" "gheart")
-        ("thomas@thomasheartman.com" "~/.signatures/simple")
-        ("heartman@porterbuddy.com" "~/.signatures/porterbuddy")))
+        ("thomas@thomasheartman.com" "~/.signatures/simple")))
 
     (defun heartman/create-gnus-alias (address signature &optional name)
       "Create a gnus alias identity from address and signature.
@@ -3822,10 +3815,7 @@ easier, we can use gnus-alias.
           gnus-alias-identity-rules
           '(("thomas@thomasheartman.com"
              ("From" "@thomasheartman.com" both)
-             "thomas@thomasheartman.com")
-            ("heartman@porterbuddy.com"
-             ("From" "heartman@porterbuddy.com" both)
-             "heartman@porterbuddy.com")))
+             "thomas@thomasheartman.com")))
 
     :hook
     (message-setup . gnus-alias-determine-identity))
