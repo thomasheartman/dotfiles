@@ -140,6 +140,14 @@ Let's create a couple prefixes:
   (defconst native-comp (require 'comp nil t) "non-nil if Emacs uses native compilation")
 #+END_SRC
 
+* macOS binding
+
+#+BEGIN_SRC emacs-lisp
+  (when on-macos
+    (setq mac-option-modifier 'super
+          mac-command-modifier 'meta))
+#+END_SRC
+
 * Emacs
 
 ** Visual
@@ -2001,6 +2009,7 @@ with my current setup.
     "C-x w <right>" (heartman/send-window 'right)
     "C-x w <up>" (heartman/send-window 'up)
     "C-x w <down>" (heartman/send-window 'down)
+    "C-x w m" 'my-maximize-or-undo-window
 
     "s-m" 'my-maximize-or-undo-window
 
