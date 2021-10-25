@@ -26,7 +26,55 @@
               experimental-features = nix-command flakes
               build-users-group = nixbld
             '';
-            environment.systemPackages = with pkgs; [ nixFlakes home-manager vim emacs git fish autojump bat bitwarden-cli direnv ispell jetbrains-mono jq nixfmt rnix-lsp sd slack victor-mono wally-cli watchexec yaml-language-server yabai];
+
+            fonts = {
+              fonts = with pkgs; [
+                dejavu_fonts
+                fira-code
+                fira-code-symbols
+                font-awesome
+                ipafont
+                kochi-substitute
+                mplus-outline-fonts
+                nerdfonts
+                noto-fonts
+                # noto-fonts-emoji # <- doesn't work because of scipy
+                open-sans
+                powerline-fonts
+                siji
+                symbola
+              ];
+            };
+
+            nixpkgs.config = {
+              allowUnfree = true;
+            };
+
+            environment.systemPackages = with pkgs; [
+              alacritty
+              autojump
+              bat
+              bitwarden-cli
+              direnv
+              emacs
+              fish
+              git
+              home-manager
+              ispell
+              jetbrains-mono
+              jq
+              nixFlakes
+              nixfmt
+              rnix-lsp
+              sd
+              victor-mono
+              vim
+              wally-cli
+              watchexec
+              yaml-language-server
+              # yabai <— fails for some reason
+
+            ];
           })
         ];
 
