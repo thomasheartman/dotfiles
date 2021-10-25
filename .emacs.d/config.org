@@ -5558,8 +5558,8 @@ not for all buffers!
       "C-w" 'whole-line-or-region-kill-region
       "<S-return>" 'my-evil-insert-line-below
       "<C-S-return>" 'my-evil-insert-line-above
-      ;; [remap evil-next-line] 'evil-next-visual-line
-      ;; [remap evil-previous-line] 'evil-previous-visual-line
+      [remap evil-next-line] 'evil-next-visual-line
+      [remap evil-previous-line] 'evil-previous-visual-line
       "n" 'evil-next-line
       "p" 'evil-previous-line
       "C-y" 'evil-paste-after
