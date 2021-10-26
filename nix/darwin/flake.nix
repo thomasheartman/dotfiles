@@ -27,6 +27,8 @@
               build-users-group = nixbld
             '';
 
+            networking.hostName = hostName;
+
             fonts = {
               fonts = with pkgs; [
                 dejavu_fonts
