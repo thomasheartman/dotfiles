@@ -11,78 +11,83 @@
       flake-utils = mk-darwin-system.inputs.flake-utils;
       hostName = "termina";
       systems = [ "aarch64-darwin" ];
-    in flake-utils.lib.eachSystem systems (system:
-      mk-darwin-system.mkDarwinSystem {
-        inherit hostName system;
+    in
+      flake-utils.lib.eachSystem systems (
+        system:
+          mk-darwin-system.mkDarwinSystem {
+            inherit hostName system;
 
-        nixosModules = [
-          ({ pkgs, ... }: {
-            system.stateVersion = 4;
-            services.nix-daemon.enable = true;
-            nix.package = pkgs.nixFlakes;
-            nix.extraOptions = ''
-              system = aarch64-darwin
-              extra-platforms = aarch64-darwin x86_64-darwin
-              experimental-features = nix-command flakes
-              build-users-group = nixbld
-            '';
+            nixosModules = [
+              (
+                { pkgs, ... }: {
+                  system.stateVersion = 4;
+                  services.nix-daemon.enable = true;
+                  nix.package = pkgs.nixFlakes;
+                  nix.extraOptions = ''
+                    system = aarch64-darwin
+                    extra-platforms = aarch64-darwin x86_64-darwin
+                    experimental-features = nix-command flakes
+                    build-users-group = nixbld
+                  '';
 
-            networking.hostName = hostName;
+                  networking.hostName = hostName;
 
-            fonts = {
-              fonts = with pkgs; [
-                dejavu_fonts
-                fira-code
-                fira-code-symbols
-                font-awesome
-                ipafont
-                kochi-substitute
-                mplus-outline-fonts
-                nerdfonts
-                noto-fonts
-                # noto-fonts-emoji # <- doesn't work because of scipy
-                open-sans
-                powerline-fonts
-                siji
-                symbola
-              ];
-            };
+                  fonts = {
+                    fonts = with pkgs; [
+                      dejavu_fonts
+                      fira-code
+                      fira-code-symbols
+                      font-awesome
+                      ipafont
+                      kochi-substitute
+                      mplus-outline-fonts
+                      nerdfonts
+                      noto-fonts
+                      # noto-fonts-emoji # <- doesn't work because of scipy
+                      open-sans
+                      powerline-fonts
+                      siji
+                      symbola
+                    ];
+                  };
 
-            nixpkgs.config = {
-              allowUnfree = true;
-            };
+                  nixpkgs.config = {
+                    allowUnfree = true;
+                  };
 
-            environment.systemPackages = with pkgs; [
-              alacritty
-              (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-              autojump
-              bat
-              bitwarden-cli
-              direnv
-              emacs
-              fish
-              git
-              home-manager
-              ispell
-              jetbrains-mono
-              jq
-              nixFlakes
-              nixfmt
-              rnix-lsp
-              sd
-              victor-mono
-              vim
-              wally-cli
-              watchexec
-              yaml-language-server
-              # yabai <— fails for some reason
+                  environment.systemPackages = with pkgs; [
+                    alacritty
+                    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+                    autojump
+                    bat
+                    bitwarden-cli
+                    direnv
+                    emacs
+                    fish
+                    git
+                    home-manager
+                    ispell
+                    jetbrains-mono
+                    jq
+                    nixFlakes
+                    nixfmt
+                    rnix-lsp
+                    sd
+                    victor-mono
+                    vim
+                    wally-cli
+                    watchexec
+                    yaml-language-server
+                    # yabai <— fails for some reason
 
+                  ];
+                }
+              )
             ];
-          })
-        ];
 
-        flakeOutputs = { pkgs, ... }@outputs:
-          outputs // (with pkgs; { packages = { inherit hello; }; });
+            flakeOutputs = { pkgs, ... }@outputs:
+              outputs // (with pkgs; { packages = { inherit hello; }; });
 
-      });
+          }
+      );
 }
