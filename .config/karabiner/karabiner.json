@@ -1174,6 +1174,73 @@
                 },
                 "rules": [
                     {
+                        "description": "ctrl+backspace to alt+backspace",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs"
+                                        ],
+                                        "file_paths": [
+                                            "emacs",
+                                            "alacritty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": "control"
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": "command"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ctrl+del to alt+del",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.gnu\\.Emacs",
+                                            "^io\\.alacritty",
+                                            "^com\\.apple\\.Terminal",
+                                            "^com\\.googlecode\\.iterm2"
+                                        ],
+                                        "file_paths": [
+                                            "emacs",
+                                            "alacritty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_forward",
+                                    "modifiers": {
+                                        "mandatory": "control"
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_forward",
+                                        "modifiers": "command"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Post escape if left_control is pressed alone.",
                         "manipulators": [
                             {
