@@ -54,6 +54,7 @@
 
             environment.systemPackages = with pkgs; [
               alacritty
+              aspell
               autojump
               bat
               bitwarden-cli
