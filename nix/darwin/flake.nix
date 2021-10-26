@@ -54,7 +54,7 @@
 
             environment.systemPackages = with pkgs; [
               alacritty
-              aspell
+              (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
               autojump
               bat
               bitwarden-cli
