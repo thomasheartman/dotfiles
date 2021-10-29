@@ -1695,7 +1695,9 @@ To have the scratch buffer be empty by default, we can set the
 #+BEGIN_SRC emacs-lisp
   (defun my-project-paths ()
     "Get the currently existing top-level project paths"
-    (seq-filter 'file-directory-p '("~/projects"
+    (seq-filter 'file-directory-p '("~/dotfiles"
+                                    "~/gtd"
+                                    "~/projects"
                                     "~/projects/work"
                                     "~/projects/personal")))
 #+END_SRC
