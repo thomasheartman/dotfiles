@@ -61,6 +61,7 @@
                     autojump
                     bat
                     bitwarden-cli
+                    cachix
                     direnv
                     emacs
                     fish
