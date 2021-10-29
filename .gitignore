@@ -25,5 +25,6 @@
 
 .config/*
 !.config/fish
+!.config/karabiner/karabiner.json
 .config/fish/fish_variables
 !.config/nixpkgs
