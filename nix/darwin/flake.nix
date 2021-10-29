@@ -65,6 +65,7 @@
                     emacs
                     fish
                     git
+                    git-lfs
                     home-manager
                     ispell
                     jetbrains-mono
@@ -72,6 +73,7 @@
                     nixFlakes
                     nixfmt
                     rnix-lsp
+                    ripgrep
                     sd
                     victor-mono
                     vim
