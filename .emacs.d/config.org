@@ -370,7 +370,18 @@ give ourselves a little bit of extra space (based on [[https://emacs.stackexchan
 
 *** Transparency
 
-To set transparency, use ~(set-frame-parameter (selected-frame) 'alpha '(100 100))~
+To set transparency, use:
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/set-frame-opacity ()
+    "Set the opacity of the current frame to OPACITY.
+
+  OPACITY should be a value between 0 and 100 inclusive."
+    (interactive)
+    (let ((opacity (string-to-number (read-string "Opacity (0—100):"))))
+      (message "opacity is %s" opacity)
+      (set-frame-parameter (selected-frame) 'alpha `(,opacity ,opacity))))
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (defvar heartman/frame-opacity 93
