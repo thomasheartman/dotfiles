@@ -83,6 +83,12 @@
                     yaml-language-server
                     # yabai <— fails for some reason
 
+                    (
+                      writeScriptBin "ff" ''
+                        #!${stdenv.shell}
+                        open -na Firefox.app --args --P default-release
+                      ''
+                    )
                   ];
                 }
               )
