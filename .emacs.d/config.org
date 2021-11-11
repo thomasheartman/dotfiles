@@ -5580,7 +5580,8 @@ not for all buffers!
       [remap evil-previous-line] 'evil-previous-visual-line
       "n" 'evil-next-line
       "p" 'evil-previous-line
-      "C-y" 'evil-paste-after
+      [remap yank] 'evil-paste-after
+      "M-V" 'evil-paste-before
       "C-S-y" 'evil-paste-before
       "C-M-s-p" 'evil-paste-after
       "C-M-S-s-p" 'evil-paste-before)
