@@ -803,7 +803,8 @@ something useful if it's available.
 #+BEGIN_SRC emacs-lisp
   (when (functionp 'undo-redo)
     (general-def
-      "M-/" 'undo-redo))
+      "M-/" 'undo-redo
+      "M-Z" 'undo-redo))
 #+END_SRC
 
 **** Unfill region
@@ -998,7 +999,7 @@ we can do!
             "s" `(,(open "someday-maybe.org") :wk "someday maybe"))))))
 #+END_SRC
 
-**** Copy and paste bindings                                  :keybinding:
+**** Copy, paste, undo bindings                               :keybinding:
 
 Inspired by macOS' bindings for these commands, let's make them work
 in Emacs too. I never use the default commands mapped to these keys
@@ -1007,7 +1008,8 @@ anyway, so it's a low-risk trade.
 #+BEGIN_SRC emacs-lisp
   (general-def
     "M-c" 'kill-ring-save
-    "M-v" 'yank)
+    "M-v" 'yank
+    "M-z" 'undo)
 #+END_SRC
 
 *** Remove advice
