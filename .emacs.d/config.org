@@ -998,6 +998,18 @@ we can do!
             "s" `(,(open "someday-maybe.org") :wk "someday maybe"))))))
 #+END_SRC
 
+**** Copy and paste bindings                                  :keybinding:
+
+Inspired by macOS' bindings for these commands, let's make them work
+in Emacs too. I never use the default commands mapped to these keys
+anyway, so it's a low-risk trade.
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    "M-c" 'kill-ring-save
+    "M-v" 'yank)
+#+END_SRC
+
 *** Remove advice
 
 Sometimes, working with advice can be hard and removing one isn't
