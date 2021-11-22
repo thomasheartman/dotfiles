@@ -4797,9 +4797,16 @@ languages I work in have a formatter anyway.
 Having a simple way to insert the current timestamp in an
 ISO-friendly manner can be quite useful.
 #+BEGIN_SRC emacs-lisp
-  (defun insert-iso-timestamp ()
-    (interactive)
-    (insert (format-time-string "%FT%T%:z")))
+  (defun insert-iso-timestamp (copy-to-clipboard)
+    "Insert the current time as an ISO timestamp.
+
+  If COPY-TO-CLIPBOARD is non-nil, copy the timestamp to the
+  clipboard instead of inserting it into the buffer."
+    (interactive "P")
+    (let ((time (format-time-string "%FT%T%:z")))
+      (if copy-to-clipboard
+          (kill-new time)
+        (insert time))))
 
   (my-app-def
     "i t" 'insert-iso-timestamp)
