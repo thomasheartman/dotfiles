@@ -315,7 +315,7 @@ and fonts]] allows us to do just that.
 
 When it's active, these emoji should render as expected:
 
-😄 😱 😸 👸 👽 🙋 🥳 ❤️ ☺️
+😄 😱 😸 👸 👽 🙋 🥳 ❤️ ☺️ ✅ ⭕ ❌
 
 Additionally, some emoji use [[https://emojipedia.org/emoji-zwj-sequence/][ZWJ sequences]]. At the moment, I have not
 been able to render these correctly in Emacs, but that may have more
