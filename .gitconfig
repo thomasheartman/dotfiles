@@ -62,7 +62,7 @@
         rmrerere = !git config --remove-section rerere
 
         # cleaning
-        brclean = "!f() { git branch --merged origin/master | grep -v master | xargs -r git branch -d; }; f"
+        brclean = "!f() { git branch --merged origin/main | grep -v main | xargs -r git branch -d; }; f"
 
         # recent history
         standup = !sh -c \"git log --pretty=format:'%C(auto)%h %B' --decorate --date=short --since=yesterday --author='$(git config --get user.email)'\"
@@ -86,7 +86,7 @@
         diffr  = "!f() { git diff "$1"^.."$1"; }; f"
 
         # merge/diff
-        mergetest = "!f(){ git fetch; git merge --no-commit --no-ff \"${1-origin/master}\" | grep CONFLICT; if [ $? == 0 ]; then echo -e \"\\033[1;31m --- Merge will conflict :( --- \\033[0m\"; else echo -e \"\\033[1;32m --- No conflict in merge :) --- \\033[0m\"; fi; git merge --abort; }; f " # "Dry-run" merge towards origin/master by default. Can pass another branch as 1st param.
+        mergetest = "!f(){ git fetch; git merge --no-commit --no-ff \"${1-origin/main}\" | grep CONFLICT; if [ $? == 0 ]; then echo -e \"\\033[1;31m --- Merge will conflict :( --- \\033[0m\"; else echo -e \"\\033[1;32m --- No conflict in merge :) --- \\033[0m\"; fi; git merge --abort; }; f " # "Dry-run" merge towards origin/main by default. Can pass another branch as 1st param.
         conflicts = diff --name-only --diff-filter=U
         dt = difftool
         mt = mergetool
@@ -98,7 +98,7 @@
         r = reset
         r1 = reset HEAD^
         r2 = reset HEAD^^
-        rh = "!f() { git reset --hard ${1-\"@{u}\"}; }; f" # rh master -> reset hard to master. rh -> reset hard to upstream branch
+        rh = "!f() { git reset --hard ${1-\"@{u}\"}; }; f" # rh main -> reset hard to main. rh -> reset hard to upstream branch
         rh1 = reset HEAD^ --hard
         rh2 = reset HEAD^^ --hard
 
