@@ -108,7 +108,7 @@ in
       import subprocess
 
       def ${pythonMailPassFn}(get_password_command):
-        print "Running password command: '%s'" % get_password_command
+        print("Running password command: '%s'" % get_password_command)
         try:
           return subprocess.check_output(get_password_command, shell=True)
         except subprocess.CalledProcessError:
