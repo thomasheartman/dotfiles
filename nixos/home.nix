@@ -400,7 +400,7 @@ in
     extraConfig = {
       modi = "window,run,emoji";
     };
-    theme = ../rofi/themes/alter.rasi;
+    # theme = ../rofi/themes/alter.rasi;
   };
 
   programs.autorandr = {
