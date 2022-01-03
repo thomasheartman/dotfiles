@@ -25,11 +25,16 @@ let
             # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
             # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
             # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
+
+            # another option is to use a version that was built some
+            # time ago. According to this commit
+            # (https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274),
+            # we can use one that appeared about two hours ago, which
+            # should let us always(?) get a cached version.
             builtins.fetchTarball {
               url =
                 # "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-                "https://github.com/nix-community/emacs-overlay/archive/e1f59a9f5cabf42d7fd02e682c12dc362565f512.tar.gz";
-              sha256 = "0gqny4p4hrxm9zcnzk66sjnnrhwqljhl90zy1zp4573sqd0prgvc";
+                "https://github.com/nix-community/emacs-overlay/archive/master@{2%20hours%20ago}.tar.gz";
             }
           )
         )
