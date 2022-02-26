@@ -1,0 +1,5 @@
+[user]
+        email = thomas@getunleash.ai
+
+[core]
+        hooksPath = ~/dotfiles/system-config/unleash/git-hooks

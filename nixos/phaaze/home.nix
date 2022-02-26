@@ -16,5 +16,5 @@
     )
   ];
 
-  home.file.".gitconfig.work".source = ~/dotfiles/system-config/porterbuddy/.gitconfig;
+  home.file.".gitconfig.work".source = ~/dotfiles/system-config/unleash/.gitconfig;
 }
