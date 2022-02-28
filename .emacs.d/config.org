@@ -2652,7 +2652,7 @@ mode to edit source code blocks in separate buffers.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :mode (("\\.md\\'" . gfm-mode))
+    :mode (("\\.md\\'" . gfm-mode) ("\\.mdx\\'" . gfm-mode))
     :after
     (edit-indirect)
     :config
