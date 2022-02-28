@@ -542,7 +542,7 @@ For text modes, let's always use auto-fill mode and abbrev-mode:
 #+begin_src emacs-lisp
   (defun my-text-mode-hook ()
     (visual-line-mode)
-    (auto-fill-mode)
+    ;; (auto-fill-mode)
     (abbrev-mode))
   (add-hook 'text-mode-hook 'my-text-mode-hook)
 #+end_src
