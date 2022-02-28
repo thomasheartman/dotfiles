@@ -4832,6 +4832,7 @@ rjsx-mode extends js2-mode to add support for JSX.
     :hook
     (rjsx-mode . prettier-mode)
     (rjsx-mode . lsp-mode)
+    (rjsx-mode . emmet-mode)
     :config
     (setq js2-strict-missing-semi-warning nil))
 #+END_SRC
@@ -4842,6 +4843,26 @@ rjsx-mode extends js2-mode to add support for JSX.
   (use-package js
     :mode ("\\.es\\'" . js-mode))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook
+    (js-mode .
+             (lambda ()
+               (prettier-mode)
+               (lsp)
+               (emmet-mode))))
+#+END_SRC
+
+* CSS
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :hook (css-mode . (lambda ()
+                        (lsp)
+                        (prettier-mode))))
+#+END_SRC
+
 
 * TODO Prettier
 :PROPERTIES:
