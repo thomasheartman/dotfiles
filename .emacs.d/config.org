@@ -2043,6 +2043,11 @@ with my current setup.
     "C-s-<up>" 'windmove-up
     "C-s-<down>" 'windmove-down
 
+    "S-<left>" 'windmove-left
+    "S-<right>" 'windmove-right
+    "S-<up>" 'windmove-up
+    "S-<down>" 'windmove-down
+
     "C-x w <left>" (heartman/send-window 'left)
     "C-x w <right>" (heartman/send-window 'right)
     "C-x w <up>" (heartman/send-window 'up)
@@ -3005,6 +3010,14 @@ default, so let's see what we can do about that.
 
   (my-link-def
     "s" 'org-store-link)
+
+  ;; unbind key binds that I otherwise use for movement
+  (general-unbind
+    :keymaps org-mode-map
+    "S-<left>"
+    "S-<right>"
+    "S-<up>"
+    "S-<down>")
 #+END_SRC
 
 
