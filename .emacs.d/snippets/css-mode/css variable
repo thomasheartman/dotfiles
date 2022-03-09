@@ -1,0 +1,4 @@
+# key: v
+# name: css variable
+# --
+var(--$0)
