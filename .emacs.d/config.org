@@ -3013,7 +3013,7 @@ default, so let's see what we can do about that.
 
   ;; unbind key binds that I otherwise use for movement
   (general-unbind
-    :keymaps org-mode-map
+    :keymaps 'org-mode-map
     "S-<left>"
     "S-<right>"
     "S-<up>"
