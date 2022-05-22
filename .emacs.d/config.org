@@ -6615,3 +6615,28 @@ type.
     :hook
     (tree-sitter-mode . tree-sitter-hl-mode))
 #+END_SRC
+
+* Dungeons & dragons
+
+** emacs-org-dnd (export to LaTeX)
+:PROPERTIES:
+:REPO:     https://github.com/xeals/emacs-org-dnd
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs-org-dnd
+    :hook (org-mode . (lambda () (require 'ox-dnd)))
+    :straight (:host github :repo "xeals/emacs-org-dnd"))
+#+END_SRC
+
+
+* auto-correct
+:PROPERTIES:
+:ELPA:     https://elpa.gnu.org/packages/auto-correct.html
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-correct
+    :hook text-mode
+    (prog-mode . (lambda () (setq auto-correct-predicate (lambda () (nth 8 (syntax-ppss (point))))))))
+#+END_SRC
