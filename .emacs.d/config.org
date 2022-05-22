@@ -2088,6 +2088,8 @@ with my current setup.
 
     "s-o d" 'toggle-debug-on-error
 
+    "s-o l" 'lexic-search
+
     "s-|" 'split-window-right-and-focus
     "s-_" 'split-window-below-and-focus)
 
