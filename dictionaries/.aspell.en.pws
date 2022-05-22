@@ -1,4 +1,4 @@
-personal_ws-1.1 en 156 
+personal_ws-1.1 en 158 
 AKS
 APIs
 ASA
@@ -6,6 +6,7 @@ Aigner
 Alacritty
 Arnette
 AttachmentUploader
+Bathory
 Bitwarden
 Bo's
 Boromar
@@ -102,6 +103,7 @@ executables
 flexor
 focusable
 gbi
+gothic
 grayscale
 halfling
 headlessly

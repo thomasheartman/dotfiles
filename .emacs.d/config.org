@@ -6638,9 +6638,7 @@ type.
 #+BEGIN_SRC emacs-lisp
   (use-package auto-correct
     :hook (text-mode . (lambda ()
-                         (message "enabling acm")
                          (auto-correct-mode)
-                         (message "enabled acm")
                          (setq auto-correct-predicate (lambda () t))))
     (prog-mode . (lambda ()
                    (auto-correct-mode)
