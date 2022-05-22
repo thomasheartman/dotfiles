@@ -6637,6 +6637,25 @@ type.
 
 #+BEGIN_SRC emacs-lisp
   (use-package auto-correct
-    :hook text-mode
-    (prog-mode . (lambda () (setq auto-correct-predicate (lambda () (nth 8 (syntax-ppss (point))))))))
+    :hook (text-mode . (lambda ()
+                         (message "enabling acm")
+                         (auto-correct-mode)
+                         (message "enabled acm")
+                         (setq auto-correct-predicate (lambda () t))))
+    (prog-mode . (lambda ()
+                   (auto-correct-mode)
+                   (setq auto-correct-predicate (lambda () (nth 8 (syntax-ppss (point))))))))
+#+END_SRC
+
+* captain (auto-capitalization)
+:PROPERTIES:
+:ELPA:     http://elpa.gnu.org/packages/captain.html
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package captain
+    :hook
+    (text-mode . (lambda ()
+                   (captain-mode)
+                   (setq captain-predicate (lambda () t)))))
 #+END_SRC

@@ -6,6 +6,11 @@
     ("pcon" "piece of content" nil :count 13)
    ))
 
+(define-abbrev-table 'captain-mode-abbrev-table
+  '(
+    ("sharn" "Sharn" nil :count 1)
+   ))
+
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ct" "content type" nil :count 7)
@@ -13,5 +18,14 @@
     ("iff" "if and only if" nil :count 0)
     ("jsc" "JavaScript" nil :count 16)
     ("tsc" "TypeScript" nil :count 5)
+   ))
+
+(define-abbrev-table 'org-mode-abbrev-table
+  '(
+    ("amout" "amount" nil :count 1)
+    ("unlesah" "unleash" nil :count 9)
+    ("unlesha" "unleash" nil :count 1)
+    ("vamipre" "vampire" nil :count 1)
+    ("victorian" "victorian" nil :count 2)
    ))
 
