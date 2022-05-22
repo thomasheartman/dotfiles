@@ -384,7 +384,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsGcc;
+    package = unstable.emacsNativeComp;
     extraPackages = epkgs: [ epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
