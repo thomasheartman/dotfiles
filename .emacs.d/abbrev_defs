@@ -10,7 +10,8 @@
   '(
     ("daask" "Daask" nil :count 3)
     ("sharn" "Sharn" nil :count 3)
-   ))
+    ("github" "GitHub" nil :count 3)
+    ))
 
 (define-abbrev-table 'global-abbrev-table
   '(
@@ -19,7 +20,7 @@
     ("iff" "if and only if" nil :count 0)
     ("jsc" "JavaScript" nil :count 16)
     ("tsc" "TypeScript" nil :count 5)
-   ))
+    ))
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
@@ -32,10 +33,11 @@
     ("daaks" "daask" nil :count 4)
     ("decomissioned" "decommissioned" nil :count 1)
     ("drikn" "drink" nil :count 1)
+    ("gh" "GitHub" nil :count 3)
     ("somethnig" "something" nil :count 1)
     ("teh" "the" nil :count 2)
     ("unlesah" "unleash" nil :count 9)
     ("unlesha" "unleash" nil :count 1)
     ("vamipre" "vampire" nil :count 1)
     ("victorian" "victorian" nil :count 2)
-   ))
+    ))
