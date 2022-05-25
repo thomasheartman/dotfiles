@@ -8,19 +8,30 @@
 
 (define-abbrev-table 'captain-mode-abbrev-table
   '(
+    ("bodycombat" "BODYCOMBAT" nil :count 3)
     ("daask" "Daask" nil :count 3)
-    ("sharn" "Sharn" nil :count 3)
     ("github" "GitHub" nil :count 3)
-    ))
+    ("sharn" "Sharn" nil :count 3)
+   ))
+
+(define-abbrev-table 'gfm-mode-abbrev-table
+  '(
+    ("announcementns" "announcements" nil :count 1)
+    ("htis" "this" nil :count 1)
+    ("responisibilyt" "responsibility" nil :count 1)
+    ("unlesah" "unleash" nil :count 4)
+   ))
 
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ct" "content type" nil :count 7)
+    ("eg" "e.g." nil :count 8)
     ("gql" "GraphQL" nil :count 22)
+    ("ie" "i.e." nil :count 3)
     ("iff" "if and only if" nil :count 0)
     ("jsc" "JavaScript" nil :count 16)
     ("tsc" "TypeScript" nil :count 5)
-    ))
+   ))
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
@@ -40,4 +51,5 @@
     ("unlesha" "unleash" nil :count 1)
     ("vamipre" "vampire" nil :count 1)
     ("victorian" "victorian" nil :count 2)
-    ))
+   ))
+
