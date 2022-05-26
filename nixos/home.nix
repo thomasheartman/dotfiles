@@ -255,8 +255,8 @@ in
           "${mod}+Shift+Next" = "move workspace to output right";
           "${mod}+Shift+Prior" = "move workspace to output left";
 
-          "${mod}+Return" = "exec ${terminal}";
-          "${mod}+Shift+Return" = "exec ${emacsclient}";
+          "${mod}+Return" = "exec ${emacsclient}";
+          "${mod}+Shift+Return" = "exec ${terminal}";
 
           "${mod}+Shift+q" = "kill";
 
