@@ -1,4 +1,4 @@
-personal_ws-1.1 en 161 
+personal_ws-1.1 en 168 
 AKS
 APIs
 ASA
@@ -18,7 +18,9 @@ CheckBox
 ComboBox
 ContentSelector
 Cyran
+DM
 Daask
+Daask's
 DateTime
 DateTime's
 Dura
@@ -26,6 +28,7 @@ EXWM
 Eberron
 Enonic
 Enonic's
+Erebos
 Femme
 GCP
 GeoPoint
@@ -55,6 +58,7 @@ Kubernetes
 LSP
 Manjaro
 NGINX
+Nakia
 Nashorn
 Netlify
 NixOS
@@ -77,6 +81,7 @@ Sleipner
 TextArea
 TextLine
 UI
+Vathirond
 XCode
 XP
 XP's
@@ -110,6 +115,7 @@ gothic
 grayscale
 halfling
 headlessly
+henchpeople
 https
 img
 inclusivity
@@ -147,6 +153,7 @@ subcommands
 subdirectory
 summand
 summands
+tiefling
 toolchain
 transpilation
 tsi
