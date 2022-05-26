@@ -6631,6 +6631,16 @@ type.
     :straight (:host github :repo "xeals/emacs-org-dnd"))
 #+END_SRC
 
+** org-d20
+:PROPERTIES:
+:REPO:     https://github.com/spwhitton/org-d20
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-d20)
+#+END_SRC
+
+
 
 * auto-correct
 :PROPERTIES:
