@@ -6032,7 +6032,7 @@ suggestions. Because Evil (and my binding of ~<return>~) causes
 some issues with selection in normal mode, we also add an explicit
 mapping of ~popup-select~.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package flyspell-correct-popup
     :general
     (popup-menu-keymap
