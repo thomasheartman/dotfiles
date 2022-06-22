@@ -1,4 +1,4 @@
-personal_ws-1.1 en 168 
+personal_ws-1.1 en 181 
 AKS
 APIs
 ASA
@@ -6,6 +6,7 @@ Aigner
 Alacritty
 Arnette
 AttachmentUploader
+Aureon's
 Bathory
 Bitwarden
 Bo's
@@ -23,6 +24,7 @@ Daask
 Daask's
 DateTime
 DateTime's
+Droaam
 Dura
 EXWM
 Eberron
@@ -36,6 +38,7 @@ GitLab
 Gradle
 GraphQL
 Gummi
+Harengon
 Heartman
 Homebrew
 HtmlArea
@@ -49,6 +52,7 @@ JDK
 JSON
 Jin
 Jin's
+Kell
 Khorvaire
 Klink
 Kondomeriet
@@ -56,7 +60,9 @@ Kruskal
 Kruskal's
 Kubernetes
 LSP
+Lharvion
 Manjaro
+Menthis
 NGINX
 Nakia
 Nashorn
@@ -78,6 +84,7 @@ Saari's
 Sergey
 Sharn
 Sleipner
+Sora
 TextArea
 TextLine
 UI
@@ -111,11 +118,13 @@ executables
 flexor
 focusable
 gbi
+golem
 gothic
 grayscale
 halfling
 headlessly
 henchpeople
+hippogriff
 https
 img
 inclusivity
@@ -132,6 +141,7 @@ namespace
 namespaces
 nonintuitive
 npm
+octagram
 onboarding
 preconfigured
 prem
@@ -143,6 +153,8 @@ savannah
 schemas
 shifters
 shorthands
+skycoach
+snuck
 src
 struct
 structs
@@ -167,3 +179,4 @@ vhosts
 warforged
 webpack
 xml
+yakitori
