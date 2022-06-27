@@ -646,6 +646,15 @@ want a quick and simple way to adjust these on the fly.
     "C-x C-z" 'my-change-frame-font-size)
 #+END_SRC
 
+**** Increase/decrease font size
+
+#+BEGIN_SRC emacs-lisp
+  (general-def
+    "C-+" 'text-scale-increase
+    "C--" 'text-scale-decrease)
+#+END_SRC
+
+
 **** Repeat jump to mark
 
 When you want to jump to the previous position in the mark ring,
