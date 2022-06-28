@@ -426,6 +426,7 @@ in
     autojump
     bat
     bitwarden-cli
+    bitwig-studio
     brightnessctl
     cacert
     cascadia-code
