@@ -601,10 +601,21 @@ in
     text = ''
       #!${pkgs.bash}/bin/bash
 
+      getDefaultSink() {
+        defaultSink=$(${pkgs.pulseaudio}/bin/pactl info | ${pkgs.gawk}/bin/awk -F : '/Default Sink:/{print $2}')
+        description=$(${pkgs.pulseaudio}/bin/pactl list sinks | ${pkgs.gnused}/bin/sed -n "/''${defaultSink}/,/Description/p; /Description/q" | ${pkgs.gnused}/bin/sed -n 's/^.*Description: \(.*\)$/\1/p')
+        echo "''${description}"
+      }
+
+      getDefaultSource() {
+        defaultSource=$(${pkgs.pulseaudio}/bin/pactl info | ${pkgs.gawk}/bin/awk -F : '/Default Source:/{print $2}')
+        description=$(${pkgs.pulseaudio}/bin/pactl list sources | ${pkgs.gnused}/bin/sed -n "/''${defaultSource}/,/Description/p; /Description/q" | ${pkgs.gnused}/bin/sed -n 's/^.*Description: \(.*\)$/\1/p')
+        echo "''${description}"
+      }
+
       function main() {
-          DEFAULT_SOURCE=$(${pkgs.pipewire}/bin/pw-record --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*[[:digit:]]\+: description="\(.*\)" prio=[[:digit:]]\+$/\1/p')
-          DEFAULT_SINK_ID=$(${pkgs.pipewire}/bin/pw-play --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*\([[:digit:]]\+\):.*$/\1/p')
-          DEFAULT_SINK=$(${pkgs.pipewire}/bin/pw-play --list-targets | ${pkgs.gnused}/bin/sed -n 's/^*[[:space:]]*[[:digit:]]\+: description="\(.*\)" prio=[[:digit:]]\+$/\1/p')
+          DEFAULT_SOURCE=$(getDefaultSource)
+          DEFAULT_SINK=$(getDefaultSink)
           VOLUME=$(${pkgs.pulseaudio}/bin/pactl list sinks | ${pkgs.gnused}/bin/sed -n "/Sink #''${DEFAULT_SINK_ID}/,/Volume/ s!^[[:space:]]\+Volume:.* \([[:digit:]]\+\)%.*!\1!p" | ${pkgs.coreutils}/bin/head -n1)
           IS_MUTED=$(${pkgs.pulseaudio}/bin/pactl list sinks | ${pkgs.gnused}/bin/sed -n "/Sink #''${DEFAULT_SINK_ID}/,/Mute/ s/Mute: \(yes\)/\1/p")
 
