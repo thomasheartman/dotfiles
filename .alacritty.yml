@@ -14,6 +14,9 @@
   # TERM: xterm-256color
 
 window:
+
+  opacity: 0.95 # 0.8
+
   # Window dimensions in character columns and lines
   # (changes require restart)
   dimensions:
@@ -247,9 +250,6 @@ colors: *tempus-summer
 bell:
   animation: EaseOutExpo
   duration: 1
-
-# Background opacity
-background_opacity: 0.95 # 0.8
 
 # Mouse bindings
 #
