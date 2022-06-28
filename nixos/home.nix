@@ -219,7 +219,10 @@ in
       config = {
         modifier = mod;
 
-        fonts = [ "JetBrains Mono, FontAwesome 12" ];
+        fonts = {
+          names = [ "JetBrains Mono, FontAwesome 12" ];
+          size = 12.0;
+        };
 
         focus = {
           followMouse = false;
