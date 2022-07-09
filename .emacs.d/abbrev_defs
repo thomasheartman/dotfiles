@@ -12,7 +12,7 @@
     ("daask" "Daask" nil :count 3)
     ("diátaxis" "Diátaxis" nil :count 1)
     ("github" "GitHub" nil :count 3)
-    ("sharn" "Sharn" nil :count 3)
+    ("sharn" "Sharn" nil :count 5)
    ))
 
 (define-abbrev-table 'gfm-mode-abbrev-table
@@ -49,15 +49,17 @@
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
-    ("actualy" "actually" nil :count 1)
+    ("actualy" "actually" nil :count 2)
     ("actuayll" "actually" nil :count 1)
     ("amout" "amount" nil :count 1)
     ("aynone" "anyone" nil :count 1)
     ("baout" "about" nil :count 2)
     ("basilks" "basilisk" nil :count 1)
     ("battel" "battle" nil :count 1)
+    ("chelsea" "chelsea" nil :count 1)
     ("colosssus" "colossus" nil :count 1)
     ("complety" "completely" nil :count 1)
+    ("cornelius" "cornelius" nil :count 5)
     ("daaks" "daask" nil :count 7)
     ("decomissioned" "decommissioned" nil :count 1)
     ("diataxis" "diátaxis" nil :count 7)
@@ -66,10 +68,12 @@
     ("drikn" "drink" nil :count 1)
     ("eites" "elites" nil :count 2)
     ("enhancementns" "enhancements" nil :count 1)
+    ("glasgow" "glasgow" nil :count 2)
     ("iillusionist" "illusionist" nil :count 1)
     ("journy" "journey" nil :count 1)
     ("paviilion" "pavilion" nil :count 1)
     ("percieve" "perceive" nil :count 2)
+    ("pirceing" "piercing" nil :count 1)
     ("plateu" "plateau" nil :count 7)
     ("recharce" "recharge" nil :count 1)
     ("scientiest" "scientist" nil :count 1)
@@ -89,6 +93,7 @@
     ("vamipre" "vampire" nil :count 1)
     ("victorian" "victorian" nil :count 2)
     ("walknig" "walking" nil :count 1)
+    ("yearsold" "years old" nil :count 1)
    ))
 
 (define-abbrev-table 'text-mode-abbrev-table
