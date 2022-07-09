@@ -6691,3 +6691,13 @@ type.
                    (captain-mode)
                    (setq captain-predicate (lambda () t)))))
 #+END_SRC
+
+* Repeat mode
+
+#+BEGIN_SRC emacs-lisp
+  (repeat-mode)
+#+END_SRC
+
+** Define repeaters
+
+See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. See [[https://karthinks.com/software/it-bears-repeating/][this article for a description]].
