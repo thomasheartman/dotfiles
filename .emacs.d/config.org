@@ -6348,7 +6348,7 @@ Adoc-mode requires the markup-faces package, so let's install that too.
 
   (use-package olivetti
     :custom
-    (olivetti-body-width 90)
+    (olivetti-body-width 110)
     :general
     (general-def
       "C-x w o" 'olivetti-mode)
@@ -6364,6 +6364,7 @@ Adoc-mode requires the markup-faces package, so let's install that too.
       Man-mode
       notmuch-hello-mode
       notmuch-show-mode
+      prog-mode
       text-mode) . olivetti-mode)
     (nxml-mode . (lambda () (olivetti-mode -1)))
     (olivetti-mode-on . heartman/olivetti-hide-fringes))
