@@ -2420,7 +2420,7 @@ storing the key once you enter it.
 In addition to just Magit, Magit also has modes for git config,
 ignore, and attributes files.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package gitattributes-mode)
 
   (use-package gitconfig-mode)
