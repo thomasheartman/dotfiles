@@ -2257,7 +2257,14 @@ change the prefix to something that's easier to remember (type) than
       flycheck-command-map))
 
   (use-package flycheck-posframe
-    :hook (flycheck-mode . flycheck-posframe-mode))
+    :hook (flycheck-mode . flycheck-posframe-mode)
+    :init
+    (setq
+     flycheck-posframe-border-width 16
+     flycheck-posframe-error-prefix "❌"
+     flycheck-posframe-info-prefix "ℹ️️️"
+     flycheck-posframe-warning-prefix "⚠️"
+     flycheck-posframe-prefix "💬"))
 #+END_SRC
 
 * TODO Company                                                   :keybinding:
