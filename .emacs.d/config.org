@@ -2255,6 +2255,9 @@ change the prefix to something that's easier to remember (type) than
     (setq flycheck-keymap-prefix (kbd my-flycheck-prefix))
     (define-key flycheck-mode-map flycheck-keymap-prefix
       flycheck-command-map))
+
+  (use-package flycheck-posframe
+    :hook (flycheck-mode . flycheck-posframe-mode))
 #+END_SRC
 
 * TODO Company                                                   :keybinding:
@@ -2503,7 +2506,8 @@ This setup is nearly identical to the recommended approach in their
     :general
     (lsp-mode-map
      :start-maps t
-     my-format-buffer 'lsp-format-buffer)
+     my-format-buffer 'lsp-format-buffer
+     "i" 'lsp-imenu)
     (my-lsp-def
       :start-maps t
       my-lsp-prefix 'lsp)
@@ -2511,14 +2515,14 @@ This setup is nearly identical to the recommended approach in their
   (use-package lsp-ui :commands lsp-ui-mode
     :general
     (:keymaps 'lsp-ui-mode-map
-              [remap xref-find-definitions]#'lsp-ui-peek-find-definitions
-              [remap xref-find-references]#'lsp-ui-peek-find-references)
+              [remap xref-find-definitions] #'lsp-ui-peek-find-definitions
+              [remap xref-find-references] #'lsp-ui-peek-find-references)
     :config
-    (when on-macos
-      (setq lsp-ui-doc-use-childframe nil))
-    (setq lsp-ui-doc-position 'bottom)
+    ;; (setq lsp-ui-doc-position 'bottom)
+    (my-lsp-def
+      :keymaps 'lsp-mode-map
+      "i" 'lsp-ui-imenu)
     )
-
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
     :general
     :disabled
