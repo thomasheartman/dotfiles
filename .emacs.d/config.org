@@ -5847,6 +5847,7 @@ other recommended packages that'll make improve it.
      "M-g r" 'consult-ripgrep
      "M-g f" 'consult-find
      "M-g e" 'consult-error
+     "M-g i" 'consult-imenu
      "M-s m" 'consult-multi-occur
      "C-M-y" 'consult-yank-pop)
 
