@@ -2184,7 +2184,6 @@ dialogs show up. This setup is based on [[https://www.reddit.com/r/emacs/comment
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy-posframe
-    :when (not on-macos)
     :after ivy-rich
     :disabled
     :preface
