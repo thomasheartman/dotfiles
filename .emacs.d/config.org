@@ -2389,6 +2389,8 @@ course I want to enable and use Magit:
     :general
     ("s-g" 'magit-status
      "s-G" 'magit-status-dotfiles)
+    :custom
+    (transient-default-level 7)
     :init
     (setq magit-repository-directories (seq-map (lambda (path) `(,path . 2)) (my-project-paths)))
     :config
