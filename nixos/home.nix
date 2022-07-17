@@ -546,7 +546,7 @@ in
     shadow = true;
     blur = true;
 
-    inactiveDim = "0.05";
+    inactiveDim = "0.2";
 
     extraOptions = ''
       detect-transient = true;
