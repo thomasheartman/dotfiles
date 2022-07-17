@@ -874,6 +874,21 @@ to add a separate hook for that.
     (dired-auto-revert-buffer t))
 #+END_SRC
 
+***** diredfl-mode
+:PROPERTIES:
+:REPO:     https://github.com/purcell/diredfl
+:END:
+
+`diredfl` promises to make your dired more colorful.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diredfl
+    :hook
+    (dired-mode . diredfl-mode))
+#+END_SRC
+
+
+
 **** Display battery in mode line
 
 #+BEGIN_SRC emacs-lisp
