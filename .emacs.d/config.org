@@ -6703,21 +6703,20 @@ type.
 See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. See [[https://karthinks.com/software/it-bears-repeating/][this article for a description]].
 
 #+BEGIN_SRC emacs-lisp
-  (straight-use-package
-   '(define-repeat-map
-        :host nil
-        :repo "https://tildegit.org/acdw/define-repeat-map.el")
-   :config
+  (when (straight-use-package
+         '(define-repeat-map
+              :host nil
+              :repo "https://tildegit.org/acdw/define-repeat-map.el"))
 
-   (define-repeat-map smerge
-     ("p" smerge-prev
-      "n" smerge-next
-      "RET" smerge-keep-current
-      "a" smerge-keep-all
-      "b" smerge-keep-base
-      "u" smerge-keep-upper
-      "l" smerge-keep-lower
-      "R" 'smerge-refine
-      "E" 'smerge-ediff
-      "C" 'smerge-combine-with-next)))
+    (define-repeat-map smerge
+      ("p" smerge-prev
+       "n" smerge-next
+       "RET" smerge-keep-current
+       "a" smerge-keep-all
+       "b" smerge-keep-base
+       "u" smerge-keep-upper
+       "l" smerge-keep-lower
+       "R" 'smerge-refine
+       "E" 'smerge-ediff
+       "C" 'smerge-combine-with-next)))
 #+END_SRC
