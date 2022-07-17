@@ -6695,11 +6695,7 @@ type.
 
 * Repeat mode
 
-#+BEGIN_SRC emacs-lisp
-  (repeat-mode)
-#+END_SRC
-
-** Define repeaters
+Define repeaters and activate repeat mode.
 
 See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. See [[https://karthinks.com/software/it-bears-repeating/][this article for a description]].
 
@@ -6709,6 +6705,19 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
               :host nil
               :repo "https://tildegit.org/acdw/define-repeat-map.el"))
 
+    (define-repeat-map org-outline-movement
+      ("f" org-forward-heading-same-level
+       "b" org-backward-heading-same-level
+       "n" org-next-visible-heading
+       "p" org-previous-visible-heading
+       "^" org-up-element
+       "u" org-up-element
+       "d" org-down-element
+       "}" org-next-block
+       "{" org-previous-block)
+      (:exit
+       "q" (lambda () (interactive) nil)))
+
     (define-repeat-map smerge
       ("p" smerge-prev
        "n" smerge-next
@@ -6717,9 +6726,11 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "b" smerge-keep-base
        "u" smerge-keep-upper
        "l" smerge-keep-lower
-       "R" 'smerge-refine
-       "E" 'smerge-ediff
-       "C" 'smerge-combine-with-next)))
+       "R" smerge-refine
+       "E" smerge-ediff
+       "C" smerge-combine-with-next)))
+
+  (repeat-mode)
 #+END_SRC
 
 * Dirvish
