@@ -6861,3 +6861,17 @@ There's multiple packages that provide in-buffer highlighting of changes, such a
     (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 #+END_SRC
+
+* Indentation highlights
+:PROPERTIES:
+:REPO:     https://github.com/DarthFennec/highlight-indent-guides
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :custom
+    (highlight-indent-guides-method 'bitmap)
+    (highlight-indent-guides-responsive 'stack)
+    :hook
+    (prog-mode . highlight-indent-guides-mode))
+#+END_SRC
