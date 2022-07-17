@@ -44,7 +44,6 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  multiplier: 3
 
 
 # When true, bold text is drawn using the bright variant of colors.
