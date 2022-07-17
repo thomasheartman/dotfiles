@@ -6823,3 +6823,41 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
      ("M-e" . dirvish-emerge-menu)
      ("M-j" . dirvish-fd-jump)))
 #+END_SRC
+
+* Git gutter / diff highlighting (in-buffer)
+:PROPERTIES:
+:REPO:     https://github.com/dgutov/diff-hl
+:END:
+
+There's multiple packages that provide in-buffer highlighting of changes, such as [[https://github.com/emacsorphanage/git-gutter][git gutter]] and [[https://github.com/dgutov/diff-hl][diff-hl]].
+
+** diff-hl
+:PROPERTIES:
+:REPO:     https://github.com/dgutov/diff-hl
+:END:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package diff-hl
+    :hook
+    (magit-pre-refresh . 'diff-hl-magit-pre-refresh)
+    (magit-post-refresh . 'diff-hl-magit-post-refresh)
+    ((prog-mode text-mode) . diff-hl-flydiff-mode)
+    :init
+    (global-diff-hl-mode))
+#+END_SRC
+
+** Git gutter
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter
+    :hook ((prog-mode text-mode) . git-gutter-mode)
+    :config
+    (setq git-gutter:update-interval 0.02))
+
+  (use-package git-gutter-fringe
+    :config
+    (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+    (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+    (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
+#+END_SRC
