@@ -6753,6 +6753,8 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
      '(:left (sort file-time " " file-size symlink) :right (omit yank index)))
     ;; Don't worry, Dirvish is still performant even you enable all these attributes
     (dirvish-attributes '(all-the-icons file-size collapse subtree-state vc-state git-msg))
+
+    (dirvish-side-attributes '(all-the-icons file-size collapse subtree-state vc-state))
     ;; Maybe the icons are too big to your eyes
     ;; (dirvish-all-the-icons-height 0.8)
     ;; In case you want the details at startup like `dired'
@@ -6772,6 +6774,9 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
           "-l --almost-all --human-readable --time-style=long-iso --group-directories-first --no-group")
     ;; always show subtree state
     (setq dirvish-subtree-always-show-state t)
+    :general
+    ("<f2>" 'dirvish-side)
+
     :bind
     ;; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
     (("C-c f" . dirvish-fd)
@@ -6794,6 +6799,8 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
      ("SPC" . dirvish-history-jump)
      ("M-n" . dirvish-history-go-forward)
      ("M-p" . dirvish-history-go-backward)
+     ("M-<right>" . dirvish-history-go-forward)
+     ("M-<left>" . dirvish-history-go-backward)
      ("M-l" . dirvish-ls-switches-menu)
      ("M-m" . dirvish-mark-menu)
      ("M-f" . dirvish-toggle-fullscreen)
