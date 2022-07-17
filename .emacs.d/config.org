@@ -6871,7 +6871,7 @@ There's multiple packages that provide in-buffer highlighting of changes, such a
   (use-package highlight-indent-guides
     :custom
     (highlight-indent-guides-method 'bitmap)
-    (highlight-indent-guides-responsive 'stack)
+    (highlight-indent-guides-responsive 'top)
     :hook
     ((prog-mode text-mode) . highlight-indent-guides-mode))
 #+END_SRC
