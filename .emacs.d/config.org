@@ -6872,6 +6872,16 @@ There's multiple packages that provide in-buffer highlighting of changes, such a
     :custom
     (highlight-indent-guides-method 'character)
     (highlight-indent-guides-responsive 'top)
+    :config
+
+    (defun current-level-highlighter (level responsive display)
+      (cond ((eq responsive 'top)
+             (highlight-indent-guides--highlighter-default level responsive display))
+            (t nil)))
+
+
+    (setq highlight-indent-guides-highlighter-function 'current-level-highlighter)
+
     :hook
     ((prog-mode yaml-mode) . highlight-indent-guides-mode))
 #+END_SRC
