@@ -6870,8 +6870,8 @@ There's multiple packages that provide in-buffer highlighting of changes, such a
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-indent-guides
     :custom
-    (highlight-indent-guides-method 'bitmap)
+    (highlight-indent-guides-method 'character)
     (highlight-indent-guides-responsive 'top)
     :hook
-    ((prog-mode text-mode) . highlight-indent-guides-mode))
+    ((prog-mode yaml-mode) . highlight-indent-guides-mode))
 #+END_SRC
