@@ -6395,7 +6395,8 @@ Adoc-mode requires the markup-faces package, so let's install that too.
       prog-mode
       text-mode) . olivetti-mode)
     (nxml-mode . (lambda () (olivetti-mode -1)))
-    (olivetti-mode-on . heartman/olivetti-hide-fringes))
+    ;; (olivetti-mode-on . heartman/olivetti-hide-fringes)
+    )
 #+END_SRC
 
 * auctex
