@@ -12,7 +12,7 @@
     ("daask" "Daask" nil :count 7)
     ("github" "GitHub" nil :count 3)
     ("sharn" "Sharn" nil :count 5)
-    ("sunday" "Sunday" nil :count 1)
+    ("sunday" "Sunday" nil :count 2)
    ))
 
 (define-abbrev-table 'gfm-mode-abbrev-table
@@ -37,6 +37,7 @@
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
+    ("..." "…" nil :count 3)
     ("actualy" "actually" nil :count 2)
     ("actuayll" "actually" nil :count 1)
     ("amout" "amount" nil :count 1)
@@ -52,11 +53,13 @@
     ("cornelius" "cornelius" nil :count 10)
     ("daaks" "daask" nil :count 7)
     ("decomissioned" "decommissioned" nil :count 1)
+    ("discoverd" "discovered" nil :count 1)
     ("drikn" "drink" nil :count 1)
     ("eites" "elites" nil :count 2)
     ("enebale" "enable" nil :count 1)
     ("enhancementns" "enhancements" nil :count 1)
     ("glasgow" "glasgow" nil :count 2)
+    ("godess's" "goddess's" nil :count 1)
     ("iillusionist" "illusionist" nil :count 1)
     ("journy" "journey" nil :count 1)
     ("labyrithn" "labyrinth" nil :count 1)
@@ -72,6 +75,7 @@
     ("producet" "product" nil :count 1)
     ("quesntion" "question" nil :count 1)
     ("recharce" "recharge" nil :count 1)
+    ("rosalina" "rosalind" nil :count 1)
     ("scientiest" "scientist" nil :count 1)
     ("seprentine" "serpentine" nil :count 1)
     ("setttlement" "settlement" nil :count 1)
@@ -97,4 +101,3 @@
     ("packgaes" "packages" nil :count 1)
     ("unneccessary" "unnecessary" nil :count 1)
    ))
-
