@@ -2321,13 +2321,15 @@ bit of configuration to get set up.
   (use-package company
     :general
     (company-active-map
-     "C-<f5>" 'my-company-complete-selection-or-first)
+     "C-<f5>" 'my-company-complete-selection-or-first
+     "C-M-." 'my-company-complete-selection-or-first)
     (general-unbind
       company-active-map
       [tab]
       "TAB")
     (company-mode-map
-     "C-<f5>" 'company-complete)
+     "C-<f5>" 'company-complete
+     "C-M-." 'company-complete)
     :hook
     (company-mode . company-tng-mode)
     (company-mode . my-configure-tng)
