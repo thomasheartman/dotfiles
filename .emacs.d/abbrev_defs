@@ -63,6 +63,7 @@
     ("iillusionist" "illusionist" nil :count 1)
     ("journy" "journey" nil :count 1)
     ("labyrithn" "labyrinth" nil :count 1)
+    ("menacing" "archaeologist" nil :count 1)
     ("missuon" "mission" nil :count 1)
     ("outsied" "outside" nil :count 1)
     ("patern" "pattern" nil :count 1)
@@ -82,7 +83,7 @@
     ("somethnig" "something" nil :count 1)
     ("streeets" "streets" nil :count 1)
     ("taks" "task" nil :count 1)
-    ("teh" "the" nil :count 2)
+    ("teh" "the" nil :count 3)
     ("tremenduosly" "tremendously" nil :count 1)
     ("unlesah" "unleash" nil :count 10)
     ("unlesha" "unleash" nil :count 1)
@@ -101,3 +102,4 @@
     ("packgaes" "packages" nil :count 1)
     ("unneccessary" "unnecessary" nil :count 1)
    ))
+
