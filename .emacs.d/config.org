@@ -2529,6 +2529,10 @@ This setup is nearly identical to the recommended approach in their
   (use-package lsp-mode
     :hook
     ((lsp-mode . lsp-enable-which-key-integration))
+    :custom
+    (lsp-eldoc-enable-hover nil)
+    (lsp-modeline-diagnostics-enable nil)
+
     :general
     (lsp-mode-map
      :start-maps t
@@ -2548,13 +2552,15 @@ This setup is nearly identical to the recommended approach in their
       :keymaps 'lsp-mode-map
       "i" 'lsp-ui-imenu
       "d d" 'lsp-ui-doc-show
-      "d h" 'lsp-ui-doc-hide)
+      "d h" 'lsp-ui-doc-hide
+      "d o" 'lsp-ui-doc-focus-frame)
     :custom
     (lsp-ui-doc-alignment 'window)
     (lsp-ui-doc-position 'at-point)
     (lsp-ui-doc-show-with-cursor t)
 
-    )
+    (lsp-ui-sideline-show-diagnostics nil)
+    (lsp-ui-doc-include-signature t))
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
     :general
     :disabled
