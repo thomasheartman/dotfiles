@@ -2546,7 +2546,14 @@ This setup is nearly identical to the recommended approach in their
     ;; (setq lsp-ui-doc-position 'bottom)
     (my-lsp-def
       :keymaps 'lsp-mode-map
-      "i" 'lsp-ui-imenu)
+      "i" 'lsp-ui-imenu
+      "d d" 'lsp-ui-doc-show
+      "d h" 'lsp-ui-doc-hide)
+    :custom
+    (lsp-ui-doc-alignment 'window)
+    (lsp-ui-doc-position 'at-point)
+    (lsp-ui-doc-show-with-cursor t)
+
     )
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
     :general
