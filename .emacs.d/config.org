@@ -2558,6 +2558,7 @@ This setup is nearly identical to the recommended approach in their
     :custom
     (lsp-ui-doc-alignment 'window)
     (lsp-ui-doc-position 'at-point)
+    (lsp-ui-doc-show-with-cursor t)
     (lsp-ui-sideline-show-diagnostics nil)
     (lsp-ui-doc-include-signature t))
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
