@@ -1,4 +1,4 @@
-personal_ws-1.1 en 213 
+personal_ws-1.1 en 217 
 AKS
 APIs
 ASA
@@ -71,6 +71,7 @@ Kruskal's
 Kubernetes
 LSP
 Lharvion
+Machina
 Manjaro
 Menthis
 Morgrave
@@ -105,6 +106,7 @@ TextLine
 Ti'el
 UI
 Vathirond
+Vox
 Winny
 XCode
 XP
@@ -163,6 +165,7 @@ mapping's
 matroid
 medusas
 microservice
+mithril
 mixin
 mixins
 namespace
@@ -210,5 +213,6 @@ vhost
 vhosts
 warforged
 webpack
+wyverns
 xml
 yakitori

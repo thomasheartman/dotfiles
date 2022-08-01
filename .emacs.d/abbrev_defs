@@ -35,6 +35,11 @@
     ("tsc" "TypeScript" nil :count 5)
    ))
 
+(define-abbrev-table 'notmuch-message-mode-abbrev-table
+  '(
+    ("hei" "hie" nil :count 1)
+   ))
+
 (define-abbrev-table 'org-mode-abbrev-table
   '(
     ("..." "…" nil :count 3)
@@ -58,6 +63,7 @@
     ("eites" "elites" nil :count 2)
     ("enebale" "enable" nil :count 1)
     ("enhancementns" "enhancements" nil :count 1)
+    ("genrator" "generator" nil :count 1)
     ("glasgow" "glasgow" nil :count 2)
     ("godess's" "goddess's" nil :count 1)
     ("iillusionist" "illusionist" nil :count 1)
@@ -80,7 +86,7 @@
     ("scientiest" "scientist" nil :count 1)
     ("seprentine" "serpentine" nil :count 1)
     ("setttlement" "settlement" nil :count 1)
-    ("somethnig" "something" nil :count 1)
+    ("somethnig" "something" nil :count 2)
     ("streeets" "streets" nil :count 1)
     ("taks" "task" nil :count 1)
     ("teh" "the" nil :count 3)
