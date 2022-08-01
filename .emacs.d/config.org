@@ -6901,3 +6901,11 @@ There's multiple packages that provide in-buffer highlighting of changes, such a
     :hook
     ((prog-mode yaml-mode) . highlight-indent-guides-mode))
 #+END_SRC
+
+* so-long-mode
+
+Apparently, Emacs has a mode for handling long lines of code. That could certainly be useful!
+
+#+BEGIN_SRC emacs-lisp
+  (global-so-long-mode)
+#+END_SRC
