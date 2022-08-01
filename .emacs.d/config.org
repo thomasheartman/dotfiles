@@ -3497,6 +3497,24 @@ This template is used for maths assignments at UiO.
 #+END_SRC
 
 
+** Hide /all/ leading header stars
+
+Hiding all but /one/ header stars can be done with the ~org-hide-leading-stars~ variable, but you'll still have one star left. To remove this, we can use this custom snippet (copied from [[https://www.reddit.com/r/emacs/comments/9wukv8/hide_all_stars_in_org_mode/][this reddit thread]]; note that if you change the theme, org mode needs to reload for this to take effect):
+#+BEGIN_SRC emacs-lisp
+  (defun chunyang-org-mode-hide-stars ()
+    (font-lock-add-keywords
+     nil
+     '(("^\\*+ "
+        (0
+         (prog1 nil
+           (put-text-property (match-beginning 0) (match-end 0)
+                              'face (list :foreground
+                                          (face-attribute
+                                           'default :background)))))))))
+
+  (add-hook 'org-mode-hook #'chunyang-org-mode-hide-stars)
+#+END_SRC
+
 * Yasnippet
 :PROPERTIES:
 :REPO:     https://github.com/joaotavora/yasnippet
