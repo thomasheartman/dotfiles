@@ -139,14 +139,14 @@ in
 
         smtp.tls.useStartTls = true;
         imap.tls.useStartTls = true;
-        imap.host = "imappro.zoho.eu";
+        imap.host = "imap.fastmail.com";
 
         notmuch.enable = true;
 
         msmtp = {
           enable = true;
           extraConfig = {
-            host = "smtppro.zoho.eu";
+            host = "smtp.fastmail.com";
             port = "587";
             from = address;
             user = address;
@@ -165,7 +165,7 @@ in
             };
             remote = {
               type = "IMAP";
-              remotehost = "imappro.zoho.eu";
+              remotehost = "imap.fastmail.com";
               remoteuser = address;
               remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
             };
