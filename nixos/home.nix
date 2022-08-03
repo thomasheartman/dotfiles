@@ -85,7 +85,7 @@ let
 
   pythonMailPassFn = "mailpasswd";
 
-  mailPass = account: "${pkgs.pass}/bin/pass show email/${account}";
+  mailPass = account: "${pkgs.pass}/bin/pass show email/${account} 2>/dev/null";
 
 in
 {
