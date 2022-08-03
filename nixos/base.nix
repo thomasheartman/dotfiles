@@ -56,7 +56,6 @@ in
       font-awesome
       ipafont
       kochi-substitute
-      mplus-outline-fonts
       nerdfonts
       noto-fonts
       noto-fonts-emoji
@@ -101,7 +100,6 @@ in
       cachix
       curl
       exfat
-      exfat-utils
       fd
       fish
       git

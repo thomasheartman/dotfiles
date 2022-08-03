@@ -25,7 +25,7 @@
     cryptsetup
     curl
     exfat
-    exfat-utils
+    exfat
     fd
     fish
     git
