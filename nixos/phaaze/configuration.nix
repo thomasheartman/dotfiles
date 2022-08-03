@@ -6,7 +6,7 @@ let
 
 in
 {
-  imports = [ ./hardware-configuration.nix ../base.nix ];
+  imports = [ ./hardware-configuration.nix ../base.nix  <musnix> ];
 
   boot = {
     kernelParams = [
@@ -15,7 +15,6 @@ in
       "nvidia-drm.modeset=1"
     ];
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-    kernelPackages = pkgs.linuxPackages_5_4;
   };
 
   environment.systemPackages = [
@@ -70,4 +69,13 @@ in
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "18.09"; # Did you read the comment?
+
+  # musnix https://github.com/musnix/musnix
+  musnix = {
+    enable = true;
+    kernel = {
+      optimize = true;
+      # realtime = true; # seems not to work right with nvidia: https://github.com/musnix/musnix/issues/127
+    };
+  };
 }
