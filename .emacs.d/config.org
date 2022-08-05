@@ -2577,6 +2577,7 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
     (lsp-ui-doc-alignment 'window)
     (lsp-ui-doc-position 'at-point)
     (lsp-ui-doc-show-with-cursor t)
+    (lsp-ui-doc-delay 2)
     (lsp-ui-sideline-show-diagnostics nil)
     (lsp-ui-doc-include-signature t))
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol
