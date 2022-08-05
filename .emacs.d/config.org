@@ -209,14 +209,15 @@ if it is not the same as the new one.
         ;; add an extra box around the mode line to make it easier to
         ;; distinguish between active and inactive windows.
         (let ((modeline-box-width 2))
-          (message "loading doom theme")
           (custom-set-faces
            `(mode-line ((t (:box
                             (:color ,(doom-color 'magenta)
                                     :line-width ,modeline-box-width)))))
            `(mode-line-inactive ((t (:box
-                                     (:color ,(doom-color 'modeline-bg-alt)
-                                             :line-width ,modeline-box-width)))))))))
+                                     (:color ,(doom-color 'modeline-bg)
+                                             :line-width ,modeline-box-width)))))
+           '(header-line ((t (:box nil))))
+           `(child-frame-border ((t (:background ,(doom-color 'fg-alt)))))))))
     (message "Loaded theme %s" theme)))
 #+END_SRC
 
@@ -2285,9 +2286,12 @@ change the prefix to something that's easier to remember (type) than
 
   (use-package flycheck-posframe
     :hook (flycheck-mode . flycheck-posframe-mode)
+    :custom
+    (custom-set-faces
+     '(flycheck-posframe-border-face ((t (:foreground "darkgrey")))))
     :init
     (setq
-     flycheck-posframe-border-width 16
+     flycheck-posframe-border-width 2
      flycheck-posframe-error-prefix "❌ "
      flycheck-posframe-info-prefix "ℹ️️️ "
      flycheck-posframe-warning-prefix "⚠️ "
@@ -2534,6 +2538,8 @@ For performance tips see [[https://emacs-lsp.github.io/lsp-mode/page/performance
 
 This setup is nearly identical to the recommended approach in their
 [[https://emacs-lsp.github.io/lsp-mode/page/installation/][installation instructions]], with some minor tweaks.
+
+See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guide on enabling/disable lsp-mode features]] for a great overview over all the different pieces that can be modified (with pictures!).
 
 #+BEGIN_SRC emacs-lisp
   (setq lsp-keymap-prefix my-lsp-prefix)
@@ -6060,12 +6066,14 @@ other recommended packages that'll make improve it.
   (use-package mini-frame
     :unless (string= "t" (getenv "SUPPRESS_MINI_FRAME"))
     :custom
-    (mini-frame-show-parameters '((top . 0.3)
-                                  (width . 0.7)
-                                  (left . 0.5)
-                                  (height . 1)))
+    (mini-frame-show-parameters '((top . 10)
+                                  (width . 0.5)
+                                  (left . 0.5)))
+    (mini-frame-resize 'resize)
+    (mini-frame-internal-border-color "red")
+
     :config
-    (setq mini-frame-standalone t)
+    (setq mini-frame-standalone nil)
     :init
     (mini-frame-mode))
 #+END_SRC
