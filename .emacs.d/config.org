@@ -6043,18 +6043,20 @@ other recommended packages that'll make improve it.
 #+END_SRC
 
 
-*** TODO emacs-mini-frame
+*** emacs-mini-frame
 :PROPERTIES:
 :REPO:     https://github.com/muffinmad/emacs-mini-frame
 :END:
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2022-08-05 Fri 19:13]
+  I don't use EXWM anymore, so it's fine to remove the todo.
 - State "TODO"       from              [2021-01-25 Mon 20:48] \\
   Make this work properly with EXWM. In particular, make the mini frame
   show on top of X windows and make it not lose focus when an X-window
   is previewed.
 :END:
 
-#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref nop
+#+BEGIN_SRC emacs-lisp :tangle yes :noweb-ref nop
   (use-package mini-frame
     :unless (string= "t" (getenv "SUPPRESS_MINI_FRAME"))
     :custom
