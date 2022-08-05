@@ -2552,7 +2552,7 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
     :custom
     (lsp-eldoc-enable-hover nil)
     (lsp-modeline-diagnostics-enable nil)
-
+    (lsp-headerline-breadcrumb-segments '(project path-up-to-project file symbols))
     :general
     (lsp-mode-map
      :start-maps t
