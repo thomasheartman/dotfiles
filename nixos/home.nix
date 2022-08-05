@@ -13,33 +13,35 @@ let
 
   restartPolybar = "systemctl --user restart polybar.service";
 
-  unstable = import
-    (
-      fetchTarball
-        "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-    )
-    {
-      overlays = [
-        (
-          import (
-            # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
-            # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
-            # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
+  # unstable = import
+    # (
+#       fetchTarball
+# { url=         "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"; sha256= "sha256:1rjf0difaznpaq8aal3hc8dzk04x3pwz7pr8ak9svjnn3ysqwl89"; }
+#     )
+    # {
+    #   overlays = [
+    #     (
+    #       import (
+    #         # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
+    #         # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
+    #         # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
 
-            # another option is to use a version that was built some
-            # time ago. According to this commit
-            # (https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274),
-            # we can use one that appeared about two hours ago, which
-            # should let us always(?) get a cached version.
-            builtins.fetchTarball {
-              url =
-                # "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-                "https://github.com/nix-community/emacs-overlay/archive/master@{2%20hours%20ago}.tar.gz";
-            }
-          )
-        )
-      ];
-    };
+    #         # another option is to use a version that was built some
+    #         # time ago. According to this commit
+    #         # (https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274),
+    #         # we can use one that appeared about two hours ago, which
+    #         # should let us always(?) get a cached version.
+    #         fetchTarball {
+    #           url =
+    #             # "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    #             "https://github.com/nix-community/emacs-overlay/archive/master@{2%20hours%20ago}.tar.gz";
+    #           sha256 = "sha256:1rjf0difaznpaq8aal3hc8dzk04x3pwz7pr8ak9svjnn3ysqwl89";
+    #         }
+    #       )
+    #     )
+    #   ];
+    # }
+  # ;
 
   mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }: {
     realName = "Thomas Heartman";
@@ -387,7 +389,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsNativeComp;
+    package = emacsNativeComp;
     extraPackages = epkgs: [ epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
@@ -432,7 +434,7 @@ in
     cascadia-code
     chromium
     direnv
-    unstable.discord
+    discord
     docker
     element-desktop
     ffmpeg
@@ -457,7 +459,7 @@ in
     pijul
     playerctl
     powertop
-    unstable.procs
+    procs
     pamixer # <- for Emacs' desktop-environment
     proselint
     ripgrep
@@ -467,13 +469,13 @@ in
     scrot
     shellcheck
     skim
-    unstable.slack
+    slack
     spotify
     teensy-loader-cli
     tmux
     victor-mono
     vlc
-    unstable.wally-cli
+    wally-cli
     watchexec
     yaml-language-server
     zoom-us

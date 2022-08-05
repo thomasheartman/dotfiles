@@ -2,17 +2,19 @@
 
 let
   # keyboard
-  compiledLayout = pkgs.runCommand "keyboard-layout" {} ''
+  compiledLayout = pkgs.runCommand "keyboard-layout" { } ''
     ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${/etc/nixos/layout.xkb} $out
   '';
 
 
-  unstablePkgs = import (
-    fetchTarball
-      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-  ) {
-    config = config.nixpkgs.config;
-  };
+  unstablePkgs = import
+    (
+      fetchTarball
+        "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
+    )
+    {
+      config = config.nixpkgs.config;
+    };
 
   user = "thomas";
   homeDir = "/home/${user}";
@@ -30,10 +32,13 @@ in
     tmpOnTmpfs = true;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+  nix = {
+    package = pkgs.nixFlakes;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   system.autoUpgrade.enable = true;
@@ -88,6 +93,9 @@ in
     allowUnfree = true;
   };
 
+  # experimental features
+  nix.settings.experimental-features = "nix-command flakes";
+
   environment = {
     systemPackages = with pkgs; [
       acpi
@@ -129,8 +137,15 @@ in
           #!${stdenv.shell}
           sudo nixos-rebuild switch \
             -p ${config.networking.hostName} \
-            -I nixos-config=${toString ./.}/${config.networking.hostName}/configuration.nix \
+            --flake ${toString ./.}#${config.networking.hostName} \
             "$@"
+        ''
+      )
+
+      (
+        writeScriptBin "update" ''
+          #!${stdenv.shell}
+          nix flake update --recreate-lock-file "$@"
         ''
       )
 
@@ -187,7 +202,7 @@ in
       alias nixdot='git --git-dir=/etc/nixos/git --work-tree=/etc/nixos/'
     '';
 
-    pathsToLink = ["/libexec"];
+    pathsToLink = [ "/libexec" ];
   };
 
   # audio config based on https://nixos.wiki/wiki/PipeWire
@@ -204,7 +219,7 @@ in
     media-session.config.bluez-monitor.rules = [
       {
         # Matches all cards
-        matches = [ { "device.name" = "~bluez_card.*"; } ];
+        matches = [{ "device.name" = "~bluez_card.*"; }];
         actions = {
           "update-props" = {
             "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
