@@ -205,7 +205,19 @@ if it is not the same as the new one.
         (message "Disabling theme %s" old-theme theme)
         (disable-theme old-theme))
       (load-theme theme t)
-      (message "Loaded theme %s" theme)))
+      (when (string-match "^doom-" (prin1-to-string theme))
+        ;; add an extra box around the mode line to make it easier to
+        ;; distinguish between active and inactive windows.
+        (let ((modeline-box-width 2))
+          (message "loading doom theme")
+          (custom-set-faces
+           `(mode-line ((t (:box
+                            (:color ,(doom-color 'magenta)
+                                    :line-width ,modeline-box-width)))))
+           `(mode-line-inactive ((t (:box
+                                     (:color ,(doom-color 'modeline-bg-alt)
+                                             :line-width ,modeline-box-width)))))))))
+    (message "Loaded theme %s" theme)))
 #+END_SRC
 
 
@@ -6926,4 +6938,17 @@ Apparently, Emacs has a mode for handling long lines of code. That could certain
 
 #+BEGIN_SRC emacs-lisp
   (global-so-long-mode)
+#+END_SRC
+
+* window-divider-mode
+
+It can sometimes be hard to see where one window starts and another one ends, so let's activate some window dividers!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emacs
+    :custom
+    (window-divider-default-bottom-width 3)
+    (window-divider-default-places t)
+    (window-divider-default-right-width 3)
+    (window-divider-mode t))
 #+END_SRC
