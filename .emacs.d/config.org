@@ -205,20 +205,20 @@ if it is not the same as the new one.
         (message "Disabling theme %s" old-theme theme)
         (disable-theme old-theme))
       (load-theme theme t)
-      (when (string-match "^doom-" (prin1-to-string theme))
-        ;; add an extra box around the mode line to make it easier to
-        ;; distinguish between active and inactive windows.
-        (let ((modeline-box-width 2))
-          (custom-set-faces
-           `(mode-line ((t (:box
-                            (:color ,(doom-color 'magenta)
-                                    :line-width ,modeline-box-width)))))
-           `(mode-line-inactive ((t (:box
-                                     (:color ,(doom-color 'modeline-bg)
-                                             :line-width ,modeline-box-width)))))
-           '(header-line ((t (:box nil))))
-           `(child-frame-border ((t (:background ,(doom-color 'fg-alt)))))))))
-    (message "Loaded theme %s" theme)))
+      ;; (when (string-match "^doom-" (prin1-to-string theme))
+      ;;   ;; add an extra box around the mode line to make it easier to
+      ;;   ;; distinguish between active and inactive windows.
+      ;;   (let ((modeline-box-width 2))
+      ;;     (custom-set-faces
+      ;;      `(mode-line ((t (:box
+      ;;                       (:color ,(doom-color 'magenta)
+      ;;                               :line-width ,modeline-box-width)))))
+      ;;      `(mode-line-inactive ((t (:box
+      ;;                                (:color ,(doom-color 'modeline-bg)
+      ;;                                        :line-width ,modeline-box-width)))))
+      ;;      '(header-line ((t (:box nil))))
+      ;;      `(child-frame-border ((t (:background ,(doom-color 'fg-alt))))))))
+      (message "Loaded theme %s" theme)))
 #+END_SRC
 
 
@@ -904,7 +904,9 @@ to add a separate hook for that.
 
 **** Display battery in mode line
 
-#+BEGIN_SRC emacs-lisp
+I no longer rely on emacs as my wm, so we don't need battery info in the mode line.
+
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package emacs
     :custom
     (battery-mode-line-format "%b%p%% (%05t) "))
@@ -4618,11 +4620,11 @@ We can configure the mode line to only show what we want. I find
 that the default displ/ays far more information than I know what to
 do with, so let's trim it down a bit and show only what's necessary.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (display-time-mode)
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package doom-modeline
     :after markdown-mode
     :init (doom-modeline-mode 1)
@@ -4631,9 +4633,10 @@ do with, so let's trim it down a bit and show only what's necessary.
     (doom-modeline-enable-word-count t)
     (doom-modeline-continuous-word-count-modes nil)
     (doom-modeline-checker-simple-format nil)
-    (doom-modeline-buffer-modification-icon nil)
-    (doom-modeline-buffer-state-icon nil)
-    (doom-modeline-buffer-encoding nil))
+    ;; (doom-modeline-buffer-modification-icon nil)
+    ;; (doom-modeline-buffer-state-icon nil)
+    ;; (doom-modeline-buffer-encoding nil)
+    )
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -4651,7 +4654,7 @@ do with, so let's trim it down a bit and show only what's necessary.
 
 This is my attempt at customizing my mode line from the ground up.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defvar heartman/mode-line-buffer-max-length 30
     "The maximum number of charaacters in a buffer name. Any more characters will cause a truncation.")
 
@@ -6069,9 +6072,9 @@ other recommended packages that'll make improve it.
     :custom
     (mini-frame-show-parameters '((top . 10)
                                   (width . 0.5)
-                                  (left . 0.5)))
+                                  (left . 0.5)
+                                  (alpha . 80)))
     (mini-frame-resize 'resize)
-    (mini-frame-internal-border-color "red")
 
     :config
     (setq mini-frame-standalone nil)
