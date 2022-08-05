@@ -3710,11 +3710,12 @@ movement works.
     (editorconfig-mode 1))
 #+END_SRC
 
-* TODO Notmuch
+* Notmuch
 :PROPERTIES:
 :WEBSITE:  [[https://notmuchmail.org/][Notmuch]] [[https://notmuchmail.org/notmuch-emacs/][Notmuch-emacs]]
 :END:
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2022-08-05 Fri 23:52]
 - State "TODO"       from              [2021-02-04 Thu 21:16] \\
   The email attachment scanning doesn't account for whether the found
   text is in the response body or in the quoted text. So even if someone
@@ -3862,12 +3863,17 @@ movement works.
   This executes on `message-send-hook' and is configured via `notmuch-message-attachment-regex'"
       (save-mark-and-excursion
         (goto-char (point-min))
-        (when (re-search-forward notmuch-message-attachment-regex nil t)
-          (progn
-            (goto-char (point-min))
-            (unless (re-search-forward "<#part [^>]*filename=[^>]*>" nil t)
-              (or (y-or-n-p "It seems this email is referring to attachment, but there's nothing attached. Send anyways? ")
-                  (error "No attachment found. Aborting")))))))
+        (let* ((email-start-regex "\\( writes\n\n>\\|-------------------- Start of forwarded message --------------------\\)")
+               ;; check to see if we're responding to or forwarding an email
+               (email-end (re-search-forward email-start-regex nil t)))
+          (goto-char (point-min))
+          ;; search forward to the end of my current email
+          (when (re-search-forward notmuch-message-attachment-regex email-end t)
+            (progn
+              (goto-char (point-min))
+              (unless (re-search-forward "<#part [^>]*filename=[^>]*>" nil t)
+                (or (y-or-n-p "It seems this email is referring to attachment, but there's nothing attached. Send anyways? ")
+                    (error "No attachment found. Aborting"))))))))
 
     (add-hook 'message-send-hook 'notmuch-message-check-for-attachments))
 #+END_SRC
