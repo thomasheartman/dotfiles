@@ -6959,7 +6959,7 @@ It can sometimes be hard to see where one window starts and another one ends, so
   (use-package emacs
     :custom
     (window-divider-default-bottom-width 3)
-    (window-divider-default-places t)
+    (window-divider-default-places 'right-only)
     (window-divider-default-right-width 3)
     (window-divider-mode t))
 #+END_SRC
