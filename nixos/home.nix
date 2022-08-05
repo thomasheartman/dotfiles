@@ -292,11 +292,13 @@ in
           "${mod}+Shift+s" = "layout stacking";
           "${mod}+Shift+w" = "layout tabbed";
           "${mod}+e" = "layout toggle split";
+          "${mod}+x" = "layout toggle all";
 
           "${mod}+z" = "floating toggle";
           "${mod}+Shift+z" = "focus mode_toggle";
 
           "${mod}+a" = "focus parent";
+          "${mod}+Shift+a" = "focus child";
 
           "${mod}+1" = "workspace number 1";
           "${mod}+2" = "workspace number 2";
