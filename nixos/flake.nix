@@ -33,23 +33,27 @@
     {
       homeManagerConfigs = {
         phaaze = home-manager.lib.homeManagerConfiguration {
-          # pkgs = nixpkgs.legacyPackages.${system};
-          pkgs = import nixpkgs {
-            overlays = [emacsOverlay.overlay];
-            inherit system;
-          };
+          pkgs = nixpkgs.legacyPackages.${system};
+          # pkgs = import nixpkgs {
+          #   overlays = [emacsOverlay.overlay];
+          #   inherit system;
+          # };
 
           modules = [
+            ({
+              nixpkgs.overlays = [ emacsOverlay.overlay ];
+            })
             # ({ pkgs, ... }: {
             #   nixpkgs.overlays = [ emacsOverlay.overlay ];
             # })
             ./phaaze/home.nix
-            # {
-            #   home = {
-            #     username = "thomas";
-            #     homeDirectory = "/home/thomas";
-            #   };
-            # }
+            {
+              home = {
+                username = "thomas";
+                homeDirectory = "/home/thomas";
+                stateVersion = "18.09";
+              };
+            }
           ];
         };
       };

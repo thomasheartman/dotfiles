@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, emacsNativeComp, ... }:
 
 let
 
@@ -546,9 +546,7 @@ in
   services.picom = {
     enable = true;
     shadow = true;
-    blur = true;
 
-    inactiveDim = "0.2";
 
     extraOptions = ''
       detect-transient = true;
