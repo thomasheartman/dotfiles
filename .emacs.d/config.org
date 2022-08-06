@@ -2288,7 +2288,7 @@ change the prefix to something that's easier to remember (type) than
 
   (use-package flycheck-posframe
     :hook (flycheck-mode . flycheck-posframe-mode)
-    :custom
+    :config
     (custom-set-faces
      '(flycheck-posframe-border-face ((t (:foreground "darkgrey")))))
     :init
@@ -6080,13 +6080,12 @@ other recommended packages that'll make improve it.
     (mini-frame-resize 'resize)
     (mini-frame-color-shift-step 0)
 
+    :config
+    (setq mini-frame-standalone nil)
     (custom-set-faces
      ;; set a border for the child frame mini frame uses. Set it to the
      ;; default text color.
      `(child-frame-border ((t (:background ,(face-attribute 'default :foreground))))))
-
-    :config
-    (setq mini-frame-standalone nil)
     :init
     (mini-frame-mode))
 #+END_SRC
