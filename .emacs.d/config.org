@@ -6078,7 +6078,7 @@ other recommended packages that'll make improve it.
                                   (left . 0.5)
                                   (alpha . 80)))
     (mini-frame-resize 'resize)
-    (mini-frame-color-shift-step 0)
+    (mini-frame-color-shift-step -7)
 
     :config
     (setq mini-frame-standalone nil)
