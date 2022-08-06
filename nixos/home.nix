@@ -13,34 +13,6 @@ let
 
   restartPolybar = "systemctl --user restart polybar.service";
 
-  unstable = import
-    (
-      fetchTarball
-        "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-    )
-    {
-      overlays = [
-        (
-          import (
-            # use a specific version (as mentioned here: https://github.com/nix-community/emacs-overlay/issues/170)
-            # this is to avoid having to suddenly rebuild Emacs when wanting to change other, unrelated config.
-            # The list of commits can be found at https://github.com/nix-community/emacs-overlay/commits/master
-
-            # another option is to use a version that was built some
-            # time ago. According to this commit
-            # (https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274https://github.com/nix-community/emacs-overlay/issues/122#issuecomment-1002770274),
-            # we can use one that appeared about two hours ago, which
-            # should let us always(?) get a cached version.
-            builtins.fetchTarball {
-              url =
-                # "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-                "https://github.com/nix-community/emacs-overlay/archive/master@{2%20hours%20ago}.tar.gz";
-            }
-          )
-        )
-      ];
-    };
-
   mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }: {
     realName = "Thomas Heartman";
     primary = primary;
@@ -123,7 +95,7 @@ in
     address = "thomasheartman@gmail.com";
   };
 
-  home.file.".signatures/simple".source = ~/dotfiles/email/signatures/simple;
+  home.file.".signatures/simple".source = ./../email/signatures/simple;
 
   accounts.email.accounts."thomasheartman" =
     let
@@ -132,46 +104,46 @@ in
       address = "thomas@thomasheartman.com";
       passwordName = "thomasheartman.com";
     in
-      {
-        realName = "Thomas Heartman";
-        primary = primary;
-        address = address;
+    {
+      realName = "Thomas Heartman";
+      primary = primary;
+      address = address;
 
-        smtp.tls.useStartTls = true;
-        imap.tls.useStartTls = true;
-        imap.host = "imap.fastmail.com";
+      smtp.tls.useStartTls = true;
+      imap.tls.useStartTls = true;
+      imap.host = "imap.fastmail.com";
 
-        notmuch.enable = true;
+      notmuch.enable = true;
 
-        msmtp = {
-          enable = true;
-          extraConfig = {
-            host = "smtp.fastmail.com";
-            port = "587";
-            from = address;
-            user = address;
-            passwordeval = mailPass passwordName;
-            logfile = "~/.msmtp.${mailBoxName}.log";
-          };
+      msmtp = {
+        enable = true;
+        extraConfig = {
+          host = "smtp.fastmail.com";
+          port = "587";
+          from = address;
+          user = address;
+          passwordeval = mailPass passwordName;
+          logfile = "~/.msmtp.${mailBoxName}.log";
         };
+      };
 
-        offlineimap = {
-          enable = true;
-          postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-          extraConfig = {
-            local = {
-              type = "Maildir";
-              localfolders = "~/mail/${mailBoxName} ";
-            };
-            remote = {
-              type = "IMAP";
-              remotehost = "imap.fastmail.com";
-              remoteuser = address;
-              remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
-            };
+      offlineimap = {
+        enable = true;
+        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+        extraConfig = {
+          local = {
+            type = "Maildir";
+            localfolders = "~/mail/${mailBoxName} ";
+          };
+          remote = {
+            type = "IMAP";
+            remotehost = "imap.fastmail.com";
+            remoteuser = address;
+            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
           };
         };
       };
+    };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
@@ -357,7 +329,7 @@ in
         };
 
 
-        bars = [];
+        bars = [ ];
 
         startup = [
           {
@@ -389,7 +361,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = unstable.emacsNativeComp;
+    package = pkgs.emacsNativeComp;
     extraPackages = epkgs: [ epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
   };
 
@@ -434,7 +406,7 @@ in
     cascadia-code
     chromium
     direnv
-    unstable.discord
+    discord
     docker
     element-desktop
     ffmpeg
@@ -459,7 +431,7 @@ in
     pijul
     playerctl
     powertop
-    unstable.procs
+    procs
     pamixer # <- for Emacs' desktop-environment
     proselint
     ripgrep
@@ -469,21 +441,28 @@ in
     scrot
     shellcheck
     skim
-    unstable.slack
+    slack
     spotify
     teensy-loader-cli
     tmux
     victor-mono
     vlc
-    unstable.wally-cli
+    wally-cli
     watchexec
     yaml-language-server
     zoom-us
 
     (
+      let
+        hostname = config.home.sessionVariables.HOSTNAME;
+        resultsDir = "/tmp/${hostname}-home.results";
+        in
       writeScriptBin "hms" ''
         #!${stdenv.shell}
-        ${home-manager}/bin/home-manager switch -f ~/dotfiles/nixos/${config.home.sessionVariables.HOSTNAME}/home.nix
+        nix build \
+        ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
+        -o ${resultsDir} "$@";
+        ${resultsDir}/activate
       ''
     )
 
@@ -546,13 +525,19 @@ in
   services.picom = {
     enable = true;
     shadow = true;
-    blur = true;
 
     inactiveDim = "0.25";
 
-    extraOptions = ''
-      detect-transient = true;
-    '';
+    settings = {
+      blur =
+        {
+          method = "gaussian";
+          size = 10;
+          deviation = 5.0;
+        };
+
+      detectTransient = true;
+    };
   };
 
   # services.polybar = {

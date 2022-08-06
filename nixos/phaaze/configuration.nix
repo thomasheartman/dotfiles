@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 let
 
@@ -6,7 +6,7 @@ let
 
 in
 {
-  imports = [ ./hardware-configuration.nix ../base.nix  <musnix> ];
+  imports = [ ./hardware-configuration.nix ../base.nix ];
 
   boot = {
     kernelParams = [
