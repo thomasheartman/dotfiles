@@ -451,9 +451,16 @@ in
     zoom-us
 
     (
+      let
+        hostname = config.home.sessionVariables.HOSTNAME;
+        resultsDir = "/tmp/${hostname}-home.results";
+        in
       writeScriptBin "hms" ''
         #!${stdenv.shell}
-        ${home-manager}/bin/home-manager switch -f ${toString ./.}/${config.home.sessionVariables.HOSTNAME}/home.nix
+        nix build \
+        ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
+        -o ${resultsDir} "$@";
+        ${resultsDir}/activate
       ''
     )
 
