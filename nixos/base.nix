@@ -348,7 +348,7 @@ in
     shell = pkgs.fish;
   };
 
-  nix.trustedUsers = [ "root" user ];
+  nix.settings.trusted-users = [ "root" user ];
 
   services.offlineimap = {
     enable = true;

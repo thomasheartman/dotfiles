@@ -17,5 +17,5 @@
     )
   ];
 
-  home.file.".gitconfig.work".source = ~/dotfiles/system-config/unleash/.gitconfig;
+  home.file.".gitconfig.work".source = ./../../system-config/unleash/.gitconfig;
 }
