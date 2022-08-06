@@ -7,51 +7,54 @@ let
   rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
-  openMailClient = "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
+  openMailClient =
+    "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
 
   setBackgroundImage = "${pkgs.feh}/bin/feh --bg-fill ~/.background-image";
 
   restartPolybar = "systemctl --user restart polybar.service";
 
-  mailConfig = { mailBoxName, address, passwordName ? mailBoxName, primary ? false }: {
-    realName = "Thomas Heartman";
-    primary = primary;
-    address = address;
-    flavor = "gmail.com";
+  mailConfig =
+    { mailBoxName, address, passwordName ? mailBoxName, primary ? false }: {
+      realName = "Thomas Heartman";
+      primary = primary;
+      address = address;
+      flavor = "gmail.com";
 
-    smtp.tls.useStartTls = true;
-    imap.tls.useStartTls = true;
+      smtp.tls.useStartTls = true;
+      imap.tls.useStartTls = true;
 
-    notmuch.enable = true;
+      notmuch.enable = true;
 
-    msmtp = {
-      enable = true;
-      extraConfig = {
-        host = "smtp.gmail.com";
-        port = "587";
-        from = address;
-        user = address;
-        passwordeval = mailPass passwordName;
-        logfile = "~/.msmtp.${mailBoxName}.log";
-      };
-    };
-
-    offlineimap = {
-      enable = true;
-      postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/${mailBoxName} ";
-        };
-        remote = {
-          type = "Gmail";
-          remoteuser = address;
-          remotepasseval = ''${pythonMailPassFn}("${mailPass passwordName}")'';
+      msmtp = {
+        enable = true;
+        extraConfig = {
+          host = "smtp.gmail.com";
+          port = "587";
+          from = address;
+          user = address;
+          passwordeval = mailPass passwordName;
+          logfile = "~/.msmtp.${mailBoxName}.log";
         };
       };
+
+      offlineimap = {
+        enable = true;
+        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+        extraConfig = {
+          local = {
+            type = "Maildir";
+            localfolders = "~/mail/${mailBoxName} ";
+          };
+          remote = {
+            type = "Gmail";
+            remoteuser = address;
+            remotepasseval =
+              ''${pythonMailPassFn}("${mailPass passwordName}")'';
+          };
+        };
+      };
     };
-  };
 
   gheart = "gheart";
 
@@ -59,8 +62,7 @@ let
 
   mailPass = account: "${pkgs.pass}/bin/pass show email/${account} 2>/dev/null";
 
-in
-{
+in {
 
   imports = [ ./polybar.nix ];
 
@@ -97,53 +99,51 @@ in
 
   home.file.".signatures/simple".source = ./../email/signatures/simple;
 
-  accounts.email.accounts."thomasheartman" =
-    let
-      mailBoxName = "thomasheartman.com";
-      primary = true;
-      address = "thomas@thomasheartman.com";
-      passwordName = "thomasheartman.com";
-    in
-    {
-      realName = "Thomas Heartman";
-      primary = primary;
-      address = address;
+  accounts.email.accounts."thomasheartman" = let
+    mailBoxName = "thomasheartman.com";
+    primary = true;
+    address = "thomas@thomasheartman.com";
+    passwordName = "thomasheartman.com";
+  in {
+    realName = "Thomas Heartman";
+    primary = primary;
+    address = address;
 
-      smtp.tls.useStartTls = true;
-      imap.tls.useStartTls = true;
-      imap.host = "imap.fastmail.com";
+    smtp.tls.useStartTls = true;
+    imap.tls.useStartTls = true;
+    imap.host = "imap.fastmail.com";
 
-      notmuch.enable = true;
+    notmuch.enable = true;
 
-      msmtp = {
-        enable = true;
-        extraConfig = {
-          host = "smtp.fastmail.com";
-          port = "587";
-          from = address;
-          user = address;
-          passwordeval = mailPass passwordName;
-          logfile = "~/.msmtp.${mailBoxName}.log";
-        };
+    msmtp = {
+      enable = true;
+      extraConfig = {
+        host = "smtp.fastmail.com";
+        port = "587";
+        from = address;
+        user = address;
+        passwordeval = mailPass passwordName;
+        logfile = "~/.msmtp.${mailBoxName}.log";
       };
+    };
 
-      offlineimap = {
-        enable = true;
-        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-        extraConfig = {
-          local = {
-            type = "Maildir";
-            localfolders = "~/mail/${mailBoxName} ";
-          };
-          remote = {
-            type = "IMAP";
-            remotehost = "imap.fastmail.com";
-            remoteuser = address;
-            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
-          };
+    offlineimap = {
+      enable = true;
+      postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+      extraConfig = {
+        local = {
+          type = "Maildir";
+          localfolders = "~/mail/${mailBoxName} ";
+        };
+        remote = {
+          type = "IMAP";
+          remotehost = "imap.fastmail.com";
+          remoteuser = address;
+          remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
         };
       };
     };
+  };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
@@ -196,15 +196,11 @@ in
           size = 12.0;
         };
 
-        focus = {
-          followMouse = false;
-        };
+        focus = { followMouse = false; };
 
         terminal = terminal;
 
-        window = {
-          titlebar = false;
-        };
+        window = { titlebar = false; };
 
         gaps = {
           inner = 15;
@@ -218,8 +214,10 @@ in
           "${mod}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
 
           # screenshots
-          "${mod}+Print" = "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
-          "${mod}+Shift+Print" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
+          "${mod}+Print" =
+            "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
+          "${mod}+Shift+Print" =
+            "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
           # mail
           "${mod}+Shift+m" = "exec ${openMailClient}";
@@ -283,26 +281,16 @@ in
           "${mod}+9" = "workspace number 9";
           "${mod}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" =
-            "move container to workspace number 1";
-          "${mod}+Shift+2" =
-            "move container to workspace number 2";
-          "${mod}+Shift+3" =
-            "move container to workspace number 3";
-          "${mod}+Shift+4" =
-            "move container to workspace number 4";
-          "${mod}+Shift+5" =
-            "move container to workspace number 5";
-          "${mod}+Shift+6" =
-            "move container to workspace number 6";
-          "${mod}+Shift+7" =
-            "move container to workspace number 7";
-          "${mod}+Shift+8" =
-            "move container to workspace number 8";
-          "${mod}+Shift+9" =
-            "move container to workspace number 9";
-          "${mod}+Shift+0" =
-            "move container to workspace number 10";
+          "${mod}+Shift+1" = "move container to workspace number 1";
+          "${mod}+Shift+2" = "move container to workspace number 2";
+          "${mod}+Shift+3" = "move container to workspace number 3";
+          "${mod}+Shift+4" = "move container to workspace number 4";
+          "${mod}+Shift+5" = "move container to workspace number 5";
+          "${mod}+Shift+6" = "move container to workspace number 6";
+          "${mod}+Shift+7" = "move container to workspace number 7";
+          "${mod}+Shift+8" = "move container to workspace number 8";
+          "${mod}+Shift+9" = "move container to workspace number 9";
+          "${mod}+Shift+0" = "move container to workspace number 10";
 
           "${mod}+Shift+c" = "reload";
           "${mod}+Shift+r" = "restart";
@@ -314,20 +302,24 @@ in
           # media keys
 
           # Pulse Audio controls
-          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; #increase sound volume
-          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%"; #decrease sound volume
-          "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle"; # mute sound
+          "XF86AudioRaiseVolume" =
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; # increase sound volume
+          "XF86AudioLowerVolume" =
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%"; # decrease sound volume
+          "XF86AudioMute" =
+            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle"; # mute sound
 
           # Sreen brightness controls
-          "XF86MonBrightnessUp" = "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -inc 20"; # increase screen brightness
-          "XF86MonBrightnessDown" = "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -dec 20"; # decrease screen brightness
+          "XF86MonBrightnessUp" =
+            "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -inc 20"; # increase screen brightness
+          "XF86MonBrightnessDown" =
+            "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -dec 20"; # decrease screen brightness
 
           # Media player controls
           "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
           "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         };
-
 
         bars = [ ];
 
@@ -362,21 +354,22 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacsNativeComp;
-    extraPackages = epkgs: [ epkgs.emacsql-sqlite epkgs.vterm pkgs.python3 pkgs.gcc ];
+    extraPackages = epkgs: [
+      epkgs.emacsql-sqlite
+      epkgs.vterm
+      pkgs.python3
+      pkgs.gcc
+    ];
   };
 
-  services.emacs = {
-    enable = true;
-  };
+  services.emacs = { enable = true; };
 
   programs.rofi = {
     enable = true;
     package = rofi;
     cycle = true;
     terminal = terminal;
-    extraConfig = {
-      modi = "window,run,emoji";
-    };
+    extraConfig = { modi = "window,run,emoji"; };
     # theme = ../rofi/themes/alter.rasi;
   };
 
@@ -393,10 +386,8 @@ in
 
   home.packages = with pkgs; [
     alacritty
-    (
-      pkgs.aspellWithDicts
-        (dicts: with dicts; [ en en-computers en-science nb ])
-    )
+    (pkgs.aspellWithDicts
+      (dicts: with dicts; [ en en-computers en-science nb ]))
     autojump
     bat
     bitwarden-cli
@@ -452,91 +443,83 @@ in
     yaml-language-server
     zoom-us
 
-    (
-      let
-        hostname = config.home.sessionVariables.HOSTNAME;
-        resultsDir = "/tmp/${hostname}-home.results";
-        in
-      writeScriptBin "hms" ''
-        #!${stdenv.shell}
-        nix build \
-        ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
-        -o ${resultsDir} "$@";
-        ${resultsDir}/activate
-      ''
-    )
+    (let
+      hostname = config.home.sessionVariables.HOSTNAME;
+      resultsDir = "/tmp/${hostname}-home.results";
+    in writeScriptBin "hms" ''
+      #!${stdenv.shell}
+      nix build \
+      ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
+      -o ${resultsDir} "$@";
+      ${resultsDir}/activate
+    '')
 
-    (
-      writeScriptBin "kbs" ''
-        #!${stdenv.shell}
-        ${xorg.setxkbmap}/bin/setxkbmap us,us altgr-intl,dvp 'grp:shift-caps-toggle'
-        xset r rate 200 100
-      ''
-    )
+    (writeScriptBin "kbs" ''
+      #!${stdenv.shell}
+      ${xorg.setxkbmap}/bin/setxkbmap us,us altgr-intl,dvp 'grp:shift-caps-toggle'
+      xset r rate 200 100
+    '')
 
-    (
-      writeScriptBin "copy" ''
-        #!${stdenv.shell}
-        ${pkgs.xclip}/bin/xclip -selection clipboard $@
-      ''
-    )
+    (writeScriptBin "copy" ''
+      #!${stdenv.shell}
+      ${pkgs.xclip}/bin/xclip -selection clipboard $@
+    '')
 
-    (
-      writeScriptBin "emq" ''
-        #!${stdenv.shell}
-        ${config.programs.emacs.package}/bin/emacs -Q -l ~/.emacs.d/straight/repos/straight.el/bootstrap.el $@
-      ''
-    )
+    (writeScriptBin "emq" ''
+      #!${stdenv.shell}
+      ${config.programs.emacs.package}/bin/emacs -Q -l ~/.emacs.d/straight/repos/straight.el/bootstrap.el $@
+    '')
 
-    (
-      writeScriptBin "lwo" ''
-        #!${stdenv.shell}
-        ${pkgs.lorri}/bin/lorri watch --once $@
-      ''
-    )
+    (writeScriptBin "lwo" ''
+      #!${stdenv.shell}
+      ${pkgs.lorri}/bin/lorri watch --once $@
+    '')
 
-    (
-      writeScriptBin "ff" ''
-        #!${stdenv.shell}
-        ${firefox}/bin/firefox -p default $@
-      ''
-    )
+    (writeScriptBin "ff" ''
+      #!${stdenv.shell}
+      ${firefox}/bin/firefox -p default $@
+    '')
 
-    (
-      writeScriptBin "hmr" ''
-        #!${stdenv.shell}
-        echo "Activating back to the second most recent home-manager generation"
-        cd ${home-manager}/bin/home-manager generations | ${gnused}/bin/sed -n 2p | ${coreutils}/bin/cut -d ' ' -f 7) && ./activate
-      ''
-    )
+    (writeScriptBin "hmr" ''
+      #!${stdenv.shell}
+      echo "Activating back to the second most recent home-manager generation"
+      cd ${home-manager}/bin/home-manager generations | ${gnused}/bin/sed -n 2p | ${coreutils}/bin/cut -d ' ' -f 7) && ./activate
+    '')
 
-    (
-      writeScriptBin "emc" ''
-        #!${stdenv.shell}
-        ${emacsclient}
-      ''
-    )
-
+    (writeScriptBin "emc" ''
+      #!${stdenv.shell}
+      ${emacsclient}
+    '')
 
   ];
 
   services.dropbox.enable = true;
 
-  services.picom = {
+  services.picom =  let shadowRadius = 32; in {
     enable = true;
     shadow = true;
 
-    inactiveDim = "0.25";
+    # use shadows to highlight the active window
+    shadowExclude = [ "!focused" "class_g = 'dmenu'" ];
+    shadowOpacity = 1.0;
+
+    inactiveOpacity = 0.95;
 
     settings = {
-      blur =
-        {
-          method = "gaussian";
-          size = 10;
-          deviation = 5.0;
-        };
+      # only matters if picom makes windows transparent
+      blur = {
+        method = "gaussian";
+        size = 10;
+        deviation = 5.0;
+      };
 
-      detectTransient = true;
+      inactive-dim = "0.1";
+
+      # detectTransient = true;
+      shadow-color = "#ffcc00"; # "#01fdfe"; # <- is also good
+      shadow-radius = shadowRadius;
+      shadow-offset-x = -shadowRadius;
+      shadow-offset-y = -shadowRadius;
     };
   };
 
