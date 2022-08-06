@@ -6082,11 +6082,11 @@ other recommended packages that'll make improve it.
 
     :config
     (setq mini-frame-standalone nil)
+    :init
     (custom-set-faces
      ;; set a border for the child frame mini frame uses. Set it to the
      ;; default text color.
      `(child-frame-border ((t (:background ,(face-attribute 'default :foreground))))))
-    :init
     (mini-frame-mode))
 #+END_SRC
 
