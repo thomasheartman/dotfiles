@@ -137,7 +137,7 @@ in
           #!${stdenv.shell}
           sudo nixos-rebuild switch \
             -p ${config.networking.hostName} \
-            --flake ${toString ./.}#${config.networking.hostName} \
+            --flake ~/dotfiles/nixos#${config.networking.hostName} \
             "$@"
         ''
       )
@@ -145,7 +145,7 @@ in
       (
         writeScriptBin "update" ''
           #!${stdenv.shell}
-          nix flake update --recreate-lock-file "$@"
+          nix flake update ~/dotfiles/nixos "$@"
         ''
       )
 
