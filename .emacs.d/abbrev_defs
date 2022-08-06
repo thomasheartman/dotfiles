@@ -107,5 +107,6 @@
     ("eventns" "events" nil :count 1)
     ("packgaes" "packages" nil :count 1)
     ("unneccessary" "unnecessary" nil :count 1)
+    ("visiibilyt" "visibility" nil :count 1)
    ))
 
