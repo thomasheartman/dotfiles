@@ -516,7 +516,7 @@ in {
       inactive-dim = "0.1";
 
       # detectTransient = true;
-      shadow-color = "#ffcc00"; # "#01fdfe"; # <- is also good
+      shadow-color = "#01fdfe"; # <- is also good
       shadow-radius = shadowRadius;
       shadow-offset-x = -shadowRadius;
       shadow-offset-y = -shadowRadius;
