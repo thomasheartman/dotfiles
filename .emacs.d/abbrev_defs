@@ -37,7 +37,7 @@
 
 (define-abbrev-table 'notmuch-message-mode-abbrev-table
   '(
-    ("hei" "hie" nil :count 1)
+    ("hie" "hei" nil :count 1)
    ))
 
 (define-abbrev-table 'org-mode-abbrev-table
@@ -109,4 +109,3 @@
     ("unneccessary" "unnecessary" nil :count 1)
     ("visiibilyt" "visibility" nil :count 1)
    ))
-
