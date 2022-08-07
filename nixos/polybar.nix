@@ -94,8 +94,8 @@ in
         "inherit" = "bar/shared";
         bottom = false;
 
-        scroll-up = "i3wm-wsnext";
-        scroll-down = "i3wm-wsprev";
+        # scroll-up = "i3wm-wsnext";
+        # scroll-down = "i3wm-wsprev";
 
         background = bg;
         foreground = fg;
