@@ -15,7 +15,7 @@
 
 window:
 
-  opacity: 0.95 # 0.8
+  opacity: 1 # 0.95 # 0.8
 
   # Window dimensions in character columns and lines
   # (changes require restart)
