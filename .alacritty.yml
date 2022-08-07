@@ -222,7 +222,7 @@ themes:
       cyan:       '#185570'
       white:      '#efefef'
 
-colors: *tempus-summer
+colors: *ayu-mirage
 
 # Visual Bell
 #
