@@ -15,13 +15,19 @@
     ("sunday" "Sunday" nil :count 2)
    ))
 
+(define-abbrev-table 'forge-post-mode-abbrev-table
+  '(
+    ("startegies" "strategies" nil :count 1)
+   ))
+
 (define-abbrev-table 'gfm-mode-abbrev-table
   '(
     ("announcementns" "announcements" nil :count 1)
     ("enviornment" "environment" nil :count 1)
+    ("evlauated" "evaluated" nil :count 1)
     ("htis" "this" nil :count 1)
     ("responisibilyt" "responsibility" nil :count 1)
-    ("unlesah" "unleash" nil :count 4)
+    ("unlesah" "unleash" nil :count 5)
    ))
 
 (define-abbrev-table 'global-abbrev-table
@@ -109,3 +115,4 @@
     ("unneccessary" "unnecessary" nil :count 1)
     ("visiibilyt" "visibility" nil :count 1)
    ))
+
