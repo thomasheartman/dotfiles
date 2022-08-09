@@ -263,6 +263,7 @@ in {
           "${mod}+Shift+w" = "layout tabbed";
           "${mod}+e" = "layout toggle split";
           "${mod}+x" = "layout toggle all";
+          "${mod}+Shift+space" = "layout toggle all";
 
           "${mod}+z" = "floating toggle";
           "${mod}+Shift+z" = "focus mode_toggle";
