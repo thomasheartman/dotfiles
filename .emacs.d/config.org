@@ -6071,13 +6071,19 @@ other recommended packages that'll make improve it.
 :END:
 
 #+BEGIN_SRC emacs-lisp :tangle yes :noweb-ref nop
+  (defun heartman/mini-frame-show-params ()
+    (let* ((min-desired-width 125)
+           (min-width (min (frame-width) min-desired-width)))
+      `((top . 15)
+        (width . 0.5)
+        (left . 0.5)
+        (alpha . 95)
+        (min-width . ,min-width))))
+
   (use-package mini-frame
     :unless nil ;; on-macos
     :custom
-    (mini-frame-show-parameters '((top . 15)
-                                  (width . 0.5)
-                                  (left . 0.5)
-                                  (alpha . 95)))
+    (mini-frame-show-parameters 'heartman/mini-frame-show-params)
     (mini-frame-resize 'resize)
     (mini-frame-color-shift-step -7)
 
