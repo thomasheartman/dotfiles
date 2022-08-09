@@ -4,7 +4,6 @@ let
 
   mod = "Mod4";
   terminal = "${pkgs.alacritty}/bin/alacritty";
-  rofi = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
 
   openMailClient =
@@ -64,7 +63,7 @@ let
 
 in {
 
-  imports = [ ./polybar.nix ];
+  imports = [ ./polybar.nix  ./rofi.nix ];
 
   programs.msmtp = { enable = true; };
 
@@ -207,7 +206,7 @@ in {
           # smartGaps = true;
         };
 
-        keybindings = {
+        keybindings = let rofi = config.programs.rofi.package; in {
           # rofi: apps, switching, and emoji
           "${mod}+space" = "exec ${rofi}/bin/rofi -show run -show-icons";
           "${mod}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
@@ -365,15 +364,6 @@ in {
 
   services.emacs = { enable = true; };
 
-  programs.rofi = {
-    enable = true;
-    package = rofi;
-    cycle = true;
-    terminal = terminal;
-    extraConfig = { modi = "window,run,emoji"; };
-    # theme = ../rofi/themes/alter.rasi;
-  };
-
   programs.autorandr = {
     enable = true;
     hooks = {
@@ -523,33 +513,6 @@ in {
       shadow-offset-y = -shadowRadius;
     };
   };
-
-  # services.polybar = {
-  #   enable = true;
-
-  #   package = pkgs.polybar.override {
-  #     i3GapsSupport = true;
-  #   };
-
-  #   script = "polybar -q -r top &";
-
-  #   config = {
-  #     "bar/top" = {
-  #       bottom = false;
-  #       fixed-center = true;
-
-  #       width = "100%";
-  #       height = 19;
-  #       offset-x = "1%";
-
-  #       modules-left = "distro-icon dulS ddrT i3 dulT";
-  #       modules-center = "title";
-  #       modules-right = "durT audio ddlT date";
-
-  #       locale = "en_US.UTF-8";
-  #     };
-  #   };
-  # };
 
   home.file.".config/proselint/config".text = ''
     {
