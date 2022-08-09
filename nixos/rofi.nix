@@ -8,12 +8,10 @@
 let
   colors = rec {
     # general
-    background = "#252a34";
-    background-alt = "#3b4354";
-    foreground = "#F1FAEE";
-    primary = "#fc2dd3";
-    secondary = "#047672";
-    alert = "#ff2e63";
+    background = "#231F2A";
+    background-alt = "#3C3B54";
+    foreground = "#EEFAF2";
+    primary = "#C216B6";
     disabled = "#707880";
 
     # rofi
