@@ -6072,12 +6072,12 @@ other recommended packages that'll make improve it.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :noweb-ref nop
   (use-package mini-frame
-    :unless (string= "t" (getenv "SUPPRESS_MINI_FRAME"))
+    :unless nil ;; on-macos
     :custom
     (mini-frame-show-parameters '((top . 15)
                                   (width . 0.5)
                                   (left . 0.5)
-                                  (alpha . 80)))
+                                  (alpha . 95)))
     (mini-frame-resize 'resize)
     (mini-frame-color-shift-step -7)
 
