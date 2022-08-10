@@ -25,9 +25,10 @@
     ("announcementns" "announcements" nil :count 1)
     ("enviornment" "environment" nil :count 1)
     ("evlauated" "evaluated" nil :count 1)
+    ("fetaures" "features" nil :count 1)
     ("htis" "this" nil :count 1)
     ("responisibilyt" "responsibility" nil :count 1)
-    ("unlesah" "unleash" nil :count 5)
+    ("unlesah" "unleash" nil :count 6)
    ))
 
 (define-abbrev-table 'global-abbrev-table
@@ -108,7 +109,7 @@
 (define-abbrev-table 'text-mode-abbrev-table
   '(
     ("correctyl" "correctly" nil :count 1)
-    ("defaultr" "default" nil :count 1)
+    ("defaultr" "default" nil :count 2)
     ("erroneuos" "erroneous" nil :count 1)
     ("eventns" "events" nil :count 1)
     ("packgaes" "packages" nil :count 1)
