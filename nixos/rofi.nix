@@ -17,7 +17,7 @@ let
     # rofi
     bg0 = "${colors.background}E6";
     bg1 = "${colors.background-alt}80";
-    bg2 = "${colors.primary}E6";
+    bg2 = "${colors.primary}CC";
     fg0 = "#DEDEDE";
     fg1 = "${colors.foreground}";
     fg2 = "${colors.disabled}80";
