@@ -6,23 +6,7 @@
 
 
 let
-  colors = rec {
-    # general
-    background = "#231F2A";
-    background-alt = "#3C3B54";
-    foreground = "#EEFAF2";
-    primary = "#C216B6";
-    disabled = "#707880";
-
-    # rofi
-    bg0 = "${colors.background}E6";
-    bg1 = "${colors.background-alt}80";
-    bg2 = "${colors.primary}CC";
-    fg0 = "#DEDEDE";
-    fg1 = "${colors.foreground}";
-    fg2 = "${colors.disabled}80";
-  };
-
+  theme = import ./theme.nix;
 in
 {
 
@@ -31,7 +15,7 @@ in
     package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji pkgs.rofi-calc ]; };
     cycle = true;
     terminal = config.xsession.windowManager.i3.config.terminal;
-    extraConfig = { modi = "window,run,emoji,calc"; };
+    extraConfig = { modi = "window,run,emoji,calc,filebrowser,drun,combi"; };
     font = "Open Sans 20";
     theme =
       let
@@ -39,12 +23,12 @@ in
       in
       {
         "*" = {
-          bg0 = mkL colors.bg0;
-          bg1 = mkL colors.bg1;
-          bg2 = mkL colors.bg2;
-          fg0 = mkL colors.fg0;
-          fg1 = mkL colors.fg1;
-          fg2 = mkL colors.fg2;
+          bg0 = mkL theme.bg0;
+          bg1 = mkL theme.bg1;
+          bg2 = mkL theme.bg2;
+          fg0 = mkL theme.fg0;
+          fg1 = mkL theme.fg1;
+          fg2 = mkL theme.fg2;
 
           background-color = mkL "transparent";
           text-color = mkL "@fg0";

@@ -2,6 +2,8 @@
 
 let
 
+  theme = import ./theme.nix;
+
   mod = "Mod4";
   terminal = "${pkgs.alacritty}/bin/alacritty";
   emacsclient = ''${config.programs.emacs.package}/bin/emacsclient -nc "$@"'';
@@ -61,9 +63,10 @@ let
 
   mailPass = account: "${pkgs.pass}/bin/pass show email/${account} 2>/dev/null";
 
-in {
+in
+{
 
-  imports = [ ./polybar.nix  ./rofi.nix ];
+  imports = [ ./polybar.nix ./rofi.nix ];
 
   programs.msmtp = { enable = true; };
 
@@ -98,51 +101,53 @@ in {
 
   home.file.".signatures/simple".source = ./../email/signatures/simple;
 
-  accounts.email.accounts."thomasheartman" = let
-    mailBoxName = "thomasheartman.com";
-    primary = true;
-    address = "thomas@thomasheartman.com";
-    passwordName = "thomasheartman.com";
-  in {
-    realName = "Thomas Heartman";
-    primary = primary;
-    address = address;
+  accounts.email.accounts."thomasheartman" =
+    let
+      mailBoxName = "thomasheartman.com";
+      primary = true;
+      address = "thomas@thomasheartman.com";
+      passwordName = "thomasheartman.com";
+    in
+    {
+      realName = "Thomas Heartman";
+      primary = primary;
+      address = address;
 
-    smtp.tls.useStartTls = true;
-    imap.tls.useStartTls = true;
-    imap.host = "imap.fastmail.com";
+      smtp.tls.useStartTls = true;
+      imap.tls.useStartTls = true;
+      imap.host = "imap.fastmail.com";
 
-    notmuch.enable = true;
+      notmuch.enable = true;
 
-    msmtp = {
-      enable = true;
-      extraConfig = {
-        host = "smtp.fastmail.com";
-        port = "587";
-        from = address;
-        user = address;
-        passwordeval = mailPass passwordName;
-        logfile = "~/.msmtp.${mailBoxName}.log";
-      };
-    };
-
-    offlineimap = {
-      enable = true;
-      postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/${mailBoxName} ";
-        };
-        remote = {
-          type = "IMAP";
-          remotehost = "imap.fastmail.com";
-          remoteuser = address;
-          remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+      msmtp = {
+        enable = true;
+        extraConfig = {
+          host = "smtp.fastmail.com";
+          port = "587";
+          from = address;
+          user = address;
+          passwordeval = mailPass passwordName;
+          logfile = "~/.msmtp.${mailBoxName}.log";
         };
       };
+
+      offlineimap = {
+        enable = true;
+        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+        extraConfig = {
+          local = {
+            type = "Maildir";
+            localfolders = "~/mail/${mailBoxName} ";
+          };
+          remote = {
+            type = "IMAP";
+            remotehost = "imap.fastmail.com";
+            remoteuser = address;
+            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+          };
+        };
+      };
     };
-  };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
@@ -206,120 +211,124 @@ in {
           # smartGaps = true;
         };
 
-        keybindings = let rofi = config.programs.rofi.package; in {
-          # rofi: apps, switching, and emoji
-          "${mod}+space" = "exec ${rofi}/bin/rofi -show run -show-icons";
-          "${mod}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
-          "${mod}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
+        keybindings = let rofi = config.programs.rofi.package; in
+          {
+            # rofi: apps, switching, and emoji
+            "${mod}+space" = ''
+              exec ${rofi}/bin/rofi -show combi -show-icons
+            '';
+            "${mod}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
+            "${mod}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
+            "${mod}+Control+space" = "exec ${rofi}/bin/rofi -show window -show-icons";
 
-          # screenshots
-          "${mod}+Print" =
-            "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
-          "${mod}+Shift+Print" =
-            "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
+            # screenshots
+            "${mod}+Print" =
+              "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
+            "${mod}+Shift+Print" =
+              "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
-          # mail
-          "${mod}+Shift+m" = "exec ${openMailClient}";
+            # mail
+            "${mod}+Shift+m" = "exec ${openMailClient}";
 
-          # move windows and containers
-          "${mod}+Next" = "move container to output right";
-          "${mod}+Prior" = "move container to output left";
-          "${mod}+Shift+Next" = "move workspace to output right";
-          "${mod}+Shift+Prior" = "move workspace to output left";
+            # move windows and containers
+            "${mod}+Next" = "move container to output right";
+            "${mod}+Prior" = "move container to output left";
+            "${mod}+Shift+Next" = "move workspace to output right";
+            "${mod}+Shift+Prior" = "move workspace to output left";
 
-          "${mod}+Return" = "exec ${emacsclient}";
-          "${mod}+Shift+Return" = "exec ${terminal}";
+            "${mod}+Return" = "exec ${emacsclient}";
+            "${mod}+Shift+Return" = "exec ${terminal}";
 
-          "${mod}+Shift+q" = "kill";
+            "${mod}+Shift+q" = "kill";
 
-          "${mod}+Left" = "focus left";
-          "${mod}+Down" = "focus down";
-          "${mod}+Up" = "focus up";
-          "${mod}+Right" = "focus right";
+            "${mod}+Left" = "focus left";
+            "${mod}+Down" = "focus down";
+            "${mod}+Up" = "focus up";
+            "${mod}+Right" = "focus right";
 
-          "${mod}+Shift+Left" = "move left";
-          "${mod}+Shift+Down" = "move down";
-          "${mod}+Shift+Up" = "move up";
-          "${mod}+Shift+Right" = "move right";
+            "${mod}+Shift+Left" = "move left";
+            "${mod}+Shift+Down" = "move down";
+            "${mod}+Shift+Up" = "move up";
+            "${mod}+Shift+Right" = "move right";
 
-          # cycle workspaces
-          "${mod}+Home" = "workspace prev";
-          "${mod}+End" = "workspace next";
-          "${mod}+Tab" = "workspace back_and_forth";
-          "${mod}+Shift+Tab" = "move container to workspace back_and_forth";
+            # cycle workspaces
+            "${mod}+Home" = "workspace prev";
+            "${mod}+End" = "workspace next";
+            "${mod}+Tab" = "workspace back_and_forth";
+            "${mod}+Shift+Tab" = "move container to workspace back_and_forth";
 
-          # change v and h because 'split h' means 'when opening a new
-          # window, split the current window's width in two and open
-          # it to the right', whereas I think of it as 'draw a
-          # horizontal line and use that to split it'. One is: 'split
-          # along the horizontal axis', the other is: 'make the
-          # separator horizontal'
-          "${mod}+v" = "split h";
-          "${mod}+h" = "split v";
-          "${mod}+Shift+f" = "fullscreen toggle";
+            # change v and h because 'split h' means 'when opening a new
+            # window, split the current window's width in two and open
+            # it to the right', whereas I think of it as 'draw a
+            # horizontal line and use that to split it'. One is: 'split
+            # along the horizontal axis', the other is: 'make the
+            # separator horizontal'
+            "${mod}+v" = "split h";
+            "${mod}+h" = "split v";
+            "${mod}+Shift+f" = "fullscreen toggle";
 
-          "${mod}+Shift+s" = "layout stacking";
-          "${mod}+Shift+w" = "layout tabbed";
-          "${mod}+e" = "layout toggle split";
-          "${mod}+x" = "layout toggle all";
-          "${mod}+Shift+space" = "layout toggle all";
+            "${mod}+Shift+s" = "layout stacking";
+            "${mod}+Shift+w" = "layout tabbed";
+            "${mod}+e" = "layout toggle split";
+            "${mod}+x" = "layout toggle all";
+            "${mod}+Shift+space" = "layout toggle all";
 
-          "${mod}+z" = "floating toggle";
-          "${mod}+Shift+z" = "focus mode_toggle";
+            "${mod}+z" = "floating toggle";
+            "${mod}+Shift+z" = "focus mode_toggle";
 
-          "${mod}+a" = "focus parent";
-          "${mod}+Shift+a" = "focus child";
+            "${mod}+a" = "focus parent";
+            "${mod}+Shift+a" = "focus child";
 
-          "${mod}+1" = "workspace number 1";
-          "${mod}+2" = "workspace number 2";
-          "${mod}+3" = "workspace number 3";
-          "${mod}+4" = "workspace number 4";
-          "${mod}+5" = "workspace number 5";
-          "${mod}+6" = "workspace number 6";
-          "${mod}+7" = "workspace number 7";
-          "${mod}+8" = "workspace number 8";
-          "${mod}+9" = "workspace number 9";
-          "${mod}+0" = "workspace number 10";
+            "${mod}+1" = "workspace number 1";
+            "${mod}+2" = "workspace number 2";
+            "${mod}+3" = "workspace number 3";
+            "${mod}+4" = "workspace number 4";
+            "${mod}+5" = "workspace number 5";
+            "${mod}+6" = "workspace number 6";
+            "${mod}+7" = "workspace number 7";
+            "${mod}+8" = "workspace number 8";
+            "${mod}+9" = "workspace number 9";
+            "${mod}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" = "move container to workspace number 1";
-          "${mod}+Shift+2" = "move container to workspace number 2";
-          "${mod}+Shift+3" = "move container to workspace number 3";
-          "${mod}+Shift+4" = "move container to workspace number 4";
-          "${mod}+Shift+5" = "move container to workspace number 5";
-          "${mod}+Shift+6" = "move container to workspace number 6";
-          "${mod}+Shift+7" = "move container to workspace number 7";
-          "${mod}+Shift+8" = "move container to workspace number 8";
-          "${mod}+Shift+9" = "move container to workspace number 9";
-          "${mod}+Shift+0" = "move container to workspace number 10";
+            "${mod}+Shift+1" = "move container to workspace number 1";
+            "${mod}+Shift+2" = "move container to workspace number 2";
+            "${mod}+Shift+3" = "move container to workspace number 3";
+            "${mod}+Shift+4" = "move container to workspace number 4";
+            "${mod}+Shift+5" = "move container to workspace number 5";
+            "${mod}+Shift+6" = "move container to workspace number 6";
+            "${mod}+Shift+7" = "move container to workspace number 7";
+            "${mod}+Shift+8" = "move container to workspace number 8";
+            "${mod}+Shift+9" = "move container to workspace number 9";
+            "${mod}+Shift+0" = "move container to workspace number 10";
 
-          "${mod}+Shift+c" = "reload";
-          "${mod}+Shift+r" = "restart";
-          "${mod}+Shift+n" =
-            "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
+            "${mod}+Shift+c" = "reload";
+            "${mod}+Shift+r" = "restart";
+            "${mod}+Shift+n" =
+              "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
-          "${mod}+r" = "mode resize";
+            "${mod}+r" = "mode resize";
 
-          # media keys
+            # media keys
 
-          # Pulse Audio controls
-          "XF86AudioRaiseVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; # increase sound volume
-          "XF86AudioLowerVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%"; # decrease sound volume
-          "XF86AudioMute" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle"; # mute sound
+            # Pulse Audio controls
+            "XF86AudioRaiseVolume" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; # increase sound volume
+            "XF86AudioLowerVolume" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%"; # decrease sound volume
+            "XF86AudioMute" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle"; # mute sound
 
-          # Sreen brightness controls
-          "XF86MonBrightnessUp" =
-            "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -inc 20"; # increase screen brightness
-          "XF86MonBrightnessDown" =
-            "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -dec 20"; # decrease screen brightness
+            # Sreen brightness controls
+            "XF86MonBrightnessUp" =
+              "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -inc 20"; # increase screen brightness
+            "XF86MonBrightnessDown" =
+              "exec ${pkgs.xorg.xbacklight}/bin/xbacklight -dec 20"; # decrease screen brightness
 
-          # Media player controls
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-        };
+            # Media player controls
+            "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+            "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+            "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+          };
 
         bars = [ ];
 
@@ -434,16 +443,19 @@ in {
     yaml-language-server
     zoom-us
 
-    (let
-      hostname = config.home.sessionVariables.HOSTNAME;
-      resultsDir = "/tmp/${hostname}-home.results";
-    in writeScriptBin "hms" ''
-      #!${stdenv.shell}
-      nix build \
-      ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
-      -o ${resultsDir} "$@";
-      ${resultsDir}/activate
-    '')
+    (
+      let
+        hostname = config.home.sessionVariables.HOSTNAME;
+        resultsDir = "/tmp/${hostname}-home.results";
+      in
+      writeScriptBin "hms" ''
+        #!${stdenv.shell}
+        nix build \
+        ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
+        -o ${resultsDir} "$@";
+        ${resultsDir}/activate
+      ''
+    )
 
     (writeScriptBin "kbs" ''
       #!${stdenv.shell}
@@ -486,33 +498,35 @@ in {
 
   services.dropbox.enable = true;
 
-  services.picom =  let shadowRadius = 32; in {
-    enable = true;
-    shadow = true;
+  services.picom = let shadowRadius = 8; in
+    {
+      enable = true;
+      shadow = true;
 
-    # use shadows to highlight the active window
-    shadowExclude = [ "!focused" "class_g = 'dmenu'" ];
-    shadowOpacity = 1.0;
+      # use shadows to highlight the active window
+      shadowExclude = [ "!focused" "class_g = 'dmenu'" ];
+      shadowOpacity = 1.0;
 
-    inactiveOpacity = 0.95;
+      inactiveOpacity = 0.95;
 
-    settings = {
-      # only matters if picom makes windows transparent
-      blur = {
-        method = "gaussian";
-        size = 10;
-        deviation = 5.0;
+      settings = {
+        # only matters if picom makes windows transparent
+        blur = {
+          method = "gaussian";
+          size = 10;
+          deviation = 5.0;
+        };
+
+        inactive-dim = "0.1";
+
+        # detectTransient = true;
+
+        shadow-color = theme.primary; #"#2deefc"; # "#01fdfe"; # <- is also good
+        shadow-radius = shadowRadius;
+        shadow-offset-x = -shadowRadius;
+        shadow-offset-y = -shadowRadius;
       };
-
-      inactive-dim = "0.1";
-
-      # detectTransient = true;
-      shadow-color = "#01fdfe"; # <- is also good
-      shadow-radius = shadowRadius;
-      shadow-offset-x = -shadowRadius;
-      shadow-offset-y = -shadowRadius;
     };
-  };
 
   home.file.".config/proselint/config".text = ''
     {
