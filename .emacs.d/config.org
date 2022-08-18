@@ -3864,7 +3864,7 @@ movement works.
   This executes on `message-send-hook' and is configured via `notmuch-message-attachment-regex'"
       (save-mark-and-excursion
         (goto-char (point-min))
-        (let* ((email-start-regex "\\( writes\n\n>\\|-------------------- Start of forwarded message --------------------\\)")
+        (let* ((email-start-regex "\\( writes:\n\n\\|-------------------- Start of forwarded message --------------------\\)")
                ;; check to see if we're responding to or forwarding an email
                (email-end (re-search-forward email-start-regex nil t)))
           (goto-char (point-min))
