@@ -8,6 +8,7 @@
 .emacs.d/auto-save-list
 .emacs.d/bookmarks
 .emacs.d/config.el
+.emacs.d/dirvish
 .emacs.d/eclipse.jdt.ls
 .emacs.d/forge-database.sqlite
 .emacs.d/image-dired
