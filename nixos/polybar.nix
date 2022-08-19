@@ -287,7 +287,7 @@ in
           label-indicator-on-capslock = "CAPS";
           label-indicator-on-capslock-background = theme.primary;
           label-indicator-on-capslock-foreground = theme.primary-contrast;
-          label-indicator-on-capslock-padding = 1;
+          label-indicator-on-capslock-padding = spacing;
         };
 
 
