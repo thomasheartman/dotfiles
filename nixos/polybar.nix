@@ -59,6 +59,7 @@ in
     config =
       let
         inline-padding = 1;
+        spacing = "10px";
         pulseaudio-control = "${pkgs.callPackage ./pulseaudio-control.nix { } }/bin/pulseaudio-control";
       in
       {
@@ -73,15 +74,16 @@ in
           width = "100%";
           height = 30;
           offset-x = "1%";
-          padding-left = inline-padding;
-          padding-right = inline-padding;
+          padding-left = spacing;
+          padding-right = spacing;
 
-          module-margin = "1";
+          module-margin = spacing;
           radius = 0;
 
-          font-0 = "FuraCode Nerd Font:size=12;3";
-          font-1 = "FuraCode Nerd Font:style=Bold:size=12;3";
-          font-2 = "Noto Color Emoji:style=Book:scale=6";
+          font-0 = "Open Sans:size=12;3";
+          font-1 = "FuraCode Nerd Font:size=12;3";
+          font-2 = "FuraCode Nerd Font:style=Bold:size=12;3";
+          font-3 = "Noto Color Emoji:style=Book:scale=6";
 
           locale = "en_US.UTF-8";
         };
@@ -92,15 +94,11 @@ in
           "inherit" = "bar/shared";
           bottom = false;
 
-          # scroll-up = "i3wm-wsnext";
-          # scroll-down = "i3wm-wsprev";
-
           background = transparent theme.background "DD";
           foreground = fg;
 
           modules-left = "i3 title";
-          # modules-center = "title";
-          modules-right = "mail bluetooth pulseaudio-control-output keyboard wired-network wifi wlan battery date";
+          modules-right = "mail bluetooth pulseaudio-control-output keyboard wired-network wifi battery date time";
         };
 
         "bar/bottom" = {
@@ -187,14 +185,23 @@ in
 
           interval = "1.0";
 
-          time = "%H:%M";
-          date = "%V %a %b %d";
+          date = "W%V %a %b %d";
 
           format = "<label>";
-          # format-padding = 4;
           format-foreground = fg;
 
-          label = " %date%  %time%";
+          label = " %date%";
+        };
+
+        "module/time" = {
+          type = "internal/date";
+          interval = "1.0";
+
+          time = "%H:%M";
+          format = "<label>";
+
+          label = " %time%";
+          label-font = 2;
         };
 
         "module/i3" = {
@@ -204,27 +211,30 @@ in
           format = " <label-state> <label-mode>";
 
           label-mode = "%mode%";
-          label-mode-padding = 1;
-          label-mode-focused-font = 2;
+          label-mode-font = 2;
           label-mode-foreground = theme.foreground;
           label-mode-background = theme.primary;
+          label-mode-padding = spacing;
 
           label-unfocused = "%name%";
-          label-unfocused-padding = 1;
+          label-unfocused-padding = spacing;
+          label-unfocused-font = 2;
 
           label-focused = "%name%";
-          label-focused-font = 2;
           label-focused-foreground = bg;
           label-focused-background = fg;
-          label-focused-padding = 1;
+          label-focused-padding = spacing;
+          label-focused-font = 2;
 
           label-visible = "%name%";
-          label-visible-padding = 1;
+          label-visible-padding = spacing;
+          label-visible-font = 2;
 
           label-urgent = "%name%";
           label-urgent-foreground = theme.foreground;
           label-urgent-background = theme.primary;
-          label-urgent-padding = 1;
+          label-urgent-padding = spacing;
+          label-urgent-font = 2;
 
           label-separator = "|";
         };
@@ -291,9 +301,10 @@ in
             exec = ''count=$(${search}); if [ $count -gt 0 ]; then echo " $count"; else echo ""; fi '';
             label = "%output%";
             label-forgeround = theme.foreground;
-            label-padding = 1;
+            label-padding = spacing;
             label-background = theme.primary;
             click-left = openMailClient;
+            label-font = 2;
 
             interval = 5;
           };
