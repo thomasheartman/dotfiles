@@ -81,8 +81,8 @@ in
           radius = 0;
 
           font-0 = "Open Sans:size=12;3";
-          font-1 = "FuraCode Nerd Font:size=12;3";
-          font-2 = "FuraCode Nerd Font:style=Bold:size=12;3";
+          font-1 = "JetBrainsMono:style=Regular:size=12;3";
+          font-2 = "FuraCode Nerd Font:size=12;3";
           font-3 = "Noto Color Emoji:style=Book:scale=6";
 
           locale = "en_US.UTF-8";
@@ -304,7 +304,7 @@ in
             label-padding = spacing;
             label-background = theme.primary;
             click-left = openMailClient;
-            label-font = 2;
+            label-font = 3;
 
             interval = 5;
           };
