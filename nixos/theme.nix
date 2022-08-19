@@ -1,19 +1,21 @@
-let colors = rec {
+let theme = rec {
   # general
-  background = "#231F2A";
+  background = "#252034";
   background-alt = "#3C3B54";
   foreground = "#EEFAF2";
-  primary = "#C216B6";
+  primary = "#01fdfe";
+  primary-contrast = theme.background;
   disabled = "#707880";
   danger = "#e74c3c";
 
   # rofi
-  bg0 = "${colors.background}E6";
-  bg1 = "${colors.background-alt}80";
-  bg2 = "${colors.primary}CC";
+  bg0 = "${theme.background}E6";
+  bg1 = "${theme.background-alt}80";
+  bg2 = "${theme.primary}CC";
   fg0 = "#DEDEDE";
-  fg1 = "${colors.foreground}";
-  fg2 = "${colors.disabled}80";
+  fg1 = "${theme.foreground}";
+  fg2 = "${theme.primary-contrast}";
+  fg3 = "${theme.disabled}80";
 
   transparent = argb: color: opacity:
     if argb then
@@ -21,4 +23,4 @@ let colors = rec {
     else
       "${color}${builtins.toString opacity}";
 };
-in colors
+in theme

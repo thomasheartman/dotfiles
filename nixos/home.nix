@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
 
@@ -211,7 +211,20 @@ in
           # smartGaps = true;
         };
 
-        keybindings = let rofi = config.programs.rofi.package; in
+        keybindings =
+          let
+            rofi = config.programs.rofi.package;
+            window-switcher = (pkgs.writeShellScriptBin "window-switcher" ''
+              PATH=${lib.makeBinPath [ rofi ]}
+              rofi -show window \
+              -kb -accept-entry "!Super-Tab,!Super+Super_L" \
+              -kb-row-down "Super+Tab" \
+              -kb-row-up "Super+Shift+Tab" \
+              -selected-row 1 \
+              -show-icons
+            ''
+            );
+          in
           {
             # rofi: apps, switching, and emoji
             "${mod}+space" = ''
@@ -254,7 +267,7 @@ in
             # cycle workspaces
             "${mod}+Home" = "workspace prev";
             "${mod}+End" = "workspace next";
-            "${mod}+Tab" = "workspace back_and_forth";
+            "${mod}+Tab" = ''exec ${window-switcher}/bin/window-switcher'';
             "${mod}+Shift+Tab" = "move container to workspace back_and_forth";
 
             # change v and h because 'split h' means 'when opening a new
@@ -504,7 +517,11 @@ in
       shadow = true;
 
       # use shadows to highlight the active window
-      shadowExclude = [ "!focused" "class_g = 'dmenu'" ];
+      shadowExclude = [
+        "!focused"
+        "class_g = 'dmenu'"
+        "window_type = 'dock'"
+      ];
       shadowOpacity = 1.0;
 
       inactiveOpacity = 0.95;
@@ -525,6 +542,19 @@ in
         shadow-radius = shadowRadius;
         shadow-offset-x = -shadowRadius;
         shadow-offset-y = -shadowRadius;
+
+
+        # Sets the radius of rounded window corners. When > 0, the
+        # compositor will round the corners of windows. Does not
+        # interact well with `transparent-clipping`.
+        corner-radius = 15;
+
+        # Exclude conditions for rounded corners.
+        rounded-corners-exclude = [
+          "window_type = 'dock'"
+          "window_type = 'desktop'"
+          "class_g = 'Vmware-view'"
+        ];
       };
     };
 

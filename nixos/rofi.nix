@@ -29,6 +29,7 @@ in
           fg0 = mkL theme.fg0;
           fg1 = mkL theme.fg1;
           fg2 = mkL theme.fg2;
+          fg3 = mkL theme.fg3;
 
           background-color = mkL "transparent";
           text-color = mkL "@fg0";
@@ -61,7 +62,7 @@ in
 
         entry = {
           placeholder = "Search";
-          placeholder-color = mkL "@fg2";
+          placeholder-color = mkL "@fg3";
           vertical-align = mkL "0.5";
         };
 
@@ -105,12 +106,12 @@ in
 
         "element selected normal" = {
           background-color = mkL "@bg2";
-          text-color = mkL "@fg1";
+          text-color = mkL "@fg2";
         };
 
         "element selected active" = {
           background-color = mkL "@bg2";
-          text-color = mkL "@fg1";
+          text-color = mkL "@fg2";
         };
       };
   };

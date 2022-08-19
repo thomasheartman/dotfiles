@@ -102,8 +102,8 @@ in
         };
 
         "bar/bottom" = {
-          #   "inherit" = "bar/shared";
-          #   bottom = true;
+            "inherit" = "bar/shared";
+            bottom = true;
 
 
           #   # background = "#88000000";
@@ -116,10 +116,10 @@ in
           tray-position = "left";
           tray-detached = false;
           tray-maxsize = 15;
-          # tray-background = primary;
-          # tray-offset-x = -19;
-          # tray-offset-y = 0;
-          # tray-padding = 5;
+          tray-background = primary;
+          tray-offset-x = -19;
+          tray-offset-y = 0;
+          tray-padding = 5;
           tray-scale = 1;
           padding = 0;
 
@@ -212,7 +212,7 @@ in
 
           label-mode = "%mode%";
           label-mode-font = 2;
-          label-mode-foreground = theme.foreground;
+          label-mode-foreground = theme.primary-contrast;
           label-mode-background = theme.primary;
           label-mode-padding = spacing;
 
@@ -231,7 +231,7 @@ in
           label-visible-font = 2;
 
           label-urgent = "%name%";
-          label-urgent-foreground = theme.foreground;
+          label-urgent-foreground = theme.primary-contrast;
           label-urgent-background = theme.primary;
           label-urgent-padding = spacing;
           label-urgent-font = 2;
@@ -286,6 +286,7 @@ in
           label-layout = " %name:0:13:)%";
           label-indicator-on-capslock = "CAPS";
           label-indicator-on-capslock-background = theme.primary;
+          label-indicator-on-capslock-foreground = theme.primary-contrast;
           label-indicator-on-capslock-padding = 1;
         };
 
