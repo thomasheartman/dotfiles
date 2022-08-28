@@ -340,6 +340,8 @@ in
     home-dir /home/thomas/dotfiles/dictionaries
   '';
 
+  home.file.".config/skippy-xd/skippy-xd.rc".source = ./skippy-xd.rc;
+
   home.file.".config/polybar/pipewire.sh" = {
     executable = true;
 

@@ -51,6 +51,7 @@ in
           "window_type = 'dock'"
           "window_type = 'desktop'"
           "window_type = 'menu'"
+          "window_type = 'dnd'"
           # to find a class, use `xprop` and check the
           # WM_CLASS(STRING) property
           "class_g = 'i3-frame'"

@@ -146,6 +146,8 @@ in
 
           "${mod}+r" = "mode resize";
 
+          "${mod}+Control+Up" = "exec ${pkgs.skippy-xd}/bin/skippy-xd";
+
           # media keys
 
           # Pulse Audio controls
