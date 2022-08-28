@@ -61,6 +61,7 @@ in
         inline-padding = 1;
         spacing = "10px";
         pulseaudio-control = "${pkgs.callPackage ./pulseaudio-control.nix { } }/bin/pulseaudio-control";
+        monospace-font = 2;
       in
       {
         "global/wm" = {
@@ -201,7 +202,7 @@ in
           format = "<label>";
 
           label = " %time%";
-          label-font = 2;
+          label-font = monospace-font;
         };
 
         "module/i3" = {
@@ -211,30 +212,30 @@ in
           format = " <label-state> <label-mode>";
 
           label-mode = "%mode%";
-          label-mode-font = 2;
+          label-mode-font = monospace-font;
           label-mode-foreground = theme.primary-contrast;
           label-mode-background = theme.primary;
           label-mode-padding = spacing;
 
           label-unfocused = "%name%";
           label-unfocused-padding = spacing;
-          label-unfocused-font = 2;
+          label-unfocused-font = monospace-font;
 
           label-focused = "%name%";
           label-focused-foreground = bg;
           label-focused-background = fg;
           label-focused-padding = spacing;
-          label-focused-font = 2;
+          label-focused-font = monospace-font;
 
           label-visible = "%name%";
           label-visible-padding = spacing;
-          label-visible-font = 2;
+          label-visible-font = monospace-font;
 
           label-urgent = "%name%";
           label-urgent-foreground = theme.primary-contrast;
           label-urgent-background = theme.primary;
           label-urgent-padding = spacing;
-          label-urgent-font = 2;
+          label-urgent-font = monospace-font;
 
           label-separator = "|";
         };
@@ -305,7 +306,7 @@ in
             label-padding = spacing;
             label-background = theme.primary;
             click-left = openMailClient;
-            label-font = 3;
+            label-font = monospace-font;
 
             interval = 5;
           };
