@@ -301,7 +301,7 @@ in
             # only show mail icon if there are any unread mails
             exec = ''count=$(${search}); if [ $count -gt 0 ]; then echo " $count"; else echo ""; fi '';
             label = "%output%";
-            label-forgeround = theme.foreground;
+            label-foreground = theme.primary-contrast;
             label-padding = spacing;
             label-background = theme.primary;
             click-left = openMailClient;
