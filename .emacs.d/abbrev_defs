@@ -10,25 +10,30 @@
   '(
     ("bodycombat" "BODYCOMBAT" nil :count 4)
     ("daask" "Daask" nil :count 7)
-    ("github" "GitHub" nil :count 3)
+    ("github" "GitHub" nil :count 5)
     ("sharn" "Sharn" nil :count 5)
     ("sunday" "Sunday" nil :count 2)
    ))
 
 (define-abbrev-table 'forge-post-mode-abbrev-table
   '(
+    ("cilent" "client" nil :count 1)
+    ("depedendency" "dependency" nil :count 1)
     ("startegies" "strategies" nil :count 1)
    ))
 
 (define-abbrev-table 'gfm-mode-abbrev-table
   '(
     ("announcementns" "announcements" nil :count 1)
+    ("diffeent" "different" nil :count 1)
     ("enviornment" "environment" nil :count 1)
+    ("evaulating" "evaluating" nil :count 1)
     ("evlauated" "evaluated" nil :count 1)
     ("fetaures" "features" nil :count 1)
     ("htis" "this" nil :count 1)
     ("responisibilyt" "responsibility" nil :count 1)
-    ("unlesah" "unleash" nil :count 6)
+    ("unlesah" "unleash" nil :count 8)
+    ("wais" "ways" nil :count 1)
    ))
 
 (define-abbrev-table 'global-abbrev-table
@@ -113,6 +118,7 @@
     ("erroneuos" "erroneous" nil :count 1)
     ("eventns" "events" nil :count 1)
     ("packgaes" "packages" nil :count 1)
+    ("restructer" "restructure" nil :count 1)
     ("unneccessary" "unnecessary" nil :count 1)
     ("visiibilyt" "visibility" nil :count 1)
     ("worsk" "works" nil :count 1)
