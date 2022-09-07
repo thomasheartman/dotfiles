@@ -2336,18 +2336,31 @@ bit of configuration to get set up.
       (company-select-first))
     (company-complete-selection))
 
+  (defun heartman/open-company ()
+    "Open company and select (highlight) the first item.
+  Makes menu navigation that expects a position (next page,
+  previous page) work as expected."
+    (interactive)
+    (company-complete)
+    (company-select-first))
+
   (use-package company
     :general
     (company-active-map
      "C-<f5>" 'my-company-complete-selection-or-first
-     "C-M-." 'my-company-complete-selection-or-first)
+     "C-M-." 'my-company-complete-selection-or-first
+     "C-d" 'company-next-page
+     "C-u" 'company-previous-page
+     "<home>" 'company-select-first
+     "<end>" 'company-select-last)
+
     (general-unbind
       company-active-map
       [tab]
       "TAB")
     (company-mode-map
-     "C-<f5>" 'company-complete
-     "C-M-." 'company-complete)
+     "C-<f5>" 'heartman/open-company
+     "C-M-." 'heartman/open-company)
     :hook
     (company-mode . company-tng-mode)
     (company-mode . my-configure-tng)
