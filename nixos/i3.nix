@@ -68,12 +68,6 @@ in
           # mail
           "${mod}+Shift+m" = "exec ${openMailClient}";
 
-          # move windows and containers
-          "${mod}+Next" = "move container to output right";
-          "${mod}+Prior" = "move container to output left";
-          "${mod}+Shift+Next" = "move workspace to output right";
-          "${mod}+Shift+Prior" = "move workspace to output left";
-
           "${mod}+Return" = "exec ${emacsclient}";
           "${mod}+Shift+Return" = "exec ${terminal}";
 
@@ -88,6 +82,16 @@ in
           "${mod}+Shift+Down" = "move down";
           "${mod}+Shift+Up" = "move up";
           "${mod}+Shift+Right" = "move right";
+
+          # move windows and containers
+          "${mod}+Control+Right" = "move container to output right; focus output right";
+          "${mod}+Control+Left" = "move container to output left; focus output left";
+          "${mod}+Control+Up" = "move container to output up; focus output up";
+          "${mod}+Control+Down" = "move container to output down; focus output down";
+          "${mod}+Shift+Control+Right" = "move workspace to output right; focus output right";
+          "${mod}+Shift+Control+Left" = "move workspace to output left; focus output left";
+          "${mod}+Shift+Control+Up" = "move workspace to output up; focus output up";
+          "${mod}+Shift+Control+Down" = "move workspace to output down; focus output down";
 
           # cycle workspaces
           "${mod}+Home" = "workspace prev";
@@ -128,16 +132,16 @@ in
           "${mod}+9" = "workspace number 9";
           "${mod}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" = "move container to workspace number 1";
-          "${mod}+Shift+2" = "move container to workspace number 2";
-          "${mod}+Shift+3" = "move container to workspace number 3";
-          "${mod}+Shift+4" = "move container to workspace number 4";
-          "${mod}+Shift+5" = "move container to workspace number 5";
-          "${mod}+Shift+6" = "move container to workspace number 6";
-          "${mod}+Shift+7" = "move container to workspace number 7";
-          "${mod}+Shift+8" = "move container to workspace number 8";
-          "${mod}+Shift+9" = "move container to workspace number 9";
-          "${mod}+Shift+0" = "move container to workspace number 10";
+          "${mod}+Shift+1" = "move container to workspace number 1; workspace 1";
+          "${mod}+Shift+2" = "move container to workspace number 2; workspace 2";
+          "${mod}+Shift+3" = "move container to workspace number 3; workspace 3";
+          "${mod}+Shift+4" = "move container to workspace number 4; workspace 4";
+          "${mod}+Shift+5" = "move container to workspace number 5; workspace 5";
+          "${mod}+Shift+6" = "move container to workspace number 6; workspace 6";
+          "${mod}+Shift+7" = "move container to workspace number 7; workspace 7";
+          "${mod}+Shift+8" = "move container to workspace number 8; workspace 8";
+          "${mod}+Shift+9" = "move container to workspace number 9; workspace 9";
+          "${mod}+Shift+0" = "move container to workspace number 10; workspace 10";
 
           "${mod}+Shift+c" = "reload";
           "${mod}+Shift+r" = "restart";
@@ -146,7 +150,7 @@ in
 
           "${mod}+r" = "mode resize";
 
-          "${mod}+Control+Up" = "exec ${pkgs.skippy-xd}/bin/skippy-xd";
+          # "${mod}+Control+Up" = "exec ${pkgs.skippy-xd}/bin/skippy-xd";
 
           # media keys
 
