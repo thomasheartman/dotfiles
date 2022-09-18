@@ -9,7 +9,13 @@
 
   home.packages = with pkgs; [
     ardour
+    artyFX
+    calf
+    drumgizmo
+    guitarix
     surge
+    tonelib-gfx
+    tap-plugins
     wine
     (callPackage ../scarlett-mixer.nix { })
     (
