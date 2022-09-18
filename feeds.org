@@ -22,6 +22,8 @@
 
 *** [[http://www.giantitp.com/comics/oots.rss][Order of the Stick]]
 
+*** [[https://www.webtoons.com/en/challenge/the-weekly-roll/rss?title_no=358889][The Weekly Roll]]
+
 ** Blogs                                                                :dev:
 
 *** https://hydraz.semi.works/feed.xml
