@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  cmds = pkgs.callPackage ./shared-commands.nix {};
+  cmds = pkgs.callPackage ./shared-commands.nix { };
 
   mod = "Mod4";
 
@@ -179,6 +179,11 @@ in
           notification = false;
         }
         {
+          command = cmds.adjustScreens;
+          always = true;
+          notification = false;
+        }
+        {
           command = cmds.restartPolybar;
           always = true;
           notification = false;
@@ -187,6 +192,10 @@ in
           command = cmds.setBackgroundImage;
           always = true;
           notification = false;
+        }
+        {
+          command = "exec dropbox start";
+          notification= false;
         }
       ];
     };
