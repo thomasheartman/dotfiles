@@ -6817,7 +6817,10 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "u" org-up-element
        "d" org-down-element
        "}" org-next-block
-       "{" org-previous-block)
+       "{" org-previous-block
+       "<tab>" org-cycle
+       ">" org-demote-subtree
+       "<" org-promote-subtree)
       (:exit
        "q" (lambda () (interactive) nil)))
 
