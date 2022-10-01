@@ -13,6 +13,7 @@
     calf
     drumgizmo
     guitarix
+    reaper
     surge
     tonelib-gfx
     tap-plugins
