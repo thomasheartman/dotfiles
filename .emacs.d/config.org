@@ -6822,6 +6822,11 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "<tab>" org-cycle
        ">" org-demote-subtree
        "<" org-promote-subtree)
+      (:continue
+       "C-l" recenter-top-bottom
+       "z z" evil-scroll-line-to-center
+       "z t" evil-scroll-line-to-top
+       "z b" evil-scroll-line-to-bottom)
       (:exit
        "q" (lambda () (interactive) nil)))
 
