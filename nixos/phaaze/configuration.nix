@@ -22,8 +22,6 @@ in
   ];
 
   services.xserver = {
-    useGlamor = true;
-
     displayManager.autoLogin.user = "thomas";
   };
 
