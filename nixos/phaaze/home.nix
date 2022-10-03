@@ -25,6 +25,20 @@
         ${firefox}/bin/firefox -P porterbuddy $@
       ''
     )
+
+    (
+      writeScriptBin "dual" ''
+        #!${stdenv.shell}
+        ${pkgs.autorandr}/bin/autorandr -c home-laptop-below "$@"
+      ''
+    )
+
+    (
+      writeScriptBin "laptop" ''
+        #!${stdenv.shell}
+        ${pkgs.autorandr}/bin/autorandr -c laptop "$@"
+      ''
+    )
   ];
 
   home.file.".gitconfig.work".source = ./../../system-config/unleash/.gitconfig;
