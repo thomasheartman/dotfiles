@@ -6447,7 +6447,8 @@ Adoc-mode requires the markup-faces package, so let's install that too.
     (adoc-mode . mixed-pitch-mode)
     (notmuch-show-mode . mixed-pitch-mode)
     (notmuch-search-mode . mixed-pitch-mode)
-    (notmuch-hello-mode . mixed-pitch-mode))
+    (notmuch-hello-mode . mixed-pitch-mode)
+    (yaml-mode . (lambda () (mixed-pitch-mode -1))))
 #+END_SRC
 
 * Olivetti
