@@ -10,7 +10,7 @@
   '(
     ("bodycombat" "BODYCOMBAT" nil :count 4)
     ("daask" "Daask" nil :count 7)
-    ("github" "GitHub" nil :count 5)
+    ("github" "GitHub" nil :count 7)
     ("sharn" "Sharn" nil :count 5)
     ("sunday" "Sunday" nil :count 2)
    ))
@@ -19,12 +19,15 @@
   '(
     ("cilent" "client" nil :count 1)
     ("depedendency" "dependency" nil :count 1)
+    ("liek" "like" nil :count 1)
     ("startegies" "strategies" nil :count 1)
    ))
 
 (define-abbrev-table 'gfm-mode-abbrev-table
   '(
+    ("acess" "access" nil :count 1)
     ("announcementns" "announcements" nil :count 1)
+    ("dasboard" "dashboard" nil :count 1)
     ("diffeent" "different" nil :count 1)
     ("enviornment" "environment" nil :count 1)
     ("evaulating" "evaluating" nil :count 1)
@@ -32,8 +35,11 @@
     ("fetaures" "features" nil :count 1)
     ("htis" "this" nil :count 1)
     ("responisibilyt" "responsibility" nil :count 1)
-    ("unlesah" "unleash" nil :count 8)
+    ("signifcantly" "significantly" nil :count 1)
+    ("signup" "sign-up" nil :count 2)
+    ("unlesah" "unleash" nil :count 9)
     ("wais" "ways" nil :count 1)
+    ("yrou" "your" nil :count 1)
    ))
 
 (define-abbrev-table 'global-abbrev-table
@@ -69,6 +75,7 @@
     ("colosssus" "colossus" nil :count 1)
     ("complety" "completely" nil :count 1)
     ("contenint" "continent" nil :count 1)
+    ("contstraints" "constraints" nil :count 1)
     ("cornelius" "cornelius" nil :count 10)
     ("daaks" "daask" nil :count 7)
     ("decomissioned" "decommissioned" nil :count 1)
@@ -116,12 +123,14 @@
 
 (define-abbrev-table 'text-mode-abbrev-table
   '(
+    ("announcment" "announcement" nil :count 1)
     ("correctyl" "correctly" nil :count 1)
     ("defaultr" "default" nil :count 2)
     ("erroneuos" "erroneous" nil :count 1)
     ("eventns" "events" nil :count 1)
     ("packgaes" "packages" nil :count 1)
     ("restructer" "restructure" nil :count 1)
+    ("solsutions" "solutions" nil :count 1)
     ("unneccessary" "unnecessary" nil :count 1)
     ("visiibilyt" "visibility" nil :count 1)
     ("worsk" "works" nil :count 1)
