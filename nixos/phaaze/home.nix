@@ -18,13 +18,8 @@
     tonelib-gfx
     tap-plugins
     wine
+    zrythm
     (callPackage ../scarlett-mixer.nix { })
-    (
-      writeScriptBin "pfox" ''
-        #!${stdenv.shell}
-        ${firefox}/bin/firefox -P porterbuddy $@
-      ''
-    )
 
     (
       writeScriptBin "dual" ''

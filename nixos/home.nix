@@ -235,7 +235,7 @@ in
     i3lock
     jetbrains-mono
     jq
-    libusb
+    libusb1
     mattermost-desktop
     moreutils
     mpv
@@ -277,6 +277,7 @@ in
       in
       writeScriptBin "hms" ''
         #!${stdenv.shell}
+        set -e
         nix build \
         ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
         -o ${resultsDir} "$@";
@@ -321,6 +322,20 @@ in
       ${config.programs.emacs.package}/bin/emacsclient -nc "$@"
     '')
 
+
+    (
+      writeScriptBin "dual" ''
+        #!${stdenv.shell}
+        ${pkgs.autorandr}/bin/autorandr -c home-laptop-below "$@"
+      ''
+    )
+
+    (
+      writeScriptBin "laptop" ''
+        #!${stdenv.shell}
+        ${pkgs.autorandr}/bin/autorandr -c laptop "$@"
+      ''
+    )
   ];
 
   services.dropbox.enable = true;
