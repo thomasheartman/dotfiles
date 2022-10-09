@@ -6,7 +6,7 @@ let
 
 in
 {
-  imports = [ ./hardware-configuration.nix ../base.nix ];
+  imports = [ ./hardware-configuration.nix ../base.nix ../hidpi.nix ];
 
   boot = {
     kernelParams = [
