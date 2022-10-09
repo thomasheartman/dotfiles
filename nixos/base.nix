@@ -284,18 +284,6 @@ in
     autoRepeatDelay = 250;
     autoRepeatInterval = 150;
 
-    windowManager.exwm = {
-      enable = true;
-      enableDefaultConfig = false;
-      extraPackages = epkgs: [
-        epkgs.emacsql-sqlite
-        epkgs.vterm
-        epkgs.magit
-        epkgs.pdf-tools
-        pkgs.python3
-      ];
-    };
-
     displayManager.lightdm = {
       enable = true;
       greeters.enso = {
