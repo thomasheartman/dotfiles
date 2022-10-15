@@ -1,26 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../home.nix ];
+  imports = [ ../home.nix ../audio.nix ];
 
   home.sessionVariables = {
     HOSTNAME = baseNameOf ./.;
   };
 
   home.packages = with pkgs; [
-    ardour
-    artyFX
-    calf
-    distrho
-    drumgizmo
-    guitarix
-    reaper
-    surge
-    tonelib-gfx
-    tap-plugins
     wine
-    zrythm
-    (callPackage ../scarlett-mixer.nix { })
 
     (
       writeScriptBin "dual" ''
