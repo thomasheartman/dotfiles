@@ -41,9 +41,9 @@ in
 
         window = {
           background-color = mkL "@bg0";
-          location = mkL "center";
+          location = mkL "2";
           width = 1000;
-          y-offset = -400;
+          y-offset = 0;
           border-radius = 8;
         };
 

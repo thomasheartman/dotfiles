@@ -6,7 +6,7 @@ let
 
 in
 {
-  imports = [ ./hardware-configuration.nix ../base.nix ../hidpi.nix ];
+  imports = [ ./hardware-configuration.nix ../base.nix ../hidpi.nix ../steam.nix ];
 
   boot = {
     kernelParams = [
