@@ -15,5 +15,6 @@
     tap-plugins
     zrythm
     (callPackage ./scarlett-mixer.nix { })
+    (callPackage ./zebralette.nix { })
   ];
 }
