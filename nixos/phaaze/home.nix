@@ -11,6 +11,7 @@
     ardour
     artyFX
     calf
+    distrho
     drumgizmo
     guitarix
     reaper
