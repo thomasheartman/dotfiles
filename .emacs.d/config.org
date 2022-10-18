@@ -1447,9 +1447,7 @@ column-number-mode:
                               (file-name-directory path)
                             path))
            (project-root (projectile-project-root))
-           (final-path (if project-root
-                           (replace-regexp-in-string project-root "" absolute-path)
-                         absolute-path))
+           (final-path (string-remove-prefix (or project-root "") absolute-path))
            (msg
             (s-capitalize
              (format "%s%s path copied: 「%s」"
