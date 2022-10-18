@@ -1422,8 +1422,45 @@ column-number-mode:
            (message "File path copied: 「%s」" $fpath)
            $fpath )))))
 
+  (defun heartman/copy-file-path-in-project (&optional @dir-path-only-p)
+    "Copy a buffer's file path or DIRED path from projectile root to the `kill-ring'.
+
+    If provided, @DIR-PATH-ONLY-P causes the path to not include
+    the file, but instead end with the containing directory.
+
+    The result is the path from (not including) the project root.
+
+    If in DIRED, copy the file/dir cursor is on, or marked files."
+    (interactive "P")
+    (require 'projectile)
+    (let* ((path
+            (if (string-equal major-mode 'dired-mode)
+                (progn
+                  (let (($result (mapconcat 'identity (dired-get-marked-files) "\n")))
+                    (if (equal (length $result) 0)
+                        (progn default-directory )
+                      (progn $result))))
+              (if (buffer-file-name)
+                  (buffer-file-name)
+                (expand-file-name default-directory))))
+           (absolute-path (if @dir-path-only-p
+                              (file-name-directory path)
+                            path))
+           (project-root (projectile-project-root))
+           (final-path (if project-root
+                           (replace-regexp-in-string project-root "" absolute-path)
+                         absolute-path))
+           (msg
+            (s-capitalize
+             (format "%s%s path copied: 「%s」"
+                     (if project-root "project " "")
+                     (if @dir-path-only-p "directory" "file")
+                     final-path))))
+      (message msg)
+      (kill-new final-path)))
   (my-file-def
-    "c" 'xah-copy-file-path)
+    "c" 'heartman/copy-file-path-in-project
+    "C" 'xah-copy-file-path)
 #+END_SRC
 
 
