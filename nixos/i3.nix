@@ -88,10 +88,10 @@ in
           "${mod}+Control+Left" = "move container to output left; focus output left";
           "${mod}+Control+Up" = "move container to output up; focus output up";
           "${mod}+Control+Down" = "move container to output down; focus output down";
-          "${mod}+Shift+Control+Right" = "move workspace to output right; focus output right";
-          "${mod}+Shift+Control+Left" = "move workspace to output left; focus output left";
-          "${mod}+Shift+Control+Up" = "move workspace to output up; focus output up";
-          "${mod}+Shift+Control+Down" = "move workspace to output down; focus output down";
+          "${mod}+Shift+Control+Right" = "move workspace to output right";
+          "${mod}+Shift+Control+Left" = "move workspace to output left";
+          "${mod}+Shift+Control+Up" = "move workspace to output up";
+          "${mod}+Shift+Control+Down" = "move workspace to output down";
 
           # cycle workspaces
           "${mod}+Home" = "workspace prev";
