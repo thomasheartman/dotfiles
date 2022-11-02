@@ -6634,7 +6634,8 @@ rich-minority enables us to hide all minor modes from the mode line.
 #+BEGIN_SRC emacs-lisp
   (use-package rich-minority
     :init
-    (rich-minority-mode)
+    (unless rich-minority-mode
+      (rich-minority-mode))
     :custom
     (rm-blacklist ""))
 #+END_SRC
