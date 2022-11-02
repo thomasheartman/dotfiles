@@ -29,7 +29,7 @@ following snippet:
 
 Because some warnings give a lot of annoying pop-ups on startup, we
 can disable showing them immediately. They will still show up in the
-~*Warnings*~ buffer, they will just not be show automatically.
+~*Warnings*~ buffer, they will just not show automatically.
 
 #+BEGIN_SRC emacs-lisp
   (use-package emacs
