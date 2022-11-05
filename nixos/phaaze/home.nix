@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
     wine
 
-    (import ../dungeondraft { inherit pkgs; })
+    (import ../dungeondraft { inherit pkgs lib; })
 
     (
       writeScriptBin "dual" ''
