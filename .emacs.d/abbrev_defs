@@ -46,7 +46,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("ct" "content type" nil :count 7)
-    ("eg" "e.g." nil :count 8)
+    ("eg" "e.g." nil :count 9)
     ("gql" "GraphQL" nil :count 22)
     ("ie" "i.e." nil :count 4)
     ("iff" "if and only if" nil :count 0)
@@ -88,6 +88,7 @@
     ("genrator" "generator" nil :count 1)
     ("glasgow" "glasgow" nil :count 2)
     ("godess's" "goddess's" nil :count 1)
+    ("gorup" "group" nil :count 1)
     ("iillusionist" "illusionist" nil :count 1)
     ("incapactiated" "incapacitated" nil :count 1)
     ("journy" "journey" nil :count 1)
