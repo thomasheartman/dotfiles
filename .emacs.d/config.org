@@ -1727,6 +1727,12 @@ window will grow to take the newly opened space.
        (defun delete-window-down ()
          (interactive)
          (delete-window-direction 'windmove-down))
+
+       (general-def
+         "C-x w k <left>" 'delete-window-left
+         "C-x w k <right>" 'delete-window-right
+         "C-x w k <up>" 'delete-window-up
+         "C-x w k <down>" 'delete-window-down)
      #+END_SRC
 
 
