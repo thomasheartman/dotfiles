@@ -2412,6 +2412,10 @@ bit of configuration to get set up.
     (setq company-idle-delay 0.2
           company-selection-wrap-around t
           company-show-numbers t
+          company-dabbrev-downcase nil ; refer to
+                                          ; https://github.com/company-mode/company-mode/issues/14
+                                          ; and
+                                          ; https://emacs.stackexchange.com/questions/10837/how-to-make-company-mode-be-case-sensitive-on-plain-text
           company-format-margin-function #'company-vscode-dark-icons-margin))
 #+END_SRC
 
