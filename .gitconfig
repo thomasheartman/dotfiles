@@ -20,7 +20,7 @@
         fetch = +refs/heads/*:refs/remotes/origin/*
 
 [rerere]
-        enabled = true
+        enabled = false
         autoupdate = true
 
 [difftool]
