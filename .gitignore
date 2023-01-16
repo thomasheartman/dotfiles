@@ -24,7 +24,8 @@
 .emacs.d/var
 .emacs.d/workspace
 
-.config/*
+# .config/*
+.config/nushell/history.txt
 !.config/fish
 !.config/karabiner/karabiner.json
 .config/fish/fish_variables
