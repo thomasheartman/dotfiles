@@ -429,7 +429,7 @@ in
         lib.attrsets.mapAttrsToList (name: _: name) (builtins.readDir ../.config);
 
       weirdLinks = [{
-        source = "wallpapers/background-image";
+        source = "wallpapers/desktop-background.jpg";
         target = ".background-image";
       }];
 
