@@ -1,9 +1,9 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
 
   theme = import ./theme.nix;
-  cmds = pkgs.callPackage ./shared-commands.nix {};
+  cmds = pkgs.callPackage ./shared-commands.nix { };
 
 
   mailConfig =
@@ -57,7 +57,7 @@ let
 in
 {
 
-  imports = [ ./polybar.nix ./rofi.nix ./picom.nix ./i3.nix];
+  imports = [ ./polybar.nix ./rofi.nix ./picom.nix ./i3.nix ];
 
   programs.msmtp = { enable = true; };
 
@@ -189,7 +189,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsNativeComp;
+    package = pkgs.emacsUnstable;
     extraPackages = epkgs: [
       epkgs.emacsql-sqlite
       epkgs.vterm
@@ -261,6 +261,7 @@ in
     slack
     spotify
     teensy-loader-cli
+    vscode
     tmux
     victor-mono
     vlc
@@ -400,4 +401,56 @@ in
 
     '';
   };
+
+  # symlink files to home
+  home.activation =
+    let
+      links = [
+        ../.alacritty.yml
+        ../.aliases
+        ../.config
+        ../.direnvrc
+        ../.editorconfig
+        ../.emacs.d
+        ../.gitconfig
+        ../.gitignore
+        ../.notmuch-config
+        ../.stardict
+        ../.vimrc
+        ../dictionaries
+        ../email
+        ../nix-shells
+      ];
+
+      weirdLinks = [{
+        source = ../wallpapers/background-image;
+        target = ".background-image";
+      }];
+
+      mkSymLink = path: ''
+        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+            ${builtins.toPath path} $HOME/${baseNameOf path};
+      '';
+
+      symlinkScript = lib.strings.concatStringsSep "\n" (map mkSymLink links);
+    in
+    {
+      #  createSymlinks = lib.hm.dag.entryAfter ["writeBoundary"] symlinkScript;
+    };
+
+  # home.file.".alacritty.yml".source = config.lib.file.mkOutOfStoreSymlink ../.alacritty.yml;
+  # home.file.".aliases".source = config.lib.file.mkOutOfStoreSymlink ../.aliases;
+  # # home.file.".config".source = config.lib.file.mkOutOfStoreSymlink ../.config;
+  # home.file.".direnvrc".source = config.lib.file.mkOutOfStoreSymlink ../.direnvrc;
+  # home.file.".editorconfig".source = config.lib.file.mkOutOfStoreSymlink ../.editorconfig;
+  # home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink ../.emacs.d;
+  # home.file.".gitconfig".source = config.lib.file.mkOutOfStoreSymlink ../.gitconfig;
+  # home.file.".gitignore".source = config.lib.file.mkOutOfStoreSymlink ../.gitignore;
+  # home.file.".notmuch-config".source = config.lib.file.mkOutOfStoreSymlink ../.notmuch-config;
+  # home.file.".stardict".source = config.lib.file.mkOutOfStoreSymlink ../.stardict;
+  # home.file.".vimrc".source = config.lib.file.mkOutOfStoreSymlink ../.vimrc;
+  # home.file."dictionaries".source = config.lib.file.mkOutOfStoreSymlink ../dictionaries;
+  # home.file."email".source = config.lib.file.mkOutOfStoreSymlink ../email;
+  # home.file."nix-shells".source = config.lib.file.mkOutOfStoreSymlink ../nix-shells;
+
 }
