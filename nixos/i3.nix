@@ -3,6 +3,8 @@
 let
   cmds = pkgs.callPackage ./shared-commands.nix { };
 
+  theme = import ./theme.nix;
+
   mod = "Mod4";
 
   terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -25,11 +27,45 @@ in
         size = 12.0;
       };
 
+
+      colors =
+        let
+          defaults = {
+            # only shows if the window doesn't cover the whole container
+            background = theme.background-alt;
+            # this is the border around the container title bar
+            border = theme.background;
+            # this is drawn around the window
+            childBorder = theme.disabled;
+            # the indicator shows where the window will split
+            indicator = theme.secondary;
+            # the text on the title bar
+            text = theme.foreground;
+
+          };
+          override = base: args: base // args;
+        in
+         rec {
+          focused = override defaults {
+            border = theme.primary;
+            childBorder = theme.primary;
+          };
+          unfocused = defaults;
+          focusedInactive = override unfocused {
+            border = theme.disabled;
+          };
+          urgent = override defaults {
+            border = theme.danger;
+            childBorder = theme.danger;
+          };
+          # placeholder
+        };
+
       focus = { followMouse = false; };
 
       terminal = terminal;
 
-      window = { titlebar = false; };
+      window = { titlebar = false; border = 3; };
 
       gaps = {
         inner = 15;
@@ -199,7 +235,7 @@ in
         }
         {
           command = "exec dropbox start";
-          notification= false;
+          notification = false;
         }
       ];
     };
