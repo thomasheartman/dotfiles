@@ -24,4 +24,6 @@
 .emacs.d/var
 .emacs.d/workspace
 
+## config files that we don't need/want to track
 .config/nushell/history.txt
+.config/fish/fish_variables
