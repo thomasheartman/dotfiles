@@ -115,6 +115,7 @@ in
       libinput-gestures
       networkmanager
       notmuch
+      nushell
       pciutils
       powertop
       tmux
@@ -319,7 +320,7 @@ in
     createHome = true;
     uid = 1000;
     home = homeDir;
-    shell = pkgs.fish;
+    shell = pkgs.nushell;
   };
 
   nix.settings.trusted-users = [ "root" user ];
