@@ -29,38 +29,38 @@
 
       lib = nixpkgs.lib;
 
+      hmConfig = hostname: home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+
+        modules = [
+          ({
+            nixpkgs.overlays = [ emacsOverlay.overlay ];
+            nixpkgs.config.allowUnfreePredicate = (pkg: true);
+          })
+          ./${hostname}/home.nix
+          {
+            home = {
+              username = "thomas";
+              homeDirectory = "/home/thomas";
+              stateVersion = "22.11";
+            };
+          }
+        ];
+      };
+
+      nixosConfig = hostname: lib.nixosSystem {
+        inherit system;
+
+        modules = [
+          musnix.nixosModules.musnix
+          ./${hostname}/configuration.nix
+        ];
+      };
+
     in
     {
-      homeManagerConfigs = {
-        phaaze = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+      homeManagerConfigs = lib.attrsets.genAttrs [ "phaaze" "skytown" ] hmConfig;
 
-          modules = [
-            ({
-              nixpkgs.overlays = [ emacsOverlay.overlay ];
-              nixpkgs.config.allowUnfreePredicate = (pkg: true);
-            })
-            ./phaaze/home.nix
-            {
-              home = {
-                username = "thomas";
-                homeDirectory = "/home/thomas";
-                stateVersion = "22.11";
-              };
-            }
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        phaaze = lib.nixosSystem {
-          inherit system;
-
-          modules = [
-            musnix.nixosModules.musnix
-            ./phaaze/configuration.nix
-          ];
-        };
-      };
+      nixosConfigurations = lib.attrsets.genAttrs [ "phaaze" "skytown" ] nixosConfig;
     };
 }
