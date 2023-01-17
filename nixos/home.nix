@@ -406,51 +406,50 @@ in
   home.activation =
     let
       links = [
-        ../.alacritty.yml
-        ../.aliases
-        ../.config
-        ../.direnvrc
-        ../.editorconfig
-        ../.emacs.d
-        ../.gitconfig
-        ../.gitignore
-        ../.notmuch-config
-        ../.stardict
-        ../.vimrc
-        ../dictionaries
-        ../email
-        ../nix-shells
+        ".alacritty.yml"
+        ".aliases"
+        ".direnvrc"
+        ".editorconfig"
+        ".emacs.d"
+        ".gitconfig"
+        ".gitignore"
+        ".notmuch-config"
+        ".stardict"
+        ".vimrc"
+        "dictionaries"
+        "email"
+        "nix-shells"
       ];
 
+      # the config directory is special. We don't want to end up with
+      # a bunch of everchanging files in our dotfiles, so lets link
+      # those files differently.
+      configLinks =
+        lib.attrsets.mapAttrsToList (name: _: name) (builtins.readDir ../.config);
+
       weirdLinks = [{
-        source = ../wallpapers/background-image;
+        source = "wallpapers/background-image";
         target = ".background-image";
       }];
 
-      mkSymLink = path: ''
-        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
-            ${builtins.toPath path} $HOME/${baseNameOf path};
+      mkMiscSymlink = inputFile: outputFile: ''
+        $DRY_RUN_CMD ln -nfs $VERBOSE_ARG \
+            $HOME/dotfiles/${inputFile} $HOME/${outputFile};
       '';
+      mkSymlink = path: mkMiscSymlink path path;
+      mkConfigSymlink = path: mkMiscSymlink ".config/${path}" ".config/${path}";
 
-      symlinkScript = lib.strings.concatStringsSep "\n" (map mkSymLink links);
+      mkScript = f: links: lib.strings.concatStringsSep "\n" (map f links);
+
     in
     {
-      #  createSymlinks = lib.hm.dag.entryAfter ["writeBoundary"] symlinkScript;
+      "link basic home files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
+        (mkScript mkSymlink links);
+
+      "link .config files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
+        (mkScript mkConfigSymlink configLinks);
+
+      "link other files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
+        (mkScript ({ source, target }: mkMiscSymlink source target) weirdLinks);
     };
-
-  # home.file.".alacritty.yml".source = config.lib.file.mkOutOfStoreSymlink ../.alacritty.yml;
-  # home.file.".aliases".source = config.lib.file.mkOutOfStoreSymlink ../.aliases;
-  # # home.file.".config".source = config.lib.file.mkOutOfStoreSymlink ../.config;
-  # home.file.".direnvrc".source = config.lib.file.mkOutOfStoreSymlink ../.direnvrc;
-  # home.file.".editorconfig".source = config.lib.file.mkOutOfStoreSymlink ../.editorconfig;
-  # home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink ../.emacs.d;
-  # home.file.".gitconfig".source = config.lib.file.mkOutOfStoreSymlink ../.gitconfig;
-  # home.file.".gitignore".source = config.lib.file.mkOutOfStoreSymlink ../.gitignore;
-  # home.file.".notmuch-config".source = config.lib.file.mkOutOfStoreSymlink ../.notmuch-config;
-  # home.file.".stardict".source = config.lib.file.mkOutOfStoreSymlink ../.stardict;
-  # home.file.".vimrc".source = config.lib.file.mkOutOfStoreSymlink ../.vimrc;
-  # home.file."dictionaries".source = config.lib.file.mkOutOfStoreSymlink ../dictionaries;
-  # home.file."email".source = config.lib.file.mkOutOfStoreSymlink ../email;
-  # home.file."nix-shells".source = config.lib.file.mkOutOfStoreSymlink ../nix-shells;
-
 }
