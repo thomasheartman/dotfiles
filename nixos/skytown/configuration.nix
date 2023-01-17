@@ -35,7 +35,7 @@ in
   musnix = {
     enable = true;
     kernel = {
-      realtime = true;
+      # realtime = true; # <- build fails (2023-01-17T23:01:03+01:00)
     };
   };
 }
