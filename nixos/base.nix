@@ -25,9 +25,6 @@ in
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    kernelParams = [
-      "mem_sleep_default=deep"
-    ];
 
     tmpOnTmpfs = true;
   };
