@@ -418,6 +418,7 @@ in
         ".vimrc"
         "dictionaries"
         "email"
+        "feeds.org"
         "nix-shells"
       ];
 
