@@ -29,7 +29,6 @@ let
   polyscript = scriptName: "~/.config/polybar/${scriptName}";
 
   pkg = pkgs.polybar.override {
-    i3GapsSupport = true;
     alsaSupport = true;
     pulseSupport = true;
     iwSupport = true;
