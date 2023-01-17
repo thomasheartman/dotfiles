@@ -8,6 +8,8 @@ let theme = rec {
   disabled = "#707880";
   danger = "#e74c3c";
 
+  secondary = "#f300ae";
+
   # rofi
   bg0 = "${theme.background}E6";
   bg1 = "${theme.background-alt}80";
