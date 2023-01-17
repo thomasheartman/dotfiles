@@ -11,7 +11,7 @@
     guitarix
     reaper
     surge
-    tonelib-gfx
+    # tonelib-gfx # <- this one often has problems :/
     tap-plugins
     zrythm
     (callPackage ./scarlett-mixer.nix { })
