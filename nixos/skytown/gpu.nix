@@ -5,7 +5,17 @@
 
 {
   boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver = {
+    # create symlink to the conf for easier inspection
+    exportConfiguration = true;
+
+    # to get rid of screen tearing (https://youtu.be/WWg8q_f7nI4)
+    deviceSection = ''
+      Option "TearFree" "true"
+    '';
+
+    videoDrivers = [ "amdgpu" ];
+  };
 
   # HIP
   systemd.tmpfiles.rules = [
@@ -22,7 +32,7 @@
     pkgs.clinfo # to verify that OpenCL is configured correctly
   ];
 
-  # vulkan (https://nixos.org/manual/nixos/unstable/index.html#sec-gpu-accel-vulkan)
+  # vulkan
   hardware.opengl.driSupport = true;
 
   # For 32 bit applications
@@ -32,4 +42,5 @@
   hardware.opengl.extraPackages32 = [
     pkgs.driversi686Linux.amdvlk
   ];
+
 }
