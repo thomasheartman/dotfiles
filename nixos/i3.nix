@@ -31,7 +31,7 @@ in
         let
           defaults = {
             # only shows if the window doesn't cover the whole container
-            background = theme.background-alt;
+            background = "#0000";
             # this is the border around the container title bar
             border = theme.background;
             # this is drawn around the window
