@@ -17,6 +17,7 @@ in
       ./hardware-configuration.nix
       ../base.nix
       ../steam.nix
+      ./gpu.nix
     ];
 
   # This value determines the NixOS release from which the default
