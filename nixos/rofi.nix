@@ -16,12 +16,13 @@ in
     cycle = true;
     terminal = config.xsession.windowManager.i3.config.terminal;
     extraConfig = { modi = "window,run,emoji,calc,filebrowser,drun,combi"; };
-    font = "Open Sans 20";
+    font = "Open Sans 30";
     theme =
       let
         mkL = config.lib.formats.rasi.mkLiteral;
       in
       {
+
         "*" = {
           bg0 = mkL theme.bg0;
           bg1 = mkL theme.bg1;
@@ -41,9 +42,10 @@ in
 
         window = {
           background-color = mkL "@bg0";
-          location = mkL "2";
-          width = 1000;
-          y-offset = 0;
+          position = mkL "north";
+          width = mkL "45%";
+          y-offset = mkL "-25%";
+          anchor = mkL "north";
           border-radius = 8;
         };
 
