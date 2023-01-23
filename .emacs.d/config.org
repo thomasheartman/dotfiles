@@ -3487,6 +3487,8 @@ export, including source code language and triple back ticks.
                      :files ("org-variable-pitch.el"))
     :config
     (setq ovp-mono-faces nil)
+    :custom-face
+    (org-variable-pitch-fixed-face ((t (:family nil))))
     :hook
     (org-mode . org-variable-pitch-minor-mode))
 #+END_SRC
