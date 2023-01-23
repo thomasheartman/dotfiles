@@ -557,13 +557,15 @@ delete that on save.
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 
-For text modes, let's always use auto-fill mode and abbrev-mode:
+For text modes, let's always use auto-fill mode and abbrev-mode. Let's also make abbrev-mode auto-save abbreviations when they happen.
 #+begin_src emacs-lisp
   (defun my-text-mode-hook ()
     (visual-line-mode)
     ;; (auto-fill-mode)
     (abbrev-mode))
   (add-hook 'text-mode-hook 'my-text-mode-hook)
+
+  (setq save-abbrevs 'silent)
 #+end_src
 
 **** Highlight current line (hl-line mode)
