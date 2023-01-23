@@ -310,14 +310,20 @@ font.
                             "Cascadia Code"
                             "Victor Mono")
     "The list of preferred fonts in descending order. Emacs will
-    use the first font it finds in this list.")
+      use the first font it finds in this list.")
 
   (require 'cl)
+
+  (defvar heartman/monospace-font nil "The preferred monospace font to use for Emacs.")
 
   (let ((font (find-if
                (lambda (font) (member font (font-family-list))) preferred-fonts)))
     (when font
-      (set-frame-font font t t)))
+      (setq heartman/monospace-font font)))
+
+  (when heartman/monospace-font
+    (set-frame-font heartman/monospace-font t t)
+    (message "Set %s as the default font." heartman/monospace-font))
 #+END_SRC
 
 **** Emoji
