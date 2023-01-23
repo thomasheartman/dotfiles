@@ -29,6 +29,7 @@ let
   polyscript = scriptName: "~/.config/polybar/${scriptName}";
 
   pkg = pkgs.polybar.override {
+    i3Support = true;
     alsaSupport = true;
     pulseSupport = true;
     iwSupport = true;
@@ -82,8 +83,8 @@ in
 
           font-0 = "Open Sans:size=12;3";
           font-1 = "JetBrainsMono:style=Regular:size=12;3";
-          font-2 = "FuraCode Nerd Font:size=12;3";
-          font-3 = "Noto Color Emoji:style=Book:scale=6";
+          font-2 = "FuraMono Nerd Font:size=15;3";
+          font-3 = "Noto Color Emoji:style=Book:scale=7";
 
           locale = "en_US.UTF-8";
         };
@@ -117,9 +118,9 @@ in
           tray-detached = false;
           tray-maxsize = 15;
           tray-background = primary;
-          tray-offset-x = -19;
+          tray-offset-x = 0;
           tray-offset-y = 0;
-          tray-padding = 5;
+          tray-padding = 50;
           tray-scale = 1;
           padding = 0;
 
@@ -190,7 +191,7 @@ in
           format = "<label>";
           format-foreground = fg;
 
-          label = " %date%";
+          label = "    %date%";
         };
 
         "module/time" = {
@@ -208,7 +209,7 @@ in
           type = "internal/i3";
           pin-workspaces = true;
 
-          format = " <label-state> <label-mode>";
+          format = "   <label-state> <label-mode>";
 
           label-mode = "%mode%";
           label-mode-font = monospace-font;
@@ -266,7 +267,7 @@ in
 
         "module/wifi" = {
           "inherit" = "module/network";
-          interface = "wlp59s0";
+          interface ="wlp5s0"; # config.network.wifiInterface;#
 
           label-connected = "直";
           label-disconnected = "睊";
@@ -274,7 +275,7 @@ in
 
         "module/wired-network" = {
           "inherit" = "module/network";
-          interface = "enp10s0";
+          interface = "enp6s0"; #config.network.wiredInterface; #
 
           label-connected = "";
           label-disconnected = "";
@@ -283,11 +284,14 @@ in
         "module/keyboard" = {
           format-padding = 1;
           type = "internal/xkeyboard";
-          label-layout = " %name:0:13:)%";
+          label-layout = "  %icon% (%layout%)";
           label-indicator-on-capslock = "CAPS";
           label-indicator-on-capslock-background = theme.primary;
           label-indicator-on-capslock-foreground = theme.primary-contrast;
           label-indicator-on-capslock-padding = spacing;
+
+          layout-icon-0= "us;intl., with AltGr dead keys;English (US)";
+          layout-icon-1= "_;programmer Dvorak;Programmer Dvorak";
         };
 
 
@@ -299,7 +303,7 @@ in
             type = "custom/script";
 
             # only show mail icon if there are any unread mails
-            exec = ''count=$(${search}); if [ $count -gt 0 ]; then echo " $count"; else echo ""; fi '';
+            exec = ''count=$(${search}); if [ $count -gt 0 ]; then echo "Unread mail: $count"; else echo ""; fi ''; #  <- todo make icon work
             label = "%output%";
             label-foreground = theme.primary-contrast;
             label-padding = spacing;
@@ -328,7 +332,7 @@ in
 
           # 必要に応じて nickname および sink や source 名(node名)を変更すること
           # --color-muted は # なしの rrggbb のため # を取り除く
-          exec = ''${pulseaudio-control} --format '$VOL_ICON $VOL_LEVEL $NODE_NICKNAME' --color-muted "${builtins.replaceStrings ["#"] [""] theme.disabled}" --icons-volume " , " --icon-muted "ﱝ " --node-nicknames-from "device.profile.name" --node-nickname "alsa_output.pci-0000_00_1f.3.analog-stereo:built-in" listen'';
+          exec = ''${pulseaudio-control} --format '$VOL_ICON\ \  $VOL_LEVEL% \($NODE_NICKNAME\)' --color-muted "${builtins.replaceStrings ["#"] [""] theme.disabled}" --icons-volume " , " --icon-muted "ﱝ " --node-nicknames-from "device.profile.name" --node-nickname "alsa_output.pci-0000_00_1f.3.analog-stereo:built-in" listen'';
           click-right = "exec ${pkgs.pavucontrol}/bin/pavucontrol &";
           click-left = "${pulseaudio-control} togmute";
           click-middle = "${pulseaudio-control} next-node";
