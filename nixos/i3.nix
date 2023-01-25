@@ -213,7 +213,12 @@ in
 
       startup = [
         {
-          command = "exec i3-msg workspace 1";
+          command = "i3-msg workspace 1";
+          always = true;
+          notification = false;
+        }
+        {
+          command = ''${pkgs.alttab}/bin/alttab -fg "${theme.foreground}" -bg "${theme.background}" -frame "${theme.primary}" -t 120x120 -i 120x120'';
           always = true;
           notification = false;
         }
@@ -233,7 +238,7 @@ in
           notification = false;
         }
         {
-          command = "exec dropbox start";
+          command = "dropbox start";
           notification = false;
         }
       ];
