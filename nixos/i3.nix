@@ -14,6 +14,8 @@ let
   openMailClient =
     "${emacsclient} --eval '(notmuch-search heartman/notmuch-unread-mail-query)'";
 
+  python = "${pkgs.python3.withPackages (ps: with ps; [ i3ipc ])}/bin/python";
+
 in
 {
   xsession.windowManager.i3 = {
@@ -131,8 +133,7 @@ in
           # cycle workspaces
           "${mod}+Home" = "workspace prev";
           "${mod}+End" = "workspace next";
-          "${mod}+Tab" = ''exec ${window-switcher}/bin/window-switcher'';
-          "${mod}+Shift+Tab" = "move container to workspace back_and_forth";
+          "${mod}+Tab" = ''exec --no-startup-id  "${python} ${./i3-cycle-focus/i3-cycle-focus.py} --switch"'';
 
           # change v and h because 'split h' means 'when opening a new
           # window, split the current window's width in two and open
@@ -214,6 +215,11 @@ in
       startup = [
         {
           command = "i3-msg workspace 1";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "${python} ${./i3-cycle-focus/i3-cycle-focus.py}";
           always = true;
           notification = false;
         }
