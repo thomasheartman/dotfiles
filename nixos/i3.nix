@@ -42,7 +42,7 @@ in
         let
           defaults = {
             # only shows if the window doesn't cover the whole container
-            background = "#0000";
+            background = "#00000000";
             # this is the border around the container title bar
             border = theme.background;
             # this is drawn around the window
@@ -55,12 +55,14 @@ in
           };
           override = base: args: base // args;
         in
-         rec {
+        rec {
           focused = override defaults {
             border = theme.primary;
             childBorder = theme.primary;
           };
-          unfocused = defaults;
+          unfocused = override defaults {
+            childBorder = "#00000000";
+          };
           focusedInactive = override unfocused {
             border = theme.disabled;
           };
@@ -85,16 +87,6 @@ in
       keybindings =
         let
           rofi = config.programs.rofi.package;
-          window-switcher = (pkgs.writeShellScriptBin "window-switcher" ''
-            PATH=${lib.makeBinPath [ rofi ]}
-            rofi -show window \
-            -kb -accept-entry "!Super-Tab,!Super+Super_L" \
-            -kb-row-down "Super+Tab" \
-            -kb-row-up "Super+Shift+Tab" \
-            -selected-row 1 \
-            -show-icons
-          ''
-          );
         in
         {
           # rofi: apps, switching, and emoji
