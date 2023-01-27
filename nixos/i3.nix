@@ -16,6 +16,15 @@ let
 
   python = "${pkgs.python3.withPackages (ps: with ps; [ i3ipc ])}/bin/python";
 
+
+  # todo: package window switching like this?
+  # window-switcher = pkgs.writeShellApplication {
+  #   name = "window-switcher";
+  #   runtimeInputs = [ pkgs.python3.withPackages (ps: [ ps.i3ipc ]) ];
+  #   text = ''python ${./i3-cycle-focus.py} "$@"'';
+  # };
+
+
 in
 {
   xsession.windowManager.i3 = {
@@ -133,7 +142,7 @@ in
           # cycle workspaces
           "${mod}+Home" = "workspace prev";
           "${mod}+End" = "workspace next";
-          "${mod}+Tab" = ''exec --no-startup-id  "${python} ${./i3-cycle-focus/i3-cycle-focus.py} --switch"'';
+          "${mod}+Tab" = ''exec --no-startup-id  "${python} ${./i3-cycle-focus.py} --switch"'';
 
           # change v and h because 'split h' means 'when opening a new
           # window, split the current window's width in two and open
@@ -219,7 +228,7 @@ in
           notification = false;
         }
         {
-          command = "${python} ${./i3-cycle-focus/i3-cycle-focus.py}";
+          command = "${python} ${./i3-cycle-focus.py}";
           always = true;
           notification = false;
         }
