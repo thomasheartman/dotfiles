@@ -532,5 +532,13 @@ let-env config = {
       mode: [emacs, vi_normal, vi_insert]
       event: { send: menu name: commands_with_description }
     }
+    # Custom key bindings
+    {
+      name: kill_backwards_word
+      modifier: control
+      keycode: char_h
+      mode: [emacs, vi_normal, vi_insert]
+      event: { edit: backspaceword }
+    }
   ]
 }
