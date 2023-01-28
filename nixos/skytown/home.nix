@@ -8,7 +8,8 @@
   };
 
   home.packages = with pkgs; [
-    wine
+    (import ../dungeondraft { inherit pkgs lib; })
 
+    wine
   ];
 }

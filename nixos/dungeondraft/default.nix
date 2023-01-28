@@ -11,7 +11,7 @@
 
 let
   name = "dungeondraft";
-  version = "1.0.4.6";
+  version = "1.0.4.7";
   path = lib.makeBinPath [ pkgs.gnome.zenity pkgs.gdb ];
 
 in
