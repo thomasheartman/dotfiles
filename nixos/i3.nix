@@ -220,7 +220,7 @@ in
           notification = false;
         }
         {
-          command = "${python} ${./i3-cycle-focus.py}";
+          command = "${python} ${./i3-cycle-focus.py} --delay 0.1";
           always = true;
           notification = false;
         }
