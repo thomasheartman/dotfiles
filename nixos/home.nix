@@ -211,6 +211,21 @@ in
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  # programs.nushell = {
+  #   enable = true;
+  #   configFile.source = ../nushell/config.nu;
+  #   envFile.source = ../nushell/env.nu;
+  # };
+
+  programs.starship = {
+    enable = true;
+  };
+
   home.packages = with pkgs; [
     alacritty
     (pkgs.aspellWithDicts
@@ -241,6 +256,7 @@ in
     msmtp
     mu
     nixfmt
+    nushell
     pavucontrol
     pandoc
     pass
