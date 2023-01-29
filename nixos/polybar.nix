@@ -270,6 +270,7 @@ in
           interface ="wlp5s0"; # config.network.wifiInterface;#
 
           label-connected = "直";
+          label-connected-foreground = primary;
           label-disconnected = "睊";
         };
 
@@ -278,6 +279,7 @@ in
           interface = "enp6s0"; #config.network.wiredInterface; #
 
           label-connected = "";
+          label-connected-foreground = primary;
           label-disconnected = "";
         };
 
