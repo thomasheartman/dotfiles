@@ -247,7 +247,6 @@ in
     imagemagick
     ispell
     i3lock
-    jetbrains-mono
     jq
     libusb1
     mattermost-desktop

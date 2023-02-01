@@ -57,6 +57,7 @@ in
       fira-code-symbols
       font-awesome
       ipafont
+      jetbrains-mono
       kochi-substitute
       nerdfonts
       noto-fonts
@@ -69,7 +70,7 @@ in
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "DejaVu Sans Mono" "IPAGothic" ];
+        monospace = [ "JetBrains Mono" "DejaVu Sans Mono" "IPAGothic" ];
         sansSerif = [ "Open Sans" "DejaVu Sans" "IPAPGothic" ];
         serif = [ "DejaVu Serif" "IPAPMincho" ];
         emoji = [ "Noto Color Emoji" ];
