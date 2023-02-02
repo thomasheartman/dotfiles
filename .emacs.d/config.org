@@ -5926,7 +5926,7 @@ configuration changes.
 
 selectrum is a replacement for ivy/helm.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package selectrum
     :general
     ('selectrum-minibuffer-map
@@ -6124,6 +6124,155 @@ other recommended packages that'll make improve it.
       (embark-collect-mode . embark-consult-preview-minor-mode)))
 #+END_SRC
 
+* vertico
+:PROPERTIES:
+:REPO:     https://github.com/minad/vertico
+:END:
+
+Vertico is selectrum's successor
+#+BEGIN_SRC emacs-lisp
+  (use-package vertico
+    :straight (:files (:defaults "extensions/*"))
+    :general
+    ('vertico-map
+     [remap evil-scroll-down] 'selectrum-scroll-down
+     [remap evil-scroll-up] 'selectrum-scroll-up)
+    :config
+    (setq vertico-cycle t)
+
+    (setq vertico-resize t)
+
+    ;; Input at bottom of completion list
+    ;; (defun vertico-bottom--display-candidates (lines)
+    ;;   "Display LINES in bottom."
+    ;;   (move-overlay vertico--candidates-ov (point-min) (point-min))
+    ;;   (unless (eq vertico-resize t)
+    ;;     (setq lines (nconc (make-list (max 0 (- vertico-count (length lines))) "\n") lines)))
+    ;;   (let ((string (apply #'concat lines)))
+    ;;     (add-face-text-property 0 (length string) 'default 'append string)
+    ;;     (overlay-put vertico--candidates-ov 'before-string string)
+    ;;     (overlay-put vertico--candidates-ov 'after-string nil))
+    ;;   (vertico--resize-window (length lines)))
+
+    ;; (advice-add #'vertico--display-candidates :override #'vertico-bottom--display-candidates)
+
+    ;; prefix current candidate with »
+    (advice-add #'vertico--format-candidate :around
+                (lambda (orig cand prefix suffix index _start)
+                  (setq cand (funcall orig cand prefix suffix index _start))
+                  (concat
+                   (if (= vertico--index index)
+                       (propertize "» " 'face 'vertico-current)
+                     "  ")
+                   cand)))
+    :init
+    (vertico-mode))
+
+  (use-package vertico-prescient
+    :config
+    (vertico-prescient mode 1)
+    (setq prescient-filter-method '(literal initialism prefix regexp)
+          prescient-use-char-folding t
+          prescient-use-case-folding 'smart
+          prescient-sort-full-matches-first t ; Works well with `initialism'.
+          prescient-sort-length-enable t)
+
+    ;; Save recency and frequency rankings to disk, which let them become better
+    ;; over time.
+    (prescient-persist-mode 1))
+
+  ;; Optionally use the `orderless' completion style.
+  (use-package orderless
+    :init
+    (setq completion-styles '(orderless basic)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion)))))
+
+  (use-package marginalia
+    :init
+    (marginalia-mode)
+    (advice-add #'marginalia-cycle :after
+                (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))
+    (setq marginalia-annotators '(marginalia-annotators-heavy
+                                  marginalia-annotators-light
+                                  nil))
+    :general
+    (minibuffer-local-map
+     "C-M-a" 'marginalia-cycle)
+    (embark-general-map
+     "A" 'marginalia-cycle))
+
+  (use-package consult
+    :after projectile
+    :general
+    ([remap repeat-complex-command] 'consult-complex-command
+     [remap switch-to-buffer] 'consult-buffer
+     [remap switch-to-buffer-other-window] 'consult-buffer-other-window
+     [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame
+     [remap copy-to-register] 'consult-register
+     [remap bookmark-jump] 'consult-bookmark
+     [remap goto-line] 'consult-goto-line
+     "M-g o" 'consult-outline
+     "M-g l" 'consult-line
+     "M-g m" 'consult-mark
+     "M-g k" 'consult-global-mark
+     "M-g r" 'consult-ripgrep
+     "M-g f" 'consult-find
+     "M-g e" 'consult-error
+     "M-g i" 'consult-imenu
+     "M-s m" 'consult-multi-occur
+     "C-M-y" 'consult-yank-pop)
+
+    :init
+    (fset 'multi-occur #'consult-multi-occur)
+
+    (setq register-preview-delay 0
+          register-preview-function #'consult-register-preview)
+
+
+    :config
+    (setq consult-narrow-key "<"
+          consult-project-root-function #'projectile-project-root
+          consult-config `((consult-buffer :preview-key nil)))
+
+    (defun heartman/all-exwm-buffers ()
+      (seq-filter
+       (lambda (buffer)
+         (eq 'exwm-mode (buffer-local-value 'major-mode buffer)))
+       (buffer-list)))
+
+    (defvar exwm-buffer-source
+      `(:name "EXWM"
+              :hidden t
+              :narrow ?x
+              :category buffer
+              :state ,#'consult--buffer-state
+              :items ,(lambda () (mapcar #'buffer-name (heartman/all-exwm-buffers)))))
+
+    (add-to-list 'consult-buffer-sources 'exwm-buffer-source 'append)
+
+    (defun consult-buffer-state-no-x ()
+      "Buffer state function that doesn't preview X buffers."
+      (let* ((orig-state (consult--buffer-state))
+             (orig-buffer (buffer-name))
+             (filter (lambda (cand restore)
+                       (if (or restore
+                               (when-let (buffer (and cand (get-buffer cand)))
+                                 (not (eq 'exwm-mode (buffer-local-value 'major-mode buffer)))))
+                           cand
+                         orig-buffer))))
+        (lambda (cand restore)
+          (funcall orig-state (funcall filter cand restore) restore))))
+
+    (setq consult--source-buffer
+          (plist-put consult--source-buffer :state #'consult--buffer-state)))
+
+  (use-package consult-flycheck
+    :after flycheck
+    :general
+    (flycheck-command-map
+     "!" 'consult-flycheck))
+#+END_SRC
 
 * emacs-mini-frame
 :PROPERTIES:
