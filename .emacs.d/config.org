@@ -6135,8 +6135,8 @@ Vertico is selectrum's successor
     :straight (:files (:defaults "extensions/*"))
     :general
     ('vertico-map
-     [remap evil-scroll-down] 'selectrum-scroll-down
-     [remap evil-scroll-up] 'selectrum-scroll-up)
+     [remap evil-scroll-down] 'vertico-scroll-up
+     [remap evil-scroll-up] 'vertico-scroll-down)
     :config
     (setq vertico-cycle t)
 
