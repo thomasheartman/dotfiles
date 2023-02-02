@@ -244,6 +244,7 @@ in
     ffmpeg
     firefox
     git-lfs
+    jetbrains-mono
     imagemagick
     ispell
     i3lock
