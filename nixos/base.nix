@@ -38,7 +38,16 @@ in
     };
   };
 
-  system.autoUpgrade.enable = true;
+  # Don't auto-upgrade. From the docs:
+  #
+  #  If enabled, a systemd timer will run
+  #  `nixos-rebuild switch --upgrade`
+  #  once a day.
+  #
+  # Because my upgrade command is different, this causes a whole lot
+  # of issues when set to true.
+  system.autoUpgrade.enable = false;
+
 
   networking.networkmanager.enable = true;
 
