@@ -3605,6 +3605,28 @@ Hiding all but /one/ header stars can be done with the ~org-hide-leading-stars~ 
   (add-hook 'org-mode-hook #'chunyang-org-mode-hide-stars)
 #+END_SRC
 
+** Restore position in line when toggling headers
+
+An issue that I've found quite annoying is that when you toggle a heading in org mode (~C-c *~ by default), then the function will leave point at the start of the line. Usually I'll want the point to stay where it was before I invoked the function.
+
+We can achieve this by adding a bit of advice around ~org-toggle-heading~. Store the current position and line length between toggling the line. Compare that with the line length after toggling and return point to its original position, offset by the line length diff.
+
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/wrap-org-toggle-heading (f &rest args)
+    "Restore position in line after calling F with ARGS.
+
+      Intended to be used with `org-toggle-heading', but can
+      potentially be used with other functions as well."
+    (let* ((start-pos (point))
+           (line-end (line-end-position)))
+      (apply f args)
+      (let ((new-end (line-end-position)))
+        (goto-char (+ start-pos (- new-end line-end))))))
+
+  (advice-add #'org-toggle-heading :around #'heartman/wrap-org-toggle-heading)
+#+END_SRC
+
+
 * Yasnippet
 :PROPERTIES:
 :REPO:     https://github.com/joaotavora/yasnippet
