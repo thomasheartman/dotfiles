@@ -228,23 +228,8 @@ in
           always = true;
           notification = false;
         }
-        # {
-        #   command = ''${pkgs.alttab}/bin/alttab -fg "${theme.foreground}" -bg "${theme.background}" -frame "${theme.primary}" -t 120x120 -i 120x120'';
-        #   always = true;
-        #   notification = false;
-        # }
         {
           command = cmds.adjustScreens;
-          always = true;
-          notification = false;
-        }
-        {
-          command = cmds.setBackgroundImage;
-          always = true;
-          notification = false;
-        }
-        {
-          command = cmds.restartPolybar;
           always = true;
           notification = false;
         }
