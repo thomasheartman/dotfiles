@@ -215,8 +215,7 @@ in
 
       startup = [
         {
-          command = "i3-msg workspace 1";
-          always = true;
+          command = "dropbox start";
           notification = false;
         }
         {
@@ -225,17 +224,17 @@ in
           notification = false;
         }
         {
-          command = ''${pkgs.alttab}/bin/alttab -fg "${theme.foreground}" -bg "${theme.background}" -frame "${theme.primary}" -t 120x120 -i 120x120'';
+          command = "i3-msg workspace 1";
           always = true;
           notification = false;
         }
+        # {
+        #   command = ''${pkgs.alttab}/bin/alttab -fg "${theme.foreground}" -bg "${theme.background}" -frame "${theme.primary}" -t 120x120 -i 120x120'';
+        #   always = true;
+        #   notification = false;
+        # }
         {
           command = cmds.adjustScreens;
-          always = true;
-          notification = false;
-        }
-        {
-          command = cmds.restartPolybar;
           always = true;
           notification = false;
         }
@@ -245,7 +244,8 @@ in
           notification = false;
         }
         {
-          command = "dropbox start";
+          command = cmds.restartPolybar;
+          always = true;
           notification = false;
         }
       ];
