@@ -229,7 +229,12 @@ in
           notification = false;
         }
         {
-          command = cmds.adjustScreens;
+          command = cmds.setBackgroundImage;
+          always = true;
+          notification = false;
+        }
+        {
+          command = cmds.restartPolybar;
           always = true;
           notification = false;
         }
