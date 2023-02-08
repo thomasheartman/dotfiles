@@ -3079,6 +3079,7 @@ First off, let's add some more languages.
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
+     (js . t)
      (shell . t)))
 #+END_SRC
 
