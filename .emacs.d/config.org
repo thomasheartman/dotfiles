@@ -7153,6 +7153,7 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
      ;; ("l" . dired-find-file)
      ;; ("i" . wdired-change-to-wdired-mode)
      ;; ("." . dired-omit-mode)
+     ("<kp-divide>" . dirvish-fd)
      ("b"   . dirvish-bookmark-jump)
      ("f"   . dirvish-file-info-menu)
      ("y"   . dirvish-yank-menu)
