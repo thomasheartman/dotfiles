@@ -2595,7 +2595,9 @@ way of doing this is by increasing the initial idle delay.
     (setq which-key-idle-secondary-delay 0.05))
 #+END_SRC
 
-* LSP mode                                                       :keybinding:
+* LSP
+
+** LSP mode                                                     :keybinding:
 :PROPERTIES:
 :REPO:     https://github.com/emacs-lsp/lsp-mode
 :END:
@@ -2610,7 +2612,7 @@ This setup is nearly identical to the recommended approach in their
 
 See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guide on enabling/disable lsp-mode features]] for a great overview over all the different pieces that can be modified (with pictures!).
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq lsp-keymap-prefix my-lsp-prefix)
 
   (use-package lsp-mode
@@ -2663,6 +2665,19 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
 
   (use-package dap-mode)
 #+END_SRC
+
+** Eglot
+:PROPERTIES:
+:REPO:     https://github.com/joaotavora/eglot
+:END:
+
+Eglot is an alternative to LSP-mode and will be included in Emacs from version 29 (according to [[https://blog.phundrak.com/emacs-29-what-can-we-expect/][Phundrak's Blog]]). To prepare for that, let's give it a proper look.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package eglot)
+#+END_SRC
+
+
 
 * Rust mode
 :PROPERTIES:
