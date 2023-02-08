@@ -60,6 +60,22 @@ manageable, let's create a macro for it.
       `(progn ,@(nreverse forms))))
 #+END_SRC
 
+** Run a hook function once, then remove it
+
+Taken from this [[https://emacs.stackexchange.com/questions/3323/is-there-any-way-to-run-a-hook-function-only-once][StackExchange question thread about running a hook function once]].
+
+#+BEGIN_SRC emacs-lisp
+  (defmacro add-hook-run-once (hook function &optional append local)
+    "Like add-hook, but remove the hook after it is called"
+    (let ((sym (make-symbol "#once")))
+      `(progn
+         (defun ,sym ()
+           (remove-hook ,hook ',sym ,local)
+           (funcall ,function))
+         (add-hook ,hook ',sym ,append ,local))))
+#+END_SRC
+
+
 * Package setup
 
 ** Package archives
@@ -320,12 +336,8 @@ font.
                         :height heartman/default-font-height
                         :family (heartman/get-preferred-font)))
 
-  (defun heartman/set-client-frame-font ()
-    (heartman/set-font)
-    (remove-hook 'server-after-make-frame-hook #'heartman/set-client-frame-font))
-
   (if (daemonp)
-      (add-hook 'server-after-make-frame-hook #'heartman/set-client-frame-font)
+      (add-hook-run-once 'server-after-make-frame-hook #'heartman/set-font)
     (heartman/set-font))
 #+END_SRC
 
