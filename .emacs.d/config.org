@@ -4758,13 +4758,19 @@ do with, so let's trim it down a bit and show only what's necessary.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package doom-modeline
     :after markdown-mode
-    :init (doom-modeline-mode 1)
+    :init (doom-modeline-mode)
     :custom
     (doom-modeline-unicode-fallback t)
     (doom-modeline-enable-word-count t)
     (doom-modeline-continuous-word-count-modes nil)
     (doom-modeline-checker-simple-format nil)
     (doom-modeline-icon t))
+
+  (unless (default-value 'doom-modeline-mode)
+    (message "Manually starting doom-modeline-mode")
+    (if (daemonp)
+        (add-hook-run-once 'server-after-make-frame-hook 'doom-modeline-mode)
+      (doom-modeline-mode)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle no
