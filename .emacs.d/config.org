@@ -322,8 +322,7 @@ font.
       (setq heartman/monospace-font font)))
 
   (when heartman/monospace-font
-    (set-frame-font heartman/monospace-font t t)
-    (message "Set %s as the default font." heartman/monospace-font))
+    (set-face-attribute 'default nil :family heartman/monospace-font))
 #+END_SRC
 
 **** Emoji
