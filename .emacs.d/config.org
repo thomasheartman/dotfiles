@@ -2620,6 +2620,9 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
     (lsp-eldoc-enable-hover nil)
     (lsp-modeline-diagnostics-enable nil)
     (lsp-headerline-breadcrumb-segments '(project path-up-to-project file symbols))
+    :config
+    ;; stop multi-root workspace servers from starting all projects https://emacs-lsp.github.io/lsp-mode/page/faq/#how-do-i-force-lsp-mode-to-forget-the-workspace-folders-for-multi-root-servers-so-the-workspace-folders-are-added-on-demand
+    (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
     :general
     (lsp-mode-map
      :start-maps t
