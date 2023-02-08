@@ -6296,6 +6296,14 @@ Vertico is selectrum's successor
      "!" 'consult-flycheck))
 #+END_SRC
 
+** Vertico posframe
+
+#+BEGIN_SRC emacs-lisp
+  (use-package vertico-posframe
+    :config (vertico-posframe-mode))
+#+END_SRC
+
+
 * emacs-mini-frame
 :PROPERTIES:
 :REPO:     https://github.com/muffinmad/emacs-mini-frame
@@ -6309,7 +6317,7 @@ Vertico is selectrum's successor
   is previewed.
 :END:
 
-#+BEGIN_SRC emacs-lisp :tangle yes :noweb-ref nop
+#+BEGIN_SRC emacs-lisp :tangle no :noweb-ref nop
   (defun heartman/mini-frame-show-params ()
     (let* ((min-desired-width 125)
            (min-width (min (frame-width) min-desired-width)))
