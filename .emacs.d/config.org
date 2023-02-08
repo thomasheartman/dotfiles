@@ -297,7 +297,6 @@ To try and stick to loading only one theme, let's do it here.
 The default font size is a bit small on my monitors, so we'll
 increase it sufficiently.
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :height 200)
 #+END_SRC
 
 Next, let's set a list of my preferred fonts (in descending order
@@ -306,13 +305,18 @@ they do, we'll set the first font we find as the default frame
 font.
 
 #+BEGIN_SRC emacs-lisp
+  (require 'cl)
+
   (defvar preferred-fonts '("JetBrains Mono"
                             "Cascadia Code"
                             "Victor Mono")
     "The list of preferred fonts in descending order. Emacs will
       use the first font it finds in this list.")
 
-  (require 'cl)
+
+
+  (defvar heartman/default-font-height 200
+    "The height to use for the default face.")
 
   (defvar heartman/monospace-font nil "The preferred monospace font to use for Emacs.")
 
@@ -321,8 +325,9 @@ font.
     (when font
       (setq heartman/monospace-font font)))
 
-  (when heartman/monospace-font
-    (set-face-attribute 'default nil :family heartman/monospace-font))
+  (set-face-attribute 'default nil
+                      :family heartman/monospace-font
+                      :height heartman/default-font-height)
 #+END_SRC
 
 **** Emoji
