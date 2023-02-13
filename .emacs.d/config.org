@@ -82,11 +82,11 @@ Based on the run hook function once macro, we can ensure that certain things are
 #+BEGIN_SRC emacs-lisp
   (defmacro heartman/on-gui-start (f)
     "Run F on first graphical frame."
-    (if (daemonp)
-        `(add-hook-run-once
+    `(if (daemonp)
+         (add-hook-run-once
           'server-after-make-frame-hook
           ,f)
-      (funcall f)))
+       (funcall ,f)))
 #+END_SRC
 
 
