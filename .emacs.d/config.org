@@ -67,7 +67,7 @@ Taken from this [[https://emacs.stackexchange.com/questions/3323/is-there-any-wa
 #+BEGIN_SRC emacs-lisp
   (defmacro add-hook-run-once (hook function &optional append local)
     "Like add-hook, but remove the hook after it is called"
-    (let* ((sym (gensym "#once")))
+    (let ((sym (gensym "#once")))
       `(progn
          (defun ,sym ()
            (remove-hook ,hook ',sym ,local)
@@ -77,20 +77,15 @@ Taken from this [[https://emacs.stackexchange.com/questions/3323/is-there-any-wa
 
 *** Run only on first graphical frame
 
-Based on the run hook function once function, we can ensure that certain things are only run on the first graphical frame. This is necessary because when emacs runs in daemon mode, some things won't work as expected. For instance, it does not have access to X fonts.
+Based on the run hook function once macro, we can ensure that certain things are only run on the first graphical frame. This is necessary because when emacs runs in daemon mode, some things won't work as expected. For instance, it does not have access to X fonts.
 
 #+BEGIN_SRC emacs-lisp
-  (defvar gui-init-functions '() "List of functions to run on first gui frame")
-
-  (add-hook-run-once
-   'server-after-make-frame-hook
-   #'(lambda ()
-       (mapc 'funcall gui-init-functions)))
-
-  (defun heartman/on-gui-start (f)
+  (defmacro heartman/on-gui-start (f)
     "Run F on first graphical frame."
     (if (daemonp)
-        (add-to-list 'gui-init-functions f)
+        `(add-hook-run-once
+          'server-after-make-frame-hook
+          ,f)
       (funcall f)))
 #+END_SRC
 
@@ -7293,4 +7288,8 @@ It can sometimes be hard to see where one window starts and another one ends, so
     (window-divider-default-places 'right-only)
     (window-divider-default-right-width 3)
     (window-divider-mode t))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (message "END 🥳")
 #+END_SRC
