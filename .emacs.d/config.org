@@ -67,13 +67,33 @@ Taken from this [[https://emacs.stackexchange.com/questions/3323/is-there-any-wa
 #+BEGIN_SRC emacs-lisp
   (defmacro add-hook-run-once (hook function &optional append local)
     "Like add-hook, but remove the hook after it is called"
-    (let ((sym (make-symbol "#once")))
+    (let* ((sym (gensym "#once")))
       `(progn
          (defun ,sym ()
            (remove-hook ,hook ',sym ,local)
            (funcall ,function))
          (add-hook ,hook ',sym ,append ,local))))
 #+END_SRC
+
+*** Run only on first graphical frame
+
+Based on the run hook function once function, we can ensure that certain things are only run on the first graphical frame. This is necessary because when emacs runs in daemon mode, some things won't work as expected. For instance, it does not have access to X fonts.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar gui-init-functions '() "List of functions to run on first gui frame")
+
+  (add-hook-run-once
+   'server-after-make-frame-hook
+   #'(lambda ()
+       (mapc 'funcall gui-init-functions)))
+
+  (defun heartman/on-gui-start (f)
+    "Run F on first graphical frame."
+    (if (daemonp)
+        (add-to-list 'gui-init-functions f)
+      (funcall f)))
+#+END_SRC
+
 
 
 * Package setup
@@ -336,9 +356,7 @@ font.
                         :height heartman/default-font-height
                         :family (heartman/get-preferred-font)))
 
-  (if (daemonp)
-      (add-hook-run-once 'server-after-make-frame-hook #'heartman/set-font)
-    (heartman/set-font))
+  (heartman/on-gui-start 'heartman/set-font)
 #+END_SRC
 
 **** Emoji
@@ -4767,10 +4785,7 @@ do with, so let's trim it down a bit and show only what's necessary.
     (doom-modeline-icon t))
 
   (unless (default-value 'doom-modeline-mode)
-    (message "Manually starting doom-modeline-mode")
-    (if (daemonp)
-        (add-hook-run-once 'server-after-make-frame-hook 'doom-modeline-mode)
-      (doom-modeline-mode)))
+    (heartman/on-gui-start 'doom-modeline-mode))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle no
