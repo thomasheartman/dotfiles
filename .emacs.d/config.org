@@ -5883,9 +5883,6 @@ not for all buffers!
       "k" 'evil-paste-after
       "K" 'evil-paste-before
       "C-w" 'whole-line-or-region-kill-region
-      ;; [remap evil-next-line]'evil-next-visual-line
-      ;; [remap evil-previous-line]
-      ;; 'evil-previous-visual-line
       )
     (general-unbind evil-ex-completion-map
       "C-a"
@@ -5898,8 +5895,6 @@ not for all buffers!
       "C-d" 'evil-scroll-down
       "C-u" 'evil-scroll-up
       "M-." 'evil-goto-definition
-      [remap end-of-buffer]'evil-goto-line
-      [remap beginning-of-buffer]'evil-goto-first-line
       [remap isearch-forward] 'evil-search-forward
       [remap isearch-backward] 'evil-search-backward
       [remap xref-find-definitions] 'evil-goto-definition
