@@ -74,6 +74,7 @@
     ("..." "…" nil :count 3)
     ("actualy" "actually" nil :count 3)
     ("actuayll" "actually" nil :count 1)
+    ("acvtivate" "activate" nil :count 1)
     ("airsihp" "airship" nil :count 1)
     ("amout" "amount" nil :count 1)
     ("apear" "appear" nil :count 1)
@@ -103,8 +104,8 @@
     ("eites" "elites" nil :count 2)
     ("enebale" "enable" nil :count 1)
     ("enhancementns" "enhancements" nil :count 1)
-    ("ethey" "they" nil :count 1)
     ("epndoints" "endpoints" nil :count 1)
+    ("ethey" "they" nil :count 1)
     ("fonud" "found" nil :count 1)
     ("genrator" "generator" nil :count 1)
     ("glasgow" "glasgow" nil :count 2)
@@ -178,3 +179,4 @@
     ("visiibilyt" "visibility" nil :count 1)
     ("worsk" "works" nil :count 1)
    ))
+
