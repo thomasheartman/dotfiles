@@ -6,6 +6,7 @@
     artyFX
     bitwig-studio
     calf
+    dexed
     distrho
     drumgizmo
     guitarix
