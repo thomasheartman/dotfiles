@@ -5,7 +5,8 @@ let
 
   theme = import ./theme.nix;
 
-  mod = "Mod4";
+  super = "Mod4";
+  alt = "Mod1";
 
   terminal = "${pkgs.alacritty}/bin/alacritty";
 
@@ -30,7 +31,7 @@ in
   xsession.windowManager.i3 = {
     enable = true;
     config = {
-      modifier = mod;
+      modifier = super;
 
       fonts = {
         names = [ "JetBrains Mono, FontAwesome 12" ];
@@ -90,51 +91,51 @@ in
         in
         {
           # rofi: apps, switching, and emoji
-          "${mod}+space" = ''
+          "${super}+space" = ''
             exec ${rofi}/bin/rofi -show combi -show-icons
           '';
-          "${mod}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
-          "${mod}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
-          "${mod}+Control+space" = "exec ${rofi}/bin/rofi -show window -show-icons";
+          "${super}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
+          "${super}+Shift+e" = "exec ${rofi}/bin/rofi -show emoji -show-icons";
+          "${super}+Control+space" = "exec ${rofi}/bin/rofi -show window -show-icons";
 
           # screenshots
-          "${mod}+Print" =
+          "${super}+Print" =
             "exec sh -c '${pkgs.maim}/bin/maim | xclip -selection clipboard -t image/png'";
-          "${mod}+Shift+Print" =
+          "${super}+Shift+Print" =
             "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
 
           # mail
-          "${mod}+Shift+m" = "exec ${openMailClient}";
+          "${super}+Shift+m" = "exec ${openMailClient}";
 
-          "${mod}+Return" = "exec ${emacsclient}";
-          "${mod}+Shift+Return" = "exec ${terminal}";
+          "${super}+Return" = "exec ${emacsclient}";
+          "${super}+Shift+Return" = "exec ${terminal}";
 
-          "${mod}+Shift+q" = "kill";
+          "${super}+Shift+q" = "kill";
 
-          "${mod}+Left" = "focus left";
-          "${mod}+Down" = "focus down";
-          "${mod}+Up" = "focus up";
-          "${mod}+Right" = "focus right";
+          "${super}+Left" = "focus left";
+          "${super}+Down" = "focus down";
+          "${super}+Up" = "focus up";
+          "${super}+Right" = "focus right";
 
-          "${mod}+Shift+Left" = "move left";
-          "${mod}+Shift+Down" = "move down";
-          "${mod}+Shift+Up" = "move up";
-          "${mod}+Shift+Right" = "move right";
+          "${super}+Shift+Left" = "move left";
+          "${super}+Shift+Down" = "move down";
+          "${super}+Shift+Up" = "move up";
+          "${super}+Shift+Right" = "move right";
 
           # move windows and containers
-          "${mod}+Control+Right" = "move container to output right; focus output right";
-          "${mod}+Control+Left" = "move container to output left; focus output left";
-          "${mod}+Control+Up" = "move container to output up; focus output up";
-          "${mod}+Control+Down" = "move container to output down; focus output down";
-          "${mod}+Shift+Control+Right" = "move workspace to output right";
-          "${mod}+Shift+Control+Left" = "move workspace to output left";
-          "${mod}+Shift+Control+Up" = "move workspace to output up";
-          "${mod}+Shift+Control+Down" = "move workspace to output down";
+          "${super}+Control+Right" = "move container to output right; focus output right";
+          "${super}+Control+Left" = "move container to output left; focus output left";
+          "${super}+Control+Up" = "move container to output up; focus output up";
+          "${super}+Control+Down" = "move container to output down; focus output down";
+          "${super}+Shift+Control+Right" = "move workspace to output right";
+          "${super}+Shift+Control+Left" = "move workspace to output left";
+          "${super}+Shift+Control+Up" = "move workspace to output up";
+          "${super}+Shift+Control+Down" = "move workspace to output down";
 
           # cycle workspaces
-          "${mod}+Home" = "workspace prev";
-          "${mod}+End" = "workspace next";
-          "${mod}+Tab" = ''exec --no-startup-id  "${python} ${./i3-cycle-focus.py} --switch"'';
+          "${super}+Home" = "workspace prev";
+          "${super}+End" = "workspace next";
+          "${alt}+Tab" = ''exec --no-startup-id  "${python} ${./i3-cycle-focus.py} --switch"'';
 
           # change v and h because 'split h' means 'when opening a new
           # window, split the current window's width in two and open
@@ -142,50 +143,50 @@ in
           # horizontal line and use that to split it'. One is: 'split
           # along the horizontal axis', the other is: 'make the
           # separator horizontal'
-          "${mod}+v" = "split h";
-          "${mod}+h" = "split v";
-          "${mod}+Shift+f" = "fullscreen toggle";
+          "${super}+v" = "split h";
+          "${super}+h" = "split v";
+          "${super}+Shift+f" = "fullscreen toggle";
 
-          "${mod}+Shift+s" = "layout stacking";
-          "${mod}+Shift+w" = "layout tabbed";
-          "${mod}+e" = "layout toggle split";
-          "${mod}+x" = "layout toggle all";
-          "${mod}+Shift+space" = "layout toggle all";
+          "${super}+Shift+s" = "layout stacking";
+          "${super}+Shift+w" = "layout tabbed";
+          "${super}+e" = "layout toggle split";
+          "${super}+x" = "layout toggle all";
+          "${super}+Shift+space" = "layout toggle all";
 
-          "${mod}+z" = "floating toggle";
-          "${mod}+Shift+z" = "focus mode_toggle";
+          "${super}+z" = "floating toggle";
+          "${super}+Shift+z" = "focus mode_toggle";
 
-          "${mod}+a" = "focus parent";
-          "${mod}+Shift+a" = "focus child";
+          "${super}+a" = "focus parent";
+          "${super}+Shift+a" = "focus child";
 
-          "${mod}+1" = "workspace number 1";
-          "${mod}+2" = "workspace number 2";
-          "${mod}+3" = "workspace number 3";
-          "${mod}+4" = "workspace number 4";
-          "${mod}+5" = "workspace number 5";
-          "${mod}+6" = "workspace number 6";
-          "${mod}+7" = "workspace number 7";
-          "${mod}+8" = "workspace number 8";
-          "${mod}+9" = "workspace number 9";
-          "${mod}+0" = "workspace number 10";
+          "${super}+1" = "workspace number 1";
+          "${super}+2" = "workspace number 2";
+          "${super}+3" = "workspace number 3";
+          "${super}+4" = "workspace number 4";
+          "${super}+5" = "workspace number 5";
+          "${super}+6" = "workspace number 6";
+          "${super}+7" = "workspace number 7";
+          "${super}+8" = "workspace number 8";
+          "${super}+9" = "workspace number 9";
+          "${super}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" = "move container to workspace number 1; workspace 1";
-          "${mod}+Shift+2" = "move container to workspace number 2; workspace 2";
-          "${mod}+Shift+3" = "move container to workspace number 3; workspace 3";
-          "${mod}+Shift+4" = "move container to workspace number 4; workspace 4";
-          "${mod}+Shift+5" = "move container to workspace number 5; workspace 5";
-          "${mod}+Shift+6" = "move container to workspace number 6; workspace 6";
-          "${mod}+Shift+7" = "move container to workspace number 7; workspace 7";
-          "${mod}+Shift+8" = "move container to workspace number 8; workspace 8";
-          "${mod}+Shift+9" = "move container to workspace number 9; workspace 9";
-          "${mod}+Shift+0" = "move container to workspace number 10; workspace 10";
+          "${super}+Shift+1" = "move container to workspace number 1; workspace 1";
+          "${super}+Shift+2" = "move container to workspace number 2; workspace 2";
+          "${super}+Shift+3" = "move container to workspace number 3; workspace 3";
+          "${super}+Shift+4" = "move container to workspace number 4; workspace 4";
+          "${super}+Shift+5" = "move container to workspace number 5; workspace 5";
+          "${super}+Shift+6" = "move container to workspace number 6; workspace 6";
+          "${super}+Shift+7" = "move container to workspace number 7; workspace 7";
+          "${super}+Shift+8" = "move container to workspace number 8; workspace 8";
+          "${super}+Shift+9" = "move container to workspace number 9; workspace 9";
+          "${super}+Shift+0" = "move container to workspace number 10; workspace 10";
 
-          "${mod}+Shift+c" = "reload";
-          "${mod}+Shift+r" = "restart";
-          "${mod}+Shift+n" =
+          "${super}+Shift+c" = "reload";
+          "${super}+Shift+r" = "restart";
+          "${super}+Shift+n" =
             "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
-          "${mod}+r" = "mode resize";
+          "${super}+r" = "mode resize";
 
           # "${mod}+Control+Up" = "exec ${pkgs.skippy-xd}/bin/skippy-xd";
 
