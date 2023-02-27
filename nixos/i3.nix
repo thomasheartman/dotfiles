@@ -91,7 +91,7 @@ in
         in
         {
           # rofi: apps, switching, and emoji
-          "${super}+space" = ''
+          "${alt}+space" = ''
             exec ${rofi}/bin/rofi -show combi -show-icons
           '';
           "${super}+w" = "exec ${rofi}/bin/rofi -show window -show-icons";
