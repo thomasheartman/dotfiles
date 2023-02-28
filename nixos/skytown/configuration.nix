@@ -8,17 +8,20 @@ let
 
   hostname = baseNameOf ./.;
 
-in
+in {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../base.nix
+    ../steam.nix
+    ./gpu.nix
+    ../hidpi.nix
+  ];
 
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../base.nix
-      ../steam.nix
-      ./gpu.nix
-    ];
+  heartman.hidpi = {
+    enable = true;
+    scale = 1.0;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -29,8 +32,6 @@ in
   system.stateVersion = "22.11"; # Did you read the comment?
 
   networking.hostName = hostname;
-
-  hardware.video.hidpi.enable = true;
 
   # musnix https://github.com/musnix/musnix
   musnix = {
