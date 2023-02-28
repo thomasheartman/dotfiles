@@ -20,7 +20,7 @@ in {
 
   heartman.hidpi = {
     enable = true;
-    scale = 1.0;
+    scale = 1;
   };
 
   # This value determines the NixOS release from which the default

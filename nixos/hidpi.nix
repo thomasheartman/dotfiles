@@ -10,7 +10,7 @@ with lib;
     default = 1;
     example = 2;
     description = "How much to scale the display by.";
-    type = lib.types.float;
+    type = lib.types.int;
   };
 
   config = let
