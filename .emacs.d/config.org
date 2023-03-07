@@ -333,7 +333,7 @@ font.
 #+BEGIN_SRC emacs-lisp
   (require 'cl)
 
-  (defvar heartman/default-font-height 100
+  (defvar heartman/default-font-height (if on-macos 200 100)
     "The height to use for the default face.")
 
   (defvar preferred-fonts '("JetBrains Mono"
