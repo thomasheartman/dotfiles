@@ -5802,14 +5802,17 @@ not for all buffers!
       (evil-exchange-install))
 
     ;; add jump bindings
-    (evil-set-command-property 'link-hint-open-link :jump t)
-    (evil-set-command-property 'beginning-of-buffer :jump t)
-    (evil-set-command-property 'end-of-buffer :jump t)
-    (evil-set-command-property 'org-next-visible-heading :jump t)
-    (evil-set-command-property 'org-previous-visible-heading :jump t)
-    (evil-set-command-property 'outline-up-heading :jump t)
-    (evil-set-command-property 'org-forward-heading-same-level :jump t)
-    (evil-set-command-property 'org-backward-heading-same-level :jump t)
+    (dolist (f '(
+                 beginning-of-buffer
+                 end-of-buffer
+                 link-hint-open-link
+                 org-backward-heading-same-level
+                 org-forward-heading-same-level
+                 org-next-visible-heading
+                 org-previous-visible-heading
+                 outline-up-heading
+                 ))
+      (evil-set-command-property f :jump t))
 
     :general
     (general-unbind
