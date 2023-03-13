@@ -6356,7 +6356,7 @@ Vertico is selectrum's successor
 
 ** Vertico posframe
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package vertico-posframe
     :config (vertico-posframe-mode))
 #+END_SRC
