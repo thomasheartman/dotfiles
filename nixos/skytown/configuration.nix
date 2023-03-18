@@ -18,6 +18,12 @@ in {
     ../hidpi.nix
   ];
 
+
+  boot = {
+    # Enable real-time kernels (for audio production)
+    kernelPackages = pkgs.linuxPackages_latest_rt;
+  };
+
   heartman.hidpi = {
     enable = true;
     scale = 1;
@@ -37,7 +43,7 @@ in {
   musnix = {
     enable = true;
     kernel = {
-      # realtime = true; # <- build fails (2023-01-17T23:01:03+01:00)
+      # realtime = true; # <- build fails (kernel 6.1.12-rt7 on 2023-03-18T11:48:50+01:00). Instead, we set the kernel type in the boot section.
     };
   };
 }
