@@ -6,21 +6,15 @@ let
     ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${/etc/nixos/layout.xkb} $out
   '';
 
-
-  unstablePkgs = import
-    (
-      fetchTarball
-        "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
-    )
-    {
+  unstablePkgs = import (fetchTarball
+    "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {
       config = config.nixpkgs.config;
     };
 
   user = "thomas";
   homeDir = "/home/${user}";
 
-in
-{
+in {
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader.systemd-boot.enable = true;
@@ -49,7 +43,6 @@ in
   # Because my upgrade command is different, this causes a whole lot
   # of issues when set to true.
   system.autoUpgrade.enable = false;
-
 
   networking.networkmanager.enable = true;
 
@@ -95,9 +88,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   nixpkgs.config = {
-    packageOverrides = pkgs: {
-      unstable = unstablePkgs;
-    };
+    packageOverrides = pkgs: { unstable = unstablePkgs; };
 
     allowUnfree = true;
   };
@@ -142,58 +133,44 @@ in
       xorg.xkbcomp
       zip
 
-      (
-        writeScriptBin "rebuild" ''
-          #!${stdenv.shell}
-          sudo nixos-rebuild switch \
-            -p ${config.networking.hostName} \
-            --flake ~/dotfiles/nixos#${config.networking.hostName} \
-            "$@"
-        ''
-      )
+      (writeScriptBin "rebuild" ''
+        #!${stdenv.shell}
+        sudo nixos-rebuild switch \
+          -p ${config.networking.hostName} \
+          --flake ~/dotfiles/nixos#${config.networking.hostName} \
+          "$@"
+      '')
 
-      (
-        writeScriptBin "update" ''
-          #!${stdenv.shell}
-          nix flake update ~/dotfiles/nixos "$@"
-        ''
-      )
+      (writeScriptBin "update" ''
+        #!${stdenv.shell}
+        nix flake update ~/dotfiles/nixos "$@"
+      '')
 
-      (
-        writeScriptBin "mfx" ''
-          #!${stdenv.shell}
-          ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1-2 --off
-          ${pkgs.autorandr}/bin/autorandr -c
-        ''
-      )
+      (writeScriptBin "mfx" ''
+        #!${stdenv.shell}
+        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1-2 --off
+        ${pkgs.autorandr}/bin/autorandr -c
+      '')
 
-      (
-        writeScriptBin "hib" ''
-          #!${stdenv.shell}
-          systemctl hibernate "$@"
-        ''
-      )
+      (writeScriptBin "hib" ''
+        #!${stdenv.shell}
+        systemctl hibernate "$@"
+      '')
 
-      (
-        writeScriptBin "sus" ''
-          #!${stdenv.shell}
-          systemctl suspend "$@"
-        ''
-      )
+      (writeScriptBin "sus" ''
+        #!${stdenv.shell}
+        systemctl suspend "$@"
+      '')
 
-      (
-        writeScriptBin "jc" ''
-          #!${stdenv.shell}
-          journalctrl "$@"
-        ''
-      )
+      (writeScriptBin "jc" ''
+        #!${stdenv.shell}
+        journalctrl "$@"
+      '')
 
-      (
-        writeScriptBin "sc" ''
-          #!${stdenv.shell}
-          systemctl "$@"
-        ''
-      )
+      (writeScriptBin "sc" ''
+        #!${stdenv.shell}
+        systemctl "$@"
+      '')
 
     ];
 
@@ -232,13 +209,13 @@ in
       {
         matches = [
           # Matches all sources
-          { "node.name" = "~bluez_input.*"; }
+          {
+            "node.name" = "~bluez_input.*";
+          }
           # Matches all outputs
           { "node.name" = "~bluez_output.*"; }
         ];
-        actions = {
-          "node.pause-on-idle" = false;
-        };
+        actions = { "node.pause-on-idle" = false; };
       }
     ];
 
@@ -324,9 +301,7 @@ in
     enable = true;
     libinput = {
       enable = true;
-      mouse = {
-        naturalScrolling = true;
-      };
+      mouse = { naturalScrolling = true; };
       touchpad = {
         naturalScrolling = true;
         disableWhileTyping = true;
