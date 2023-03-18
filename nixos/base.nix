@@ -219,14 +219,18 @@ in {
       }
     ];
 
-    config.pipewire = {
+    config.pipewire = let
+      # based on the low-latency https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+      # 64 is the lowest number that works at all, but it gives clicks and pops sometimes..
+      clockQuantum = 96;
+    in {
       "context.properties" = {
         "link.max-buffers" = 16;
         "log.level" = 2;
         "default.clock.rate" = 48000;
-        "default.clock.quantum" = 64;
-        "default.clock.min-quantum" = 64;
-        "default.clock.max-quantum" = 64;
+        "default.clock.quantum" = clockQuantum;
+        "default.clock.min-quantum" = clockQuantum;
+        "default.clock.max-quantum" = clockQuantum;
         "core.daemon" = true;
         "core.name" = "pipewire-0";
       };
