@@ -28,6 +28,7 @@ in
     loader.efi.canTouchEfiVariables = true;
 
     tmpOnTmpfs = true;
+    tmpOnTmpfsSize = "85%";
   };
 
   nix = {
