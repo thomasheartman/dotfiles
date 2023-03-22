@@ -47,7 +47,20 @@ in {
   networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
-  i18n = { defaultLocale = "en_US.UTF-8"; };
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = [ pkgs.fcitx5-mozc ];
+    };
+  };
+
+  environment.variables = {
+    XMODIFIERS = "@im=fcitx";
+    XMODIFIER = "@im=fcitx";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+  };
 
   console = {
     useXkbConfig = true;
@@ -228,7 +241,7 @@ in {
         "default.clock.rate" = 48000;
         "default.clock.quantum" = 96;
         "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 192;
+        "default.clock.max-quantum" = 960;
         "core.daemon" = true;
         "core.name" = "pipewire-0";
       };

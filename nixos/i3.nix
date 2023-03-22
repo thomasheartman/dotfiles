@@ -246,6 +246,11 @@ in {
           always = true;
           notification = false;
         }
+        {
+          command = "${pkgs.fcitx5}/bin/fcitx5 -d";
+          always = true;
+          notification = false;
+        }
       ];
     };
   };
