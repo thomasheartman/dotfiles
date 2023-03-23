@@ -1876,13 +1876,23 @@ It's nice, but it's missing the ability to switch to any tab on any
 frame, so this function sorts that out:
 
 #+BEGIN_SRC emacs-lisp
+  (defun heartman/tab-bar-tab-name-truncated-project-or-buffer ()
+    "Generate tab name from the buffer of the selected window.
+  Truncate it to the length specified by `tab-bar-tab-name-truncated-max'.
+  Append ellipsis `tab-bar-tab-name-ellipsis' in this case."
+    (require 'projectile)
+    (if-let ((project-root (projectile-project-root)))
+        (file-name-nondirectory (directory-file-name project-root))
+      (tab-bar-tab-name-truncated)))
+
   (use-package emacs
     :custom
     (tab-bar-close-button-show nil)
     (tab-bar-new-button-show nil)
     (tab-bar-show 1)
-    (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+    (tab-bar-tab-name-function 'heartman/tab-bar-tab-name-truncated-project-or-buffer)
     (tab-bar-tab-name-truncated-max 25)
+    (tab-bar-history-mode 1)
     :general
     ("C-x t c" 'tab-bar-duplicate-tab
      "C-x t n" 'tab-bar-new-tab)
@@ -2146,8 +2156,8 @@ with my current setup.
 #+BEGIN_SRC emacs-lisp
   (general-def
     ;; buffers, windows, and files
-    "C-<next>" 'next-buffer
-    "C-<prior>" 'previous-buffer
+    "S-<next>" 'next-buffer
+    "S-<prior>" 'previous-buffer
     "s-b" 'switch-to-buffer
     "s-f" 'find-file
     "s-q" 'my-kill-current-buffer
@@ -2176,10 +2186,10 @@ with my current setup.
     "s-t t" 'heartman/tab-other-frame
     "s-t n" 'heartman/send-tab-to-next-frame
     "s-t p" 'heartman/send-tab-to-previous-frame
-    "s->" 'tab-bar-switch-to-next-tab
-    "s-<" 'tab-bar-switch-to-prev-tab
-    "s-," 'tab-bar-switch-to-recent-tab
-    "s-t k" 'tab-close
+    "C-<next>" 'tab-bar-switch-to-next-tab
+    "C-<prior>" 'tab-bar-switch-to-prev-tab
+    "C-<tab>" 'tab-bar-switch-to-recent-tab
+    "C-w" 'tab-close
     "s-t n" 'tab-bar-new-tab
     "s-t c" 'tab-bar-duplicate-tab
     "s-t r" 'tab-rename
@@ -4224,6 +4234,9 @@ it to a pretty stupid binding.
                                       :run "npm start"
                                       :test-suffix ".stories")
 
+    (advice-add #'project-switch-project
+                :override #'projectile-switch-project)
+
     (advice-add #'heartman/git-clone-clipboard-url
                 :after (lambda (&rest _)
                          (projectile-discover-projects-in-search-path))))
@@ -5878,7 +5891,7 @@ not for all buffers!
       "k" 'evil-paste-after
       "K" 'evil-paste-before
       "U" 'evil-redo
-      "C-w" 'whole-line-or-region-kill-region
+      "C-w" 'tab-close
       "<S-return>" 'my-evil-insert-line-below
       "<C-S-return>" 'my-evil-insert-line-above
       [remap evil-next-line] 'evil-next-visual-line
@@ -5895,7 +5908,7 @@ not for all buffers!
       "s" 'evil-surround-region
       "k" 'evil-paste-after
       "K" 'evil-paste-before
-      "C-w" 'whole-line-or-region-kill-region
+      "C-w" 'tab-close
       )
     (general-unbind evil-ex-completion-map
       "C-a"
@@ -7102,6 +7115,10 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
               :host nil
               :repo "https://tildegit.org/acdw/define-repeat-map.el"))
 
+    (defun exit ()
+      (interactive)
+      nil)
+
     (define-repeat-map org-outline-movement
       ("f" org-forward-heading-same-level
        "b" org-backward-heading-same-level
@@ -7121,7 +7138,7 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "z t" evil-scroll-line-to-top
        "z b" evil-scroll-line-to-bottom)
       (:exit
-       "q" (lambda () (interactive) nil)))
+       "q" exit))
 
     (define-repeat-map smerge
       ("p" smerge-prev
@@ -7133,7 +7150,13 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "l" smerge-keep-lower
        "R" smerge-refine
        "E" smerge-ediff
-       "C" smerge-combine-with-next)))
+       "C" smerge-combine-with-next))
+
+    (define-repeat-map buffer-navigation
+      ("<right>" next-buffer
+       "<left>" previous-buffer)
+      (:exit
+       "q" exit)))
 
   (repeat-mode)
 #+END_SRC
