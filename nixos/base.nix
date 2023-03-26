@@ -92,6 +92,8 @@ in {
         serif = [ "DejaVu Serif" "IPAPMincho" ];
         emoji = [ "Noto Color Emoji" ];
       };
+      antialias = true;
+      hinting.enable = true;
     };
   };
 

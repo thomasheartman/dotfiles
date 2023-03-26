@@ -18,12 +18,12 @@ in {
     ../hidpi.nix
   ];
 
-
   boot = {
     # Enable real-time kernels (for audio production)
     kernelPackages = pkgs.linuxPackages_latest_rt;
   };
 
+  hardware.video.hidpi.enable = false;
   heartman.hidpi = {
     enable = true;
     scale = 1;
