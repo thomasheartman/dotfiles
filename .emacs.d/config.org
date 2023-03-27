@@ -1882,7 +1882,7 @@ frame, so this function sorts that out:
   Append ellipsis `tab-bar-tab-name-ellipsis' in this case."
     (require 'projectile)
     (if-let ((project-root (projectile-project-root)))
-        (file-name-nondirectory (directory-file-name project-root))
+        (format " %s" (file-name-nondirectory (directory-file-name project-root)))
       (tab-bar-tab-name-truncated)))
 
   (use-package emacs
@@ -1895,7 +1895,13 @@ frame, so this function sorts that out:
     (tab-bar-history-mode 1)
     :general
     ("C-x t c" 'tab-bar-duplicate-tab
-     "C-x t n" 'tab-bar-new-tab)
+     "C-x t n" 'tab-bar-new-tab
+     "<mouse-3>" 'tab-bar-history-back
+     "<left-margin> <mouse-3>" 'tab-bar-history-back
+     "<right-margin> <mouse-3>" 'tab-bar-history-back
+     "<mouse-4>" 'tab-bar-history-forward
+     "<left-margin> <mouse-4>" 'tab-bar-history-forward
+     "<right-margin> <mouse-4>" 'tab-bar-history-forward)
     :config
     (defun heartman/get-all-other-tabs-any-frame ()
       "Get all tabs on all frames except for the current one.
@@ -2158,6 +2164,8 @@ with my current setup.
     ;; buffers, windows, and files
     "S-<next>" 'next-buffer
     "S-<prior>" 'previous-buffer
+    "M-S-i" 'next-buffer
+    "M-S-o" 'previous-buffer
     "s-b" 'switch-to-buffer
     "s-f" 'find-file
     "s-q" 'my-kill-current-buffer
