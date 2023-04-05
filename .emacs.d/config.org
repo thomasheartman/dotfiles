@@ -2041,6 +2041,98 @@ frame, so this function sorts that out:
       (heartman/send-tab-to-frame 1)))
 #+END_SRC
 
+**** Tab line
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-04-05 Wed 11:25]
+- State "TODO"       from              [2023-04-05 Wed 10:20] \\
+  Make it work so that cycling tabs work but that it still only shows buffers associated with the current window.
+:END:
+
+Window-specific tab line configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (global-tab-line-mode)
+
+
+  (defun heartman/tab-line-next-buffers (&optional window buffer)
+    "Get a list of tabs following the current tab.
+
+  `WINDOW' is the window to use and defaults to the current window.
+  `BUFFER' is the buffer to use and defaults to the current buffer."
+    (let* ((window (or window (selected-window)))
+           (buffer (or buffer (window-buffer window)))
+           (next-buffers (seq-remove (lambda (b) (eq b buffer))
+                                     (window-next-buffers window)))
+           (next-buffers (seq-filter #'buffer-live-p next-buffers))
+           (prev-buffers (seq-remove (lambda (b) (eq b buffer))
+                                     (mapcar #'car (window-prev-buffers window)))))
+      next-buffers))
+
+  (defun heartman/tab-line-previous-buffers ()
+    "Get a list of tabs preceding the current tab.
+
+  The list is sorted so that the current tab would be at the end of
+  the list (first tab first)."
+    (let* ((window (selected-window))
+           (buffer (window-buffer window))
+           (next-buffers (heartman/tab-line-next-buffers window buffer))
+           (prev-buffers (seq-remove (lambda (b) (eq b buffer))
+                                     (mapcar #'car (window-prev-buffers window))))
+           (prev-buffers (seq-filter #'buffer-live-p prev-buffers))
+           ;; Remove next-buffers from prev-buffers
+           (prev-buffers (seq-difference prev-buffers next-buffers))
+           )
+      (reverse prev-buffers)))
+
+  (defun heartman/tab-line-switch-to-first-tab ()
+    "Switch to the last tab in the current window's tab line."
+    (interactive)
+    (let ((previous-tabs (heartman/tab-line-previous-buffers)))
+      (when previous-tabs
+        (dotimes (_ (length previous-tabs)) (tab-line-switch-to-prev-tab)))))
+
+  (defun heartman/tab-line-switch-to-last-tab ()
+    "Switch to the last tab in the current window's tab line."
+    (interactive)
+    (let ((next-tabs (heartman/tab-line-next-buffers)))
+      (when next-tabs
+        (dotimes (_ (length next-tabs)) (tab-line-switch-to-next-tab)))))
+
+  (defun heartman/tab-line-switch-to-next-tab-or-first (&optional event)
+    "Switch to the next tab or to the first tab if there are no more.
+
+  `EVENT' is the event passed to `tab-line-switch-to-next-tab'"
+    (interactive)
+    (if (heartman/tab-line-next-buffers)
+        (tab-line-switch-to-next-tab)
+      (heartman/tab-line-switch-to-first-tab)))
+
+  (defun heartman/tab-line-switch-to-prev-tab-or-last (&optional event)
+    "Switch to the previous tab or to the last tab if there are no more.
+
+  `EVENT' is the event passed to `tab-line-switch-to-next-tab'"
+    (interactive)
+    (if (heartman/tab-line-previous-buffers)
+        (tab-line-switch-to-prev-tab)
+      (heartman/tab-line-switch-to-last-tab)))
+
+  (defun heartman/close-tab-line-tab ()
+    "Close (bury) the current tab in the window.
+  If there are no other tabs in the window's tab line, close the window. If there is only one window in the frame, switch to a default buffer."
+    (interactive)
+    (require 'tab-line)
+    (let ((num-tabs-in-window (length (funcall tab-line-tabs-function)))
+          (num-windows (count-windows)))
+      (cond
+       ((and (= 1 num-tabs-in-window) (> num-windows 1))
+        (delete-window))
+       ((and (= 1 num-tabs-in-window) (= num-windows 1))
+        (switch-to-buffer "*scratch*")
+        (switch-to-prev-buffer)
+        (bury-buffer))
+       (t
+        (bury-buffer)))))
+#+END_SRC
 
 *** Current line empty
 
@@ -2194,10 +2286,13 @@ with my current setup.
     "s-t t" 'heartman/tab-other-frame
     "s-t n" 'heartman/send-tab-to-next-frame
     "s-t p" 'heartman/send-tab-to-previous-frame
-    "C-<next>" 'tab-bar-switch-to-next-tab
-    "C-<prior>" 'tab-bar-switch-to-prev-tab
+    "s-<next>" 'tab-bar-switch-to-next-tab
+    "s-<prior>" 'tab-bar-switch-to-prev-tab
+    "s-w" 'tab-close
     "C-<tab>" 'tab-bar-switch-to-recent-tab
-    "C-w" 'tab-close
+    "C-<next>" 'heartman/tab-line-switch-to-next-tab-or-first
+    "C-<prior>" 'heartman/tab-line-switch-to-prev-tab-or-last
+    "C-w" 'heartman/close-tab-line-tab
     "s-t n" 'tab-bar-new-tab
     "s-t c" 'tab-bar-duplicate-tab
     "s-t r" 'tab-rename
@@ -5899,7 +5994,7 @@ not for all buffers!
       "k" 'evil-paste-after
       "K" 'evil-paste-before
       "U" 'evil-redo
-      "C-w" 'tab-close
+      "C-w" 'heartman/close-tab-line-tab
       "<S-return>" 'my-evil-insert-line-below
       "<C-S-return>" 'my-evil-insert-line-above
       [remap evil-next-line] 'evil-next-visual-line
@@ -5916,7 +6011,7 @@ not for all buffers!
       "s" 'evil-surround-region
       "k" 'evil-paste-after
       "K" 'evil-paste-before
-      "C-w" 'tab-close
+      "C-w" 'heartman/close-tab-line-tab
       )
     (general-unbind evil-ex-completion-map
       "C-a"
