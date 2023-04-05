@@ -2164,8 +2164,8 @@ with my current setup.
     ;; buffers, windows, and files
     "S-<next>" 'next-buffer
     "S-<prior>" 'previous-buffer
-    "M-S-i" 'next-buffer
-    "M-S-o" 'previous-buffer
+    "M-I" 'next-buffer
+    "M-O" 'previous-buffer
     "s-b" 'switch-to-buffer
     "s-f" 'find-file
     "s-q" 'my-kill-current-buffer
