@@ -189,7 +189,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsUnstable;
+    # package = pkgs.emacsUnstable;
     extraPackages = epkgs: [
       epkgs.emacsql-sqlite
       epkgs.vterm
