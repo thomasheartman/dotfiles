@@ -247,7 +247,7 @@ in {
           notification = false;
         }
         {
-          command = "${pkgs.fcitx5}/bin/fcitx5 -d";
+          command = "fcitx5 -d";
           always = true;
           notification = false;
         }
