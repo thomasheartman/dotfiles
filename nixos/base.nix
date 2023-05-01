@@ -243,7 +243,7 @@ in {
         "default.clock.rate" = 48000;
         "default.clock.quantum" = 250;
         "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 2000;
+        "default.clock.max-quantum" = 1000;
         "core.daemon" = true;
         "core.name" = "pipewire-0";
       };
