@@ -45,3 +45,9 @@ function fish_title
     set -q argv[1]; and set program "($argv)"
     echo 🐟 (fish_prompt_pwd_dir_length=1 prompt_pwd) $program
 end
+
+switch (uname)
+    case Darwin
+        # Automatically "warpify" fish subshells
+        printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+end
