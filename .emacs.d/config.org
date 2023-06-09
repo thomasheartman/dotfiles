@@ -2819,7 +2819,29 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
 Eglot is an alternative to LSP-mode and will be included in Emacs from version 29 (according to [[https://blog.phundrak.com/emacs-29-what-can-we-expect/][Phundrak's Blog]]). To prepare for that, let's give it a proper look.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package eglot)
+  (use-package eglot
+    :hook
+    (eglot-mode . (lambda () (flycheck-mode -1)))
+    :general
+    (eglot-mode-map
+     "<f6> a a" 'eglot-code-actions
+     "<f6> a r" 'eglot-code-action-rewrite
+     "<f6> a e" 'eglot-code-action-extract
+     "<f6> a q" 'eglot-code-action-quickfix
+     "<f6> a i" 'eglot-code-action-inline
+     "<f6> a o" 'eglot-code-action-organize-imports
+     "<f6> f f" 'eglot-format-buffer
+     "<f6> f s" 'eglot-format
+     "<f6> s s" 'eglot-shutdown
+     "<f6> s S" 'eglot-shutdown-all
+     "<f6> s r" 'eglot-reconnect
+     "<f6> r r" 'eglot-rename
+     "<f6> g d" 'eglot-find-declaration
+     "<f6> g i" 'eglot-find-implementation
+     "<f6> g t" 'eglot-find-typeDefinition
+     "C-c e n" 'flymake-goto-next-error
+     "C-c e p" 'flymake-goto-prev-error
+     "C-c e l" 'flymake-show-buffer-diagnostics))
 #+END_SRC
 
 
