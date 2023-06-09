@@ -2631,6 +2631,10 @@ course I want to enable and use Magit:
     :general
     ("s-g" 'magit-status
      "s-G" 'magit-status-dotfiles)
+
+    (general-unbind
+      :keymaps 'magit-mode-map
+      "C-w")
     :custom
     (transient-default-level 7)
     :init
