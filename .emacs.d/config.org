@@ -5085,13 +5085,12 @@ This is my attempt at customizing my mode line from the ground up.
 #+BEGIN_SRC emacs-lisp
   (use-package csharp-mode
     :mode ("\\.csproj\\'" . xml-mode)
-    :after lsp-mode
     :general
     (csharp-mode-map
      :start-maps t
      my-format-buffer 'lsp-format-buffer)
     :hook
-    (csharp-mode . lsp))
+    (csharp-mode . eglot))
 #+END_SRC
 
 
