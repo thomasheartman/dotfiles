@@ -5683,7 +5683,6 @@ can simplify the use of it (plus get all the upgrades!).
 We'll set up Python to use the MS language server:
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-python-ms
-    :init (setq lsp-python-ms-auto-install-server t)
     :hook (python-mode . eglot))
 #+END_SRC
 
