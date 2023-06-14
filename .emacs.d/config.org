@@ -2820,10 +2820,11 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package eglot
-    :hook
-    (eglot-mode . (lambda () (flycheck-mode -1)
-                    (when (require 'lsp-mode nil t)
-                      (lsp-mode -1))))
+    ;; :hook
+    ;; (eglot-connect . (lambda () (flycheck-mode -1)
+    ;;                 (message "Activating eglot mode")
+    ;;                 (when (require 'lsp-mode nil t)
+    ;;                   (lsp-mode -1))))
     :general
     (eglot-mode-map
      "<f6> a a" 'eglot-code-actions
