@@ -21,8 +21,8 @@ in {
     loader.systemd-boot.configurationLimit = 10;
     loader.efi.canTouchEfiVariables = true;
 
-    tmpOnTmpfs = true;
-    tmpOnTmpfsSize = "85%";
+    tmp.useTmpfs = true;
+    tmp.tmpfsSize = "85%";
   };
 
   nix = {
@@ -206,78 +206,25 @@ in {
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
+  };
 
-    media-session.config.bluez-monitor.rules = [
-      {
-        # Matches all cards
-        matches = [{ "device.name" = "~bluez_card.*"; }];
-        actions = {
-          "update-props" = {
-            "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-            # mSBC is not expected to work on all headset + adapter combinations.
-            "bluez5.msbc-support" = true;
-            # SBC-XQ is not expected to work on all headset + adapter combinations.
-            "bluez5.sbc-xq-support" = true;
-          };
+  # based on the low-latency
+  # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+  environment.etc = let json = pkgs.formats.json { };
+  in {
+    "pipewire/pipewire.d/92-low-latency.conf".source =
+      json.generate "92-low-latency.conf" {
+        context.properties = {
+          default.clock.rate = 48000;
+          default.clock.quantum = 32;
+          default.clock.min-quantum = 32;
+          default.clock.max-quantum = 32;
         };
-      }
-      {
-        matches = [
-          # Matches all sources
-          {
-            "node.name" = "~bluez_input.*";
-          }
-          # Matches all outputs
-          { "node.name" = "~bluez_output.*"; }
-        ];
-        actions = { "node.pause-on-idle" = false; };
-      }
-    ];
-
-    # based on the low-latency
-    # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
-    config.pipewire = {
-      "context.properties" = {
-        "link.max-buffers" = 16;
-        "log.level" = 2;
-        "default.clock.rate" = 48000;
-        "default.clock.quantum" = 250;
-        "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 1000;
-        "core.daemon" = true;
-        "core.name" = "pipewire-0";
       };
-      "context.modules" = [
-        {
-          name = "libpipewire-module-rtkit";
-          args = {
-            "nice.level" = -15;
-            "rt.prio" = 88;
-            "rt.time.soft" = 200000;
-            "rt.time.hard" = 200000;
-          };
-          flags = [ "ifexists" "nofail" ];
-        }
-        { name = "libpipewire-module-protocol-native"; }
-        { name = "libpipewire-module-profiler"; }
-        { name = "libpipewire-module-metadata"; }
-        { name = "libpipewire-module-spa-device-factory"; }
-        { name = "libpipewire-module-spa-node-factory"; }
-        { name = "libpipewire-module-client-node"; }
-        { name = "libpipewire-module-client-device"; }
-        {
-          name = "libpipewire-module-portal";
-          flags = [ "ifexists" "nofail" ];
-        }
-        {
-          name = "libpipewire-module-access";
-          args = { };
-        }
-        { name = "libpipewire-module-adapter"; }
-        { name = "libpipewire-module-link-factory"; }
-        { name = "libpipewire-module-session-manager"; }
-      ];
-    };
+
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text =
+      "	bluez_monitor.properties = {\n		[\"bluez5.enable-sbc-xq\"] = true,\n		[\"bluez5.enable-msbc\"] = true,\n		[\"bluez5.enable-hw-volume\"] = true,\n		[\"bluez5.headset-roles\"] = \"[ hsp_hs hsp_ag hfp_hf hfp_ag ]\"\n	}\n";
   };
 
   hardware.bluetooth.enable = true;
