@@ -7451,6 +7451,16 @@ It can sometimes be hard to see where one window starts and another one ends, so
     (window-divider-mode t))
 #+END_SRC
 
+* TODO Copilot
+:LOGBOOK:
+- State "TODO"       from              [2023-06-30 Fri 13:29] \\
+  Follow the steps in: https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/ to set this up
+:END:
+
+* End
+
+This just to make it easy to see when we've reached the end of the config.
+
 #+BEGIN_SRC emacs-lisp
   (message "END 🥳")
 #+END_SRC
