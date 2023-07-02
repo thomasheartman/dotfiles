@@ -211,6 +211,8 @@ in {
 
   # based on the low-latency
   # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+  # and the pipewire config docs
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire
   environment.etc = let json = pkgs.formats.json { };
   in {
     "pipewire/pipewire.d/92-low-latency.conf".source =
@@ -218,8 +220,10 @@ in {
         context.properties = {
           default.clock.rate = 48000;
           default.clock.quantum = 32;
-          default.clock.min-quantum = 32;
+          default.clock.min-quantum = 24;
           default.clock.max-quantum = 32;
+          core.daemon = true;
+          core.name = "pipewire-0";
         };
       };
 
