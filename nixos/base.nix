@@ -219,11 +219,9 @@ in {
       json.generate "92-low-latency.conf" {
         context.properties = {
           default.clock.rate = 48000;
-          default.clock.quantum = 32;
-          default.clock.min-quantum = 24;
+          default.clock.quantum = 16;
+          default.clock.min-quantum = 16;
           default.clock.max-quantum = 32;
-          core.daemon = true;
-          core.name = "pipewire-0";
         };
       };
 
