@@ -7457,6 +7457,90 @@ It can sometimes be hard to see where one window starts and another one ends, so
   Follow the steps in: https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/ to set this up
 :END:
 
+#+BEGIN_SRC emacs-lisp
+  (use-package copilot
+    :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+    :ensure t
+    :config
+    (defun rk/no-copilot-mode ()
+      "Helper for `rk/no-copilot-modes'."
+      (copilot-mode -1))
+
+    (defvar rk/no-copilot-modes '(shell-mode
+                                  inferior-python-mode
+                                  eshell-mode
+                                  term-mode
+                                  vterm-mode
+                                  comint-mode
+                                  compilation-mode
+                                  debugger-mode
+                                  dired-mode-hook
+                                  compilation-mode-hook
+                                  flutter-mode-hook
+                                  minibuffer-mode-hook)
+      "Modes in which copilot is inconvenient.")
+
+    (defvar rk/copilot-manual-mode nil
+      "When `t' will only show completions when manually triggered, e.g. via M-C-<return>.")
+
+    (defun rk/copilot-disable-predicate ()
+      "When copilot should not automatically show completions."
+      (or rk/copilot-manual-mode
+          (member major-mode rk/no-copilot-modes)
+          (company--active-p)))
+
+    (add-to-list 'copilot-disable-predicates #'rk/copilot-disable-predicate)
+
+    (defun rk/copilot-complete-or-accept ()
+      "Command that either triggers a completion or accepts one if one
+  is available. Useful if you tend to hammer your keys like I do."
+      (interactive)
+      (if (copilot--overlay-visible)
+          (progn
+            (copilot-accept-completion)
+            (open-line 1)
+            (next-line))
+        (copilot-complete)))
+
+    (defun rk/copilot-tab ()
+      "Tab command that will complete with copilot if a completion is
+  available. Otherwise will try company, yasnippet or normal
+  tab-indent."
+      (interactive)
+      (or (copilot-accept-completion)
+          (company-complete)
+          (yas-expand)
+          (indent-for-tab-command)))
+
+    (defun rk/copilot-quit ()
+      "Run `copilot-clear-overlay' or `keyboard-quit'. If copilot is
+  cleared, make sure the overlay doesn't come back too soon."
+      (interactive)
+      (condition-case err
+          (when copilot--overlay
+            (lexical-let ((pre-copilot-disable-predicates copilot-disable-predicates))
+              (setq copilot-disable-predicates (list (lambda () t)))
+              (copilot-clear-overlay)
+              (run-with-idle-timer
+               1.0
+               nil
+               (lambda ()
+                 (setq copilot-disable-predicates pre-copilot-disable-predicates)))))
+        (error handler)))
+
+    (advice-add 'keyboard-quit :before #'rk/copilot-quit)
+
+    :general
+    (copilot-mode-map
+     "M-<right>" 'copilot-accept-completion-by-word
+     "M-<down>" 'copilot-accept-completion-by-line
+     "M-<next>" 'copilot-next-completion
+     "M-<prior>" 'copilot-previous-completion
+     "M-<return>" 'rk/copilot-complete-or-accept)
+    ;; ("<tab>" 'rk/copilot-tab)
+    )
+#+END_SRC
+
 * End
 
 This just to make it easy to see when we've reached the end of the config.
