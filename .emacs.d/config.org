@@ -7530,6 +7530,9 @@ It can sometimes be hard to see where one window starts and another one ends, so
 
     (advice-add 'keyboard-quit :before #'rk/copilot-quit)
 
+
+    (global-copilot-mode)
+
     :general
     (copilot-mode-map
      "M-<right>" 'copilot-accept-completion-by-word
