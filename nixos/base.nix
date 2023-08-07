@@ -354,4 +354,16 @@ in {
     };
   };
 
+  systemd.user.services.restartPipewire = {
+    enable = true;
+    description = "Automatically restart Pipewire when waking up";
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      TimeOutSec = "0";
+      ExecStart = "systemctl --user restart pipewire.service";
+    };
+  };
+
 }
