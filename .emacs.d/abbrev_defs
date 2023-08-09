@@ -28,7 +28,6 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table
   '(
-    ("abilitis" "abilities" nil :count 1)
     ("acess" "access" nil :count 1)
     ("actiavtion" "activation" nil :count 1)
     ("announcementns" "announcements" nil :count 1)
@@ -128,7 +127,7 @@
     ("ethey" "they" nil :count 1)
     ("execrcises" "exercises" nil :count 1)
     ("faciilties" "facilities" nil :count 1)
-    ("familiy" "family" nil :count 2)
+    ("familiy" "family" nil :count 1)
     ("fonud" "found" nil :count 2)
     ("genrator" "generator" nil :count 1)
     ("glasgow" "glasgow" nil :count 2)
@@ -152,6 +151,7 @@
     ("percieve" "perceive" nil :count 2)
     ("pirceing" "piercing" nil :count 1)
     ("plateu" "plateau" nil :count 7)
+    ("posession" "possession" nil :count 1)
     ("possibilites" "possibilities" nil :count 1)
     ("preceeded" "preceded" nil :count 1)
     ("preivously" "previously" nil :count 1)
