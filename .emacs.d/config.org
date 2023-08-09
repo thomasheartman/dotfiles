@@ -7539,7 +7539,7 @@ It can sometimes be hard to see where one window starts and another one ends, so
      "M-<down>" 'copilot-accept-completion-by-line
      "M-<next>" 'copilot-next-completion
      "M-<prior>" 'copilot-previous-completion
-     "M-<return>" 'rk/copilot-complete-or-accept)
+     "M-<up>" 'rk/copilot-complete-or-accept)
     ;; ("<tab>" 'rk/copilot-tab)
     )
 #+END_SRC
