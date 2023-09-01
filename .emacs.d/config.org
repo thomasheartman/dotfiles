@@ -2638,7 +2638,7 @@ course I want to enable and use Magit:
     :custom
     (transient-default-level 7)
     :init
-    (setq magit-repository-directories (seq-map (lambda (path) `(,path . 2)) (my-project-paths))
+    (setq magit-repository-directories (seq-map (lambda (path) `(,path . 3)) (my-project-paths))
           magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
     :config
     (defun magit-status-dotfiles ()
