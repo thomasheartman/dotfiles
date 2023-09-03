@@ -1,4 +1,4 @@
-personal_ws-1.1 en 239 
+personal_ws-1.1 en 254 
 AKS
 APIs
 ASA
@@ -33,6 +33,7 @@ DateTime
 DateTime's
 Davey
 Deathsgate
+Dregspaw
 Droaam
 Dura
 EXWM
@@ -42,6 +43,7 @@ Enonic's
 Erebos
 Femme
 Feywild
+Fharlanghn
 GCP
 GeoPoint
 Gilmin
@@ -62,6 +64,7 @@ Ilma
 Ilma's
 Ilmaril
 ImageSelector
+Ishta
 JDK
 JSON
 Jin
@@ -83,9 +86,13 @@ LSP
 Leela's
 Lharvion
 Machina
+Makash
+Makash's
+Mal'addi
 Manjaro
 Menthis
 Morgrave
+Morrokash
 Mournland
 NGINX
 Nakia
@@ -94,6 +101,8 @@ Netlify
 NixOS
 OSS
 Ochek
+Olangwa
+Omali
 Orien
 PVCs
 Persijn
@@ -119,6 +128,7 @@ Ti'el
 UI
 Vathirond
 Vox
+Wavestepper
 Winny
 XCode
 XP
@@ -163,6 +173,7 @@ flexor
 focusable
 froghemoth
 gbi
+genasi
 golem
 goliath
 gothic
@@ -178,6 +189,8 @@ immunities
 inclusivity
 js
 kalpataru
+khiit
+khiits
 kraken
 kruthik
 libs
@@ -189,6 +202,7 @@ microservice
 mithril
 mixin
 mixins
+mixolydian
 namespace
 namespaces
 nonintuitive
@@ -220,6 +234,7 @@ subcommands
 subdirectory
 summand
 summands
+tabaxi
 tiefling
 toolchain
 transpilation
