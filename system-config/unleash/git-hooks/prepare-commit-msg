@@ -8,7 +8,12 @@ if read -r _ DEFAULT_BRANCH <<< "$(git rev-parse --verify -q --abbrev-ref origin
     MESSAGE="; YOU'RE ON THE DEFAULT BRANCH.\n"
 
 else
-    TASK_TYPE="$(cut -d '/' -f 1 <<< "$CURRENT_BRANCH")";
+
+    if [[ $CURRENT_BRANCH == *"/"* ]]; then
+        TASK_TYPE="$(cut -d '/' -f 1 <<< "$CURRENT_BRANCH")"
+    else
+        TASK_TYPE="$(cut -d '-' -f 1-2 <<< "$CURRENT_BRANCH")"
+    fi
     MESSAGE="${TASK_TYPE}:"
 fi
 
