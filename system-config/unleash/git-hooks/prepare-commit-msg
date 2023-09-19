@@ -23,3 +23,5 @@ fi
 if [ -z "$(head -n 1 "$1")" ]; then
     sed -i "1s/^/${MESSAGE}/" "${COMMIT_MSG_FILE}";
 fi
+
+echo Preparing message for \"$CURRENT_BRANCH\". Prepared prefix: \"$MESSAGE\" >> /tmp/prepare-commit-msg.log
