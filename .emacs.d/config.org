@@ -7451,8 +7451,9 @@ It can sometimes be hard to see where one window starts and another one ends, so
     (window-divider-mode t))
 #+END_SRC
 
-* TODO Copilot
+* Copilot
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2023-08-03 Thu 11:07]
 - State "TODO"       from              [2023-06-30 Fri 13:29] \\
   Follow the steps in: https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/ to set this up
 :END:
