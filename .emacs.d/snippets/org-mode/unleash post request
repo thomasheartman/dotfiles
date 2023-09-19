@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: unleash post request
+# key: upo
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#+BEGIN_SRC http
+  POST \$\{baseurl\}/$1
+  content-type: application/json
+  Authorization: \$\{token\}
+
+  {
+    $0
+  }
+
+#+END_SRC

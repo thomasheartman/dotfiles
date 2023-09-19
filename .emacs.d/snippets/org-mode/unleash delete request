@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: unleash delete request
+# key: ud
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#+BEGIN_SRC http
+  DELETE \$\{baseurl\}/$0
+  Authorization: \$\{token\}
+#+END_SRC
