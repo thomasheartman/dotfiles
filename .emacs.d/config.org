@@ -3072,6 +3072,13 @@ Expand-region increases the selected region by semantic units.
 
 * Org mode
 
+To avoid nasty version mismatch errors that can happen when using org, I'll use the built-in version of org instead of fetching one from upstream.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org :straight (:type built-in))
+#+END_SRC
+
+
 ** Getting Things Done (GTD)                                            :GTD:
 
 Because I am working on implementing the GTD methodology, I want to configure org mode to work with this as easily as possible. This section is based heavily on [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][this blog post]] by Nicolas Petton over at [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Emacs Café]].
