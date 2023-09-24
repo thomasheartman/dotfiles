@@ -3797,7 +3797,7 @@ Hiding all but /one/ header stars can be done with the ~org-hide-leading-stars~ 
            (put-text-property (match-beginning 0) (match-end 0)
                               'face (list :foreground
                                           (face-attribute
-                                           'default :background)))))))))
+                                           'font-lock-comment-face :foreground)))))))))
 
   (add-hook 'org-mode-hook #'chunyang-org-mode-hide-stars)
 #+END_SRC
