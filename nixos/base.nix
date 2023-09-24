@@ -316,7 +316,7 @@ in {
     createHome = true;
     uid = 1000;
     home = homeDir;
-    shell = pkgs.nushell;
+    shell = pkgs.fish;
   };
 
   nix.settings.trusted-users = [ "root" user ];
