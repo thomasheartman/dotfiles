@@ -1,0 +1,17 @@
+
+#+BEGIN_SRC shell
+  string="1-1322-add-descriptions-to-input-fields-in-project-settings-field"
+
+  f() if [[ $1 == *"/"* ]]; then
+      cut -d '/' -f 1 <<< "$1"
+  else
+      cut -d '-' -f 1-2 <<< "$1"
+  fi
+
+  f $string
+  f feat/my-feature
+#+END_SRC
+
+#+RESULTS:
+| 1-1322 |
+|   feat |
