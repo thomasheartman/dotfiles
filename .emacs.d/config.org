@@ -3257,7 +3257,8 @@ First off, let's add some more languages.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (js . t)
-     (shell . t)))
+     (shell . t)
+     (sql . t)))
 #+END_SRC
 
 One such package is [[https://github.com/zweifisch/ob-http][ob-http]], which allows you to make HTTP requests from org source blocks:
