@@ -57,6 +57,8 @@ alias droid="adb devices"
 switch (uname)
     case Linux
         alias open="xdg-open"
+    case Darwin
+        alias nx="nix-shell ~/dotfiles/nix/darwin/shell.nix"
 end
 
 alias refresh="source ~/.config/fish/config.fish"
