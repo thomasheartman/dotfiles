@@ -7553,6 +7553,17 @@ It can sometimes be hard to see where one window starts and another one ends, so
     )
 #+END_SRC
 
+* Fancy compilation
+
+The built-in compilation mode has a number of shortcomings in when it comes to colors and escape sequences. Instead, let's use fancy compilation to improve that.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package fancy-compilation
+    :config
+    (fancy-compilation-mode))
+#+END_SRC
+
+
 * End
 
 This just to make it easy to see when we've reached the end of the config.
