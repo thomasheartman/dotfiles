@@ -5231,7 +5231,7 @@ rjsx-mode extends js2-mode to add support for JSX.
     :after
     (prettier lsp-mode)
     :hook
-    (rjsx-mode . prettier-mode)
+    ;; (rjsx-mode . prettier-mode)
     (rjsx-mode . lsp-mode)
     (rjsx-mode . emmet-mode)
     :config
@@ -5250,7 +5250,7 @@ rjsx-mode extends js2-mode to add support for JSX.
     :hook
     (js-mode .
              (lambda ()
-               (prettier-mode)
+               ;; (prettier-mode)
                (lsp)
                (emmet-mode))))
 #+END_SRC
@@ -5261,7 +5261,8 @@ rjsx-mode extends js2-mode to add support for JSX.
   (use-package emacs
     :hook (css-mode . (lambda ()
                         (lsp)
-                        (prettier-mode))))
+                        ;; (prettier-mode)
+                        )))
 #+END_SRC
 
 
@@ -5321,7 +5322,7 @@ This is based on the config on the typescript-mode repo (specifically
 
   (defun ts-mode-hook ()
     (lsp)
-    (prettier-mode)
+    ;; (prettier-mode)
     (emmet-mode)
     (setq flycheck-local-checkers
           '((lsp .
