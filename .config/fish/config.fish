@@ -61,5 +61,5 @@ end
 switch (uname)
     case Darwin
         # Automatically "warpify" fish subshells
-        printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+        # printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
 end
