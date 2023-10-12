@@ -4,6 +4,18 @@ switch (uname)
     case Darwin
         set -gx EDITOR "emacsclient"
         set -U fish_user_paths $HOME/.cargo/bin $HOME/.yarn/bin ./node_modules $HOME/.local/bin $HOME/.dotnet/tools
+
+        # manually install fenv if it's not available
+        # if test -e /Users/thomas/projects/plugin-foreign-env/functions
+        #     set fish_function_path $fish_function_path /Users/thomas/projects/plugin-foreign-env/functions
+        #     echo "set manual fenv path"
+        # end
+
+        # # set nix to be available
+        # if test -e /Users/thomas/.nix-profile/etc/profile.d/nix-daemon.sh
+        #     fenv source /Users/thomas/.nix-profile/etc/profile.d/nix-daemon.sh
+        # end
+
         [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
         set DARWIN_NIX_CONFIG "/etc/static/fish/config.fish"
         [ -f $DARWIN_NIX_CONFIG ]; and source $DARWIN_NIX_CONFIG;
