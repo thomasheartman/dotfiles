@@ -7564,6 +7564,29 @@ The built-in compilation mode has a number of shortcomings in when it comes to c
     (fancy-compilation-mode))
 #+END_SRC
 
+* Emacs format all
+:PROPERTIES:
+:REPO:     https://github.com/lassik/emacs-format-all-the-code/
+:END:
+
+This is a package designed to format anything. For right now, it's most useful for use with [[https://biomejs.dev/][~biome~]], for which there is no other package at the moment.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package format-all
+    :general
+    (format-all-mode-map
+     :start-maps t
+     my-format-buffer 'format-all-region-or-buffer)
+    :config
+    (define-format-all-formatter biome
+      (:executable "biome")
+      (:install)
+      (:languages "JavaScript" "JSON" "JSON5" "JSX" "TSX" "TypeScript")
+      (:features)
+      (:format (format-all--buffer-easy
+                executable "format" "--stdin-file-path" (buffer-file-name)))))
+#+END_SRC
+
 
 * End
 
