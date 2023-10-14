@@ -8,7 +8,7 @@
   };
 
   home.packages = with pkgs; [
-    (import ../dungeondraft { inherit pkgs lib; })
+    # (import ../dungeondraft { inherit pkgs lib; })
 
     lutris
     wineWowPackages.stable
