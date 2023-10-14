@@ -352,6 +352,14 @@ in
         ${pkgs.autorandr}/bin/autorandr -c laptop "$@"
       ''
     )
+
+    # systemctl --user restart pipewire.service
+    (
+      writeScriptBin "audio" ''
+        #!${stdenv.shell}
+        systemctl --user restart pipewire.service
+      ''
+    )
   ];
 
   services.dropbox.enable = true;
