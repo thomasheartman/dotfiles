@@ -319,7 +319,7 @@ high-contrast themes and come bundled with emacs.
 To try and stick to loading only one theme, let's do it here.
 
 #+BEGIN_SRC emacs-lisp
-  (heartman/load-theme 'doom-nord)
+  (heartman/load-theme 'doom-one)
 #+END_SRC
 
 
