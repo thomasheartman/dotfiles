@@ -13,10 +13,9 @@
       home-manager.url = "github:nix-community/home-manager/master";
       home-manager.inputs.nixpkgs.follows = "nixpkgs";
       musnix.url = "github:musnix/musnix";
-      emacsOverlay.url = "github:nix-community/emacs-overlay";
     };
 
-  outputs = { nixpkgs, home-manager, musnix, emacsOverlay, ... }@inputs:
+  outputs = { nixpkgs, home-manager, musnix, ... }@inputs:
     let
       system = "x86_64-linux";
 
@@ -34,7 +33,6 @@
 
         modules = [
           ({
-            nixpkgs.overlays = [ emacsOverlay.overlay ];
             nixpkgs.config.allowUnfreePredicate = (pkg: true);
           })
           ./${hostname}/home.nix
