@@ -3272,6 +3272,25 @@ One such package is [[https://github.com/zweifisch/ob-http][ob-http]], which all
     :init (add-to-list 'org-babel-load-languages '(rust . t)))
 #+END_SRC
 
+*** Org Babel SQL mode
+:PROPERTIES:
+:REPO:     https://github.com/nikclayton/ob-sql-mode
+:END:
+
+I've had some issues with using SQL in org, but this one seems to work okay-ish. Might be worth revisiting later.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-sql-mode
+    :init (add-to-list 'org-babel-load-languages '(sql-mode . t)))
+#+END_SRC
+
+This mode requires some extra headers to work as expected
+
+#+BEGIN_SRC sql-mode :product postgres :wrap src sql
+  select * from api_tokens;
+#+END_SRC
+
+** Babel evaluation
 
 Because I trust myself (somewhat foolishly perhaps) to only execute org code
 blocks that I know to be safe, I don't want to be prompted when executing a code block:
