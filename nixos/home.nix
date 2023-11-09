@@ -255,6 +255,7 @@ in
     mpv
     msmtp
     mu
+    nodejs # <- for copilot
     nixfmt
     nushell
     pavucontrol
