@@ -312,6 +312,7 @@ in {
       "systemd-journal"
       "video"
       "wheel"
+      "pipewire"
     ];
     createHome = true;
     uid = 1000;
