@@ -7558,9 +7558,9 @@ It can sometimes be hard to see where one window starts and another one ends, so
 
     (advice-add 'keyboard-quit :before #'rk/copilot-quit)
 
-
-    (copilot-login)
+    :init
     (global-copilot-mode)
+    (copilot-login)
 
     :general
     (copilot-mode-map
