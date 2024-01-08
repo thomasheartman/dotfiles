@@ -2251,6 +2251,16 @@ These are key bindings that remain from when I used EXWM but that I
 got used to and want to keep. Some have been modified to work better
 with my current setup.
 
+Here's a helper function to switch to the previous buffer, which should make windows behave roughly like browser windows.
+#+BEGIN_SRC emacs-lisp
+  (defun heartman/switch-to-previous-buffer ()
+    "Switch to previously open buffer.
+  Repeated invocations toggle between the two most recently open buffers."
+    (interactive)
+    (switch-to-buffer (other-buffer (current-buffer) 1)))
+#+END_SRC
+
+
 #+BEGIN_SRC emacs-lisp
   (general-def
     ;; buffers, windows, and files
@@ -2289,7 +2299,8 @@ with my current setup.
     "s-<next>" 'tab-bar-switch-to-next-tab
     "s-<prior>" 'tab-bar-switch-to-prev-tab
     "s-w" 'tab-close
-    "C-<tab>" 'tab-bar-switch-to-recent-tab
+
+    "C-<tab>" 'heartman/switch-to-previous-buffer
     "C-<next>" 'heartman/tab-line-switch-to-next-tab-or-first
     "C-<prior>" 'heartman/tab-line-switch-to-prev-tab-or-last
     "C-w" 'heartman/close-tab-line-tab
