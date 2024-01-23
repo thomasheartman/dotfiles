@@ -2646,6 +2646,9 @@ course I want to enable and use Magit:
     (general-unbind
       :keymaps 'magit-mode-map
       "C-w")
+    (general-unbind
+      :keymaps 'magit-status-mode-map
+      "C-<tab>")
     :custom
     (transient-default-level 7)
     :init
@@ -3453,7 +3456,8 @@ subtrees and only see this one. We can write a function for that.
 
   (general-def
     org-mode-map
-    "C-<tab>" 'heartman/toggle-heading-content
+    ;; "C-<tab>" 'heartman/toggle-heading-content
+    "C-<tab>" 'heartman/switch-to-previous-buffer
     "C-S-<iso-lefttab>" 'outline-hide-subtree)
 #+END_SRC
 
