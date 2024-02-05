@@ -7324,6 +7324,11 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "E" smerge-ediff
        "C" smerge-combine-with-next))
 
+    (define-repeat-map flycheck
+      ("n" flycheck-next-error
+       "p" flycheck-previous-error
+       "l" flycheck-list-errors))
+
     (define-repeat-map buffer-navigation
       ("<right>" next-buffer
        "<left>" previous-buffer)
