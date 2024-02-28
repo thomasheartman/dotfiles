@@ -283,7 +283,7 @@ in
     victor-mono
     vlc
     wally-cli
-    warp-terminal
+    # warp-terminal # <- wait for them to add the linux version of this too
     watchexec
     yaml-language-server
     zoom-us
