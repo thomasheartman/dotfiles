@@ -85,6 +85,7 @@
 (define-abbrev-table 'org-mode-abbrev-table
   '(
     ("..." "…" nil :count 3)
+    ("actove" "octave" nil :count 1)
     ("actualy" "actually" nil :count 3)
     ("actuayll" "actually" nil :count 1)
     ("agressor" "aggressor" nil :count 1)
@@ -110,6 +111,7 @@
     ("corlorful" "colorful" nil :count 1)
     ("cornelius" "cornelius" nil :count 10)
     ("coses" "closes" nil :count 1)
+    ("craetes" "creates" nil :count 1)
     ("daaks" "daask" nil :count 7)
     ("decomissioned" "decommissioned" nil :count 1)
     ("definiton" "definition" nil :count 1)
