@@ -283,6 +283,7 @@ in
     victor-mono
     vlc
     wally-cli
+    warp-terminal
     watchexec
     yaml-language-server
     zoom-us
