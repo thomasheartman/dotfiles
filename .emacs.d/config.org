@@ -2834,7 +2834,8 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package eglot
-    ;; :hook
+    :hook
+    (prog-mode . eglot-ensure)
     ;; (eglot-connect . (lambda () (flycheck-mode -1)
     ;;                 (message "Activating eglot mode")
     ;;                 (when (require 'lsp-mode nil t)
@@ -2870,7 +2871,6 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
     :mode "\\.rs\\'"
     :after lsp-mode
     :hook
-    (rust-mode . lsp)
     :config
     (setq rust-format-on-save t
           lsp-rust-server 'rust-analyzer)
@@ -2923,7 +2923,6 @@ sure to only initialize after said mode.
 #+begin_src emacs-lisp
   (use-package nix-mode
     :after json-mode
-    :hook (nix-mode . lsp)
     :general
     (general-def
       :keymaps 'nix-mode-map
@@ -5262,7 +5261,6 @@ rjsx-mode extends js2-mode to add support for JSX.
     (prettier lsp-mode)
     :hook
     ;; (rjsx-mode . prettier-mode)
-    (rjsx-mode . lsp-mode)
     (rjsx-mode . emmet-mode)
     :config
     (setq js2-strict-missing-semi-warning nil))
@@ -5351,13 +5349,14 @@ This is based on the config on the typescript-mode repo (specifically
   (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
 
   (defun ts-mode-hook ()
-    (lsp)
+    ;; (lsp)
     ;; (prettier-mode)
     (emmet-mode)
-    (setq flycheck-local-checkers
-          '((lsp .
-                 ((next-checkers
-                   . (javascript-eslint)))))))
+    ;; (setq flycheck-local-checkers
+    ;;       '((lsp .
+    ;;              ((next-checkers
+    ;;                . (javascript-eslint))))))
+    )
 
   (use-package typescript-mode
     :init
@@ -5555,8 +5554,7 @@ functionality.
 :END:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode
-    :hook (yaml-mode . lsp))
+  (use-package yaml-mode)
 #+END_SRC
 
 * TODO indent-tools
