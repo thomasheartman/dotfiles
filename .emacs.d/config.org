@@ -2855,10 +2855,7 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
      "<f6> r r" 'eglot-rename
      "<f6> g d" 'eglot-find-declaration
      "<f6> g i" 'eglot-find-implementation
-     "<f6> g t" 'eglot-find-typeDefinition
-     "C-c e n" 'flymake-goto-next-error
-     "C-c e p" 'flymake-goto-prev-error
-     "C-c e l" 'flymake-show-buffer-diagnostics))
+     "<f6> g t" 'eglot-find-typeDefinition))
 #+END_SRC
 
 
