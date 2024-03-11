@@ -7337,6 +7337,11 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
        "p" flycheck-previous-error
        "l" flycheck-list-errors))
 
+    (define-repeat-map flymake
+      ("n" flymake-goto-next-error
+       "p" flymake-goto-prev-error
+       "l" flymake-show-buffer-diagnostics))
+
     (define-repeat-map buffer-navigation
       ("<right>" next-buffer
        "<left>" previous-buffer)
