@@ -2501,6 +2501,18 @@ change the prefix to something that's easier to remember (type) than
      flycheck-posframe-prefix "💬 "))
 #+END_SRC
 
+* Flymake
+
+Flymake is used instead of Flycheck in some modes (notable, eglot mode), so let's put up a quick config for it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake
+    :general
+    (flymake-mode-map
+     "C-c e n" 'flymake-goto-next-error
+     "C-c e p" 'flymake-goto-prev-error
+     "C-c e l" 'flymake-show-buffer-diagnostics))#+END_SRC
+
 * TODO Company                                                   :keybinding:
 :PROPERTIES:
 :REPO:     https://github.com/company-mode/company-mode
@@ -2836,6 +2848,7 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
   (use-package eglot
     :hook
     (prog-mode . eglot-ensure)
+    (eglot-mode . flymake-mode)
     ;; (eglot-connect . (lambda () (flycheck-mode -1)
     ;;                 (message "Activating eglot mode")
     ;;                 (when (require 'lsp-mode nil t)
