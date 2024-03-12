@@ -2883,7 +2883,6 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
   (use-package rust-mode
     :mode "\\.rs\\'"
     :after lsp-mode
-    :hook
     :config
     (setq rust-format-on-save t
           lsp-rust-server 'rust-analyzer)
