@@ -2511,7 +2511,8 @@ Flymake is used instead of Flycheck in some modes (notable, eglot mode), so let'
     (flymake-mode-map
      "C-c e n" 'flymake-goto-next-error
      "C-c e p" 'flymake-goto-prev-error
-     "C-c e l" 'flymake-show-buffer-diagnostics))#+END_SRC
+     "C-c e l" 'flymake-show-buffer-diagnostics))
+#+END_SRC
 
 * TODO Company                                                   :keybinding:
 :PROPERTIES:
