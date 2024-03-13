@@ -2846,14 +2846,25 @@ See this [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][guid
 Eglot is an alternative to LSP-mode and will be included in Emacs from version 29 (according to [[https://blog.phundrak.com/emacs-29-what-can-we-expect/][Phundrak's Blog]]). To prepare for that, let's give it a proper look.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (defun manually-activate-flymake ()
+    "Manually activate flymake to get around some eglot issues.
+
+      Taken from https://github.com/mgmarlow/flymake-clippy."
+    (add-hook 'flymake-diagnostic-functions #'eglot-flymake-backend nil t)
+    (flymake-mode 1))
+
+
   (use-package eglot
     :hook
     (prog-mode . eglot-ensure)
-    (eglot-mode . flymake-mode)
-    ;; (eglot-connect . (lambda () (flycheck-mode -1)
-    ;;                 (message "Activating eglot mode")
-    ;;                 (when (require 'lsp-mode nil t)
-    ;;                   (lsp-mode -1))))
+    (eglot-managed-mode . manually-activate-flymake)
+    (eglot-managed-mode . (lambda ()
+                            (add-hook
+                             'before-save-hook
+                             #'eglot-format-buffer nil 'local)))
+
+    :config
+    (add-to-list 'eglot-stay-out-of 'flymake)
     :general
     (eglot-mode-map
      "<f6> a a" 'eglot-code-actions
@@ -2901,6 +2912,17 @@ We can also use [[https://github.com/flycheck/flycheck-rust][flycheck-rust]] to 
     :hook
     (flycheck-mode . flycheck-rust-setup))
 #+END_SRC
+
+** flymake-clippy
+:PROPERTIES:
+:REPO:     https://github.com/mgmarlow/flymake-clippy
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake-clippy
+    :hook (rust-ts-mode . flymake-clippy-setup-backend))
+#+END_SRC
+
 
 * Direnv mode
 :PROPERTIES:
