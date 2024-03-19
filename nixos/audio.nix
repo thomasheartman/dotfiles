@@ -15,7 +15,7 @@
     distrho
     drumgizmo
     eq10q
-    guitarix
+    # guitarix
     odin2
     playonlinux # for managing wine installations
     reaper
