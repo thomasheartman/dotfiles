@@ -22,6 +22,12 @@
 (setq straight-use-package-by-default t
       straight-fix-flycheck t)
 
+;; taken from https://github.com/radian-software/straight.el/issues/1059
+(define-obsolete-variable-alias
+  'native-comp-deferred-compilation-deny-list
+  'native-comp-jit-compilation-deny-list
+  "Renamed in emacs#95692f6")
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
