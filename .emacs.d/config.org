@@ -4191,6 +4191,12 @@ movement works.
       (notmuch-refresh-this-buffer)
       (message "Fetching new mail from the server.")
       (heartman/fetch-mail))
+
+    (defun heartman/buffer-other-frame (&rest _args)
+      (switch-to-buffer-other-frame (buffer-name)))
+
+    (advice-add #'notmuch-show-reply-sender :before #'heartman/buffer-other-frame)
+
     :config
     (setq message-send-mail-function 'message-send-mail-with-sendmail
           notmuch-fcc-dirs "sent +sent -unread -inbox"
