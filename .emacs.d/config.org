@@ -5671,7 +5671,7 @@ Scheme mode.
 :REPO:     https://github.com/spotify/dockerfile-mode
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package dockerfile-mode
     :config
     (put 'dockerfile-image-name 'safe-local-variable #'stringp))
@@ -5832,6 +5832,7 @@ does just that.
     ;; per mode with `ligature-mode'.
     (global-ligature-mode t))
 #+END_SRC
+
 
 * macrostep
 :PROPERTIES:
