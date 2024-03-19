@@ -200,31 +200,33 @@ in {
   security.rtkit.enable = true;
 
   hardware.pulseaudio.enable = false;
+
+  # based on the low-latency
+  # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+  # and the pipewire config docs
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-    wireplumber.enable = true;
-  };
-
-  # based on the low-latency
-  # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
-  # and the pipewire config docs
-  # https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire
-  environment.etc = {
-    "pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.writeTextDir
+          "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua"
+          "	bluez_monitor.properties = {\n		[\"bluez5.enable-sbc-xq\"] = true,\n		[\"bluez5.enable-msbc\"] = true,\n		[\"bluez5.enable-hw-volume\"] = true,\n		[\"bluez5.headset-roles\"] = \"[ hsp_hs hsp_ag hfp_hf hfp_ag ]\"\n	}\n")
+      ];
+    };
+    extraConfig.pipewire."92-low-latency" = {
       context.properties = {
-        default.clock.rate = 48000
-        default.clock.quantum = 64
-        default.clock.min-quantum = 64
-        default.clock.max-quantum = 64
-      }
-    '';
-
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text =
-      "	bluez_monitor.properties = {\n		[\"bluez5.enable-sbc-xq\"] = true,\n		[\"bluez5.enable-msbc\"] = true,\n		[\"bluez5.enable-hw-volume\"] = true,\n		[\"bluez5.headset-roles\"] = \"[ hsp_hs hsp_ag hfp_hf hfp_ag ]\"\n	}\n";
+        default.clock.rate = 48000;
+        default.clock.quantum = 64;
+        default.clock.min-quantum = 64;
+        default.clock.max-quantum = 64;
+      };
+    };
   };
 
   hardware.bluetooth.enable = true;
