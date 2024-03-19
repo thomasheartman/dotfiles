@@ -1896,12 +1896,12 @@ frame, so this function sorts that out:
     :general
     ("C-x t c" 'tab-bar-duplicate-tab
      "C-x t n" 'tab-bar-new-tab
-     "<mouse-3>" 'tab-bar-history-back
-     "<left-margin> <mouse-3>" 'tab-bar-history-back
-     "<right-margin> <mouse-3>" 'tab-bar-history-back
-     "<mouse-4>" 'tab-bar-history-forward
-     "<left-margin> <mouse-4>" 'tab-bar-history-forward
-     "<right-margin> <mouse-4>" 'tab-bar-history-forward)
+     "<mouse-8>" 'tab-bar-history-back
+     "<left-margin> <mouse-8>" 'tab-bar-history-back
+     "<right-margin> <mouse-8>" 'tab-bar-history-back
+     "<mouse-9>" 'tab-bar-history-forward
+     "<left-margin> <mouse-9>" 'tab-bar-history-forward
+     "<right-margin> <mouse-9>" 'tab-bar-history-forward)
     :config
     (defun heartman/get-all-other-tabs-any-frame ()
       "Get all tabs on all frames except for the current one.
