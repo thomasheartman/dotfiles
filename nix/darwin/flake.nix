@@ -62,7 +62,6 @@
                     jq
                     # nixFlakes
                     # nixfmt
-                    rnix-lsp
                     ripgrep
                     sd
                     victor-mono
