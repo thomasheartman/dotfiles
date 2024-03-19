@@ -367,6 +367,16 @@ in {
 
   home.file.".config/skippy-xd/skippy-xd.rc".source = ./skippy-xd.rc;
 
+  # pipewire low latency (fix until an update fixes broken config?) todo: revisit later
+  home.file.".config/pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
+    context.properties = {
+       default.clock.rate         =    48000
+       default.clock.max-quantum  =    64
+       default.clock.min-quantum  =    64
+       default.clock.quantum      =    64
+    }
+  '';
+
   home.file.".config/polybar/pipewire.sh" = {
     executable = true;
 
