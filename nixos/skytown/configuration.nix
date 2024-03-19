@@ -28,6 +28,40 @@ in {
     scale = 1;
   };
 
+  # # make system esync compatible (https://github.com/lutris/docs/blob/master/HowToEsync.md)
+  # systemd.services."user@1000".serviceConfig.LimitNOFILE = fileLimit;
+  # systemd.user.extraConfig = "DefaultLimitNOFILE=524288";
+
+  # ChatGPT's suggestion. Also doesn't appear to work.
+  # systemd.services."systemd-ulimit".serviceConfig.LimitNOFILE = 524288;
+
+  ## try this if the above doesn't work
+  # security.pam.loginLimits = let fileLimit = "524288";
+  # in [{
+  #   domain = "*";
+  #   item = "nofile";
+  #   type = "hard";
+  #   value = fileLimit;
+  # }
+  # #   { domain = "*"; item = "memlock"; type = "-"; value = fileLimit; }
+  # ];
+
+  # todo: try this!
+  # security.pam.loginLimits = [
+  #   {
+  #     domain = "*";
+  #     item = "nofile";
+  #     type = "-";
+  #     value = "32768";
+  #   }
+  #   {
+  #     domain = "*";
+  #     item = "memlock";
+  #     type = "-";
+  #     value = "32768";
+  #   }
+  # ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
