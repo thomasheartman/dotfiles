@@ -256,6 +256,7 @@ in
     msmtp
     mu
     nodejs # <- for copilot
+    nil
     nixfmt
     nushell
     pavucontrol
@@ -269,7 +270,6 @@ in
     pamixer # <- for Emacs' desktop-environment
     proselint
     ripgrep
-    rnix-lsp
     sd
     sdcv
     scrot
