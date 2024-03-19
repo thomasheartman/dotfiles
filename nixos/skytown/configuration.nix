@@ -46,7 +46,7 @@ in {
   # #   { domain = "*"; item = "memlock"; type = "-"; value = fileLimit; }
   # ];
 
-  # todo: try this!
+  # This was another suggestion from the github thread, but it still doesn't work.
   # security.pam.loginLimits = [
   #   {
   #     domain = "*";
