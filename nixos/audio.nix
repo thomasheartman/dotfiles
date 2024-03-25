@@ -16,6 +16,7 @@
     drumgizmo
     eq10q
     # guitarix
+    musescore # the program is "mscore"
     odin2
     playonlinux # for managing wine installations
     reaper
