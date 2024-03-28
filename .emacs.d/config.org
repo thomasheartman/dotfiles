@@ -7431,6 +7431,8 @@ See [[https://tildegit.org/acdw/define-repeat-map.el][this package for code]]. S
     :bind
     ;; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
     (("C-c f" . dirvish-fd)
+     :map dirvish-mode-map
+     ("z"   . dirvish-total-file-size)
      :map dired-mode-map ; Dirvish respects all the keybindings in this map
      ;; ("h" . dired-up-directory)
      ;; ("j" . dired-next-line)
