@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, muse-sounds-manager, ... }:
 
 {
   home.packages = with pkgs; [
@@ -30,5 +30,6 @@
     (callPackage ./scarlett-mixer.nix { })
     (callPackage ./podolski.nix { })
     (callPackage ./zebralette.nix { })
+    muse-sounds-manager.packages.x86_64-linux.muse-sounds-manager
   ];
 }

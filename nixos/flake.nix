@@ -13,9 +13,12 @@
       home-manager.url = "github:nix-community/home-manager/master";
       home-manager.inputs.nixpkgs.follows = "nixpkgs";
       musnix.url = "github:musnix/musnix";
+      # muse sounds manager might just be temporary. Refer to
+      # https://github.com/NixOS/nixpkgs/issues/216432#issuecomment-1942809581
+      muse-sounds-manager.url = "github:thilobillerbeck/muse-sounds-manager-nix";
     };
 
-  outputs = { nixpkgs, home-manager, musnix, ... }@inputs:
+  outputs = { nixpkgs, home-manager, musnix, muse-sounds-manager, ... }@inputs:
     let
       system = "x86_64-linux";
 
@@ -30,6 +33,8 @@
 
       hmConfig = hostname: home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
+
+        extraSpecialArgs = inputs;
 
         modules = [
           ({
