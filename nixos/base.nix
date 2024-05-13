@@ -6,15 +6,18 @@ let
     ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${/etc/nixos/layout.xkb} $out
   '';
 
-  unstablePkgs = import (fetchTarball
-    "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {
+  unstablePkgs = import
+    (fetchTarball
+      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
+    {
       config = config.nixpkgs.config;
     };
 
   user = "thomas";
   homeDir = "/home/${user}";
 
-in {
+in
+{
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader.systemd-boot.enable = true;
@@ -215,12 +218,12 @@ in {
       enable = true;
       configPackages = [
         (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-            bluez_monitor.properties = {
-            ["bluez5.enable-sbc-xq"] = true,
-            ["bluez5.enable-msbc"] = true,
-            ["bluez5.enable-hw-volume"] = true,
-            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-            }
+          bluez_monitor.properties = {
+          ["bluez5.enable-sbc-xq"] = true,
+          ["bluez5.enable-msbc"] = true,
+          ["bluez5.enable-hw-volume"] = true,
+          ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+          }
         '')
       ];
     };
@@ -268,16 +271,19 @@ in {
   # https://github.com/target/lorri/
   services.lorri.enable = true;
 
+  services.libinput = {
+    enable = true;
+    mouse = { naturalScrolling = true; };
+    touchpad = {
+      naturalScrolling = true;
+      disableWhileTyping = true;
+    };
+  };
+
+  services.displayManager.defaultSession = "xfce";
+
   services.xserver = {
     enable = true;
-    libinput = {
-      enable = true;
-      mouse = { naturalScrolling = true; };
-      touchpad = {
-        naturalScrolling = true;
-        disableWhileTyping = true;
-      };
-    };
 
     exportConfiguration = true;
     autoRepeatDelay = 250;
@@ -298,8 +304,6 @@ in {
       enableXfwm = false;
       noDesktop = true;
     };
-
-    displayManager.defaultSession = "xfce";
   };
 
   # users
