@@ -53,7 +53,8 @@ let
 
   mailPass = account: "${pkgs.pass}/bin/pass show email/${account} 2>/dev/null";
 
-in {
+in
+{
 
   imports = [ ./polybar.nix ./rofi.nix ./picom.nix ./i3.nix ];
 
@@ -90,51 +91,53 @@ in {
 
   home.file.".signatures/simple".source = ./../email/signatures/simple;
 
-  accounts.email.accounts."thomasheartman" = let
-    mailBoxName = "thomasheartman.com";
-    primary = true;
-    address = "thomas@thomasheartman.com";
-    passwordName = "thomasheartman.com";
-  in {
-    realName = "Thomas Heartman";
-    primary = primary;
-    address = address;
+  accounts.email.accounts."thomasheartman" =
+    let
+      mailBoxName = "thomasheartman.com";
+      primary = true;
+      address = "thomas@thomasheartman.com";
+      passwordName = "thomasheartman.com";
+    in
+    {
+      realName = "Thomas Heartman";
+      primary = primary;
+      address = address;
 
-    smtp.tls.useStartTls = true;
-    imap.tls.useStartTls = true;
-    imap.host = "imap.fastmail.com";
+      smtp.tls.useStartTls = true;
+      imap.tls.useStartTls = true;
+      imap.host = "imap.fastmail.com";
 
-    notmuch.enable = true;
+      notmuch.enable = true;
 
-    msmtp = {
-      enable = true;
-      extraConfig = {
-        host = "smtp.fastmail.com";
-        port = "587";
-        from = address;
-        user = address;
-        passwordeval = mailPass passwordName;
-        logfile = "~/.msmtp.${mailBoxName}.log";
-      };
-    };
-
-    offlineimap = {
-      enable = true;
-      postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
-      extraConfig = {
-        local = {
-          type = "Maildir";
-          localfolders = "~/mail/${mailBoxName} ";
-        };
-        remote = {
-          type = "IMAP";
-          remotehost = "imap.fastmail.com";
-          remoteuser = address;
-          remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+      msmtp = {
+        enable = true;
+        extraConfig = {
+          host = "smtp.fastmail.com";
+          port = "587";
+          from = address;
+          user = address;
+          passwordeval = mailPass passwordName;
+          logfile = "~/.msmtp.${mailBoxName}.log";
         };
       };
+
+      offlineimap = {
+        enable = true;
+        postSyncHookCommand = "${pkgs.notmuch}/bin/notmuch new";
+        extraConfig = {
+          local = {
+            type = "Maildir";
+            localfolders = "~/mail/${mailBoxName} ";
+          };
+          remote = {
+            type = "IMAP";
+            remotehost = "imap.fastmail.com";
+            remoteuser = address;
+            remotepasseval = ''mailpasswd("${mailPass passwordName}")'';
+          };
+        };
+      };
     };
-  };
 
   # note: this is how you set up aliases for sending (along with the
   # appropriate config for gnus-aliases). Because it's the same inbox
@@ -251,7 +254,7 @@ in {
     mu
     nodejs # <- for copilot
     nil
-    nixfmt
+    nixfmt-rfc-style
     nushell
     pavucontrol
     pandoc
@@ -282,17 +285,20 @@ in {
     yaml-language-server
     zoom-us
 
-    (let
-      hostname = config.home.sessionVariables.HOSTNAME;
-      resultsDir = "/tmp/${hostname}-home.results";
-    in writeScriptBin "hms" ''
-      #!${stdenv.shell}
-      set -e
-      nix build \
-      ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
-      -o ${resultsDir} "$@";
-      ${resultsDir}/activate
-    '')
+    (
+      let
+        hostname = config.home.sessionVariables.HOSTNAME;
+        resultsDir = "/tmp/${hostname}-home.results";
+      in
+      writeScriptBin "hms" ''
+        #!${stdenv.shell}
+        set -e
+        nix build \
+        ~/dotfiles/nixos#homeManagerConfigs.${hostname}.activationPackage \
+        -o ${resultsDir} "$@";
+        ${resultsDir}/activate
+      ''
+    )
 
     (writeScriptBin "kbs" ''
       #!${stdenv.shell}
@@ -423,52 +429,54 @@ in {
   };
 
   # symlink files to home
-  home.activation = let
-    links = [
-      ".alacritty.yml"
-      ".aliases"
-      ".direnvrc"
-      ".editorconfig"
-      ".emacs.d"
-      ".gitconfig"
-      ".gitignore"
-      ".notmuch-config"
-      ".stardict"
-      ".vimrc"
-      "dictionaries"
-      "email"
-      "feeds.org"
-      "nix-shells"
-    ];
+  home.activation =
+    let
+      links = [
+        ".alacritty.yml"
+        ".aliases"
+        ".direnvrc"
+        ".editorconfig"
+        ".emacs.d"
+        ".gitconfig"
+        ".gitignore"
+        ".notmuch-config"
+        ".stardict"
+        ".vimrc"
+        "dictionaries"
+        "email"
+        "feeds.org"
+        "nix-shells"
+      ];
 
-    # the config directory is special. We don't want to end up with
-    # a bunch of everchanging files in our dotfiles, so lets link
-    # those files differently.
-    configLinks =
-      lib.attrsets.mapAttrsToList (name: _: name) (builtins.readDir ../.config);
+      # the config directory is special. We don't want to end up with
+      # a bunch of everchanging files in our dotfiles, so lets link
+      # those files differently.
+      configLinks =
+        lib.attrsets.mapAttrsToList (name: _: name) (builtins.readDir ../.config);
 
-    weirdLinks = [{
-      source = "wallpapers/desktop-background.jpg";
-      target = ".background-image";
-    }];
+      weirdLinks = [{
+        source = "wallpapers/desktop-background.jpg";
+        target = ".background-image";
+      }];
 
-    mkMiscSymlink = inputFile: outputFile: ''
-      $DRY_RUN_CMD ln -nfs $VERBOSE_ARG \
-          $HOME/dotfiles/${inputFile} $HOME/${outputFile};
-    '';
-    mkSymlink = path: mkMiscSymlink path path;
-    mkConfigSymlink = path: mkMiscSymlink ".config/${path}" ".config/${path}";
+      mkMiscSymlink = inputFile: outputFile: ''
+        $DRY_RUN_CMD ln -nfs $VERBOSE_ARG \
+            $HOME/dotfiles/${inputFile} $HOME/${outputFile};
+      '';
+      mkSymlink = path: mkMiscSymlink path path;
+      mkConfigSymlink = path: mkMiscSymlink ".config/${path}" ".config/${path}";
 
-    mkScript = f: links: lib.strings.concatStringsSep "\n" (map f links);
+      mkScript = f: links: lib.strings.concatStringsSep "\n" (map f links);
 
-  in {
-    "link basic home files" =
-      lib.hm.dag.entryAfter [ "writeBoundary" ] (mkScript mkSymlink links);
+    in
+    {
+      "link basic home files" =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] (mkScript mkSymlink links);
 
-    "link .config files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
-      (mkScript mkConfigSymlink configLinks);
+      "link .config files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
+        (mkScript mkConfigSymlink configLinks);
 
-    "link other files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
-      (mkScript ({ source, target }: mkMiscSymlink source target) weirdLinks);
-  };
+      "link other files" = lib.hm.dag.entryAfter [ "writeBoundary" ]
+        (mkScript ({ source, target }: mkMiscSymlink source target) weirdLinks);
+    };
 }
