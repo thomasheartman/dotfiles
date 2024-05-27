@@ -176,7 +176,10 @@ Let's create a couple prefixes:
 #+BEGIN_SRC emacs-lisp
   (when on-macos
     (setq mac-option-modifier 'super
-          mac-command-modifier 'meta))
+          mac-command-modifier 'meta)
+    (general-def
+      "s-<backspace>" 'backward-kill-word
+      "s-<delete>" 'kill-word))
 #+END_SRC
 
 * Emacs
