@@ -179,7 +179,8 @@ Let's create a couple prefixes:
           mac-command-modifier 'meta)
     (general-def
       "s-<backspace>" 'backward-kill-word
-      "s-<delete>" 'kill-word))
+      "s-<delete>" 'kill-word
+      "s-<kp-delete>" 'kill-word))
 #+END_SRC
 
 * Emacs
