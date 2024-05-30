@@ -7667,6 +7667,8 @@ This is a package designed to format anything. For right now, it's most useful f
     (format-all-mode-map
      :start-maps t
      my-format-buffer 'format-all-region-or-buffer)
+    :hook
+    (typescript-mode . format-all-mode)
     :config
     (define-format-all-formatter biome
       (:executable "biome")
