@@ -1900,6 +1900,7 @@ frame, so this function sorts that out:
     :general
     ("C-x t c" 'tab-bar-duplicate-tab
      "C-x t n" 'tab-bar-new-tab
+     "C-x t k" 'tab-bar-close-tab
      "<mouse-8>" 'tab-bar-history-back
      "<left-margin> <mouse-8>" 'tab-bar-history-back
      "<right-margin> <mouse-8>" 'tab-bar-history-back
@@ -2303,6 +2304,7 @@ Here's a helper function to switch to the previous buffer, which should make win
     "s-<next>" 'tab-bar-switch-to-next-tab
     "s-<prior>" 'tab-bar-switch-to-prev-tab
     "s-w" 'tab-close
+    "s-t k" 'tab-close
 
     "C-<tab>" 'heartman/switch-to-previous-buffer
     "C-<next>" 'heartman/tab-line-switch-to-next-tab-or-first
@@ -4055,7 +4057,10 @@ movement works.
 #+BEGIN_SRC emacs-lisp
   (use-package emmet-mode
     :hook
-    html-mode)
+    html-mode
+    tsx-ts-mode
+    typescript-tsx-mode)
+
 #+END_SRC
 
 
@@ -5168,7 +5173,9 @@ This is my attempt at customizing my mode line from the ground up.
 :REPO:     https://github.com/josteink/csharp-mode
 :END:
 
-#+BEGIN_SRC emacs-lisp
+Note: as of Emacs 29, this is built into emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package csharp-mode
     :mode ("\\.csproj\\'" . xml-mode)
     :general
@@ -6030,6 +6037,14 @@ not for all buffers!
         "c" 'evil-exchange-cancel)
       :init
       (evil-exchange-install))
+
+    (use-package evil-replace-with-register
+      :general
+      (:states 'normal
+               "gr" 'evil-replace-with-register)
+      :init
+      (evil-replace-with-register-install))
+
 
     ;; add jump bindings
     (dolist (f '(
@@ -7670,6 +7685,9 @@ This is a package designed to format anything. For right now, it's most useful f
      my-format-buffer 'format-all-region-or-buffer)
     :hook
     (typescript-mode . format-all-mode)
+    (typescript-tsx-mode . format-all-mode)
+    (tsx-ts-mode . format-all-mode)
+    (typescript-ts-mode . format-all-mode)
     :config
     (define-format-all-formatter biome
       (:executable "biome")
