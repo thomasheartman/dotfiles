@@ -27,3 +27,6 @@
 ## config files that we don't need/want to track
 .config/nushell/history.txt
 .config/fish/fish_variables
+
+## OS-specific files
+.DS_Store
