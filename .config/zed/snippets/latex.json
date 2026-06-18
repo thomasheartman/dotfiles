@@ -1,0 +1,98 @@
+{
+  "Bold": {
+    "prefix": "b",
+    "body": ["\\textbf{$1}$0"],
+  },
+  "Italics": {
+    "prefix": "it",
+    "body": ["\\textit{$1}$0"],
+  },
+  "Subsection": {
+    "prefix": "subs",
+    "body": ["\\subsection*{$1}$0"],
+  },
+  "Item": {
+    "prefix": "itm",
+    "body": ["\\item $0"],
+  },
+  "Item": {
+    "prefix": "-",
+    "body": ["\\item $0"],
+  },
+  "unordered list": {
+    "prefix": "ul",
+    "body": ["\\begin{itemize}\n\t\\item $0\n\\end{itemize}"],
+  },
+  "ordered list": {
+    "prefix": "ol",
+    "body": ["\\begin{enumerate}\n\t\\item $0\n\\end{enumerate}"],
+  },
+  "description list": {
+    "prefix": "dl",
+    "body": ["\\begin{description}\n\t\\item[$1] $0\n\\end{description}"],
+  },
+  "autocite": {
+    "prefix": "ac",
+    "body": ["\\autocite{$1}$0"],
+    "description": "Insert an autocite reference with out page numbers.",
+  },
+  "autocite with page numbers": {
+    "prefix": "acp",
+    "body": ["\\autocite[${2:n.p.}]{$1}$0"],
+    "description": "Insert an autocite reference with page numbers or chapter reference.",
+  },
+  "enquote": {
+    "prefix": "eq",
+    "body": ["\\enquote{$1}$0"],
+    "description": "Insert an enquote reference.",
+  },
+  "footnote": {
+    "prefix": "fn",
+    "body": ["\\footnote{$1}$0"],
+    "description": "Insert a footnote.",
+  },
+  "JRPG": {
+    "prefix": "jrpg",
+    "body": ["JRPG"],
+  },
+  "Une vie à t'aimer": {
+    "prefix": "va",
+    "body": ["\"Une vie à t'aimer\""],
+  },
+  "Une vie à peindre": {
+    "prefix": "vp",
+    "body": ["\"Une vie à peindre\""],
+  },
+  "Continuer à t'aimer": {
+    "prefix": "ca",
+    "body": ["\"Continuer à t'aimer\""],
+  },
+  "Is it a Gestral or a Volleyball?": {
+    "prefix": "gov",
+    "body": ["\"Is it a Gestral or a Volleyball?\""],
+  },
+  "Expedition 33": {
+    "prefix": "e33",
+    "body": ["\\textit{Expedition 33}"],
+  },
+  "Clair Obscur: Expedition 33": {
+    "prefix": "coe",
+    "body": ["\\textit{Clair Obscur: Expedition 33}"],
+  },
+  "Final Fantasy": {
+    "prefix": "ff",
+    "body": ["\\textit{Final Fantasy}"],
+  },
+  "Final Fantasy VI": {
+    "prefix": "ffvi",
+    "body": ["\\textit{Final Fantasy VI}"],
+  },
+  "Final Fantasy VII": {
+    "prefix": "ffvii",
+    "body": ["\\textit{Final Fantasy VII}"],
+  },
+  "Clair Obscur": {
+    "prefix": "co",
+    "body": ["\\textit{Clair Obscur}"],
+  },
+}

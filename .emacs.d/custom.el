@@ -4,7 +4,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((org-d20-party
+   '((format-all-formatters
+      ("JavaScript" biome)
+      ("JSON" biome)
+      ("JSON5" biome)
+      ("JSX" biome)
+      ("TSX" biome)
+      ("TypeScript" biome))
+     (org-d20-party
       ("Zahrat" . 2)
       ("Ennon" . 4)
       ("Artemis" . 5))))
@@ -17,7 +24,16 @@
      (use-package)
      (:warning)))
  '(warning-suppress-types
-   '(((undo discard-info))
+   '((lsp-mode)
+     ((flycheck syntax-checker))
+     (lsp-mode)
+     (emacs)
+     ((flycheck syntax-checker))
+     (lsp-mode)
+     (lsp-mode)
+     (lsp-mode)
+     (lsp-mode)
+     ((undo discard-info))
      ((undo discard-info))
      ((undo discard-info))
      ((undo discard-info))
@@ -29,4 +45,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(flycheck-posframe-border-face ((t (:foreground "darkgrey"))))
+ '(org-variable-pitch-fixed-face ((t (:family nil))) t))

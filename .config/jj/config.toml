@@ -1,0 +1,164 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+
+[user]
+name = "Thomas Heartman"
+# email = "jj@thomasheartman.com"
+email = "thomas@getunleash.io"
+
+[ui]
+editor = "zed-preview --wait"
+default-command = ["log", "-r", "recent()"]
+conflict-marker-style = "git"
+
+[signing]
+behavior = 'own'
+backend = 'gpg'
+
+[merge]
+hunk-level = 'word'
+same-change = 'keep'
+
+[remotes.origin]
+auto-track-bookmarks = "glob:*"
+
+[git]
+# Prevent pushing dev changes or anything explicitly labeled "private"
+# The extra quotes are required to avoid this error:
+# > Error: Failed to parse revset: `:` is not an infix operator
+private-commits = "description(glob:'dev:*') | description(glob:'private:*')"
+
+[templates]
+git_push_bookmark = '"heart/push-" ++ change_id.short()'
+draft_commit_description = '''
+concat(
+  builtin_draft_commit_description,
+  "\nJJ: ignore-rest\n",
+  "\n```diff\n",
+  diff.git(),
+  "\n```",
+)
+'''
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+'recent_mine()' = 'mine() & committer_date(after:"7 days ago")'
+'recent()' = '(trunk()..recent_mine()) | roots(trunk()..recent_mine())-'
+'branch(x)' = 'reachable(x, mutable()) | (reachable(x, mutable())- ~ reachable(x, mutable()))'
+'branch()' = 'branch(@)'
+
+# From https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6 and modified
+'dev()' = 'description(glob:"dev:*")'
+'private()' = 'description(glob:"private:*")'
+'denied()' = 'dev() | private()'
+
+# stack(x, n) is the set of mutable commits reachable from 'x', with 'n'
+# parents. 'n' is often useful to customize the display and return set for
+# certain operations. 'x' can be used to target the set of 'roots' to traverse,
+# e.g. @ is the current stack.
+'stack()' = 'ancestors(reachable(@, mutable()), 2)'
+'stack(x)' = 'ancestors(reachable(x, mutable()), 2)'
+'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
+
+# The current set of "open" works. It is defined as:
+#
+# - given the set of commits not in trunk, that are written by me,
+# - calculate the given stack() for each of those commits
+#
+# n = 1, meaning that nothing from `trunk()` is included, so all resulting
+# commits are mutable by definition.
+'open()' = 'stack(trunk().. & mine(), 1)'
+
+[aliases]
+tug = ["bookmark", "advance", "--to", "@-"]
+
+# make a new commit **between** @ and @- / **before** @
+bt = ["new", "--no-edit", "-B", "@"]
+
+# convencience
+f = ["git", "fetch"]
+p = ["git", "push"]
+r = ["rebase"]
+s = ["squash"]
+n = ["new"]
+nt = ["new", "trunk()"]
+stat = ["show", "--stat"]
+cm = ["commit"]
+ol = ["op", "log"]
+
+lr = ["log", "-r", "recent()"]
+
+## fetch and new
+br = ['util', 'exec', '--', 'sh', '-c', '''
+					jj log -r "branch(${1:-@})"
+				''', '']
+
+## fetch and new
+fn = ['util', 'exec', '--', 'sh', '-c', '''
+					jj git fetch
+					jj n "$@"
+				''', '']
+
+## fetch and new on trunk
+fnt = ['util', 'exec', '--', 'sh', '-c', '''
+					jj git fetch
+					jj nt "$@"
+				''', '']
+
+## fetch and rebase. Uses trunk() as the default rebase target, but can be overridden
+fr = ['util', 'exec', '--', 'sh', '-c', '''
+			jj git fetch
+			if [ $# -eq 0 ]; then
+				jj rebase -o "trunk()"
+			else
+				target="$1"
+				shift
+				jj rebase -o "$target" "$@"
+			fi
+		''', '']
+
+## fetch and rebase on main, then push changes
+frp = ['util', 'exec', '--', 'sh', '-c', '''
+					jj git fetch
+					jj rebase -o 'trunk()' "$@"
+					jj git push
+				''', '']
+
+## push stack; push all bookmarks between main and the tip(s) of the current branch of descendants
+ps = ['util', 'exec', '--', 'sh', '-c', '''
+			jj git push -r "bookmarks() & main..descendants(${1:-@-})"
+		''', '']
+
+# publish anonymous bookmark
+pab = ['util', 'exec', '--', 'sh', '-c', '''
+			jj git push -c "${1:-@-}"
+		''', '']
+
+# tug and push
+tap = ['util', 'exec', '--', 'sh', '-c', '''
+			jj bookmark advance --to "${1:-@-}"
+			jj git push
+		''', '']
+
+pub = ['util', 'exec', '--', 'sh', '-c', '''
+            if [ -z "$1" ]; then
+                echo "No bookmark name provided." >&2
+                echo "Usage: jj pub <bookmark> [revision]" >&2
+                exit 1
+            fi
+			jj git push --named "$1"="${2:-@-}"
+		''', '']
+
+# list commits/changes that **touched** a specific file between trunk and @
+touched = ['util', 'exec', '--', 'sh', '-c', '''
+    if [ $# -eq 0 ]; then
+        echo "Usage: jj touched <file> [log-options...]" >&2
+        exit 1
+    fi
+
+    file_pattern="$1"
+    shift  # Remove the file pattern from arguments
+
+    # Pass remaining arguments to jj log
+    jj log -r "files(root-glob:\"$file_pattern\") & (trunk()..@)" "$@"
+''', '']

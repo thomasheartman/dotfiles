@@ -1,5 +1,5 @@
 [core]
-        excludesfile = /Users/Thomas/.gitignore_global
+        excludesfile = ~/.gitignore
         autocrlf = input
         preloadindex = true
         filemode = false
@@ -28,12 +28,13 @@
 
 [user]
         name = Thomas Heartman
-        email = thomas.heartman+git@gmail.com
+	email = thomas@getunleash.io
 
 [filter "lfs"]
-        clean = git-lfs clean %f
-        smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
         required = true
+	process = git-lfs filter-process
 
 [alias]
 

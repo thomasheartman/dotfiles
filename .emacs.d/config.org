@@ -551,8 +551,9 @@ out for now.
   ;; (electric-pair-mode)
 #+END_SRC
 
-Further, let's enable line numbers everywhere.
+Further, let's enable (relative) line numbers everywhere.
 #+BEGIN_SRC emacs-lisp
+  (setq display-line-numbers-type 'relative)
   (global-display-line-numbers-mode)
 #+END_SRC
 
@@ -1990,9 +1991,9 @@ frame, so this function sorts that out:
       (let ((steps (mod n (length (frame-list))))
             (source-frame (or frame (selected-frame))))
         (cl-labels ((go (current-frame num-steps)
-                        (if (= 0 num-steps)
-                            current-frame
-                          (go (next-frame current-frame) (1- num-steps)))))
+                      (if (= 0 num-steps)
+                          current-frame
+                        (go (next-frame current-frame) (1- num-steps)))))
           (go source-frame steps))))
 
     (defvar heartman/new-tab-default-buffer
@@ -2342,6 +2343,20 @@ Here's a helper function to switch to the previous buffer, which should make win
   (general-def
     :keymaps 'key-translation-map
     "s-s" (kbd "C-x C-s"))
+#+END_SRC
+
+*** TODO Whitespace mode
+:LOGBOOK:
+- State "TODO"       from              [2021-11-26 Fri 12:08] \\
+  This needs to be set up correctly before it's useful.
+:END:
+
+Use whitespace mode in prog modes and configure it so that whitespace
+is invisible until you highlight it.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package whitespace
+    :hook (prog-mode . whitespace-mode))
 #+END_SRC
 
 
@@ -2864,10 +2879,11 @@ Eglot is an alternative to LSP-mode and will be included in Emacs from version 2
     :hook
     (prog-mode . eglot-ensure)
     (eglot-managed-mode . manually-activate-flymake)
-    (eglot-managed-mode . (lambda ()
-                            (add-hook
-                             'before-save-hook
-                             #'eglot-format-buffer nil 'local)))
+    ; this is really annoying in tsx so disable it for now.
+    ;; (eglot-managed-mode . (lambda ()
+    ;;                         (add-hook
+    ;;                          'before-save-hook
+    ;;                          #'eglot-format-buffer nil 'local)))
 
     :config
     (add-to-list 'eglot-stay-out-of 'flymake)
@@ -5450,7 +5466,7 @@ Apparently, the built-in desktop library can save your sessions and
 restore them when you start back up. Let's try it out and see what
 happens.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package desktop
     :when on-macos
     :init
@@ -5877,7 +5893,12 @@ not for all buffers!
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
+    :ensure t
     :init
+    ;; setting values for evil connection
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+
     (defun my-evil-insert-line-above (count)
       "Insert one or more lines above the current line without changing state or position.
 
@@ -5910,6 +5931,12 @@ not for all buffers!
     (evil-undo-system (if (fboundp 'undo-redo) 'undo-redo nil))
 
     :config
+
+    (use-package evil-collection
+      :ensure t
+      :config
+      (evil-collection-init))
+
     (defmacro define-and-bind-text-object (name key start-regex end-regex)
       (let ((inner-name (make-symbol (format "evil-i-%s" name)))
             (outer-name (make-symbol (format "evil-a-%s" name))))
@@ -5925,16 +5952,16 @@ not for all buffers!
            (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
            (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
     (define-and-bind-text-object
-      "line" "l" "^\\s-*" "\\s-*$")
+     "line" "l" "^\\s-*" "\\s-*$")
 
     (define-and-bind-text-object
-      "pipe" "|" "|" "|")
+     "pipe" "|" "|" "|")
 
     (define-and-bind-text-object
-      "underscore" "_" "_" "_")
+     "underscore" "_" "_" "_")
 
     (define-and-bind-text-object
-      "/" "/" "/" "/")
+     "/" "/" "/" "/")
 
     (evil-define-text-object evil-inner-buffer (count &optional beg end type)
       (list (point-min) (point-max)))
@@ -6118,18 +6145,18 @@ not for all buffers!
     (general-def
       :states 'normal
       "m" 'evil-record-macro
-      "j" 'evil-join
-      "J" 'my-join-line
-      "k" 'evil-paste-after
-      "K" 'evil-paste-before
+      ;; "j" 'evil-join
+      ;; "J" 'my-join-line
+      ;; "k" 'evil-paste-after
+      ;; "K" 'evil-paste-before
       "U" 'evil-redo
       "C-w" 'heartman/close-tab-line-tab
       "<S-return>" 'my-evil-insert-line-below
       "<C-S-return>" 'my-evil-insert-line-above
       [remap evil-next-line] 'evil-next-visual-line
       [remap evil-previous-line] 'evil-previous-visual-line
-      "n" 'evil-next-line
-      "p" 'evil-previous-line
+      ;; "n" 'evil-next-line
+      ;; "p" 'evil-previous-line
       [remap yank] 'evil-paste-after
       "M-V" 'evil-paste-before
       "C-S-y" 'evil-paste-before
@@ -6138,8 +6165,8 @@ not for all buffers!
     (general-def
       :states 'visual
       "s" 'evil-surround-region
-      "k" 'evil-paste-after
-      "K" 'evil-paste-before
+      ;; "k" 'evil-paste-after
+      ;; "K" 'evil-paste-before
       "C-w" 'heartman/close-tab-line-tab
       )
     (general-unbind evil-ex-completion-map
@@ -6744,6 +6771,21 @@ Writegood mode helps me keep my writing clearer and more concise.
       (when (bound-and-true-p flycheck-mode)
         (flycheck-buffer)))
     (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck))
+#+END_SRC
+
+* Flycheck: vale integration
+
+#+BEGIN_SRC emacs-lisp
+  (flycheck-define-checker vale
+    "A checker for prose"
+    :command ("vale" "--output" "line"
+              source)
+    :standard-input nil
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+    :modes (markdown-mode org-mode text-mode)
+    )
+  (add-to-list 'flycheck-checkers 'vale 'append)
 #+END_SRC
 
 

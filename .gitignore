@@ -23,10 +23,54 @@
 .emacs.d/url
 .emacs.d/var
 .emacs.d/workspace
+# I don't use emacs atm, let's remove this for now
+.emacs.d/*
+
 
 ## config files that we don't need/want to track
 .config/nushell/history.txt
 .config/fish/fish_variables
+.config/Line 6/
+.config/Roland Cloud/
+.config/atuin/
+.config/composer/
+.config/configstore/
+.config/fish/conf.d/
+.config/gcloud/
+.config/gh/
+.config/git/
+.config/github-copilot/
+.config/jgit/
+.config/karabiner/assets/
+.config/karabiner/automatic_backups/
+.config/nix/
+.config/nixpkgs/old_overlays/
+.config/raycast/
+.config/riff/
+.config/steinberg-download-assistant/
+.config/yarn/
+.config/jj/repos
+
+# never quite finished the nix darwin setup; ignore for now
+nix/darwin/*
 
 ## OS-specific files
 .DS_Store
+
+## Editor/work stuff
+.zed/
+code/work/**/shell.nix
+code/work/**/.envrc
+codebook.toml
+.log
+heartscripts
+.envrc
+
+.env
+
+.jjconflict-*
+
+# claude
+.claude/settings.local.json
+
+**/.claude/settings.local.json

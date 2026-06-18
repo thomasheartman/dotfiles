@@ -1,0 +1,17 @@
+{
+  "console.log": {
+    "prefix": "clg",
+    "body": ["console.log($0)"],
+    "description": "Insert a console.log statement"
+  },
+  "console.log with newlines": {
+    "prefix": "clgg",
+    "body": ["console.log('\\n\\n\\n', $0, '\\n\\n\\n')"],
+    "description": "Insert a console.log statement"
+  },
+  "JSON.stringify": {
+    "prefix": "js",
+    "body": ["JSON.stringify($0, undefined, 2)"],
+    "description": "Insert a JSON.stringify call"
+  }
+}

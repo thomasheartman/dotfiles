@@ -1,0 +1,5 @@
+# In $XDG_CONFIG_HOME/jj/conf.d/work.toml
+--when.repositories = ["~/code/zed"]
+
+[user]
+email = "zed@thomasheartman.com"

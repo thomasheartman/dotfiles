@@ -1,0 +1,7 @@
+{
+  "println!(...)": {
+    "prefix": "p",
+    "body": ["println!($0);"],
+    "description": "Println macro"
+  }
+}

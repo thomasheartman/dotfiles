@@ -1,0 +1,471 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "shift-right": "workspace::ActivatePaneRight",
+      "shift-left": "workspace::ActivatePaneLeft",
+      "shift-up": "workspace::ActivatePaneUp",
+      "shift-down": "workspace::ActivatePaneDown",
+      "cmd-alt-right": "workspace::ActivatePaneRight",
+      "cmd-alt-left": "workspace::ActivatePaneLeft",
+      "cmd-alt-up": "workspace::ActivatePaneUp",
+      "cmd-alt-down": "workspace::ActivatePaneDown",
+
+      "alt-m": "workspace::ToggleZoom",
+      // Global git bindings
+      "alt-g p": "git::Push",
+      "alt-g up": "git::Push",
+      "alt-g shift-up": "git::ForcePush",
+      "alt-g f": "git::Fetch",
+      "alt-g down": "git::Pull",
+      "alt-g b": "git::Branch",
+      "alt-g r": "git::SelectRepo",
+      "alt-g c": "git::Commit",
+      "alt-g x": "git::Cancel",
+      "alt-g a": "git::Amend",
+      "alt-g u": "git::Uncommit",
+      "alt-g m": "git::OpenModifiedFiles",
+      "alt-g h": "git::FileHistory",
+      "alt-g d d": [
+        "action::Sequence",
+        ["git::Diff", "git_panel::ToggleFocus"],
+      ],
+      "alt-g d t": [
+        "action::Sequence",
+        ["git::BranchDiff", "git_panel::ToggleFocus"],
+      ],
+
+      "alt-|": ["pane::SplitRight", { "mode": "EmptyPane" }],
+      "alt-_": ["pane::SplitDown", { "mode": "EmptyPane" }],
+      "alt-d": "pane::CloseAllItems",
+      "alt-b": "tab_switcher::OpenInActivePane",
+      "ctrl-cmd-w": "workspace::CloseItemInAllPanes",
+
+      // emulate (my custom) emacs's delete pane in direction
+      "ctrl-x w k right": ["workspace::SendKeystrokes", "shift-right alt-d"],
+      "ctrl-x w k left": ["workspace::SendKeystrokes", "shift-left alt-d"],
+      "ctrl-x w k up": ["workspace::SendKeystrokes", "shift-up alt-d"],
+      "ctrl-x w k down": ["workspace::SendKeystrokes", "shift-down alt-d"],
+
+      "ctrl-pagedown": "pane::ActivateNextItem",
+      "ctrl-pageup": "pane::ActivatePreviousItem",
+
+      "alt-,": "zed::OpenProjectSettingsFile",
+      "alt-space k": "zed::OpenKeymapFile",
+      "alt-space K": "zed::OpenKeymap",
+      "shift-f1": "pane::GoToOlderTag",
+      "shift-f2": "pane::GoToNewerTag",
+    },
+  },
+  {
+    "context": "Dock && menu",
+    "bindings": {
+      // todo: figure out how to get this to work without overriding esc in vim mode
+      "escape": "workspace::CloseActiveDock",
+    },
+  },
+  {
+    "context": "Prompt",
+    "bindings": {
+      "space": "menu::Confirm",
+    },
+  },
+  {
+    "context": "multibuffer",
+    "bindings": {
+      // todo: work out what key bindings would be right for this
+      "ctrl-shift-n": "editor::MoveToStartOfNextExcerpt",
+      "ctrl-shift-j": "editor::MoveToStartOfNextExcerpt",
+      "ctrl-shift-k": "editor::MoveToStartOfExcerpt",
+      "ctrl-shift-p": "editor::MoveToStartOfExcerpt",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "home": "terminal::ScrollToTop",
+      "end": "terminal::ScrollToBottom",
+      "pageup": "terminal::ScrollPageUp",
+      "pagedown": "terminal::ScrollPageDown",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-m": "workspace::ToggleZoom",
+    },
+  },
+  {
+    "context": "Picker > Editor",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-enter": ["picker::ConfirmInput", { "secondary": false }],
+    },
+  },
+  {
+    "context": "FileFinder && !menu_open",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-shift-p": "command_palette::Toggle",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "home": "vim::StartOfDocument",
+      "end": "vim::EndOfDocument",
+      "ctrl-a": "vim::FirstNonWhitespace",
+      "ctrl-alt-a": ["vim::FirstNonWhitespace", { "display_lines": true }],
+      "ctrl-e": "vim::EndOfLine",
+      "ctrl-alt-e": ["vim::EndOfLine", { "display_lines": true }],
+      "ctrl-s": "vim::Search",
+      "ctrl-r": ["vim::Search", { "backwards": true }],
+      "f3": "vim::MoveToNextMatch",
+      "shift-f3": "vim::MoveToPreviousMatch",
+      "ctrl-f8": [
+        "editor::GoToDiagnostic",
+        { "severity": { "min": "warning", "max": "error" } },
+      ],
+      "ctrl-shift-f8": [
+        "editor::GoToPreviousDiagnostic",
+        { "severity": { "min": "warning", "max": "error" } },
+      ],
+
+      // swap panes
+      "ctrl-shift-down": "workspace::SwapPaneDown",
+      "ctrl-shift-right": "workspace::SwapPaneRight",
+      "ctrl-shift-left": "workspace::SwapPaneLeft",
+      "ctrl-shift-up": "workspace::SwapPaneUp",
+
+      // move panes
+      "cmd-shift-down": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "down" },
+      ],
+      "cmd-shift-right": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "right" },
+      ],
+      "cmd-shift-left": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "left" },
+      ],
+      "cmd-shift-up": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "up" },
+      ],
+
+      // duplicate panes
+      "cmd-alt-shift-right": ["pane::SplitRight", { "mode": "ClonePane" }],
+      "cmd-alt-shift-left": ["pane::SplitLeft", { "mode": "ClonePane" }],
+      "cmd-alt-shift-up": ["pane::SplitUp", { "mode": "ClonePane" }],
+      "cmd-alt-shift-down": ["pane::SplitDown", { "mode": "ClonePane" }],
+
+      // remap selections to fit my brain
+      "cmd-ctrl-left": "vim::SelectPreviousSyntaxNode",
+      "cmd-ctrl-right": "vim::SelectNextSyntaxNode",
+      // "cmd-ctrl-up": "editor::SelectLargerSyntaxNode",
+      // "cmd-ctrl-down": "editor::SelectSmallerSyntaxNode",
+      "cmd-ctrl-up": "editor::MoveToStartOfLargerSyntaxNode",
+      "cmd-ctrl-down": "editor::MoveToEndOfLargerSyntaxNode",
+      "cmd-ctrl-u": "editor::MoveToStartOfLargerSyntaxNode",
+      "cmd-ctrl-d": "editor::MoveToEndOfLargerSyntaxNode",
+
+      // multi-buffer mode (gets overriden in other contexts)
+      "cmd-enter": "editor::ExpandExcerpts",
+      "cmd-up": "editor::ExpandExcerptsUp",
+      "cmd-down": "editor::ExpandExcerptsDown",
+      // end multi-buffer mode
+      "ctrl-up": "editor::SelectLargerSyntaxNode",
+      "ctrl-down": "editor::SelectSmallerSyntaxNode",
+
+      "ctrl-c b r": "editor::ReloadFile",
+      "ctrl-c u 4": "editor::InsertUuidV4",
+      "ctrl-c u 7": "editor::InsertUuidV7",
+
+      "ctrl-x f r": "workspace::CopyRelativePath",
+      "ctrl-x f a": "workspace::CopyPath",
+      "ctrl-x f n": "editor::CopyFileName",
+      "ctrl-x f x": "editor::CopyFileNameWithoutExtension",
+
+      "ctrl-x l o": "editor::OpenUrl",
+
+      "ctrl-y": "editor::Paste",
+
+      "ctrl-k": "editor::CutToEndOfLine",
+      "cmd-a": "vim::SentenceBackward",
+      "cmd-e": "vim::SentenceForward",
+
+      "cmd-;": "vim::ToggleComments",
+    },
+  },
+  {
+    // when renaming symbols
+    "context": "Editor > Editor",
+    "bindings": {
+      "ctrl-e": "editor::MoveToEndOfLine",
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-b": "editor::MoveToPreviousSubwordStart",
+      "ctrl-f": "editor::MoveToNextSubwordEnd",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-enter": ["workspace::SendKeystrokes", "enter up ctrl-e"],
+      "cmd-k": ["workspace::SendKeystrokes", "ctrl-o d )"],
+    },
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "ctrl-d": "vim::ScrollDown",
+      "U": "vim::Redo",
+      "g q": "vim::Rewrap",
+      "g r": "vim::PushReplaceWithRegister",
+      "ctrl-enter": ["workspace::SendKeystrokes", "a enter escape k $"],
+      "cmd-k": ["workspace::SendKeystrokes", "d )"],
+      "shift-y": "vim::YankToEndOfLine",
+    },
+  },
+  {
+    // don't override these if we're showing menus etc
+    "context": "vim_mode == normal && !(showing_code_actions || showing_completions)",
+    "bindings": {
+      "enter": "editor::NewlineBelow",
+      "shift-enter": "editor::NewlineAbove",
+    },
+  },
+  {
+    "context": "vim_mode == normal && !(showing_code_actions || showing_completions)",
+    "bindings": {
+      // Allow enter and shift enter to add newlines above/below the current line.
+      // Store the current position as a mark and jump back to it.
+      "enter": ["workspace::SendKeystrokes", "m z enter ` z"],
+      "shift-enter": ["workspace::SendKeystrokes", "m z shift-enter ` z"],
+    },
+  },
+  {
+    // operator checks keep it from clobbering `yae` etc
+    "context": "VimControl && !menu && !(vim_operator == a || vim_operator == i)",
+    "bindings": {
+      "space s": ["vim::PushSneak", {}],
+      "space S": ["vim::PushSneakBackward", {}],
+      "shift-space S": ["vim::PushSneakBackward", {}], // means it doesn't substitute the line if you press shift too early
+
+      "space j": "vim::HelixJumpToWord",
+
+      "w": "vim::NextSubwordStart",
+      "b": "vim::PreviousSubwordStart",
+      "e": "vim::NextSubwordEnd",
+      "g e": "vim::PreviousSubwordEnd",
+      "space w": "vim::NextWordStart",
+      "space b": "vim::PreviousWordStart",
+      "space e": "vim::NextWordEnd",
+      "space g e": "vim::PreviousWordEnd",
+      "space shift-w": ["vim::NextWordStart", { "ignore_punctuation": true }],
+      "space shift-e": ["vim::NextWordEnd", { "ignore_punctuation": true }],
+      "space shift-b": [
+        "vim::PreviousWordStart",
+        { "ignore_punctuation": true },
+      ],
+      "space g shift-e": [
+        "vim::PreviousWordEnd",
+        { "ignore_punctuation": true },
+      ],
+    },
+  },
+
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "space \\ \\": "editor::CancelLanguageServerWork",
+      "g x": "vim::Exchange",
+      "g shift-x": "vim::ClearExchange",
+      "f": ["vim::PushFindForward", { "before": false, "multiline": true }],
+      "t": ["vim::PushFindForward", { "before": true, "multiline": true }],
+      "shift-f": [
+        "vim::PushFindBackward",
+        { "after": false, "multiline": true },
+      ],
+      "shift-t": [
+        "vim::PushFindBackward",
+        { "after": true, "multiline": true },
+      ],
+      "alt-s": ["editor::SplitSelectionIntoLines", { "keep_selections": true }],
+      "cmd-up": "editor::UnwrapSyntaxNode",
+      "space x x": "workspace::ClearAllNotifications",
+      "space l": "language_selector::Toggle",
+      "space m": "vim::ToggleMarksView",
+      "g n": "editor::GoToNextDocumentHighlight",
+      "g p": "editor::GoToPreviousDocumentHighlight",
+      "g j": "vim::Down",
+      "g down": "vim::Down",
+      "g k": "vim::Up",
+      "g up": "vim::Up",
+
+      "g b": "editor::BlameHover",
+      "j": ["vim::Down", { "display_lines": true }],
+      "k": ["vim::Up", { "display_lines": true }],
+
+      // bookmarks
+      "space b t": "editor::ToggleBookmark",
+      "space b n": "editor::GoToNextBookmark",
+      "space b p": "editor::GoToPreviousBookmark",
+      "space b c": "workspace::ClearBookmarks",
+      "space b v": "editor::ViewBookmarks",
+
+      "alt-o": "vim::SelectLargerSyntaxNode",
+      "alt-i": "vim::SelectSmallerSyntaxNode",
+      "space /": "vim::HelixSelectRegex",
+      // <leader> h_elix s_earch
+      "space h s": "vim::HelixSelectRegex",
+
+      // because I only typically use these for indenting the current line and the single press behavior is very nice in helix
+      ">": "vim::Indent",
+      "<": "vim::Outdent",
+    },
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "enter": "editor::ConfirmCompletion",
+    },
+  },
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs || vim_operator == helix_next || vim_operator == helix_previous",
+    "bindings": {
+      "o": "vim::Word",
+      "O": ["vim::Word", { "ignore_punctuation": true }],
+      "b": "vim::MiniBrackets",
+      "B": "vim::AnyBrackets",
+      "Q": "vim::AnyQuotes",
+      "f": "vim::Method",
+      "w": "vim::Subword",
+      // "W": ["vim::Subword", { "ignore_punctuation": true }],
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "s": "vim::PushAddSurrounds",
+      "g x": "vim::Exchange",
+      "g shift-x": "vim::ClearExchange",
+      "shift-x": "vim::ClearExchange",
+      "g r": ["vim::Paste", { "preserve_clipboard": true }],
+      "alt-v": "vim::SelectSmallerSyntaxNode",
+    },
+  },
+  {
+    "context": "Editor && !(showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-n": "editor::ShowCompletions",
+    },
+  },
+  {
+    // these need to be after "Editor" to allow overrides
+    "context": "showing_completions || showing_code_actions",
+    "bindings": {
+      "ctrl-n": "editor::ContextMenuNext",
+      "ctrl-p": "editor::ContextMenuPrevious",
+      "home": "editor::ContextMenuFirst",
+      "end": "editor::ContextMenuLast",
+    },
+  },
+  {
+    // cmd-shift-p menu navigation
+    "bindings": {
+      "home": "menu::SelectFirst",
+      "end": "menu::SelectLast",
+      "ctrl-n": "menu::SelectNext",
+      "ctrl-p": "menu::SelectPrevious",
+      "ctrl-h": "dev::OpenKeyContextView",
+    },
+  },
+  // Git
+  {
+    "context": "GitDiff > Editor",
+    "bindings": {
+      // "ctrl-j": "editor::GoToHunk",
+      // "ctrl-k": "editor::GoToPreviousHunk",
+      // "x": "git::Restore",
+      // "s": "git::StageAndNext"
+      // "u": "git::UnstageAndNext"
+    },
+  },
+  {
+    "context": "GitPanel && ChangesList",
+    "bindings": {
+      // "space": "menu::Confirm", // space to preview file
+      "tab": "menu::Confirm", // tab to preview file
+      "enter": "git::Diff",
+      "g space": "editor::OpenSelectedFilename", //  <| todo: doesn't work
+
+      "j": "git_panel::NextEntry",
+      "k": "git_panel::PreviousEntry",
+      "g g": "git_panel::FirstEntry",
+      "home": "git_panel::FirstEntry",
+      "shift-g": "git_panel::LastEntry",
+      "end": "git_panel::LastEntry",
+    },
+  },
+
+  // AI completion: always alt-tab (https://zed.dev/docs/ai/edit-prediction#keybinding-example-always-use-alt-tab)
+  {
+    "context": "Editor && edit_prediction",
+    "bindings": {
+      "alt-tab": "editor::AcceptEditPrediction",
+    },
+  },
+  // Bind `tab` back to its original behavior.
+  {
+    "context": "Editor",
+    "bindings": {
+      "tab": "editor::Tab",
+    },
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "tab": "editor::ComposeCompletion",
+    },
+  },
+  {
+    "context": "(VimControl && !menu) || vim_mode == replace || vim_mode == waiting",
+    "bindings": {
+      "tab": "vim::Tab",
+    },
+  },
+  {
+    "context": "vim_mode == literal",
+    "bindings": {
+      "tab": ["vim::Literal", ["tab", "\u0009"]],
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-delete": "editor::DeleteToNextSubwordEnd",
+      "alt-backspace": "editor::DeleteToPreviousSubwordStart",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert && !in_snippet && !showing_completions",
+    "bindings": {
+      "tab": "editor::MoveToEndOfLargerSyntaxNode",
+      "shift-tab": "editor::MoveToStartOfLargerSyntaxNode",
+    },
+  },
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "ctrl-t": "editor::Transpose",
+    },
+  },
+]

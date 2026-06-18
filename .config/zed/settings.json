@@ -1,0 +1,239 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "completion_menu_item_kind": "symbol",
+  "helix_mode": false,
+  "cli_default_open_behavior": "existing_window",
+  "code_lens": "menu",
+  "mouse_wheel_zoom": true,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "minimum_split_diff_width": 160,
+  "document_symbols": "on",
+  "agent_servers": {
+    "claude-acp": {
+      "default_config_options": {
+        "mode": "auto",
+        "model": "opus[1m]",
+      },
+      "type": "registry",
+      "default_model": "default",
+    },
+  },
+  "colorize_brackets": true,
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "edit_predictions": {
+    "provider": "zed",
+    "mode": "eager",
+    "copilot": {
+      // "proxy": null,
+      // "proxy_no_verify": null
+    },
+  },
+  "project_panel": {
+    "dock": "right",
+    "bold_folder_labels": true,
+    "hide_hidden": false,
+    "hide_gitignore": false,
+    "git_status": true,
+    "git_status_indicator": true,
+  },
+  "show_whitespaces": "selection",
+  "use_system_prompts": true,
+  "use_system_path_prompts": false,
+  "agent": {
+    "flexible": false,
+    "dock": "left",
+    "sidebar_side": "left",
+    "tool_permissions": {
+      "default": "allow",
+    },
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "claude-3.5-sonnet",
+    },
+    "default_profile": "write",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-opus-4.6",
+    },
+  },
+  "base_keymap": "Emacs",
+  "telemetry": {
+    "metrics": false,
+  },
+  "use_smartcase_search": true,
+  "relative_line_numbers": "wrapped",
+  "vim_mode": true,
+  "which_key": { "delay_ms": 500, "enabled": true },
+  "ui_font_size": 16,
+  "buffer_font_size": 19.0,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Dracula",
+  },
+  "vim": {
+    "gdefault": true,
+    "toggle_relative_line_numbers": true,
+    "use_smartcase_find": true,
+  },
+  "vertical_scroll_margin": 0,
+  "load_direnv": "shell_hook",
+  "active_pane_modifiers": {
+    // "inactive_opacity": 0.9
+  },
+  "always_treat_brackets_as_autoclosed": true,
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+  },
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": true,
+    },
+    "blame": {
+      "show_avatar": true,
+    },
+  },
+  "indent_guides": {
+    // "background_coloring": "indent_aware",
+    "coloring": "indent_aware",
+  },
+  "preview_tabs": {
+    // "enable_preview_from_code_navigation": false,
+    // "enable_preview_from_file_finder": true
+  },
+  "search": {
+    "regex": true,
+  },
+  "soft_wrap": "editor_width",
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": true,
+    "collapse_untracked_diff": false,
+    "diff_stats": true,
+    "file_icons": true,
+  },
+  "minimap": {
+    "show": "auto",
+    "current_line_highlight": "line",
+    "display_in": "active_editor",
+  },
+  "terminal": {
+    "dock": "right",
+  },
+  "buffer_font_family": "JetBrains Mono",
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+      },
+      "enable_lsp_tasks": true,
+    },
+    "biome": {
+      "settings": {
+        "require_config_file": true,
+      },
+    },
+    "texlab": {
+      "settings": {
+        "texlab": {
+          "build": {
+            "onSave": true,
+            "forwardSearchAfter": true,
+          },
+          "forwardSearch": {
+            "executable": "/Applications/Skim.app/Contents/SharedSupport/displayline",
+            "args": ["-g", "-r", "%l", "%p", "%f"],
+          },
+        },
+      },
+    },
+  },
+  "debugger": {
+    "stepping_granularity": "statement",
+  },
+  "file_scan_inclusions": [
+    "shell.nix",
+    ".envrc",
+    ".env",
+    "devenv.nix",
+    "devenv.yaml",
+    "codebook.toml",
+    "**/heartscripts/*",
+  ],
+  "file_scan_exclusions": [
+    // defaults from https://zed.dev/docs/configuring-zed#file-scan-exclusions
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    // additional exclusions
+    ".yarn",
+    // latex
+    "*.aux",
+    "*.lof",
+    "*.log",
+    "*.lot",
+    "*.fls",
+    "*.out",
+    "*.toc",
+    "*.fmt",
+    "*.fot",
+    "*.cb",
+    "*.cb2",
+    ".*.lb",
+    "*.bbl*",
+    "*.bcf*",
+    "*.blg",
+    "*-blx.aux",
+    "*-blx.bib",
+    "*.run.xml",
+    "*.fdb_latexmk",
+    "*.synctex",
+    "*.synctex(busy)",
+    "*.synctex.gz",
+    "*.synctex.gz(busy)",
+    "*.pdfsync",
+  ],
+  "file_types": {
+    "Shell Script": [".env.*"],
+    "Markdown": ["jjdescription"],
+    "HTML": ["liquid"],
+  },
+}

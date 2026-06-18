@@ -1,0 +1,8 @@
+# In $XDG_CONFIG_HOME/jj/conf.d/work.toml
+--when.repositories = ["~/code/work"]
+
+[user]
+email = "thomas@getunleash.io"
+
+[revsets]
+bookmark-advance-from = 'heads((::to & bookmarks()) ~ immutable())'

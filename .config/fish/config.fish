@@ -63,3 +63,7 @@ switch (uname)
         # Automatically "warpify" fish subshells
         # printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
 end
+
+if status is-interactive
+    atuin init fish | source
+end
