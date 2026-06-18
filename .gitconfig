@@ -4,7 +4,7 @@
         preloadindex = true
         filemode = false
         ignorecase = false
-	commentChar = ";"
+        commentChar = ";"
 
 [push]
         default = upstream
@@ -28,13 +28,13 @@
 
 [user]
         name = Thomas Heartman
-	email = thomas@getunleash.io
+        email = thomas@getunleash.io
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+        clean = git-lfs clean -- %f
+    	smudge = git-lfs smudge -- %f
         required = true
-	process = git-lfs filter-process
+        process = git-lfs filter-process
 
 [alias]
 
