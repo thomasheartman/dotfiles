@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: console.log
-# key: clg
-# --
-console.log($0)

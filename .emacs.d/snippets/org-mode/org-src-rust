@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: org-src-rust
-# key: <rs
-# expand-env:
-# contributor: Thomas Heartman
-# --
-#+BEGIN_SRC rust $0
-#+END_SRC

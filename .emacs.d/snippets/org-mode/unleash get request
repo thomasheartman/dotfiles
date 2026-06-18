@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: unleash get request
-# key: ug
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
-# --
-#+BEGIN_SRC http
-  GET \$\{baseurl\}/$0
-  Authorization: \$\{token\}
-#+END_SRC

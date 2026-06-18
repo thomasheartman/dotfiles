@@ -28,27 +28,9 @@
 
 
 ## config files that we don't need/want to track
-.config/nushell/history.txt
-.config/fish/fish_variables
-.config/Line 6/
-.config/Roland Cloud/
-.config/atuin/
-.config/composer/
-.config/configstore/
-.config/fish/conf.d/
-.config/gcloud/
-.config/gh/
-.config/git/
-.config/github-copilot/
-.config/jgit/
-.config/karabiner/assets/
-.config/karabiner/automatic_backups/
-.config/nix/
-.config/nixpkgs/old_overlays/
-.config/raycast/
-.config/riff/
-.config/steinberg-download-assistant/
-.config/yarn/
+.config/*
+!.config/jj
+!.config/zed
 .config/jj/repos
 
 # never quite finished the nix darwin setup; ignore for now
