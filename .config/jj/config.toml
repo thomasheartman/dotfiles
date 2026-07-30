@@ -7,7 +7,7 @@ name = "Thomas Heartman"
 email = "thomas@getunleash.io"
 
 [ui]
-editor = "zed-preview --wait"
+editor = "zed --wait"
 default-command = ["log", "-r", "recent()"]
 conflict-marker-style = "git"
 
@@ -156,9 +156,10 @@ touched = ['util', 'exec', '--', 'sh', '-c', '''
         exit 1
     fi
 
-    file_pattern="$1"
+    # Absolute paths must be made workspace-relative
+    file_pattern="${1#"$(jj root)/"}"
     shift  # Remove the file pattern from arguments
 
     # Pass remaining arguments to jj log
-    jj log -r "files(root-glob:\"$file_pattern\") & (trunk()..@)" "$@"
+    jj log -r "files(root-glob:\"**/$file_pattern\") & (trunk()..@)" "$@"
 ''', '']

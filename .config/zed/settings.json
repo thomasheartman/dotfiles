@@ -9,6 +9,7 @@
 {
   "completion_menu_item_kind": "symbol",
   "helix_mode": false,
+  "format_on_save": "modifications_if_available",
   "cli_default_open_behavior": "existing_window",
   "code_lens": "menu",
   "mouse_wheel_zoom": true,
@@ -28,8 +29,9 @@
   "agent_servers": {
     "claude-acp": {
       "default_config_options": {
+        "fast": "off",
         "mode": "auto",
-        "model": "opus[1m]",
+        "model": "default",
       },
       "type": "registry",
       "default_model": "default",
