@@ -7,10 +7,12 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "cursor_animation": { "enabled": true },
   "completion_menu_item_kind": "symbol",
   "helix_mode": false,
   "format_on_save": "modifications_if_available",
   "cli_default_open_behavior": "existing_window",
+  "reveal_if_open": true,
   "code_lens": "menu",
   "mouse_wheel_zoom": true,
   "icon_theme": {
@@ -29,7 +31,7 @@
   "agent_servers": {
     "claude-acp": {
       "default_config_options": {
-        "fast": "off",
+        "fast": false,
         "mode": "auto",
         "model": "default",
       },
@@ -107,6 +109,7 @@
     "show_nav_history_buttons": false,
   },
   "git": {
+    "diff_base": "head",
     "inline_blame": {
       "show_commit_summary": true,
     },
@@ -192,7 +195,7 @@
     "devenv.nix",
     "devenv.yaml",
     "codebook.toml",
-    "**/heartscripts/*",
+    "heartscripts",
   ],
   "file_scan_exclusions": [
     // defaults from https://zed.dev/docs/configuring-zed#file-scan-exclusions
@@ -207,6 +210,7 @@
     "**/.settings",
     // additional exclusions
     ".yarn",
+    "**/node_modules",
     // latex
     "*.aux",
     "*.lof",
@@ -232,10 +236,18 @@
     "*.synctex.gz",
     "*.synctex.gz(busy)",
     "*.pdfsync",
+    // custom jj workspaces
+    ".workspaces",
   ],
   "file_types": {
     "Shell Script": [".env.*"],
     "Markdown": ["jjdescription"],
     "HTML": ["liquid"],
+  },
+  "languages": {
+    "Markdown": {
+      "document_symbols": "off",
+      "format_on_save": "modifications_if_available",
+    },
   },
 }

@@ -32,13 +32,11 @@
       "alt-g u": "git::Uncommit",
       "alt-g m": "git::OpenModifiedFiles",
       "alt-g h": "git::FileHistory",
-      "alt-g d d": [
+      "alt-g d d": "git::ViewUnstagedChanges",
+      "alt-g d t": "git::BranchDiff",
+      "alt-g d D": [
         "action::Sequence",
         ["git::Diff", "git_panel::ToggleFocus"],
-      ],
-      "alt-g d t": [
-        "action::Sequence",
-        ["git::BranchDiff", "git_panel::ToggleFocus"],
       ],
 
       "alt-|": ["pane::SplitRight", { "mode": "EmptyPane" }],
@@ -320,9 +318,9 @@
 
       // bookmarks
       "space b t": "editor::ToggleBookmark",
-      // "space b b": "editor::ToggleNamedBookmark",
-      // "space b e": "editor::EditBookmark",
-      // "space b s": "searchboo"
+      "space b l": "editor::ToggleBookmarkWithLabel",
+      "space b e": "editor::EditBookmark",
+      // "space b s": <- search bookmarks?
       "space b n": "editor::GoToNextBookmark",
       "space b p": "editor::GoToPreviousBookmark",
       "space b c": "workspace::ClearBookmarks",
@@ -363,6 +361,8 @@
       "shift-x": "vim::ClearExchange",
       "g r": ["vim::Paste", { "preserve_clipboard": true }],
       "alt-v": "vim::SelectSmallerSyntaxNode",
+      // unfortunately doesn't work because it acts on helix selections, not vim selections
+      // "_": "vim::HelixTrimSelections",
     },
   },
   {
@@ -469,6 +469,21 @@
     "context": "(VimControl && !menu)",
     "bindings": {
       "ctrl-t": "editor::Transpose",
+    },
+  },
+  {
+    "context": "AcpThread > Editor && !use_modifier_to_send",
+    "use_key_equivalents": true,
+    "bindings": {
+      "enter": "editor::Newline",
+      "ctrl-c ctrl-c": "agent::Chat",
+    },
+  },
+  {
+    "context": "extension==jjdescription",
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-c ctrl-c": ["pane::CloseActiveItem", { "save_intent": "save_all" }],
     },
   },
 ]

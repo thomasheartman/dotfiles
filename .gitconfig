@@ -5,6 +5,7 @@
         filemode = false
         ignorecase = false
         commentChar = ";"
+    	editor = zed --wait
 
 [push]
         default = upstream

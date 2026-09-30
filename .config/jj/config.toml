@@ -126,7 +126,7 @@ frp = ['util', 'exec', '--', 'sh', '-c', '''
 
 ## push stack; push all bookmarks between main and the tip(s) of the current branch of descendants
 ps = ['util', 'exec', '--', 'sh', '-c', '''
-			jj git push -r "bookmarks() & main..descendants(${1:-@-})"
+			jj git push -r "bookmarks() & (main..${1:-@-})::"
 		''', '']
 
 # publish anonymous bookmark
